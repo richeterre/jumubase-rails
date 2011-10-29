@@ -1,14 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jmd</title>
+  <title><%= title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="container">
+    <header class="span-22 prepend-1 append-1 last">
+      <%= link_to logo, root_path %>
+      <h1>jumu-nordost.eu</h1>
+      <h2 class="quiet">Das Portal für “Jugend musiziert” Nord- und Osteuropa</h2>
+    </header>
+    <div id="main" class="span-22 prepend-1 append-1 last">
+      <nav class="span-22 last">
+        <hr class="space">
+        <%= render 'layouts/navigation' %>
+        <hr class="space">
+        <hr />
+      </nav>
+      <aside class="span-5 append-1">
+        <% if signed_in? %>
+          <%= render 'layouts/session_info' %>
+          <%= render 'layouts/inside_links' %>
+          <% if current_user.admin? %>
+            <hr />
+            <%= render 'layouts/admin_links' %>
+          <% end %>
+        <% end %>
+        <%= render 'layouts/sidebar' %>
+      </aside>
+      <section class="span-16 last">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, :class => "flash #{key}") %>
+        <% end %>
+        <%= yield %>
+      </section>
+      <hr class="space" />
+    </div>
+    <footer class="span-22 prepend-1 append-1 last">
+      <hr />
+      <%= render 'layouts/footer' %>
+      <hr class="space" />
+    </footer>
+    <div id="debug" class="span-22 prepend-1 append-1 last">
+      <%= debug(params) if Rails.env.development? %>
+    </div>
+  </div>
 </body>
 </html>

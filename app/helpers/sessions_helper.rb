@@ -15,7 +15,7 @@ module SessionsHelper
     end
     
     def admin?
-      true
+      false
     end
   end
 end

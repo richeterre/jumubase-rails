@@ -9,6 +9,10 @@ module SessionsHelper
     User.new
   end
   
+  def admin?
+    current_user.admin?
+  end
+  
   class User
     def username
       "Martin"

@@ -1,0 +1,20 @@
+<h2>Anmeldung zum Regionalwettbewerb 2012</h2>
+
+<p>Hier kannst Du Dein Vorspiel für den Regionalwettbewerb 2012 an einer Schule der Region Nord- und Osteuropa anmelden.</p>
+
+<p>Pro Vorspiel muss <strong>nur eine Anmeldung</strong> ausgefüllt werden, auf der alle daran beteiligten Teilnehmer eingetragen werden. Bei der Anmeldung bekommt jeder Teilnehmer per E-Mail einen Änderungscode &ndash; achte also bitte darauf, dass <strong>alle E-Mailadressen stimmen</strong>!</p>
+
+<%= render 'noscript' %>
+
+<%= form_for [:jmd, @entry] do |form| %>
+  <%= render 'entry_fields', :f => form %>
+  <div class="actions">
+    <%= form.submit "Anmeldung absenden" %>
+  </div>
+<% end %>
+
+<% javascript_tag do %>
+  $(document).ready(function() {
+    renumber();
+  });
+<% end %>

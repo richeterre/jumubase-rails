@@ -1,0 +1,20 @@
+<div class="piece field-group">
+  <div class="number"></div>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, :class => "text" %>
+  </div>
+  <%= f.fields_for :composer do |composer_form| %>
+    <%= render 'composer_fields', :f => composer_form %>
+  <% end %>
+  <div class="field">
+    <%= f.label :epoch_id %>
+    <%= f.collection_select(:epoch_id, Epoch.all, :id, :slug_with_name, {:include_blank => 'Bitte wählen'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :minutes, "Dauer ca." %>
+    <%= f.text_field :minutes, :class => "text tiny", :maxlength => 2 %> Minuten
+    <%= f.text_field :seconds, :class => "text tiny", :maxlength => 2 %> Sekunden
+  </div>
+  <%= link_to_remove_fields "Stück entfernen", f %>
+</div>

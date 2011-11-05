@@ -37,6 +37,6 @@ production:
   reconnect: false
   database: jmd_production
   pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: jmd_user
+  password: d4t3nch4o5
+  socket: /var/run/mysqld/mysqld.sock

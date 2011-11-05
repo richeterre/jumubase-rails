@@ -31,6 +31,6 @@ class Competition < ActiveRecord::Base
   
   # Virtual name that identifies the competition
   def name
-    "#{self.host.name}, #{self.round.slug} #{Time.now.year}"
+    "#{self.host.name}, #{self.round.slug} #{self.begins.year}"
   end
 end

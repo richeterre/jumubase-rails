@@ -2,7 +2,7 @@
 module SessionsHelper
   
   def signed_in?
-    true
+    false
   end
   
   def current_user
@@ -15,7 +15,7 @@ module SessionsHelper
   
   class User
     def username
-      "Martin"
+      "jumu-user"
     end
     
     def admin?

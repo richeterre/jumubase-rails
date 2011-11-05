@@ -44,13 +44,26 @@ class Jmd::EntriesController < ApplicationController
     end
   end
   
-  # Finds and presents an existing signup form for editing
+  # Finds an existing signup form by edit code and redirects to it
+  def search
+    unless params[:edit_code].nil?
+      existing = Entry.find_by_edit_code(params[:edit_code])
+      if existing
+        redirect_to edit_jmd_entry_path(existing, :edit_code => params[:edit_code])
+      else
+        flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
+      end
+    end
+    @title = "Nach Anmeldung suchen"
+  end
+  
+  # Presents an existing signup form for editing
   def edit
     @entry = Entry.find(params[:id])
-#    unless admin? || @entry[:edit_code] == params[:edit_code]
-#      flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
-#      redirect_to signup_search_path
-#    end
+    unless admin? || @entry[:edit_code] == params[:edit_code]
+      flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
+      redirect_to jmd_entries_search_path
+    end
     @title = "Anmeldung bearbeiten"
   end
   
@@ -61,8 +74,8 @@ class Jmd::EntriesController < ApplicationController
     @entry.accessible = :all if admin?
     if @entry.update_attributes(params[:entry])
       flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
-      # redirect_to signup_search_path
-      redirect_to entries_path
+      redirect_to jmd_entries_search_path
+      # redirect_to jmd_entries_path
     else
       @title = "Anmeldung bearbeiten"
       render 'edit'

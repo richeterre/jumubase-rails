@@ -11,9 +11,11 @@ Jmd::Application.routes.draw do
   
   resources :contacts, :only => [:new, :create]
   
-  # Login & signup edit pages
+  # Login & entry editing pages
   match '/vorspiel-bearbeiten', :to => redirect('/jmd/entries/search'),
                                 :as => :signup_search
+  match '/anmelden',            :to => redirect('/'),
+                                :as => :signin
   
   # Public pages, mostly static
   match '/wettbewerb',    :to => 'pages#competition', :as => :competition

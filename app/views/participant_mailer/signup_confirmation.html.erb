@@ -1,0 +1,16 @@
+<p>Hallo <%= @participant.first_name %>,</p>
+
+<p>Deine Anmeldung für den Regionalwettbewerb 2012 in der Kategorie <em><%= @entry.category.name %></em> wurde erfolgreich gespeichert.</p>
+
+<p>Bis zum Anmeldeschluss, den Du von der JuMu-Kontaktperson deiner Schule erfährst, kannst Du daran noch Änderungen vornehmen. Dazu brauchst Du den folgenden Änderungscode:</p>
+
+<p><strong><%= @entry.edit_code %></strong></p>
+
+<p>Bitte gib diesen Code nur an Personen weiter, die diese Anmeldung bearbeiten dürfen, wie zum Beispiel Deine Spielpartner. Deine Programmänderungen kannst Du mit dem obenstehenden Code auf folgender Seite anmelden:</p>
+
+<p><%= link_to nil, signup_search_url %></p>
+
+<p>Viel Erfolg bei der Teilnahme am Regionalwettbewerb 2012 wünscht Dir</p>
+
+<p>Dein JuMu-Orgteam</p>
+

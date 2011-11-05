@@ -1,0 +1,11 @@
+<h2>Nach Anmeldung suchen</h2>
+
+<p>Hier kannst du den Änderungscode eingeben, den du bei der Anmeldung per E-Mail erhalten hast, um eine bereits versendete Anmeldung zu bearbeiten.</p>
+
+<%= form_tag jmd_entries_search_path do %>
+  <%= label_tag :edit_code, "Änderungscode" %>
+  <%= text_field_tag :edit_code, nil, :class => "text short" %>
+  <%= submit_tag("Suchen") %>
+<% end %>
+
+<p>Bitte beachte, dass Änderungen nur bis zum Anmeldeschluss möglich sind &ndash; den Termin erfährst du von der JuMu-Kontaktperson deiner Schule. Bis dahin muss dein Vorspielprogramm vollständig angemeldet sein!</p>

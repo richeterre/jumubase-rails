@@ -20,6 +20,9 @@ class Category < ActiveRecord::Base
   # By default, show classical before pop, solo before ensemble
   default_scope :order => 'pop, solo DESC, name'
   
+  # Show only categories currently marked as active (temporary workaround)
+  scope :current, where('active' => true)
+  
   has_many :entries
   has_and_belongs_to_many :competitions
   

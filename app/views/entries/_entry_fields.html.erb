@@ -7,7 +7,7 @@
   </div>
   <div class="field">
     <%= f.label :category_id %>
-    <%= collection_select(:entry, :category_id, Category.all,
+    <%= collection_select(:entry, :category_id, Category.current,
         :id, :name, {:include_blank => 'Bitte wählen'}) %>
   </div>
 <% end %>

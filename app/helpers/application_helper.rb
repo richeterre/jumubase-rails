@@ -15,7 +15,7 @@ module ApplicationHelper
     else
       options[:class] += ' icon' # Append icon class
     end
-    image_tag("/images/icons/#{name}.png", options)
+    image_tag("icons/#{name}.png", options)
   end
   
   # Return a title on a per-page basis

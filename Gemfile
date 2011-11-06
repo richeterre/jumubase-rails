@@ -6,7 +6,8 @@ gem 'rails', '3.1.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-
+gem 'jquery-rails'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,10 +21,8 @@ group :production do
   gem 'therubyracer'
 end
 
-gem 'jquery-rails'
-
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'

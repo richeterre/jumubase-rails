@@ -1,5 +1,7 @@
 <% unless signed_in? || is_active?("sessions", "new") %>
-  <span id="signin-link"><%= link_to "Zugang für Organisatoren", signin_path %></span>
+  <span id="signin-link">
+    <%= link_to "Zugang für Organisatoren", signin_path %>
+  </span>
 <% end %>
 
 <span id="thanks">

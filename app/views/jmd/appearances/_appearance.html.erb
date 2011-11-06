@@ -1,0 +1,20 @@
+<%= content_tag :p, :class => ("accompanist" if appearance.accompaniment?) do %>
+  <% if appearance.accompaniment? %>
+    <span class="quiet">Begleitpartner:</span><br />
+  <% end %>
+  <strong><%= appearance.participant.full_name %></strong>, <%= appearance.instrument.name %>
+  <br />
+  <strong>AG <%= appearance.age_group %></strong> (* <%= l appearance.participant.birthdate %>)
+  <br />
+  <span class="quiet">
+    <%= appearance.participant.street %>,
+    <%= appearance.participant.postal_code %>
+    <%= appearance.participant.city %>,
+    <%= appearance.participant.country.name %>
+  </span>
+  <br />
+  <span class="quiet">
+    <%= appearance.participant.phone %>,
+    <%= mail_to appearance.participant.email %>
+  </span>
+<% end %>

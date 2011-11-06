@@ -1,0 +1,26 @@
+<%= render 'shared/error_messages', :object => f.object %>
+
+<div class="field">
+  <%= f.label :username, "Benutzername" %>
+  <%= f.text_field :username, :class => 'text' %>
+</div>
+
+<div class="field">
+  <%= f.label :password, "Passwort" %>
+  <%= f.password_field :password, :class => 'text' %>
+</div>
+
+<div class="field">
+  <%= f.label :password_confirmation, "Passwort bestätigen" %>
+  <%= f.password_field :password_confirmation, :class => 'text' %>
+</div>
+
+<div class="field">
+  <%= f.label :admin, "Administrator" %>
+  <%= f.check_box :admin %>
+</div>
+
+<div class="field">
+  <%= f.label :host_ids, "Berechtigungen" %>
+  <%= f.collection_select(:host_ids, Host.all, :id, :name, {}, { :multiple => :true }) %>
+</div>

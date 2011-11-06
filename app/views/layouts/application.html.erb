@@ -30,9 +30,9 @@
         <% if signed_in? %>
           <%= render 'layouts/session_info' %>
           <%= render 'layouts/inside_links' %>
-          <% if current_user.admin? %>
+          <% if admin? %>
             <hr />
-            <% render 'layouts/admin_links' %>
+            <%= render 'layouts/admin_links' %>
           <% end %>
         <% end %>
         <%= render 'layouts/sidebar' %>

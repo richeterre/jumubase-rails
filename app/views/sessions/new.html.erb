@@ -1,0 +1,15 @@
+<h2>Zugang für Organisatoren</h2>
+
+<%= form_tag sessions_path do %>
+  <div class="field">
+    <%= label_tag :username, "Benutzername" %>
+    <%= text_field_tag :username, params[:username], :class => "text" %>
+  </div>
+  <div class="field">
+    <%= label_tag :password, "Passwort" %>
+    <%= password_field_tag :password, params[:password], :class => "text" %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Anmelden" %>
+  </div>
+<% end %>

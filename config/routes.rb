@@ -1,21 +1,25 @@
 Jmd::Application.routes.draw do
-  
+
   # Routes for internal (JMD) pages
   
   namespace :jmd do
-    match 'entries/search', :to => 'entries#search', :as => :entries_search
-    resources :appearances, :entries, :users, :venues
+    resources :appearances, :users, :venues
+    resources :entries do
+      get 'browse', :on => :collection
+    end
   end
+  
   
   # Routes for public pages
   
   resources :contacts, :only => [:new, :create]
+  resources :entries
+  resources :sessions, :only => [:create, :destroy]
   
-  # Login & entry editing pages
-  match '/vorspiel-bearbeiten', :to => redirect('/jmd/entries/search'),
-                                :as => :signup_search
-  match '/anmelden',            :to => redirect('/'),
-                                :as => :signin
+  # Entry editing & session routes
+  match '/vorspiel-bearbeiten', :to => 'entries#search', :as => :signup_search
+  match '/anmelden',            :to => 'sessions#new', :as => :signin
+  match '/abmelden',            :to => 'sessions#destroy', :as => :signout
   
   # Public pages, mostly static
   match '/wettbewerb',    :to => 'pages#competition', :as => :competition

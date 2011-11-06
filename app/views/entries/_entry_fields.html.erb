@@ -2,7 +2,8 @@
 <%= field_set_tag "Teilnahmeort und Kategorie" do %>
   <div class="field">
     <%= f.label :competition_id %>
-    <%= collection_select(:entry, :competition_id, Competition.current, :id, :name) %>
+    <%= collection_select(:entry, :competition_id, Competition.current,
+        :id, :name, {:include_blank => 'Bitte wählen'}) %>
   </div>
   <div class="field">
     <%= f.label :category_id %>

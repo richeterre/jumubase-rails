@@ -17,8 +17,9 @@ class Competition < ActiveRecord::Base
   attr_accessible :round_id, :host_id, :begins, :ends
   
   # Finds current competitions (with matching round and end year)
-  scope :current, joins(:round)
+  scope :current, joins(:round, :host)
       .where("rounds.level = ? AND YEAR(competitions.ends) = ?", JUMU_ROUND, JUMU_YEAR)
+      .order("hosts.name")
   
   belongs_to :round
   belongs_to :host

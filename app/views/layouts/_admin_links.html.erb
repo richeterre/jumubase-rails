@@ -1,7 +1,8 @@
 <div class="admin box">
   <span class="theme">Verwalten</span>
   <ul>
-    <li><%= link_to_unless_current "Benutzer", jmd_users_path %>
+    <li><%= link_to_unless_current "Benutzer", jmd_users_path %></li>
+    <li><%= link_to_unless_current "Wettbewerbe", jmd_competitions_path %></li>
     <li><%# link_to_unless_current "Wertungen", entries_path %></li>
     <li><%# link_to_unless_current "Räume", venues_path %></li>
   </ul>

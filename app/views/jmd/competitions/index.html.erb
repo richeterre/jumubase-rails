@@ -1,0 +1,38 @@
+<h2>Wettbewerb verwalten</h2>
+
+<p>
+  <%= icon_tag("add") %> <%= link_to "Neuen Wettbewerb erstellen", new_jmd_competition_path %>
+</p>
+
+<table id="user-table" border="0" cellspacing="0" cellpadding="0">
+  <thead>
+    <tr>
+      <th class="span-1">ID</th>
+      <th class="span-5">Name</th>
+      <th class="span-3">Schule</th>
+      <th class="span-2">Dauer</th>
+      <th class="span-2">Erstellt</th>
+      <th class="span-3 last">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @competitions.each do |competition| %>
+    <tr>
+      <td><%= competition.id %></td>
+      <td><%= competition.name %></td>
+      <td><%= competition.host.name %></td>
+      <td>
+        <%= l competition.begins, :format => :short %>
+        &ndash;
+        <%= l competition.ends, :format => :short %>
+      </td>
+      <td><%= l competition.created_at, :format => :short %></td>
+      <td style="text-align: right">
+        <%= link_to icon_tag("information", :title => "Wettbewerbsdetails anzeigen"), jmd_competition_path(competition) %>
+        <%= link_to icon_tag("pencil", :title => "Diesen Wettbewerb bearbeiten"), edit_jmd_competition_path(competition) %>
+        <%= link_to icon_tag("delete", :title => "Diesen Wettbewerb löschen"), jmd_competition_path(competition), :method => :delete, :confirm => "Soll der Wettbewerb \"#{competition.name}\" wirklich gelöscht werden?" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

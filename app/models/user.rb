@@ -22,9 +22,6 @@ class User < ActiveRecord::Base
   validates :username,  :presence => true,
                         :length => { :maximum => 30 },
                         :uniqueness => true
-  validates :password,  :presence => true
-#                        :confirmation => true,
-#                        :length => { :within => 5..30 }
   
   def admin?
     self.admin

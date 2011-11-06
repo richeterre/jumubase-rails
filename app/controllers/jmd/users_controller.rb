@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::UsersController < Jmd::BaseController
-  before_filter :require_admin
+  before_filter :require_admin # All user actions are admin-only
   
   def index
     @users = User.all
@@ -24,6 +24,11 @@ class Jmd::UsersController < Jmd::BaseController
       render 'new'
     end
   end
+  
+  def show
+    @user = User.find(params[:id])
+    @title = "Benutzerdetails"
+  end
 
   def edit
     @user = User.find(params[:id])
@@ -32,7 +37,7 @@ class Jmd::UsersController < Jmd::BaseController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:entry])
+    if @user.update_attributes(params[:user])
       flash[:success] = "Der Benutzer #{@user.username} wurde erfolgreich geändert."
       redirect_to jmd_users_path
     else

@@ -1,0 +1,18 @@
+<p>
+	<%= icon_tag "arrow_turn_left" %>
+	<%= link_to "zurück zur Wettbewerbsliste", jmd_competitions_path %>
+</p>
+
+<h2>Wettbewerbsdetails</h2>
+
+
+<dl>
+  <dt>Name</dt>
+    <dd><%= @competition.name %></dd>
+  <dt>Runde</dt>
+    <dd><%= @competition.round.name %></dd>
+  <dt>Schule</dt>
+    <dd><%= @competition.host.name %></dd>
+  <dt>Dauer</dt>
+    <dd><%= l @competition.begins %> &ndash; <%= l @competition.ends %></dd>
+</dl>

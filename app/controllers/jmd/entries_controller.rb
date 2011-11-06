@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::EntriesController < Jmd::BaseController
-  before_filter :authenticate, :except => [:new, :create, :search, :edit, :update]
-  before_filter :require_admin, :except => [:new, :create, :search, :edit, :update]
+  before_filter :authenticate
   
   def browse
     @title = "Angemeldete Wertungen"

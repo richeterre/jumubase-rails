@@ -14,7 +14,7 @@
 #
 
 class Competition < ActiveRecord::Base
-  attr_accessible :round_id, :host_id, :begins, :ends
+  attr_accessible :round_id, :host_id, :begins, :ends, :category_ids
   
   # Finds current competitions (with matching round and end year)
   scope :current, joins(:round, :host)

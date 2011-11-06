@@ -24,3 +24,5 @@
   <%= f.label :host_ids %>
   <%= f.collection_select(:host_ids, Host.all, :id, :name, {}, { :multiple => :true }) %>
 </div>
+
+<%= hidden_field_tag "user[host_ids][]" %>

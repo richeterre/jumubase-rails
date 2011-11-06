@@ -25,3 +25,10 @@
        :start_year => Time.now.year + 2, :end_year => Time.now.year - 1,
        :prompt => { :day => "Tag", :month => "Monat", :year => "Jahr" } %>
 </div>
+
+<div class="field">
+  <%= f.label :category_ids %>
+  <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, { :multiple => :true }) %>
+</div>
+
+<%= hidden_field_tag "competition[category_ids][]" %>

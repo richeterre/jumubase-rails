@@ -8,9 +8,9 @@ Jmd::Application.initialize!
 ActionMailer::Base.delivery_method = :smtp
 
 ActionMailer::Base.smtp_settings = {
-  :address              => "www20.zoner.fi",
-  :port                 => 587,
-  :user_name            => "jumunordo",
+  :address              => "smtprelaypool.ispgateway.de",
+  :port                 => 465,
+  :user_name            => "kontakt@jumu-nordost.eu",
   :password             => "musikverbindet",
   :authentication       => "login",
   :enable_starttls_auto => true

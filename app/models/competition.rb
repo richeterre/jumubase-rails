@@ -27,6 +27,8 @@ class Competition < ActiveRecord::Base
   
   validates :round_id,  :presence => true
   validates :host_id,   :presence => true
+  validates :begins,    :presence => true
+  validates :ends,      :presence => true
   # Validate that the competition ends after it begins – how?
   
   # Virtual name that identifies the competition

@@ -62,7 +62,7 @@ class EntriesController < ApplicationController
     @entry = Entry.find(params[:id])
     unless admin? || @entry[:edit_code] == params[:edit_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
-      redirect_to entries_search_path
+      redirect_to signup_search_path
     end
     @title = "Anmeldung bearbeiten"
   end
@@ -74,7 +74,7 @@ class EntriesController < ApplicationController
     @entry.accessible = :all if admin?
     if @entry.update_attributes(params[:entry])
       flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
-      redirect_to entries_search_path
+      redirect_to signup_search_path
       # redirect_to entries_path
     else
       @title = "Anmeldung bearbeiten"

@@ -2,7 +2,7 @@
 
 <p>Hier kannst du den Änderungscode eingeben, den du bei der Anmeldung per E-Mail erhalten hast, um eine bereits versendete Anmeldung zu bearbeiten.</p>
 
-<%= form_tag entries_search_path do %>
+<%= form_tag signup_search_path do %>
   <%= label_tag :edit_code, "Änderungscode" %>
   <%= text_field_tag :edit_code, nil, :class => "text short" %>
   <%= submit_tag("Suchen") %>

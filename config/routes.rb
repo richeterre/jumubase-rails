@@ -4,7 +4,7 @@ Jmd::Application.routes.draw do
   
   namespace :jmd do
     resources :appearances, :competitions, :users, :venues
-    resources :entries do
+    resources :entries, :except => [:new, :create] do
       get 'browse', :on => :collection
     end
   end
@@ -13,7 +13,7 @@ Jmd::Application.routes.draw do
   # Routes for public pages
   
   resources :contacts, :only => [:new, :create]
-  resources :entries
+  resources :entries, :except => [:index, :show, :destroy]
   resources :sessions, :only => [:create, :destroy]
   
   # Entry editing & session routes

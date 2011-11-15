@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_secure_password # Enable authentication
     
   has_and_belongs_to_many :hosts
+  has_many :competitions, :through => :hosts
   
   validates :username,  :presence => true,
                         :length => { :maximum => 30 },

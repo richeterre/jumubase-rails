@@ -87,7 +87,7 @@ class Entry < ActiveRecord::Base
   
   # Returns all entries the given user is authorized to see
   scope :visible_to, lambda { |user|
-    (user.admin?) ? scoped : from_countries(user.hosts.map(&:country_id))
+    (user.admin?) ? scoped : where(:competition_id => user.competitions)
   }
   
   def accompanists

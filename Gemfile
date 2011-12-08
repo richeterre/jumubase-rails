@@ -17,6 +17,14 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'rspec-rails'
+end
+
 group :production do
   gem 'therubyracer'
 end

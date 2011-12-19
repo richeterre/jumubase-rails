@@ -6,6 +6,8 @@ class Jmd::EntriesController < Jmd::BaseController
   def index
     @title = "Wertungen verwalten"
     @entries = Entry.visible_to(current_user)
+                    .joins(:category)
+                    .order(sort_order)
   end
   
   def browse

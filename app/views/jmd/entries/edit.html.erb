@@ -2,7 +2,7 @@
 
 <%= render 'noscript' %>
 
-<%= form_for @entry do |form| %>
+<%= form_for [:jmd, @entry] do |form| %>
   <%= render :partial => 'entry_fields', :locals => { :f => form } %>
   <div class="actions">
     <%= form.submit "Änderungen speichern" %> oder zurück zu den <%= link_to "Wertungen", jmd_entries_path %>

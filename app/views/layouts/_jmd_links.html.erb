@@ -1,0 +1,30 @@
+<div class="jmd-links box">
+  <% if admin? %>
+    <span class="theme">Admin</span>
+    <ul>
+      <li><%= link_to_unless_current "Benutzer", jmd_users_path %></li>
+      <li><%= link_to_unless_current "Wettbewerbe", jmd_competitions_path %></li>
+    </ul>
+  <% end %>
+  <span class="theme">Verwalten</span>
+  <ul>
+    <!-- <li><%# link_to_unless_current "Räume", venues_path %></li> -->
+    <li><%= link_to_unless_current "Wertungen", jmd_entries_path %></li>
+  </ul>
+  <!-- <span class="theme">Planen</span>
+  <ul>
+    <li><%# link_to_unless_current "Klassik", schedule_classical_entries_path %></li>
+    <li><%# link_to_unless_current "Pop", schedule_pop_entries_path %></li>
+    <li><%# link_to_unless_current "Überäume", schedule_practice_venues_path %></li>
+  </ul>
+  <span class="theme">Eintragen</span>
+  <ul>
+    <li><%# link_to_unless_current "Ergebnisse", appearances_path %></li>
+  </ul>
+  <span class="theme">Drucken</span>
+  <ul>
+    <li><%# link_to_unless_current "Jurybögen", make_jury_sheets_entries_path %></li>
+    <li><%# link_to_unless_current "Urkunden", make_certificates_entries_path %></li>
+    <li><%# link_to_unless_current "Ergebnislisten", make_result_sheets_entries_path %></li>
+  </ul> -->
+</div>

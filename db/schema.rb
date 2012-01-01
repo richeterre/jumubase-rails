@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106224638) do
+ActiveRecord::Schema.define(:version => 20120101191728) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "entry_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20111106224638) do
     t.string   "encrypted_password"
     t.boolean  "admin"
     t.string   "salt"
+    t.datetime "last_login"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -22,7 +22,7 @@
       <td><%= user.username %></td>
       <td><%= user.admin? ? "Ja" : "Nein" %></td>
       <td><%= l user.created_at, :format => :short %></td>
-      <td>?</td>
+      <td><%= user.last_login? ? (l user.last_login, :format => :short) : "?" %></td>
       <td style="text-align: right">
         <%= link_to icon_tag("information", :title => "Benutzerdetails anzeigen"), jmd_user_path(user) %>
         <%= link_to icon_tag("pencil", :title => "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user) %>

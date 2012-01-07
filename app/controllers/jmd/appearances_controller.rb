@@ -25,7 +25,7 @@ class Jmd::AppearancesController < Jmd::BaseController
   private
     
     def show_editable_appearances
-      @appearances = Entry.visible_to(current_user).first.appearances
+      @appearances = Entry.visible_to(current_user).map(&:appearances).flatten
     end
     
     def sort_order

@@ -1,0 +1,29 @@
+<table border="0" cellspacing="0" cellpadding="0">
+  <thead>
+    <tr>
+      <th class="span-5">Kategorie</th>
+      <th class="span-7">Teilnehmer</th>
+      <th class="span-1">AG</th>
+      <th class="span-3 last">Punkte</th>
+    </tr>
+  </thead>
+  <tbody id="appearance-rows">
+    <% @appearances.each do |appearance| %>
+    <tr>
+      <td><%= appearance.entry.category.name %></td>
+      <td><%= appearance.participant.full_name %>, <%= appearance.instrument.name %></td>
+      <td><%= appearance.age_group %></td>
+      <td>
+        <span class="points" data-path="<%= jmd_appearance_path(appearance) %>">
+          <%= appearance.points %>
+        </span>
+        <%= icon_tag 'pencil', :class => 'edit-points link', :title => "Punkte bearbeiten" %>
+        <%= icon_tag 'tick', :class => 'save-points link',
+            :title => "Punkte speichern", :style => 'display:none;' %>
+        <%= icon_tag 'cross', :class => 'discard-points link',
+            :title => "Abbrechen", :style => 'display:none;' %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

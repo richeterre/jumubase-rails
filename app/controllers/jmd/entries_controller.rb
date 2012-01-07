@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::EntriesController < Jmd::BaseController
-  helper_method :sort_order 
+  helper_method :sort_order
   
   # Manage entries at hosts the user has access to
   def index

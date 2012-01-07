@@ -17,11 +17,12 @@
     <li><%# link_to_unless_current "Pop", schedule_pop_entries_path %></li>
     <li><%# link_to_unless_current "Überäume", schedule_practice_venues_path %></li>
   </ul>
+  -->
   <span class="theme">Eintragen</span>
   <ul>
-    <li><%# link_to_unless_current "Ergebnisse", appearances_path %></li>
+    <li><%= link_to_unless_current "Ergebnisse", jmd_appearances_path %></li>
   </ul>
-  <span class="theme">Drucken</span>
+  <!-- <span class="theme">Drucken</span>
   <ul>
     <li><%# link_to_unless_current "Jurybögen", make_jury_sheets_entries_path %></li>
     <li><%# link_to_unless_current "Urkunden", make_certificates_entries_path %></li>

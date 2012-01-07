@@ -6,6 +6,8 @@ class Jmd::AppearancesController < Jmd::BaseController
     @title = "Ergebnisse verwalten"
     # Show only appearances from the user's competitions
     show_editable_appearances
+    # Pass the user's entries for displaying count
+    @entries = Entry.visible_to(current_user)
   end
   
   def update
@@ -25,7 +27,9 @@ class Jmd::AppearancesController < Jmd::BaseController
   private
     
     def show_editable_appearances
-      @appearances = Entry.visible_to(current_user).map(&:appearances).flatten
+      @appearances = Entry.visible_to(current_user)
+                          .category_order
+                          .map(&:appearances).flatten
     end
     
     def sort_order

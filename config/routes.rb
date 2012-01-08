@@ -6,6 +6,7 @@ Jmd::Application.routes.draw do
     resources :appearances, :competitions, :users, :venues
     resources :entries, :except => [:new, :create] do
       get 'browse', :on => :collection
+      get 'make_certificates', :on => :collection
     end
   end
   

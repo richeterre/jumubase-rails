@@ -102,6 +102,22 @@ class Appearance < ActiveRecord::Base
     end
   end
   
+  # Returns whether the appearance will advance to the next competition stage
+  def may_advance_to_next_round
+    # Basic condition is 23 or more points and that a next round exists
+    return false if (!self.points || self.points < 23 || JUMU_ROUND == 3)
+    # Check for other conditions
+    case JUMU_ROUND
+    when 1
+      # Check for sufficient age
+      !["Ia", "Ib"].include?(self.age_group)
+    when 2
+      # Conditions for second round
+      !["Ia", "Ib", "II"].include?(self.age_group)
+      # TODO: Check for pop category restrictions
+    end
+  end
+  
   private
     
     def calculate_age_group(birthdates)

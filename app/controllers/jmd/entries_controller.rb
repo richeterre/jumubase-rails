@@ -47,6 +47,15 @@ class Jmd::EntriesController < Jmd::BaseController
     redirect_to jmd_entries_path
   end
   
+  def make_certificates
+    # Define params for PDF output
+    prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
+    @title = "Urkunden erstellen"
+    @entries = Entry.visible_to(current_user)
+                    .joins(:category)
+                    .order(sort_order)
+  end
+  
   private
     
     def sort_order

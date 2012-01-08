@@ -7,7 +7,9 @@ gem 'rails', '3.1.1'
 
 gem 'mysql2'
 gem 'jquery-rails'
-gem 'will_paginate'
+gem 'will_paginate' # Pagination
+gem 'prawn' # PDF output
+gem 'prawnto' # Easier PDF views
 
 # Gems used only for assets and not required
 # in production environments by default.

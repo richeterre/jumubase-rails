@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120101191728) do
+ActiveRecord::Schema.define(:version => 20120108200754) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "entry_id"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20120101191728) do
 
   create_table "hosts", :force => true do |t|
     t.string   "name"
+    t.string   "city"
     t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -145,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20120101191728) do
     t.integer  "level"
     t.string   "name"
     t.string   "slug"
+    t.string   "board_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,11 +4,6 @@
   <%= @appearances.length %> Teilnahmen in <%= @entries.length %> Wertungen
 </p>
 
-
-<% content_for :javascript_includes do %>
-  <%# javascript_include_tag 'edit_points' %>
-<% end %>
-
 <div id="points_table">
   <%= render 'points_table' %>
 </div>

@@ -5,9 +5,13 @@ $(document).ready(function() {
       var $pointInput = $('<input type="text" maxlength="2" data-path="'
                           + $pointSpan.attr('data-path') + '" class="points" '
                           + 'style="width: 20px;" value="' + $.trim($pointSpan.html()) + '" />');
-      $pointSpan.after($pointInput).hide();
+      // Hide current points, add entry field after them
+			$pointSpan.after($pointInput).hide();
+			// Show save/cancel buttons
       $(this).closest('tr').find('.save-points, .discard-points').show();
+			// Hide edit button
       $(this).hide();
+			// Move focus for quicker user input
       $pointInput.focus();
   });
   
@@ -30,8 +34,12 @@ $(document).ready(function() {
   
   // Cancel button
   $('.discard-points').live('click', function() {
+			// Remove point input field
       var $pointInput = $(this).closest('tr').find('input.points');
-      $(this).closest('tr').find('.save-points, .discard-points, input.points').hide();
+			$pointInput.remove();
+			// Hide save/cancel buttons
+      $(this).closest('tr').find('.save-points, .discard-points').hide();
+			// Show current points again
       $(this).closest('tr').find('.edit-points, span.points').show();
   });
 });

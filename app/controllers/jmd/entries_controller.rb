@@ -2,6 +2,12 @@
 class Jmd::EntriesController < Jmd::BaseController
   helper_method :sort_order
   
+  # Define scopes for entry filtering
+  has_scope :is_pop, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :in_category, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets] 
+  
   # Manage entries at hosts the user has access to
   def index
     @title = "Wertungen verwalten"
@@ -45,6 +51,16 @@ class Jmd::EntriesController < Jmd::BaseController
     @entry = Entry.find(params[:id]).destroy
     flash[:success] = "Die Wertung wurde gelöscht."
     redirect_to jmd_entries_path
+  end
+  
+  def make_certificates
+    # Define params for PDF output
+    prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
+    @title = "Urkunden erstellen"
+    @entries = apply_scopes(Entry)
+               .visible_to(current_user)
+               .joins(:category)
+               .order(sort_order)
   end
   
   private

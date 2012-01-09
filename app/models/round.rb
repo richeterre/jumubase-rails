@@ -21,4 +21,10 @@ class Round < ActiveRecord::Base
                     :inclusion => { :in => 1..3 }
   validates :name,  :presence => true
   validates :slug,  :presence => true
+  
+  def next_round_name
+    next_round = Round.find_by_level(self.level + 1)
+    # Return round's name if it exists
+    next_round.name unless next_round.nil?
+  end
 end

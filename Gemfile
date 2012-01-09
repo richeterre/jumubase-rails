@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'will_paginate' # Pagination
 gem 'prawn' # PDF output
 gem 'prawnto' # Easier PDF views
+gem 'has_scope' # Filter using url params and scopes
 
 # Gems used only for assets and not required
 # in production environments by default.

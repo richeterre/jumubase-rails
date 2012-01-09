@@ -1,6 +1,6 @@
 <h2>Urkunden erstellen</h2>
 
-<%# render 'filter_form', :path => make_certificates_jmd_entries_path %>
+<%= render 'filter_form', :path => make_certificates_jmd_entries_path %>
 
 <p>
   <%= @entries.length %> von <%= Entry.visible_to(current_user).count %> Wertungen

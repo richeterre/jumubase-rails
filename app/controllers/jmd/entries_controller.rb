@@ -1,6 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Jmd::EntriesController < Jmd::BaseController
-  helper_method :sort_order 
+  helper_method :sort_order
+  
+  # Define scopes for entry filtering
+  has_scope :is_pop, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :in_category, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets] 
   
   # Manage entries at hosts the user has access to
   def index
@@ -51,9 +57,10 @@ class Jmd::EntriesController < Jmd::BaseController
     # Define params for PDF output
     prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
     @title = "Urkunden erstellen"
-    @entries = Entry.visible_to(current_user)
-                    .joins(:category)
-                    .order(sort_order)
+    @entries = apply_scopes(Entry)
+               .visible_to(current_user)
+               .joins(:category)
+               .order(sort_order)
   end
   
   private

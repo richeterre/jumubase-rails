@@ -7,6 +7,7 @@ Jmd::Application.routes.draw do
     resources :entries, :except => [:new, :create] do
       get 'browse', :on => :collection
       get 'make_certificates', :on => :collection
+      get 'make_jury_sheets', :on => :collection
     end
   end
   

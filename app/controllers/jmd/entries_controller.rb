@@ -57,13 +57,25 @@ class Jmd::EntriesController < Jmd::BaseController
     # Define params for PDF output
     prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
     @title = "Urkunden erstellen"
-    @entries = apply_scopes(Entry)
-               .visible_to(current_user)
-               .joins(:category)
-               .order(sort_order)
+    filter_sort_entries
+  end
+  
+  def make_jury_sheets
+    # Define params for PDF output
+    prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
+    @title = "Jurybögen erstellen"
+    filter_sort_entries
   end
   
   private
+    
+    def filter_sort_entries
+      # Filter and column-sort entries
+      @entries = apply_scopes(Entry)
+                 .visible_to(current_user)
+                 .joins(:category)
+                 .order(sort_order)
+    end
     
     def sort_order
       if params[:sort].blank?

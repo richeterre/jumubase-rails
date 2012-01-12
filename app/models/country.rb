@@ -15,8 +15,8 @@ class Country < ActiveRecord::Base
   attr_accessible :name, :slug
   
   has_many :hosts
+  has_many :judges
   has_many :participants
-  has_and_belongs_to_many :users
   
   validates :name, :presence => true
   validates :slug, :presence => true

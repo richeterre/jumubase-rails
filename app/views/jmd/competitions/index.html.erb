@@ -4,21 +4,19 @@
   <%= icon_tag("add") %> <%= link_to "Neuen Wettbewerb erstellen", new_jmd_competition_path %>
 </p>
 
-<table id="user-table" border="0" cellspacing="0" cellpadding="0">
+<table id="competition-table" border="0" cellspacing="0" cellpadding="0">
   <thead>
     <tr>
-      <th class="span-1">ID</th>
       <th class="span-5">Name</th>
       <th class="span-3">Schule</th>
       <th class="span-2">Dauer</th>
-      <th class="span-2">Erstellt</th>
+      <th class="span-3">Erstellt</th>
       <th class="span-3 last">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <% @competitions.each do |competition| %>
     <tr>
-      <td><%= competition.id %></td>
       <td><%= competition.name %></td>
       <td><%= competition.host.name %></td>
       <td>

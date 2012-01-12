@@ -1,0 +1,30 @@
+<%= render 'shared/error_messages', :object => f.object %>
+
+<div class="field">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, :class => "text" %>
+</div>
+
+<div class="field">
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, :class => "text" %>
+</div>
+
+<div class="field">
+  <%= f.label :city %>
+  <%= f.text_field :city, :class => "text" %>
+</div>
+
+<div class="field">
+  <%= f.label :country_id %>
+  <%= collection_select(:judge, :country_id, Country.all,
+      :id, :name, {:include_blank => 'Bitte Land wählen'}) %>
+</div>      
+
+<div class="field">
+  <%= f.label :competition_ids %>
+  <%= f.collection_select(:competition_ids, current_user.competitions,
+          :id, :name, {}, { :multiple => :true }) %>
+</div>
+
+<%= hidden_field_tag "judge[competition_ids][]" %>

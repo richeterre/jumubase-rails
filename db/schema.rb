@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108200754) do
+ActiveRecord::Schema.define(:version => 20120112191046) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "entry_id"
@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(:version => 20120108200754) do
     t.date     "ends"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "competitions_judges", :id => false, :force => true do |t|
+    t.integer "competition_id"
+    t.integer "judge_id"
   end
 
   create_table "composers", :force => true do |t|
@@ -104,6 +109,15 @@ ActiveRecord::Schema.define(:version => 20120108200754) do
 
   create_table "instruments", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "judges", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "city"
+    t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

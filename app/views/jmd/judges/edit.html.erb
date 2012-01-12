@@ -1,0 +1,13 @@
+<p>
+	<%= icon_tag "arrow_turn_left" %>
+	<%= link_to "zurück zur Jurorenliste", jmd_judges_path %>
+</p>
+
+<h2>Juror bearbeiten</h2>
+
+<%= form_for [:jmd, @judge] do |f| %>
+  <%= render 'judge_fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Änderungen speichern" %>
+  </div>
+<% end %>

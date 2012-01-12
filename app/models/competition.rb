@@ -25,7 +25,6 @@ class Competition < ActiveRecord::Base
   belongs_to :host
   has_many :entries, :dependent => :destroy
   has_and_belongs_to_many :categories
-  has_and_belongs_to_many :judges
   
   validates :round_id,  :presence => true
   validates :host_id,   :presence => true

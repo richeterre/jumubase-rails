@@ -222,12 +222,6 @@ de:
           epoch_id: "Epoche des Stücks"
           minutes: "Dauer (Minuten) des Stücks"
           seconds: "Dauer (Sekunden) des Stücks"
-      judge:
-        first_name: "Vorname"
-        last_name: "Nachname"
-        city: "Stadt"
-        country_id: "Land"
-        competition_ids: "Wettbewerb(e)"
       participant:
         first_name: "Vorname"
         last_name: "Nachname"

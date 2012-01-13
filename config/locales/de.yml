@@ -191,6 +191,7 @@ de:
         host_id: "Schule"
         begins: "beginnt am"
         ends: "endet am"
+        category_ids: "Kategorien"
       composer:
         name: "Komponist"
         born: "Geburtsjahr"

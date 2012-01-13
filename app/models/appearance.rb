@@ -92,12 +92,13 @@ class Appearance < ActiveRecord::Base
   # Returns the achieved price's name
   def price
     # TODO: Move price ranges to JuMu parameters
+    # The ranges below are for round 1 (RW)
     case self.points
-    when 23..25
+    when 21..25
       "1. Preis"
-    when 20..22
+    when 17..20
       "2. Preis"
-    when 17..19
+    when 13..16
       "3. Preis"
     end
   end

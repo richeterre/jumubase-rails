@@ -1020,6 +1020,7 @@ icons/xhtml_valid.png: icons/xhtml_valid-5d4e9d555cdaf902c6d92380c91df680.png
 icons/zoom.png: icons/zoom-76d2a442f72e7ac452464ed180a58498.png
 icons/zoom_in.png: icons/zoom_in-508ad4bd71bfd02b9a38ad91f3dbdd58.png
 icons/zoom_out.png: icons/zoom_out-4f5990e1801370959a151651970ddca8.png
+chosen/chosen.jquery.min.js: chosen/chosen.jquery.min-4381cd01d27e0e9c8307bf8ec3741847.js
 blueprint/ie.css: blueprint/ie-e74efa906a10b340155784d2bad8c799.css
 blueprint/plugins/buttons/icons/cross.png: blueprint/plugins/buttons/icons/cross-1f87fac86c438386527b5e7d5ceecb0e.png
 blueprint/plugins/buttons/icons/key.png: blueprint/plugins/buttons/icons/key-5f38d0204e83d3d83585a62ff993342b.png
@@ -1040,3 +1041,4 @@ blueprint/print.css: blueprint/print-e8a3c1d15481d968b45744b9dfdbb0af.css
 blueprint/screen.css: blueprint/screen-435869cad35a7c218af2d749d1f008c0.css
 blueprint/src/grid.png: blueprint/src/grid-183be7c72c28b409928e72f5a10086c8.png
 chosen/chosen-sprite.png: chosen/chosen-sprite-231b54f6cd9690d369cbf95448a61ee3.png
+chosen/chosen.css: chosen/chosen-6574a6ba35bdf3c93a78a58f63f3e5aa.css

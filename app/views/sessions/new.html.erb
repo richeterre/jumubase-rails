@@ -3,7 +3,7 @@
 <%= form_tag sessions_path do %>
   <div class="field">
     <%= label_tag :username, "Benutzername" %>
-    <%= text_field_tag :username, params[:username], :class => "text" %>
+    <%= text_field_tag :username, params[:username], :class => "text", :autofocus => true %>
   </div>
   <div class="field">
     <%= label_tag :password, "Passwort" %>

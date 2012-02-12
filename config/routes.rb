@@ -15,11 +15,11 @@ Jmd::Application.routes.draw do
   # Routes for public pages
   
   resources :contacts, :only => [:new, :create]
-  resources :entries, :except => [:index, :show, :destroy]
+  # resources :entries, :except => [:index, :show, :destroy]
   resources :sessions, :only => [:create, :destroy]
   
   # Entry editing & session routes
-  match '/vorspiel-bearbeiten', :to => 'entries#search', :as => :signup_search
+  # match '/vorspiel-bearbeiten', :to => 'entries#search', :as => :signup_search
   match '/anmelden',            :to => 'sessions#new', :as => :signin
   match '/abmelden',            :to => 'sessions#destroy', :as => :signout
   

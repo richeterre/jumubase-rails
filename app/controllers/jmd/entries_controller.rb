@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::EntriesController < Jmd::BaseController
+  before_filter :require_admin if JUMU_ROUND > 1 # Non-admins can own entries only in 1st round
   helper_method :sort_order
   
   # Define scopes for entry filtering

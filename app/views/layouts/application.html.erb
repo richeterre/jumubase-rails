@@ -33,7 +33,7 @@
         <% if signed_in? %>
           <%= render 'layouts/session_info' %>
           <%= render 'layouts/inside_links' %>
-          <%= render 'layouts/jmd_links' %>
+          <%= render 'layouts/jmd_links' if (admin? || JUMU_ROUND == 1)%>
           <hr />
         <% end %>
         <%= render 'layouts/sidebar' %>

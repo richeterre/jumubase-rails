@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::AppearancesController < Jmd::BaseController
+  before_filter :require_admin if JUMU_ROUND > 1 # Non-admins can edit points only in 1st round
   helper_method :sort_order
   
   def index

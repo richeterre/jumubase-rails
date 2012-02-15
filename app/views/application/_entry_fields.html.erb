@@ -7,7 +7,7 @@
           :id, :name, {:include_blank => 'Bitte wählen'}) %>
     <% else %>
       <%= collection_select(:entry, :competition_id, Competition.current,
-          :id, :name, {:selected => Competition.current.first.id}, {:disabled => true}) %>
+          :id, :name, {:selected => Competition.current.first.id}) %>
     <% end %>
   </div>
   <div class="field">

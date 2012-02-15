@@ -3,7 +3,7 @@
 <%= render 'filter_form', :path => make_certificates_jmd_entries_path %>
 
 <p>
-  <%= @entries.length %> von <%= Entry.visible_to(current_user).count %> Wertungen
+  <%= @entries.length %> von <%= Entry.current.visible_to(current_user).count %> Wertungen
   &middot;
   <%= link_to "Alle anzeigen", make_certificates_jmd_entries_path %>
   &middot;

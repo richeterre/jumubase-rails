@@ -34,8 +34,12 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :pieces,      :allow_destroy => true
   accepts_nested_attributes_for :appearances, :allow_destroy => true
   
-  validates :category_id,     :presence => true
-  validates :competition_id,  :presence => true
+  validates :category_id,           :presence => true
+  validates :competition_id,        :presence => true
+  validates :first_competition_id,  :presence => true if JUMU_ROUND == 2
+  
+  # Returns all entries in current round and year
+  scope :current, where(:competition_id => Competition.current)
   
   # Returns all entries in given genre
   scope :is_pop, lambda { |is_pop|

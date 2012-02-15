@@ -11,14 +11,16 @@ class Jmd::EntriesController < Jmd::BaseController
   # Manage entries at hosts the user has access to
   def index
     @title = "Wertungen verwalten"
-    @entries = Entry.visible_to(current_user)
+    @entries = Entry.current
+                    .visible_to(current_user)
                     .joins(:category)
                     .order(sort_order)
   end
   
   def browse
     @title = "Angemeldete Wertungen"
-    @entries = Entry.visible_to(current_user)
+    @entries = Entry.current
+                    .visible_to(current_user)
                     .joins(:category)
                     .category_order
                     .paginate(:page => params[:page], :per_page => 10)
@@ -26,16 +28,16 @@ class Jmd::EntriesController < Jmd::BaseController
   
   def show
     @title = "Wertungsdetails"
-    @entry = Entry.visible_to(current_user).find(params[:id])
+    @entry = Entry.current.visible_to(current_user).find(params[:id])
   end
   
   def edit
-    @entry = Entry.visible_to(current_user).find(params[:id])
+    @entry = Entry.current.visible_to(current_user).find(params[:id])
     @title = "Anmeldung bearbeiten"
   end
   
   def update
-    @entry = Entry.visible_to(current_user).find(params[:id])
+    @entry = Entry.current.visible_to(current_user).find(params[:id])
     # Make all attributes accessible to admins
     @entry.accessible = :all if admin?
     if @entry.update_attributes(params[:entry])
@@ -72,6 +74,7 @@ class Jmd::EntriesController < Jmd::BaseController
     def filter_sort_entries
       # Filter and column-sort entries
       @entries = apply_scopes(Entry)
+                 .current
                  .visible_to(current_user)
                  .joins(:category)
                  .order(sort_order)

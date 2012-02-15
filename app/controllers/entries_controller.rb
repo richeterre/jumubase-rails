@@ -47,7 +47,7 @@ class EntriesController < ApplicationController
   # Finds an existing signup form by edit code and redirects to it
   def search
     unless params[:edit_code].nil?
-      existing = Entry.find_by_edit_code(params[:edit_code])
+      existing = Entry.current.find_by_edit_code(params[:edit_code])
       if existing
         redirect_to edit_entry_path(existing, :edit_code => params[:edit_code])
       else
@@ -59,7 +59,7 @@ class EntriesController < ApplicationController
   
   # Presents an existing signup form for editing
   def edit
-    @entry = Entry.find(params[:id])
+    @entry = Entry.current.find(params[:id])
     unless admin? || @entry[:edit_code] == params[:edit_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
       redirect_to signup_search_path
@@ -69,7 +69,7 @@ class EntriesController < ApplicationController
   
   # Stores changes made to an existing signup form
   def update
-    @entry = Entry.find(params[:id])
+    @entry = Entry.current.find(params[:id])
     # Make all attributes accessible to admins
     @entry.accessible = :all if admin?
     if @entry.update_attributes(params[:entry])

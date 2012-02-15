@@ -91,7 +91,15 @@ class Entry < ActiveRecord::Base
   
   # Returns all entries the given user is authorized to see
   scope :visible_to, lambda { |user|
-    (user.admin?) ? scoped : where(:competition_id => user.competitions)
+    if user.admin?
+      scoped # Admins can see all entries
+    elsif JUMU_ROUND == 1
+      # Users see entries in competitions they own
+      where(:competition_id => user.competitions)
+    else
+      # In later rounds, users see entries coming from their competitions
+      where(:first_competition_id => user.competitions)
+    end
   }
   
   def accompanists

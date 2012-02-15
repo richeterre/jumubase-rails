@@ -1,5 +1,5 @@
 <%= render 'shared/error_messages', :object => f.object %>
-<%= field_set_tag "Teilnahmeort und Kategorie" do %>
+<%= field_set_tag "Teilnahmeorte und Kategorie" do %>
   <div class="field">
     <%= f.label :competition_id %>
     <%= collection_select(:entry, :competition_id, Competition.current,
@@ -10,6 +10,14 @@
     <%= collection_select(:entry, :category_id, Category.current,
         :id, :name, {:include_blank => 'Bitte wählen'}) %>
   </div>
+  <% if JUMU_ROUND == 2 %>
+    <div class="field">
+      <%= f.label :first_competition_id %>
+      <%= collection_select(:entry, :first_competition_id, Competition.preceding,
+          :id, :host_name, {:include_blank => 'Bitte wählen'}) %>
+      <%= icon_tag("help", :title => "Gib hier die Schule an, an deren Regionalwettbewerb du teilgenommen hast!", :class => "help") %>
+    </div>
+  <% end %>
 <% end %>
 <%= field_set_tag "Wer nimmt an diesem Vorspiel teil…" do %>
   <div id="appearances">

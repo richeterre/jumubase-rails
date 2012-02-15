@@ -199,6 +199,7 @@ de:
       entry:
         category_id: "Kategorie"
         competition_id: "Wettbewerb"
+        first_competition_id: "RW an der"
         appearances:
           participant:
             first_name: "Vorname des Teilnehmers"

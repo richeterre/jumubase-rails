@@ -1,10 +1,8 @@
 <p>
-  <% if admin? %>
   <span class="quiet">Änderungscode:</span> <%= entry.edit_code %>
   (<%= link_to "Vorspiel bearbeiten",
       edit_entry_path(entry, :edit_code => entry.edit_code) %>)
   <br />
-  <% end %>
   <span class="quiet">Erhalten am:</span> <%= l entry.created_at.utc %> GMT
   <% unless entry.updated_at == entry.created_at %>
     <br />

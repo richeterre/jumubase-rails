@@ -1,5 +1,8 @@
-<div class="box">
-  <%= link_to "Anmeldung", new_entry_path %> für den LW 2012 in London
-</div>
+<% if JUMU_SIGNUP_OPEN %>
+  <div class="box">
+    Zur <%= link_to "Anmeldung", new_entry_path %> für den
+    <strong><%= Round.find_by_level(JUMU_ROUND).slug %> <%= JUMU_YEAR %></strong>
+  </div>
+<% end %>
 
 &nbsp;

@@ -2,8 +2,6 @@
 
 <p>&hellip;&nbsp;auf der Website des Wettbewerbs “Jugend musiziert” für die Deutschen Schulen der Wettbewerbsregion Nord- und Osteuropa!</p>
 
-<p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie vor jeder Wettbewerbsrunde das elektronische <%= link_to "Anmeldeformular", new_entry_path %>.</p>
-
-<p class="info">Das <strong><%= link_to "Anmeldeformular", new_entry_path %> für den Landeswettbewerb 2012 in London</strong> ist nun freigeschaltet! Alle weitergeleiteten Teilnehmer müssen sich für die 2.&nbsp;Runde erneut anmelden und können dabei auch ihr Vorspielprogramm ändern, solang es weiterhin den <%= link_to "Regeln", rules_path %> entspricht. <strong>Anmeldeschluss ist der 11. März.</strong></p>
+<p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie <%= "vor jeder Wettbewerbsrunde" unless JUMU_SIGNUP_OPEN %> das elektronische <%= JUMU_SIGNUP_OPEN ? (link_to "Anmeldeformular", new_entry_path) : "Anmeldeformular" %>.</p>
 
 <p>Die Ausschreibung für das Wettbewerbsjahr 2012 steht unter dem Link <%= link_to "Regeln", rules_path %> zum Download bereit. Auf der gleichen Seite findest du auch die Teilnahmeregeln für die Pop-Kategorien.</p>

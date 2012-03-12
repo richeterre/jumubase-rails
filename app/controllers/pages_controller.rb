@@ -16,4 +16,9 @@ class PagesController < ApplicationController
   def organisation
     @title = "Organisation"
   end
+  
+  def not_found
+    @title = "Seite nicht gefunden"
+    render "not_found", status: 404
+  end
 end

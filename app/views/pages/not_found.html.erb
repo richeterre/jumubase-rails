@@ -1,0 +1,11 @@
+<h2>Nicht gefunden</h2>
+
+<p>
+  Die von dir angeforderte Seite wurde leider nicht gefunden. Vielleicht hast du dich vertippt?
+  <% unless JUMU_SIGNUP_OPEN %>
+    Falls du das elektronische Anmeldeformular suchst, beachte bitte, dass es nur während der Anmeldeperiode vor den einzelnen Wettbewerbsrunden sichtbar ist. Auch Programmänderungen können nur während dieser Zeit eingereicht werden.
+  <% end %>
+</p>
+<p>
+  Im Zweifelsfall schicke uns eine <%= link_to "Nachricht", contact_path %> oder kehre zurück zur <%= link_to "Startseite", root_path %>.
+</p>

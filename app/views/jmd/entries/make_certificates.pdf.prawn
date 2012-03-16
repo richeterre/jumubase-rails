@@ -70,7 +70,8 @@ pdf.font_families.update(
     
     pdf.bounding_box [50, 100], :width => 400 do
     
-      pdf.text "#{entry.competition.host.city}, den #{l entry.competition.ends}"
+      pdf.text "#{entry.competition.host.city}, den #{l (entry.competition.certificate_date ?
+          entry.competition.certificate_date : entry.competition.ends)}"
 
       pdf.move_down(60)
 

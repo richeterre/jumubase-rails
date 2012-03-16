@@ -1,0 +1,33 @@
+<%
+  # One minute corresponds to 3 pixels => 1 pixel is 20 seconds
+  height = (entry.duration.to_f / 20).round
+  margin = ((entry.rounded_duration - entry.duration).to_f / 20).round
+  if entry.stage_time
+    top = (entry.stage_time.hour - 9) * 180 + entry.stage_time.min * 3
+  else
+    # List unscheduled entries in 20 min distance
+    top = entry_counter * 60 + 120
+  end
+  
+  mouseover_text = (entry.first_competition) ? "#{entry.first_competition.host_name}: " : ""
+  # Add participant names to mouseover text
+  entry.participants.each do |p|
+    mouseover_text << p.full_name
+    mouseover_text << ", " unless p == entry.participants.last
+  end
+%>
+<div
+  id="<%= entry.id %>"
+  class="draggable-entry"
+  style="height: <%= height %>px; margin-bottom: <%= margin %>px; top: <%= top %>px;"
+  title="<%= mouseover_text %>"
+>
+  <span>
+    <%= l entry.stage_time, :format => :time unless entry.stage_time.nil? %>
+    <%= entry.category.slug %>
+    <%= entry.age_group %>
+  </span>
+  <span class="quiet right">
+    <%= format_duration(entry.duration) %>
+  </span>
+</div>

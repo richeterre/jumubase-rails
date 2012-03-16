@@ -15,4 +15,8 @@
     <dd><%= @competition.host.name %></dd>
   <dt>Dauer</dt>
     <dd><%= l @competition.begins %> &ndash; <%= l @competition.ends %></dd>
+  <% unless @competition.certificate_date.nil? %>
+  <dt>Urkundenvergabe</dt>
+    <dd><%= l @competition.certificate_date %></dd>
+  <% end %>
 </dl>

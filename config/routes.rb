@@ -4,10 +4,13 @@ Jmd::Application.routes.draw do
   
   namespace :jmd do
     resources :appearances, :competitions, :users, :venues
-    resources :entries, :except => [:new, :create] do
-      get 'browse', :on => :collection
-      get 'make_certificates', :on => :collection
-      get 'make_jury_sheets', :on => :collection
+    resources :entries, except: [:new, :create] do
+      get 'browse', on: :collection
+      get 'schedule_classical', on: :collection
+      get 'schedule_pop', on: :collection
+      put 'retime', on: :collection
+      get 'make_certificates', on: :collection
+      get 'make_jury_sheets', on: :collection
     end
   end
   

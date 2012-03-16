@@ -27,6 +27,13 @@
 </div>
 
 <div class="field">
+  <%= f.label :certificate_date %>
+  <%= f.date_select :certificate_date, :order => [:day,:month,:year],
+       :start_year => Time.now.year + 2, :end_year => Time.now.year - 1,
+       :prompt => { :day => "Tag", :month => "Monat", :year => "Jahr" } %>
+</div>
+
+<div class="field">
   <%= f.label :category_ids %>
   <%= f.collection_select(:category_ids, Category.all, :id, :name, {},
         { :multiple => :true, :class => "chzn-select",

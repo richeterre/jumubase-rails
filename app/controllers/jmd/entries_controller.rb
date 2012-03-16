@@ -59,6 +59,48 @@ class Jmd::EntriesController < Jmd::BaseController
     redirect_to jmd_entries_path
   end
   
+  def schedule_classical
+    @title = "Klassikwertungen planen"
+    @entries = Entry.classical.current
+  end
+  
+  def schedule_pop
+    @title = "Popwertungen planen"
+    @entries = Entry.pop.current
+  end
+  
+  def retime
+    entry = Entry.find(params[:entry_id])
+    date = params[:date]
+    if (date == 'unscheduled')
+      # Handle date removal
+      time = nil
+      @new_day = nil
+    else
+      offset = params[:offset]
+      # Calculate time based on 9 o'clock start in local time zone
+      date_array = date.split('-').map(&:to_i)
+      time = Time.zone.local(*date_array, 9) + offset.to_i.seconds
+      # Pass new date to view for update
+      @new_day = Date.strptime(date)
+    end
+    
+    # Store old date for view update
+    @old_day = (entry.stage_time) ? entry.stage_time.to_date : nil
+    
+    # Pass all entries for current view
+    @entries = (entry.category.pop?) ? Entry.pop.current : Entry.classical.current
+    
+    # Update entry time and date
+    entry.stage_time = time
+    entry.save
+    
+    # Respond only to Ajax requests
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def make_certificates
     # Define params for PDF output
     prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }

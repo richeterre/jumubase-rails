@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.2.2'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -8,16 +8,17 @@ gem 'rails', '3.1.1'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'will_paginate' # Pagination
-gem 'prawn' # PDF output
+gem 'prawn', '~> 1.0.0.rc1' # PDF output
 gem 'prawnto' # Easier PDF views
 gem 'has_scope' # Filter using url params and scopes
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
+  # gem 'jquery-ui-rails' # Couldn't get it to work
 end
 
 group :development do

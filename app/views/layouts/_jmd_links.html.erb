@@ -11,13 +11,13 @@
     <!-- <li><%# link_to_unless_current "Räume", venues_path %></li> -->
     <li><%= link_to_unless_current "Wertungen", jmd_entries_path %></li>
   </ul>
-  <!-- <span class="theme">Planen</span>
+  <span class="theme">Planen</span>
   <ul>
-    <li><%# link_to_unless_current "Klassik", schedule_classical_entries_path %></li>
-    <li><%# link_to_unless_current "Pop", schedule_pop_entries_path %></li>
-    <li><%# link_to_unless_current "Überäume", schedule_practice_venues_path %></li>
+    <li><%= link_to_unless_current "Klassik", schedule_classical_jmd_entries_path %></li>
+    <li><%= link_to_unless_current "Pop", schedule_pop_jmd_entries_path %></li>
+    <!-- <li><%# link_to_unless_current "Überäume", schedule_practice_venues_path %></li> -->
   </ul>
-  -->
+ 
   <span class="theme">Eintragen</span>
   <ul>
     <li><%= link_to_unless_current "Ergebnisse", jmd_appearances_path %></li>

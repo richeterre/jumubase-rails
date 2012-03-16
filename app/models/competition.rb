@@ -14,7 +14,7 @@
 #
 
 class Competition < ActiveRecord::Base
-  attr_accessible :round_id, :host_id, :begins, :ends, :category_ids
+  attr_accessible :round_id, :host_id, :begins, :ends, :certificate_date, :category_ids
   
   # Finds current competitions (with matching round and end year)
   scope :current, joins(:round, :host)
@@ -42,7 +42,18 @@ class Competition < ActiveRecord::Base
     "#{self.host.name}, #{self.round.slug} #{self.begins.year}"
   end
   
+  # Name of school hosting the competition
   def host_name
     "#{self.host.name}"
+  end
+  
+  # Day range during which the competition takes place
+  def days
+    self.begins..self.ends
+  end
+  
+  # Year in which the competition takes place
+  def year
+    self.ends.year
   end
 end

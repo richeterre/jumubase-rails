@@ -61,12 +61,12 @@ class Jmd::EntriesController < Jmd::BaseController
   
   def schedule_classical
     @title = "Klassikwertungen planen"
-    @entries = Entry.classical.current
+    @entries = Entry.classical.current.category_order
   end
   
   def schedule_pop
     @title = "Popwertungen planen"
-    @entries = Entry.pop.current
+    @entries = Entry.pop.current.category_order
   end
   
   def retime

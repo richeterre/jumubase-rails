@@ -53,11 +53,6 @@ ActiveRecord::Schema.define(:version => 20120315222212) do
     t.datetime "updated_at"
   end
 
-  create_table "competitions_judges", :id => false, :force => true do |t|
-    t.integer "competition_id"
-    t.integer "judge_id"
-  end
-
   create_table "composers", :force => true do |t|
     t.string   "name"
     t.string   "born"
@@ -110,15 +105,6 @@ ActiveRecord::Schema.define(:version => 20120315222212) do
 
   create_table "instruments", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "judges", :force => true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "city"
-    t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

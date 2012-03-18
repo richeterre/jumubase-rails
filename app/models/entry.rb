@@ -38,12 +38,21 @@ class Entry < ActiveRecord::Base
   validates :competition_id,        :presence => true
   validates :first_competition_id,  :presence => true if JUMU_ROUND == 2
   
+  # Override getters to always get times in competition time zone
+  def warmup_time
+    super().in_time_zone(self.competition.host.time_zone) if super()
+  end
+  
+  def stage_time
+    super().in_time_zone(self.competition.host.time_zone) if super()
+  end
+  
   # Returns all entries in current round and year
   scope :current, where(:competition_id => Competition.current)
   
   # Returns all entries in given genre
-  scope :is_pop, lambda { |is_pop|
-    is_pop == "1" ? pop : classical
+  scope :is_popular, lambda { |is_popular|
+    is_popular == "1" ? popular : classical
   }
   
   # Returns all entries in given category
@@ -81,10 +90,11 @@ class Entry < ActiveRecord::Base
   }
   
   # Returns all entries in classical categories
-  scope :classical, joins(:category).where('categories.pop = FALSE')
+  scope :classical, joins(:category).where('categories.popular = FALSE')
   
   # Returns all entries in pop categories
-  scope :pop, joins(:category).where('categories.pop = TRUE')
+  # (using "popular" here to steer clear of Ruby #pop method)
+  scope :popular, joins(:category).where('categories.popular = TRUe')
   
   # Orders entries chronologically by stage date
   scope :stage_order, order(:stage_time)
@@ -92,7 +102,7 @@ class Entry < ActiveRecord::Base
   # Orders entries by category default order
   scope :category_order,
       joins(:category).
-      order('categories.pop, categories.solo DESC, categories.name')
+      order('categories.popular, categories.solo DESC, categories.name')
   
   # Returns all entries the given user is authorized to see
   scope :visible_to, lambda { |user|

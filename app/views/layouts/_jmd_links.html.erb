@@ -13,9 +13,18 @@
   </ul>
   <span class="theme">Planen</span>
   <ul>
-    <li><%= link_to_unless_current "Klassik", schedule_classical_jmd_entries_path %></li>
-    <li><%= link_to_unless_current "Pop", schedule_pop_jmd_entries_path %></li>
-    <!-- <li><%# link_to_unless_current "Überäume", schedule_practice_venues_path %></li> -->
+    <% if current_user.competitions.current.count > 1 %>
+      <% current_user.competitions.current.each do |c| %>
+        <li><%= link_to_unless_current "#{c.host.city} Klassik",
+            schedule_classical_jmd_competition_path(c) %></li>
+        <li><%= link_to_unless_current "#{c.host.city} Pop",
+            schedule_popular_jmd_competition_path(c) %></li>
+      <% end %>
+    <% else %>
+      <% c = current_user.competitions.current.first %>
+      <li><%= link_to_unless_current "Klassik", schedule_classical_jmd_competition_path(c) %></li>
+      <li><%= link_to_unless_current "Pop", schedule_popular_jmd_competition_path(c) %></li>
+    <% end %>
   </ul>
  
   <span class="theme">Eintragen</span>

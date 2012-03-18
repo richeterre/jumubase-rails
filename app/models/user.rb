@@ -27,4 +27,9 @@ class User < ActiveRecord::Base
   def admin?
     self.admin
   end
+  
+  def competitions
+    # Admins can access all competitions
+    self.admin? ? Competition.scoped : super()
+  end
 end

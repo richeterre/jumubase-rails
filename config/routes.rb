@@ -3,11 +3,13 @@ Jmd::Application.routes.draw do
   # Routes for internal (JMD) pages
   
   namespace :jmd do
-    resources :appearances, :competitions, :users, :venues
+    resources :appearances, :users, :venues
+    resources :competitions do
+      get 'schedule_classical', on: :member
+      get 'schedule_popular', on: :member
+    end
     resources :entries, except: [:new, :create] do
       get 'browse', on: :collection
-      get 'schedule_classical', on: :collection
-      get 'schedule_pop', on: :collection
       put 'retime', on: :collection
       get 'make_certificates', on: :collection
       get 'make_jury_sheets', on: :collection

@@ -77,7 +77,7 @@ class Appearance < ActiveRecord::Base
   
   # Returns the participant's age group (Ia–VII)
   def age_group
-    if self.solo? || (self.accompaniment? && !self.entry.category.pop)
+    if self.solo? || (self.accompaniment? && !self.entry.category.popular)
       # Soloists and classical accompanists have their own age group
       calculate_age_group self.participant.birthdate
     elsif self.ensemble?

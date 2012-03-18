@@ -1,6 +1,6 @@
 <%= form_tag path, :method => 'get', :id => "entries_filter" do %>
   <%= hidden_field_tag :sort, params[:sort] %>
-	<%= select nil, :is_pop, options_for_select({ "Klassik" => 0, "Pop" => 1 }, current_scopes[:is_pop]),
+	<%= select nil, :is_popular, options_for_select({ "Klassik" => 0, "Pop" => 1 }, current_scopes[:is_popular]),
       { :include_blank => "Alle Genres" } %>
   <%= select nil, :in_category, Category.all.collect { |c| [c.name, c.id] },
       { :selected => params[:in_category], :include_blank => "Alle Kategorien" } %>

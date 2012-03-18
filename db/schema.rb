@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120318022257) do
+ActiveRecord::Schema.define(:version => 20120318191815) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "entry_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20120318022257) do
     t.string   "slug"
     t.boolean  "solo"
     t.boolean  "ensemble"
-    t.boolean  "pop"
+    t.boolean  "popular"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20120318022257) do
     t.string   "name"
     t.string   "city"
     t.integer  "country_id"
+    t.string   "time_zone",  :default => "Europe/Berlin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

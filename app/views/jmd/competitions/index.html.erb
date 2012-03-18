@@ -8,10 +8,9 @@
   <thead>
     <tr>
       <th class="span-1">ID</th>
-      <th class="span-5">Name</th>
-      <th class="span-3">Schule</th>
+      <th class="span-7">Name</th>
       <th class="span-2">Dauer</th>
-      <th class="span-2">Erstellt</th>
+      <th class="span-3">Erstellt</th>
       <th class="span-3 last">&nbsp;</th>
     </tr>
   </thead>
@@ -20,7 +19,6 @@
     <tr>
       <td><%= competition.id %></td>
       <td><%= competition.name %></td>
-      <td><%= competition.host.name %></td>
       <td>
         <%= l competition.begins, :format => :short %>
         &ndash;

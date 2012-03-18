@@ -12,7 +12,7 @@
 #
 
 class Host < ActiveRecord::Base
-  attr_accessible :name, :country_id
+  attr_accessible :name, :city, :country_id, :time_zone
   
   belongs_to :country
   has_many :competitions

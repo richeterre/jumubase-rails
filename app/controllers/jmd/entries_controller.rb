@@ -4,10 +4,11 @@ class Jmd::EntriesController < Jmd::BaseController
     # Non-admins can own entries only in 1st round
     before_filter :require_admin, :except => :browse
   end
+  
   helper_method :sort_order
   
   # Define scopes for entry filtering
-  has_scope :is_pop, :only => [:index, :make_certificates, :make_jury_sheets]
+  has_scope :is_popular, :only => [:index, :make_certificates, :make_jury_sheets]
   has_scope :in_category, :only => [:index, :make_certificates, :make_jury_sheets]
   has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets] 
@@ -54,23 +55,16 @@ class Jmd::EntriesController < Jmd::BaseController
   end
   
   def destroy
-    @entry = Entry.find(params[:id]).destroy
+    @entry = Entry.current.visible_to(current_user).find(params[:id]).destroy
     flash[:success] = "Die Wertung wurde gelöscht."
     redirect_to jmd_entries_path
   end
   
-  def schedule_classical
-    @title = "Klassikwertungen planen"
-    @entries = Entry.classical.current.category_order
-  end
-  
-  def schedule_pop
-    @title = "Popwertungen planen"
-    @entries = Entry.pop.current.category_order
-  end
-  
   def retime
-    entry = Entry.find(params[:entry_id])
+    entry = Entry.current.visible_to(current_user).find(params[:entry_id])
+    # Switch to competition host's timeframe
+    Time.zone = entry.competition.host.time_zone
+    
     date = params[:date]
     if (date == 'unscheduled')
       # Handle date removal
@@ -78,7 +72,7 @@ class Jmd::EntriesController < Jmd::BaseController
       @new_day = nil
     else
       offset = params[:offset]
-      # Calculate time based on 9 o'clock start in local time zone
+      # Calculate time based on 9 o'clock start in host's time zone
       date_array = date.split('-').map(&:to_i)
       time = Time.zone.local(*date_array, 9) + offset.to_i.seconds
       # Pass new date to view for update
@@ -89,7 +83,9 @@ class Jmd::EntriesController < Jmd::BaseController
     @old_day = (entry.stage_time) ? entry.stage_time.to_date : nil
     
     # Pass all entries for current view
-    @entries = (entry.category.pop?) ? Entry.pop.current : Entry.classical.current
+    @entries = (entry.category.popular?) ? 
+                 entry.competition.entries.popular.category_order
+               : entry.competition.entries.classical.category_order
     
     # Update entry time and date
     entry.stage_time = time

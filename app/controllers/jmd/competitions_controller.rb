@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Jmd::CompetitionsController < Jmd::BaseController
-  before_filter :require_admin # All competition actions are admin-only
+  # Competitions are admin-only except for entry scheduling
+  before_filter :require_admin, except: [:schedule_classical, :schedule_popular]
   
   def index
     @competitions = Competition.all
@@ -48,5 +49,19 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @competition = Competition.find(params[:id]).destroy
     flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde gelöscht."
     redirect_to jmd_competitions_path
+  end
+  
+  # Scheduling of entries in competition
+  
+  def schedule_classical
+    @title = "Klassikwertungen planen"
+    @competition = current_user.competitions.find(params[:id])
+    @entries = @competition.entries.classical.category_order
+  end
+  
+  def schedule_popular
+    @title = "Popwertungen planen"
+    @competition = current_user.competitions.find(params[:id])
+    @entries = @competition.entries.popular.category_order
   end
 end

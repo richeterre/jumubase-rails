@@ -8,17 +8,17 @@
 #  slug       :string(255)
 #  solo       :boolean(1)
 #  ensemble   :boolean(1)
-#  pop        :boolean(1)
+#  popular    :boolean(1)
 #  created_at :datetime
 #  updated_at :datetime
 #
 
 # -*- encoding : utf-8 -*-
 class Category < ActiveRecord::Base
-  attr_accessible :name, :solo, :ensemble, :pop
+  attr_accessible :name, :solo, :ensemble, :popular
   
   # By default, show classical before pop, solo before ensemble
-  default_scope :order => 'pop, solo DESC, name'
+  default_scope :order => 'popular, solo DESC, name'
   
   # Show only categories currently marked as active (temporary workaround)
   scope :current, where('active' => true)

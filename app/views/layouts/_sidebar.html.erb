@@ -5,4 +5,19 @@
   </div>
 <% end %>
 
+<% if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC %>
+  <div class="box">
+    <p>Wertungspläne:</p>
+    <% Competition.current.first.days.each do |day| %>
+    <p>
+      <%= l day, format: :yearless %><br />
+      <% Competition.current.first.host.venues.each do |venue| %>
+        <%= link_to venue.name_with_usage, timetable_path(
+            venue_id: venue, year: day.year, month: day.month, day: day.mday) %>
+        <br />
+      <% end %>
+    </p>
+    <% end %>
+  </div>
+<% end %>
 &nbsp;

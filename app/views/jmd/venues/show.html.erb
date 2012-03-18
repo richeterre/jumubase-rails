@@ -1,1 +1,21 @@
+<p>
+	<%= icon_tag "arrow_turn_left" %>
+	<%= link_to "zurück zur Raumliste", jmd_venues_path %>
+</p>
+
 <h2>Raum ansehen</h2>
+
+<dl>
+  <dt>Code</dt>
+    <dd><%= @venue.slug %></dd>
+  <dt>Bezeichnung</dt>
+    <dd><%= @venue.name %></dd>
+  <dt>Verwendung</dt>
+    <dd><%= @venue.usage %></dd>
+  <dt>Adresse</dt>
+    <dd><%= @venue.address %></dd>
+  <dt>Schule</dt>
+    <dd><%= @venue.host.name %></dd>
+  <dt>Zahl der Einspiele / Wertungen</dt>
+    <dd><%= @venue.warmup_entries.count %> / <%= @venue.stage_entries.count %></dd>
+</dl>

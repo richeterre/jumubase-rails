@@ -21,7 +21,9 @@ Jmd::Application.routes.draw do
   resources :sessions, :only => [:create, :destroy]
   
   # Routes for venue timetables
-  match 'venues/:venue_id/timetable(/:year-:month-:day)', to: 'venues#timetable'
+  if JUMU_TIMETABLES_PUBLIC
+    match 'venues/:venue_id/timetable(/:year-:month-:day)', to: 'venues#timetable', as: :timetable
+  end
   
   # Routes for signup and entry editing, if currently possible
   if JUMU_SIGNUP_OPEN

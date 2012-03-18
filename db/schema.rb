@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315222212) do
+ActiveRecord::Schema.define(:version => 20120318022257) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "entry_id"
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20120315222212) do
     t.string   "slug"
     t.integer  "host_id"
     t.string   "address"
+    t.string   "usage"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

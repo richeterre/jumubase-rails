@@ -10,6 +10,7 @@ de:
       short: "%e. %b"
       long: "%e. %B %Y"
       full: "%A, %e. %B %Y"
+      yearless: "%A, %e. %B"
       only_day: "%e"
 
     day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
@@ -251,6 +252,7 @@ de:
         slug: "Code"
         name: "Bezeichnung"
         address: "Anschrift"
+        usage: "Verwendung"
         host_id: "Schule"
     errors:
       template:

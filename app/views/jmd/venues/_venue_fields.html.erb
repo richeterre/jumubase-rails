@@ -12,6 +12,10 @@
   <%= f.text_field :address, :class => "text" %>
 </div>
 <div class="field">
+  <%= f.label :usage %>
+  <%= f.text_field :usage, :class => "text" %>
+</div>
+<div class="field">
   <%= f.label :host_id %>
   <%= collection_select(:venue, :host_id, Host.all, :id, :name) %>
 </div>

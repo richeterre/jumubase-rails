@@ -41,6 +41,7 @@ class Jmd::VenuesController < Jmd::BaseController
   end
   
   def show
+    @venue = Venue.find(params[:id])
     @title = "Raum ansehen"
   end
   

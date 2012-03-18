@@ -1,6 +1,6 @@
-<h2>Wertungsplan</h2>
+<h2>Wertungsplan <%= l @date, format: :yearless %></h2>
 
-<h3><%= "#{@venue.name}, #{@venue.host.name}" %> / <%= l @date, format: :full %></h3>
+<h3><%= "#{@venue.host.name}, #{@venue.name_with_usage}" %></h3>
 
 <table>
 	<thead>

@@ -20,6 +20,9 @@ Jmd::Application.routes.draw do
   resources :contacts, :only => [:new, :create]
   resources :sessions, :only => [:create, :destroy]
   
+  # Routes for venue timetables
+  match 'venues/:venue_id/timetable(/:year-:month-:day)', to: 'venues#timetable'
+  
   # Routes for signup and entry editing, if currently possible
   if JUMU_SIGNUP_OPEN
     resources :entries, :except => [:index, :show, :destroy]

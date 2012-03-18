@@ -1,0 +1,8 @@
+<h2>Neuen Raum hinzufügen</h2>
+
+<%= form_for [:jmd, @venue] do |form| %>
+  <%= render 'venue_fields', :f => form %>
+  <div class="actions">
+    <%= form.submit "Hinzufügen" %>
+  </div>
+<% end %>

@@ -17,7 +17,6 @@ class Venue < ActiveRecord::Base
   attr_accessible :name, :slug, :host_id, :address
   
   belongs_to :host
-  has_many :entries
   
   validates :name,    :presence => true
   validates :slug,    :presence => true,

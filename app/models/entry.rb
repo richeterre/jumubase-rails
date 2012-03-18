@@ -75,6 +75,11 @@ class Entry < ActiveRecord::Base
     end
   }
   
+  # Returns all entries with given venue as either warmup or stage
+  scope :at_venue, lambda { |venue|
+    where("warmup_venue_id = ? OR stage_venue_id = ?", venue, venue)
+  }
+  
   # Returns all entries in classical categories
   scope :classical, joins(:category).where('categories.pop = FALSE')
   

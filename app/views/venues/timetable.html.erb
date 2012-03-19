@@ -7,9 +7,9 @@
   <tr>
     <th class="span-1">Einspiel</th>
     <th class="span-1"><strong>Vorspiel</strong></th>
-    <th class="span-3">Kategorie</th>
+    <th class="span-2">Kategorie</th>
     <th class="span-1">AG</th>
-    <th class="span-6">Teilnehmer</th>
+    <th class="span-7">Teilnehmer</th>
   </tr>
 	</thead>
 	<tbody>
@@ -21,7 +21,7 @@
       <td><%= entry.age_group %></td>
       <td>
         <% entry.appearances.role_order.each do |a| %>
-          <%= a.participant.full_name %>
+          <%= a.participant.full_name %>, <%= a.instrument.name %>
           <%= " (AG #{a.age_group})" if a.age_group != entry.age_group %><br />
         <% end %>
 				<span class="quiet"><%= entry.first_competition.host.name %></span>

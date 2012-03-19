@@ -146,4 +146,10 @@ class Entry < ActiveRecord::Base
     # Round up in five-minute steps (5, 10, 15, ...)
     (self.duration.to_f / 300).ceil * 300
   end
+  
+  def rounded_end_time
+    # Time the entry is scheduled to end (using rounded duration)
+    self.stage_time + self.rounded_duration.seconds
+  end
+    
 end

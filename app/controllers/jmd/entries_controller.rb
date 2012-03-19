@@ -16,10 +16,7 @@ class Jmd::EntriesController < Jmd::BaseController
   # Manage entries at hosts the user has access to
   def index
     @title = "Wertungen verwalten"
-    @entries = Entry.current
-                    .visible_to(current_user)
-                    .joins(:category)
-                    .order(sort_order)
+    filter_sort_entries
   end
   
   def browse
@@ -120,6 +117,8 @@ class Jmd::EntriesController < Jmd::BaseController
                  .visible_to(current_user)
                  .joins(:category)
                  .order(sort_order)
+      # Provide competition for date filtering
+      @competition = current_user.competitions.current.first
     end
     
     def sort_order

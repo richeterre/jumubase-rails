@@ -4,10 +4,10 @@
       { :include_blank => "Alle Genres" } %>
   <%= select nil, :in_category, Category.all.collect { |c| [c.name, c.id] },
       { :selected => params[:in_category], :include_blank => "Alle Kategorien" } %>
-  <%# select nil, :from_host, Host.all.collect { |c| [c.name, c.id] },
+  <%= select nil, :from_host, Host.all.collect { |c| [c.name, c.id] },
       { :selected => params[:from_host], :include_blank => "Alle Schulen" } %>
-	<%# select nil, :on_date,
-					@competition_days.collect { |day| [l(day, :format => :long), day.to_s] },
-	      { :selected => params[:on_date], :include_blank => "Alle Tage" } %>
+	<%= select nil, :on_date,
+          @competition.days.collect { |day| [l(day, :format => :long), day.to_s] },
+        { :selected => params[:on_date], :include_blank => "Alle Tage" } %>
   <%= submit_tag "Filtern", :name => nil %>
 <% end %>

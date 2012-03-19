@@ -15,7 +15,7 @@
 	<tbody>
   <% @entries.each do |entry| %>
     <tr>
-      <td><%= l entry.warmup_time, :format => :time if entry.warmup_time %></td>
+      <td><%= l entry.stage_time - 20.minutes, :format => :time if entry.stage_time %></td>
       <td><strong><%= l entry.stage_time, :format => :time if entry.stage_time %></strong></td>
       <td><%= entry.category.name %></td>
       <td><%= entry.age_group %></td>

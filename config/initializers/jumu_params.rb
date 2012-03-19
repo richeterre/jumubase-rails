@@ -11,7 +11,7 @@ JUMU_ROUND = 2
 JUMU_SIGNUP_OPEN = false
 
 # Whether timetables for the above round are public
-JUMU_TIMETABLES_PUBLIC = false
+JUMU_TIMETABLES_PUBLIC = true
 
 # The 2nd round host (name must match database entry)
 JUMU_HOST = "DS London" # TODO: Find out why we need this at all

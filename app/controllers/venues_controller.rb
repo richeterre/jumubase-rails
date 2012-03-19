@@ -7,7 +7,7 @@ class VenuesController < ApplicationController
     if Date.valid_date?(*date_array)
       @date = Date.new(*date_array)
       @venue = Venue.find(params[:venue_id])
-      @entries = Entry.current.at_venue(@venue).on_date(@date)
+      @entries = Entry.current.at_venue(@venue).on_date(@date).stage_order
     else
       render 'pages/not_found'
     end

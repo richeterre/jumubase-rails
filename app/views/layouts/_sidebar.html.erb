@@ -7,7 +7,7 @@
 
 <% if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC %>
   <div class="box">
-    <p>Wertungspläne:</p>
+    <p><strong>Wertungspläne</strong></p>
     <% Competition.current.first.days.each do |day| %>
     <p>
       <%= l day, format: :yearless %><br />

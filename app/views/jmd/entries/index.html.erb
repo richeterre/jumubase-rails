@@ -3,7 +3,7 @@
 <%= render 'filter_form', :path => jmd_entries_path %>
 
 <p>
-  <%= @entries.length %> Wertungen angemeldet
+  <%= @entries.length %> von <%= Entry.current.visible_to(current_user).count %> Wertungen
   &middot;
   <%= link_to "Alle anzeigen", jmd_entries_path %>
 </p>

@@ -23,10 +23,10 @@ pdf.font_families.update(
   ]
   end
   pdf.table entry_rows do |table|
-   table.columns(0).width = 100
+   table.columns(0).width = 145
    table.columns(1).width = 25
    table.columns(2).width = 245
    table.columns(3).width = 35
-   table.columns(4).width = 115
+   table.columns(4).width = 70
   end
 end

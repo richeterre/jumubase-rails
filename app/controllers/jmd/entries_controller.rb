@@ -108,6 +108,14 @@ class Jmd::EntriesController < Jmd::BaseController
     filter_sort_entries
   end
   
+  def make_result_sheets
+    # Define params for PDF output
+    prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
+    @pop_entries = Entry.current.popular.stage_order
+    @classical_entries = Entry.current.classical.stage_order
+    @title = "Ergebnislisten erstellen"
+  end
+  
   private
     
     def filter_sort_entries

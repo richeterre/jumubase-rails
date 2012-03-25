@@ -19,7 +19,7 @@ pdf.font_families.update(
          e.age_group,
          e.appearances.role_order.collect { |a| a.participant.full_name + ", " + a.instrument.name + ((a.age_group == e.age_group) ? "" : " (AG #{a.age_group})") + "\n" }.join,
          e.appearances.role_order.collect { |a| "#{a.points}\n" }.join,
-         e.appearances.role_order.collect { |a| (a.price.nil? ? "mit gutem Erfolg teilgenommen" : "#{a.price}") + ((a.points && a.points >= 23 && !["Ia", "Ib", "II"].include?(a.age_group) && !["Gesang (Pop) solo", "E-Bass (Pop) solo"].include?(e.category.name)) ? "*" : "") + "\n" }.join
+         e.appearances.role_order.collect { |a| (a.price.nil? ? "mit gutem Erfolg teilgenommen" : "#{a.price}") + ((a.points && a.points >= 23 && !["Ia", "Ib", "II"].include?(a.age_group) && !["Gesang (Pop) solo", "Drum-Set (Pop) solo", "Gitarre (Pop) solo"].include?(e.category.name)) ? "*" : "") + "\n" }.join
   ]
   end
   pdf.table entry_rows do |table|

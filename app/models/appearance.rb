@@ -92,13 +92,13 @@ class Appearance < ActiveRecord::Base
   # Returns the achieved price's name
   def price
     # TODO: Move price ranges to JuMu parameters
-    # The ranges below are for round 1 (RW)
+    # The ranges below are for round 2 (LW)
     case self.points
-    when 21..25
+    when 23..25
       "1. Preis"
-    when 17..20
+    when 20..22
       "2. Preis"
-    when 13..16
+    when 17..19
       "3. Preis"
     end
   end
@@ -114,8 +114,8 @@ class Appearance < ActiveRecord::Base
       !["Ia", "Ib"].include?(self.age_group)
     when 2
       # Conditions for second round
-      !["Ia", "Ib", "II"].include?(self.age_group)
-      # TODO: Check for pop category restrictions
+      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gesang (Pop) solo", "Gitarre (Pop) solo", "Drum-Set (Pop) solo"].include?(self.entry.category.name))
+      # TODO: Generalize pop category restrictions
     end
   end
   

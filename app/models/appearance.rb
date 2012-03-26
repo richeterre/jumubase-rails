@@ -75,6 +75,11 @@ class Appearance < ActiveRecord::Base
     self.role.slug == 'E'
   end
   
+  # Returns the solo appearance that is accompanied by this one
+  def related_solo_appearance
+    self.entry.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
+  end
+  
   # Returns the participant's age group (Ia–VII)
   def age_group
     if self.solo? || (self.accompaniment? && !self.entry.category.popular)
@@ -104,9 +109,13 @@ class Appearance < ActiveRecord::Base
   end
   
   # Returns whether the appearance will advance to the next competition stage
-  def may_advance_to_next_round
+  def may_advance_to_next_round?
     # Basic condition is 23 or more points and that a next round exists
     return false if (!self.points || self.points < 23 || JUMU_ROUND == 3)
+    
+    # Accompanists don't advance if their soloist doesn't
+    return false if (self.accompaniment? && !self.related_solo_appearance.may_advance_to_next_round?)
+    
     # Check for other conditions
     case JUMU_ROUND
     when 1

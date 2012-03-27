@@ -1,3 +1,17 @@
+<div class="box">
+  <p>
+    <strong>Anmeldung zum Bundeswettbewerb</strong>
+    <%= link_to "Anmeldeformulare", "http://www.jugend-musiziert.org/bundeswettbewerb.html" %>
+  </p>
+</div>
+
+<div class="box">
+  <p>
+    <strong>Ergebnisse des LW 2012 in London</strong>
+    <br /><%= link_to "als PDF ansehen", asset_path('ergebnisse_lw2012.pdf') %>
+  </p>
+</div>
+
 <% if JUMU_SIGNUP_OPEN %>
   <div class="box">
     Zur <%= link_to "Anmeldung", new_entry_path %> für den

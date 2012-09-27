@@ -27,6 +27,16 @@ module ApplicationHelper
       "#{base_title} — #{@title}"
     end
   end
+
+  # Return the full title of the current round (e.g. "Landeswettbewerb 2006")
+  def current_round_title
+    "#{Round.find_by_level(JUMU_ROUND).name} #{JUMU_YEAR}"
+  end
+
+  # Return the name of the current round's host – or all of them for the 1st round
+  def current_host_name
+    JUMU_ROUND == 2 ? "an der #{JUMU_HOST}" : "an einer Schule der Wettbewerbsregion Nord- und Osteuropa"
+  end
   
   # Converts seconds into min'sec format
   def format_duration(seconds)
@@ -42,7 +52,7 @@ module ApplicationHelper
   
   # Create a link that removes a group of fields (e.g. piece or participant)
   def link_to_remove_fields(name, f)
-    f.hidden_field(:_destroy) + button_to_function(name, "remove_fields(this)", :class => "remove-fields")
+    f.hidden_field(:_destroy) + button_to_function(name, "remove_fields(this)", :class => "btn btn-danger")
   end
   
   # Create a link that adds a new appearance
@@ -52,7 +62,7 @@ module ApplicationHelper
     fields = f.fields_for(:appearances, new_appearance, :child_index => "new_appearances") do |builder|
       render("appearance_fields", :f => builder)
     end
-    button_to_function(name, "add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "add-appearance")
+    button_to_function(name, "add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
   
   # Create a link that adds a new piece
@@ -62,7 +72,7 @@ module ApplicationHelper
     fields = f.fields_for(:pieces, new_piece, :child_index => "new_pieces") do |builder|
       render("piece_fields", :f => builder)
     end
-    button_to_function(name, "add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "add-piece")
+    button_to_function(name, "add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
   
   # Creates a sortable column title

@@ -40,3 +40,18 @@ competitions = Competition.create([
     ends: Date.new(2013, 03, 11)
   }
 ])
+
+Role.create([
+  { name: "Solist", slug: "S" },
+  { name: "Begleiter", slug: "B" },
+  { name: "Teil eines Ensembles", slug: "E" }
+])
+
+Instrument.create([
+  { name: "Violine" },
+  { name: "Viola" },
+  { name: "Violoncello" },
+  { name: "Kontrabass" },
+  { name: "Klavier" },
+  { name: "Gitarre" }
+])

@@ -1,20 +1,25 @@
 <div class="piece field-group">
-  <div class="number"></div>
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title, :class => "text" %>
-  </div>
+  <span class="number badge"></span>
+  
+  <%= f.input :title %>
+  
   <%= f.fields_for :composer do |composer_form| %>
     <%= render 'composer_fields', :f => composer_form %>
   <% end %>
-  <div class="field">
-    <%= f.label :epoch_id %>
-    <%= f.collection_select(:epoch_id, Epoch.all, :id, :slug_with_name, {:include_blank => 'Bitte wählen'}) %>
-  </div>
-  <div class="field">
-    <%= f.label :minutes, "Dauer ca." %>
-    <%= f.text_field :minutes, :class => "text tiny", :maxlength => 2 %> Minuten
-    <%= f.text_field :seconds, :class => "text tiny", :maxlength => 2 %> Sekunden
-  </div>
+  
+  <%= f.input :epoch_id, collection: Epoch.all, label_method: :slug_with_name, prompt: "Bitte wählen" %>
+  
+  <%= f.input :minutes %>
+
+  <%= f.input :minutes, label: "Dauer ca.", wrapper: :append do %>
+    <%= f.input_field :minutes, class: "input-mini" %>
+    <span class="add-on">Minuten</span>
+  <% end %>
+  
+  <%= f.input :seconds, label: false, wrapper: :append do %>
+    <%= f.input_field :seconds, class: "input-mini" %>
+    <span class="add-on">Sekunden</span>
+  <% end %>
+  
   <%= link_to_remove_fields "Stück entfernen", f %>
 </div>

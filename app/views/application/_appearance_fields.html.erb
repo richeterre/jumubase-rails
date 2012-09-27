@@ -1,61 +1,32 @@
 <div class="appearance field-group">
-  <div class="number"></div>
+  <span class="number badge"></span>
   <%= f.fields_for :participant do |p| %>
-    <div class="field">
-      <%= p.label :first_name %>
-      <%= p.text_field :first_name, :class => "text" %>
-    </div>
-    <div class="field">
-      <%= p.label :last_name %>
-      <%= p.text_field :last_name, :class => "text" %>
-    </div>
-    <div class="field">
-      <%= f.label :role_id %>
-      <%= f.collection_select(:role_id, Role.all, :id, :name, {:include_blank => 'Bitte wählen'}) %>
-    </div>
-    <div class="field">
-      <%= f.label :instrument_id %>
-      <%= f.collection_select(:instrument_id, Instrument.all(:order => "name"),
-          :id, :name, {:include_blank => 'Bitte wählen'}) %>
-    </div>
-    <div class="field">
-     <%= p.label :birthdate %>
-     <%= p.date_select :birthdate, :order => [:day,:month,:year],
-         :start_year => Time.now.year - 5, :end_year => Time.now.year - 27,
-         :prompt => { :day => "Tag", :month => "Monat", :year => "Jahr" } %>
-    </div>
-    <div class="field radio">
-      <%= p.label :gender %>
-      <%= p.radio_button :gender, "m" %>
-      <%= p.label :gender, "männlich", :value => "m", :class => "radio-option" %>
-      <%= p.radio_button :gender, "f" %>
-      <%= p.label :gender, "weiblich", :value => "f", :class => "radio-option" %>
-    </div>
-    <div class="field">
-      <%= p.label :street %>
-      <%= p.text_field :street, :class => "text" %>
-    </div>
-    <div class="field">
-      <%= p.label :postal_code %>
-      <%= p.text_field :postal_code, :class => "text short" %>
-    </div>
-    <div class="field">
-      <%= p.label :city %>
-      <%= p.text_field :city, :class => "text" %>
-    </div>
-    <div class="field">
-      <%= p.label :country_id %>
-      <%= p.collection_select(:country_id, Country.all(:order => "name"),
-          :id, :name, {:include_blank => 'Bitte wählen'}) %>
-    </div>
-    <div class="field">
-      <%= p.label :phone %>
-      <%= p.text_field :phone, :class => "text" %>
-    </div>
-    <div class="field">
-      <%= p.label :email %>
-      <%= p.text_field :email, :class => "text" %>
-    </div>
+    <%= p.input :first_name %>
+    
+    <%= p.input :last_name %>
+    
+    <%= f.input :role_id, collection: Role.all, prompt: "Bitte wählen" %>
+    
+    <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen" %>
+    
+    <%= p.input :birthdate, as: :date, order: [:day,:month,:year],
+          start_year: Time.now.year - 5, end_year: Time.now.year - 27,
+          prompt: { day: "Tag", month: "Monat", year: "Jahr" } %>
+    
+    <%= p.input :gender, collection: [:m, :w], as: :radio_buttons %>
+    
+    <%= p.input :street %>
+    
+    <%= p.input :postal_code %>
+    
+    <%= p.input :city %>
+    
+    <%= p.input :country_id, collection: Country.all(:order => "name"), prompt: "Bitte wählen" %>
+    
+    <%= p.input :phone %>
+    
+    <%= p.input :email %>
   <% end %>
+
   <%= link_to_remove_fields "Teilnehmer entfernen", f %>
 </div>

@@ -17,7 +17,7 @@ de:
     abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
     month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
     abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-  
+
   time:
     formats:
       default: "%A, %e. %B %Y, %H:%M Uhr"
@@ -28,7 +28,7 @@ de:
 
     am: "vormittags"
     pm: "nachmittags"
-      
+
   datetime:
     distance_in_words:
       half_a_minute: 'eine halbe Minute'
@@ -180,7 +180,7 @@ de:
       odd: "muss ungerade sein"
       even: "muss gerade sein"
       not_an_integer: "muss ganzzahlig sein"
-      
+
   activerecord:
     attributes:
       appearance:
@@ -198,7 +198,7 @@ de:
         name: "Komponist"
         born: "Geburtsjahr"
         died: "(Todesjahr)"
-      entry:
+      performance:
         category_id: "Kategorie"
         competition_id: "Wettbewerb"
         first_competition_id: "RW"

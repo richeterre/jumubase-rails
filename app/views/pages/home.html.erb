@@ -2,7 +2,7 @@
 
 <p>&hellip;&nbsp;auf der Website des Wettbewerbs “Jugend musiziert” für die Deutschen Schulen der Wettbewerbsregion Nord- und Osteuropa!</p>
 
-<p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie <%= "vor jeder Wettbewerbsrunde" unless JUMU_SIGNUP_OPEN %> das elektronische <%= JUMU_SIGNUP_OPEN ? (link_to "Anmeldeformular", new_entry_path) : "Anmeldeformular" %>.</p>
+<p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie <%= "vor jeder Wettbewerbsrunde" unless JUMU_SIGNUP_OPEN %> das elektronische <%= JUMU_SIGNUP_OPEN ? (link_to "Anmeldeformular", new_performance_path) : "Anmeldeformular" %>.</p>
 
 <p class="info">Der LW 2012 in London ist vorüber und wir danken allen Teilnehmern, Juroren, Lehrern und Eltern! Die <%= link_to "Ergebnislisten (274 KB, pdf)", asset_path('ergebnisse_lw2012.pdf') %> können während der nächsten Wochen hier heruntergeladen werden.</p>
 

@@ -1,0 +1,29 @@
+<%= render 'shared/error_messages', :object => f.object %>
+<%= field_set_tag "Teilnahmeorte und Kategorie" do %>
+  <%= f.input :competition_id, collection: Competition.current, prompt: "Bitte wählen" %>
+  <%= f.input :category_id, collection: Category.current, prompt: "Bitte wählen" %>
+  
+  <% if JUMU_ROUND == 2 %>
+    <div class="field">
+      <%= f.label :first_competition_id, :title => "Regionalwettbewerb" %>
+      <%= collection_select(:entry, :first_competition_id, Competition.preceding,
+          :id, :host_name, {:include_blank => 'Bitte wählen'}) %>
+    </div>
+  <% end %>
+<% end %>
+<%= field_set_tag "Wer nimmt an dieser Wertung teil…" do %>
+  <div id="appearances">
+    <%= link_to_add_appearance "Neuen Teilnehmer hinzufügen", f %>
+    <%= f.fields_for :appearances do |appearance_form| %>
+      <%= render 'appearance_fields', :f => appearance_form %>
+    <% end %>
+  </div>
+<% end %>
+<%= field_set_tag "…und mit welchem Programm?" do %>
+  <div id="pieces">
+    <%= link_to_add_piece "Neues Stück hinzufügen", f %>
+    <%= f.fields_for :pieces do |piece_form| %>
+      <%= render 'piece_fields', :f => piece_form %>
+    <% end %>
+  </div>
+<% end %>

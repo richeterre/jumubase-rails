@@ -1,24 +1,9 @@
-# -*- encoding : utf-8 -*-
-# == Schema Information
-# Schema version: 20110126162104
-#
-# Table name: competitions
-#
-#  id         :integer(4)      not null, primary key
-#  round_id   :integer(4)
-#  host_id    :integer(4)
-#  begins     :date
-#  ends       :date
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class Competition < ActiveRecord::Base
   attr_accessible :round_id, :host_id, :begins, :ends, :certificate_date, :category_ids
   
   # Finds current competitions (with matching round and end year)
   scope :current, joins(:round, :host)
-      .where("rounds.level = ? AND YEAR(competitions.ends) = ?", JUMU_ROUND, JUMU_YEAR)
+      .where("rounds.level = ? AND DATE_PART('YEAR', competitions.ends) = ?", JUMU_ROUND, JUMU_YEAR)
       .order("hosts.name")
       
   # Finds competitions of same year, but round precedent to current
@@ -28,7 +13,7 @@ class Competition < ActiveRecord::Base
   
   belongs_to :round
   belongs_to :host
-  has_many :entries, :dependent => :destroy
+  has_many :performances, :dependent => :destroy
   has_and_belongs_to_many :categories
   
   validates :round_id,  :presence => true

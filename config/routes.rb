@@ -8,7 +8,7 @@ Jmd::Application.routes.draw do
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end
-    resources :entries, except: [:new, :create] do
+    resources :performances, except: [:new, :create] do
       get 'browse', on: :collection
       put 'retime', on: :collection
       get 'make_certificates', on: :collection
@@ -30,8 +30,8 @@ Jmd::Application.routes.draw do
   
   # Routes for signup and entry editing, if currently possible
   if JUMU_SIGNUP_OPEN
-    resources :entries, :except => [:index, :show, :destroy]
-    match '/vorspiel-bearbeiten', :to => 'entries#search', :as => :signup_search
+    resources :performances, :except => [:index, :show, :destroy]
+    match '/vorspiel-bearbeiten', :to => 'performances#search', :as => :signup_search
   end
   
   # User session routes

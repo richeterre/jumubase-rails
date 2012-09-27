@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Jmd::Application.config.secret_token = '4447ae2f818f7a03efd8fa6ced6f56efbd0e132f06fa143cdf9a642d5a439f662760685e70872fc9de065e62985efcb562427eb061a9d91c552e4c22d7508c87'
+Jmd::Application.config.secret_token = '412a7ad3a5abd0f47f60ed481857dfc9c4386bf419416d9a28a21d99a24dd85a626ad95ad16f903d712cc84802267dc9d3abe2d908e89e9df515f702dff8e471'

@@ -1,62 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= title %></title>
-  
-  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-  <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
-  <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
-  
-  <%= stylesheet_link_tag    "application" %>
+  <title>JuMu Nordost</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  
-  <!-- TODO: Get jQuery UI to work with jquery-ui-rails gem -->
-  <%= javascript_include_tag "jquery-ui-1.8.18.custom.min.js" %>
-  
-  <%= stylesheet_link_tag "chosen/chosen.css" %>
-  <%= javascript_include_tag "chosen/chosen.jquery.min.js" %>
-  
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 <body>
-  <div class="container">
-    <header class="span-22 prepend-1 append-1 last">
-      <%= link_to logo, root_path %>
-      <h1>jumu-nordost.eu</h1>
-      <h2 class="quiet">Das Portal für “Jugend musiziert” Nord- und Osteuropa</h2>
-    </header>
-    <div id="main" class="span-22 prepend-1 append-1 last">
-      <nav class="span-22 last">
-        <hr class="space">
-        <%= render 'layouts/navigation' %>
-        <hr class="space">
-        <hr />
-      </nav>
-      <aside class="span-5 append-1">
-        <% if signed_in? %>
-          <%= render 'layouts/session_info' %>
-          <%= render 'layouts/inside_links' %>
-          <%= render 'layouts/jmd_links' if (admin? || JUMU_ROUND == 1)%>
-          <hr />
-        <% end %>
+  <header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">JuMu Nordost</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><%= link_to "Startseite", root_path %></li>
+            <li><%= link_to "Wettbewerb", competition_path %></li>
+            <li><%= link_to "Regeln", rules_path %></li>
+            <li><%= link_to "Organisation", organisation_path %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span3">
         <%= render 'layouts/sidebar' %>
-      </aside>
-      <section class="span-16 last">
-        <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, :class => "flash #{key}") %>
-        <% end %>
+      </div>
+      <div class="span9">
         <%= yield %>
-      </section>
-      <hr class="space" />
+      </div>
     </div>
-    <footer class="span-22 prepend-1 append-1 last">
-      <hr />
-      <%= render 'layouts/footer' %>
-      <hr class="space" />
+    <hr />
+    <footer>
+      <p>handmade by martin with ruby on rails and twitter bootstrap</p>
     </footer>
-    <div id="debug" class="span-22 prepend-1 append-1 last">
-      <%= debug(params) if Rails.env.development? %>
-    </div>
   </div>
 </body>
 </html>

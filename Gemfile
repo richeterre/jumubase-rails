@@ -1,49 +1,47 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'pg'
+
 gem 'jquery-rails'
-gem 'will_paginate' # Pagination
-gem 'prawn', '~> 1.0.0.rc1' # PDF output
-gem 'prawnto' # Easier PDF views
-gem 'has_scope' # Filter using url params and scopes
+
+gem 'simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-  # gem 'jquery-ui-rails' # Couldn't get it to work
+  gem 'sass-rails',     '~> 3.2.3'
+  gem 'bootstrap-sass', '~> 2.1.0.0'
+  gem 'coffee-rails',   '~> 3.2.1'
+  gem 'uglifier',       '>= 1.0.3'
 end
 
-group :development do
-  gem 'rspec-rails'
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'webrat'
   gem 'factory_girl_rails'
-end
-
-group :production do
-  gem 'therubyracer'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
 end
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the web server
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
 # gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
+# gem 'debugger'

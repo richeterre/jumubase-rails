@@ -1,0 +1,20 @@
+<h2>Anmeldung zum Landeswettbewerb 2012</h2>
+
+<p>Hier kannst du deine Wertung für den Landeswettbewerb 2012, der Ende März an der Deutschen Schule London stattfindet, anmelden. Bei Fragen oder Problemen erreichst du uns am einfachsten über das <%= link_to "Kontaktformular", contact_path %>.</p>
+
+<p>Pro Wertung muss <strong>nur eine Anmeldung</strong> ausgefüllt werden, auf der alle daran beteiligten Teilnehmer eingetragen werden. Bei der Anmeldung bekommt jeder Teilnehmer per E-Mail einen Änderungscode &ndash; achte also bitte darauf, dass <strong>alle E-Mailadressen stimmen!</strong></p>
+
+<%= render 'noscript' %>
+
+<%= simple_form_for(@performance, html: { class: "form-horizontal" }) do |form| %>
+  <%= render 'performance_fields', :f => form %>
+  <div class="actions">
+    <%= form.submit "Anmeldung absenden" %>
+  </div>
+<% end %>
+
+<% javascript_tag do %>
+  $(document).ready(function() {
+    renumber();
+  });
+<% end %>

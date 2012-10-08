@@ -1,18 +1,16 @@
 # == Schema Information
-# Schema version: 20110305104946
 #
 # Table name: pieces
 #
-#  id          :integer(4)      not null, primary key
-#  title       :string(255)
-#  composer_id :integer(4)
-#  entry_id    :integer(4)
-#  epoch_id    :integer(4)
-#  duration    :string(255)
-#  minutes     :integer(4)
-#  seconds     :integer(4)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id             :integer          not null, primary key
+#  title          :string(255)
+#  composer_id    :integer
+#  performance_id :integer
+#  epoch_id       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  minutes        :integer
+#  seconds        :integer
 #
 
 # -*- encoding : utf-8 -*-

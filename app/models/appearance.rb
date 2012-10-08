@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20110228140044
 #
 # Table name: appearances
 #
-#  id             :integer(4)      not null, primary key
-#  entry_id       :integer(4)
-#  participant_id :integer(4)
-#  instrument_id  :integer(4)
-#  role_id        :integer(4)
-#  points         :integer(4)
-#  created_at     :datetime
-#  updated_at     :datetime
+#  id             :integer          not null, primary key
+#  performance_id :integer
+#  participant_id :integer
+#  instrument_id  :integer
+#  role_id        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  points         :integer
 #
 
 # -*- encoding : utf-8 -*-

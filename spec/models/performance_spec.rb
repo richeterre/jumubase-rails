@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: performances
+#
+#  id              :integer          not null, primary key
+#  category_id     :integer
+#  competition_id  :integer
+#  stage_venue_id  :integer
+#  warmup_time     :datetime
+#  stage_time      :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  tracing_code    :string(255)
+#  warmup_venue_id :integer
+#
+
 require 'spec_helper'
 
 describe Performance do

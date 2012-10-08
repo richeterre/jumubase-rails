@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
 
     # Calculates min and max from length validations for numeric inputs
-    b.optional :min_max
+    b.use :min_max
 
     # Calculates readonly automatically from readonly attributes
     b.optional :readonly

@@ -1,17 +1,17 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110126162104
 #
 # Table name: rounds
 #
-#  id         :integer(4)      not null, primary key
-#  level      :integer(4)
+#  id         :integer          not null, primary key
+#  level      :integer
 #  name       :string(255)
 #  slug       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  board_name :string(255)
 #
 
+# -*- encoding : utf-8 -*-
 class Round < ActiveRecord::Base
   attr_accessible :level, :name, :slug
   

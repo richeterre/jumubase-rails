@@ -1,10 +1,8 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110126162104
 #
 # Table name: participants
 #
-#  id          :integer(4)      not null, primary key
+#  id          :integer          not null, primary key
 #  first_name  :string(255)
 #  last_name   :string(255)
 #  gender      :string(255)
@@ -12,13 +10,14 @@
 #  street      :string(255)
 #  postal_code :string(255)
 #  city        :string(255)
-#  country_id  :integer(4)
+#  country_id  :integer
 #  phone       :string(255)
 #  email       :string(255)
-#  created_at  :datetime
-#  updated_at  :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
+# -*- encoding : utf-8 -*-
 class Participant < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :gender, :birthdate,
       :street, :postal_code, :city, :country_id, :phone, :email

@@ -240,7 +240,6 @@ de:
       piece:
         title: "Titel"
         epoch_id: "Epoche"
-        duration: "Dauer"
       user:
         username: "Benutzername"
         password: "Passwort"

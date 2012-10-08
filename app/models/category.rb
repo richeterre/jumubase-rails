@@ -1,16 +1,16 @@
 # == Schema Information
-# Schema version: 20110313012904
 #
 # Table name: categories
 #
-#  id         :integer(4)      not null, primary key
+#  id         :integer          not null, primary key
 #  name       :string(255)
+#  solo       :boolean
+#  ensemble   :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  popular    :boolean
 #  slug       :string(255)
-#  solo       :boolean(1)
-#  ensemble   :boolean(1)
-#  popular    :boolean(1)
-#  created_at :datetime
-#  updated_at :datetime
+#  active     :boolean
 #
 
 # -*- encoding : utf-8 -*-

@@ -1,16 +1,17 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110126162104
 #
 # Table name: hosts
 #
-#  id         :integer(4)      not null, primary key
+#  id         :integer          not null, primary key
 #  name       :string(255)
-#  country_id :integer(4)
-#  created_at :datetime
-#  updated_at :datetime
+#  country_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  city       :string(255)
+#  time_zone  :string(255)      default("Europe/Berlin")
 #
 
+# -*- encoding : utf-8 -*-
 class Host < ActiveRecord::Base
   attr_accessible :name, :city, :country_id, :time_zone
   

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: competitions
+#
+#  id               :integer          not null, primary key
+#  round_id         :integer
+#  host_id          :integer
+#  begins           :date
+#  ends             :date
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  certificate_date :date
+#
+
 class Competition < ActiveRecord::Base
   attr_accessible :round_id, :host_id, :begins, :ends, :certificate_date, :category_ids
   

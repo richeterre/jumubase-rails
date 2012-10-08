@@ -1,15 +1,14 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
-# Schema version: 20110126162104
 #
 # Table name: instruments
 #
-#  id         :integer(4)      not null, primary key
+#  id         :integer          not null, primary key
 #  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
+# -*- encoding : utf-8 -*-
 class Instrument < ActiveRecord::Base
   attr_accessible :name
   

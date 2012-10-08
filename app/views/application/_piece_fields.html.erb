@@ -1,5 +1,5 @@
-<div class="piece field-group">
-  <span class="number badge"></span>
+<div class="piece field-group well">
+  <h3 class="number">Stück</h3>
   
   <%= f.input :title %>
   
@@ -8,18 +8,18 @@
   <% end %>
   
   <%= f.input :epoch_id, collection: Epoch.all, label_method: :slug_with_name, prompt: "Bitte wählen" %>
-  
-  <%= f.input :minutes %>
 
   <%= f.input :minutes, label: "Dauer ca.", wrapper: :append do %>
-    <%= f.input_field :minutes, class: "input-mini" %>
+    <%= f.input_field :minutes, class: "span1" %>
     <span class="add-on">Minuten</span>
   <% end %>
   
   <%= f.input :seconds, label: false, wrapper: :append do %>
-    <%= f.input_field :seconds, class: "input-mini" %>
+    <%= f.input_field :seconds, class: "span1" %>
     <span class="add-on">Sekunden</span>
   <% end %>
   
-  <%= link_to_remove_fields "Stück entfernen", f %>
+  <div class="controls">
+    <%= link_to_remove_fields "Stück entfernen", f %>
+  </div>
 </div>

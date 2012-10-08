@@ -52,7 +52,7 @@ module ApplicationHelper
   
   # Create a link that removes a group of fields (e.g. piece or participant)
   def link_to_remove_fields(name, f)
-    f.hidden_field(:_destroy) + button_to_function(name, "remove_fields(this)", :class => "btn btn-danger")
+    f.hidden_field(:_destroy) + button_to_function(name, "Application.remove_fields(this)", :class => "btn btn-warning")
   end
   
   # Create a link that adds a new appearance
@@ -62,7 +62,7 @@ module ApplicationHelper
     fields = f.fields_for(:appearances, new_appearance, :child_index => "new_appearances") do |builder|
       render("appearance_fields", :f => builder)
     end
-    button_to_function(name, "add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn")
+    button_to_function(name, "Application.add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
   
   # Create a link that adds a new piece
@@ -72,7 +72,7 @@ module ApplicationHelper
     fields = f.fields_for(:pieces, new_piece, :child_index => "new_pieces") do |builder|
       render("piece_fields", :f => builder)
     end
-    button_to_function(name, "add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
+    button_to_function(name, "Application.add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
   
   # Creates a sortable column title

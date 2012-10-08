@@ -1,5 +1,5 @@
-<div class="appearance field-group">
-  <span class="number badge"></span>
+<div class="appearance field-group well">
+  <h3 class="number">Teilnehmer</h3>
   <%= f.fields_for :participant do |p| %>
     <%= p.input :first_name %>
     
@@ -11,7 +11,7 @@
     
     <%= p.input :birthdate, as: :date, order: [:day,:month,:year],
           start_year: Time.now.year - 5, end_year: Time.now.year - 27,
-          prompt: { day: "Tag", month: "Monat", year: "Jahr" } %>
+          prompt: { day: "Tag", month: "Monat", year: "Jahr" }, input_html: { class: "span2" } %>
     
     <%= p.input :gender, collection: [:m, :w], as: :radio_buttons %>
     
@@ -28,5 +28,7 @@
     <%= p.input :email %>
   <% end %>
 
-  <%= link_to_remove_fields "Teilnehmer entfernen", f %>
+  <div class="controls">
+    <%= link_to_remove_fields "Teilnehmer entfernen", f %>
+  </div>
 </div>

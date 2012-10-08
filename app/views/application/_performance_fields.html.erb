@@ -6,17 +6,17 @@
 
 <%= field_set_tag "Wer nimmt an dieser Wertung teil…" do %>
   <div id="appearances">
-    <%= link_to_add_appearance "Neuen Teilnehmer hinzufügen", f %>
     <%= f.fields_for :appearances do |appearance_form| %>
       <%= render 'appearance_fields', :f => appearance_form %>
     <% end %>
+    <%= link_to_add_appearance "Weiteren Teilnehmer hinzufügen", f %>
   </div>
 <% end %>
 <%= field_set_tag "…und mit welchem Programm?" do %>
   <div id="pieces">
-    <%= link_to_add_piece "Neues Stück hinzufügen", f %>
     <%= f.fields_for :pieces do |piece_form| %>
       <%= render 'piece_fields', :f => piece_form %>
     <% end %>
+    <%= link_to_add_piece "Weiteres Stück hinzufügen", f %>
   </div>
 <% end %>

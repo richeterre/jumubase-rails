@@ -9,12 +9,6 @@
 <%= simple_form_for(@performance, html: { class: "form-horizontal" }) do |form| %>
   <%= render 'performance_fields', :f => form %>
   <div class="actions">
-    <%= form.button :submit, "Anmeldung absenden", class: "btn-primary" %>
+    <%= form.button :submit, "Anmeldung absenden", class: "btn-primary pull-right" %>
   </div>
-<% end %>
-
-<% javascript_tag do %>
-  $(document).ready(function() {
-    renumber();
-  });
 <% end %>

@@ -1,9 +1,16 @@
 // Custom colors etc. go here
+$baseFontSize: 16px;
+$baseLineHeight: 22px;
 
 @import 'bootstrap';
 
 body {
   padding-top: 60px;
+}
+
+// "Add more" buttons in signup form
+#appearances > input.btn, #pieces > input.btn {
+  margin-bottom: 20px;
 }
 
 @import "bootstrap-responsive";

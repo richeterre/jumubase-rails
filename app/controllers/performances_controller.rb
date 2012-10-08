@@ -21,15 +21,15 @@ class PerformancesController < ApplicationController
     # Create empty performance
     @performance = Performance.new
     # Make all attributes accessible to admins
-    @performance.accessible = :all if admin?
+    # @performance.accessible = :all if admin?
     @performance.attributes = params[:performance]
     
     begin
       # Get edit code, repeat if already existent
-      code = new_edit_code
-    end while Performance.where(:edit_code => code).exists?
+      code = new_tracing_code
+    end while Performance.where(:tracing_code => code).exists?
     
-    @performance[:edit_code] = code
+    @performance[:tracing_code] = code
     
     if @performance.save
       # Send out confirmation emails with edit code
@@ -46,10 +46,10 @@ class PerformancesController < ApplicationController
   
   # Finds an existing signup form by edit code and redirects to it
   def search
-    unless params[:edit_code].nil?
-      existing = Performance.current.find_by_edit_code(params[:edit_code])
+    unless params[:tracing_code].nil?
+      existing = Performance.current.find_by_tracing_code(params[:tracing_code])
       if existing
-        redirect_to edit_performance_path(existing, :edit_code => params[:edit_code])
+        redirect_to edit_performance_path(existing, :tracing_code => params[:tracing_code])
       else
         flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
       end
@@ -60,7 +60,7 @@ class PerformancesController < ApplicationController
   # Presents an existing signup form for editing
   def edit
     @performance = Performance.current.find(params[:id])
-    unless admin? || @performance[:edit_code] == params[:edit_code]
+    unless admin? || @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
       redirect_to signup_search_path
     end
@@ -84,8 +84,8 @@ class PerformancesController < ApplicationController
   
   private
     
-    # Returns an edit code for signup form editing
-    def new_edit_code
+    # Returns a code for signup editing and tracing
+    def new_tracing_code
       # Generates a random string of seven lowercase letters and numbers
       [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
     end

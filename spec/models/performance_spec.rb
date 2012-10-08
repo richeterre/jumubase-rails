@@ -51,4 +51,10 @@ describe Performance do
   it "should return all performances sent onwards from a given competition" do
     pending "This needs to be implemented in a new way"
   end
+
+  describe "for admin users" do
+    it "should allow access to all fields" do
+      pending "This is required to enable editing of warmup and other non-public fields"
+    end
+  end
 end

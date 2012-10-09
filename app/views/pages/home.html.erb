@@ -4,8 +4,4 @@
 
 <p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie <%= "vor jeder Wettbewerbsrunde" unless JUMU_SIGNUP_OPEN %> das elektronische <%= JUMU_SIGNUP_OPEN ? (link_to "Anmeldeformular", new_performance_path) : "Anmeldeformular" %>.</p>
 
-<p class="info">Der LW 2012 in London ist vorüber und wir danken allen Teilnehmern, Juroren, Lehrern und Eltern! Die <%= link_to "Ergebnislisten (274 KB, pdf)", asset_path('ergebnisse_lw2012.pdf') %> können während der nächsten Wochen hier heruntergeladen werden.</p>
-
-<p class="alert"><strong>Teilnehmer mit Weiterleitung zum Bundeswettbewerb</strong> müssen sich so bald wie möglich (offiziell bis zum 2.&nbsp;April) per Post anmelden! Wer noch kein Formular dafür bekommen hat, kann es auf den <%= link_to "Seiten des Deutschen Musikrats", "http://www.jugend-musiziert.org/bundeswettbewerb.html" %> ausdrucken.</p>
-
 <p>Die Ausschreibung für das Wettbewerbsjahr 2012 steht unter dem Link <%= link_to "Regeln", rules_path %> zum Download bereit. Auf der gleichen Seite findest du auch die Teilnahmeregeln für die Pop-Kategorien.</p>

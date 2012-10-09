@@ -21,7 +21,7 @@ describe "Signup page" do
     it { should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name) }
     it { should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name) }
 
-    it "should allow only valid inputs for the minutes and seconds fields"
+    it "should allow only valid inputs for the minutes and seconds fields" do
       pending "These columns need to be made numerical for better SimpleForm integration"
     end
   end

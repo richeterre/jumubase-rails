@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -39,6 +41,34 @@ competitions = Competition.create([
     begins: Date.new(2013, 03, 06),
     ends: Date.new(2013, 03, 11)
   }
+])
+
+Category.create([
+  {
+    name: "Violine solo",
+    solo: true,
+    ensemble: false,
+    popular: false,
+    slug: "Violine",
+    active: true
+  },
+  {
+    name: "Duo: Klavier & Blasinstrument",
+    solo: false,
+    ensemble: true,
+    popular: false,
+    slug: "Duo Blä&Str",
+    active: true
+  }
+])
+
+Epoch.create([
+  { name: "Renaissance, Frühbarock", slug: "a" },
+  { name: "Barock", slug: "b" },
+  { name: "Frühklassik, Klassik", slug: "c" },
+  { name: "Romantik, Impressionismus", slug: "d" },
+  { name: "Klassische Moderne, Jazz, Pop", slug: "e" },
+  { name: "Neue Musik", slug: "f" }
 ])
 
 Role.create([

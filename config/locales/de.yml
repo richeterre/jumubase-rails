@@ -203,6 +203,12 @@ de:
   activemodel:
     errors:
       <<: *errors
+    attributes:
+      contact:
+        name: "Name"
+        email: "E-Mail"
+        subject: "Betreff"
+        content: "Mitteilung"
   activerecord:
     errors:
       <<: *errors

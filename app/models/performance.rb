@@ -22,17 +22,20 @@ class Performance < ActiveRecord::Base
   
   belongs_to  :category
   belongs_to  :competition
-  belongs_to  :warmup_venue,      :class_name => "Venue"
-  belongs_to  :stage_venue,       :class_name => "Venue"
-  has_many    :appearances,       :dependent => :destroy
-  has_many    :participants,      :through => :appearances
-  has_many    :pieces,            :dependent => :destroy
+  belongs_to  :warmup_venue,  class_name: "Venue"
+  belongs_to  :stage_venue,   class_name: "Venue"
+  has_many    :appearances,   dependent: :destroy
+  has_many    :participants,  through: :appearances
+  has_many    :pieces,        dependent: :destroy
   
-  accepts_nested_attributes_for :pieces,      :allow_destroy => true
-  accepts_nested_attributes_for :appearances, :allow_destroy => true
+  accepts_nested_attributes_for :pieces,      allow_destroy: true
+  accepts_nested_attributes_for :appearances, allow_destroy: true
   
-  validates :category_id,           :presence => true
-  validates :competition_id,        :presence => true
+  validates :category_id,     presence: true
+  validates :competition_id,  presence: true
+
+  validates :appearances,     length: { minimum: 1 }
+  validates :pieces,          length: { minimum: 1 }
   
   # Override getters to always get times in competition time zone
   def warmup_time

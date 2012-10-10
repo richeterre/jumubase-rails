@@ -33,9 +33,9 @@ class PerformancesController < ApplicationController
     
     if @performance.save
       # Send out confirmation emails with edit code
-      @performance.participants.each do |p|
-        ParticipantMailer.signup_confirmation(p, @performance).deliver
-      end
+      # @performance.participants.each do |p|
+      #   ParticipantMailer.signup_confirmation(p, @performance).deliver
+      # end
       
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."
       redirect_to root_path

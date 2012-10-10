@@ -17,6 +17,16 @@ module ApplicationHelper
     end
     image_tag("icons/#{name}.png", options)
   end
+
+  # Convert flash class for use with Twitter Bootstrap
+  def flash_class(level)
+    case level
+    when :alert then "alert"
+    when :success then "alert alert-success"
+    when :notice then "alert alert-info"
+    when :error then "alert alert-error"
+    end
+  end
   
   # Return a title on a per-page basis
   def title

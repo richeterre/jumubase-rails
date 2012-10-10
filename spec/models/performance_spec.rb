@@ -37,6 +37,16 @@ describe Performance do
     it { should_not be_valid }
   end
 
+  describe "without at least one associated appearance" do
+    before { performance.appearances = [] }
+    it { should_not be_valid }
+  end
+
+  describe "without at least one associated piece" do
+    before { performance.pieces = [] }
+    it { should_not be_valid }
+  end
+
   describe "when creating a performance with valid attributes and nested pieces and participants" do
     before do
       @pieces = {}

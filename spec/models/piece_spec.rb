@@ -102,12 +102,7 @@ describe Piece do
   end
 
   describe "with 2 minutes and 45 seconds" do
-    subject { FactoryGirl.build(:piece, minutes: 2, seconds: 45) }
+    subject { FactoryGirl.create(:piece, minutes: 2, seconds: 45) }
     its(:duration) { should eq 165 }
-  end
-
-  describe "with 2 minutes and no seconds" do
-    subject { FactoryGirl.create(:piece, minutes: 2, seconds: nil) }
-    its(:duration) { should eq 120 }
   end
 end

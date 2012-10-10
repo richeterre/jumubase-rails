@@ -34,8 +34,6 @@ class Piece < ActiveRecord::Base
                           inclusion: { in: 0..59 }
                           
   def duration
-    min = (minutes || 0)
-    sec = (seconds || 0)
     min*60 + sec
   end
 end

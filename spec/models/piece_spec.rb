@@ -100,4 +100,9 @@ describe Piece do
       Composer.find_by_id(composer.id).should be_nil
     end
   end
+
+  describe "with minutes and seconds" do
+    subject { FactoryGirl.create(:piece, minutes: 2, seconds: 45) }
+    its(:duration) { should eq 165 }
+  end
 end

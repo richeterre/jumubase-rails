@@ -22,3 +22,15 @@ renumber = () ->
 
 $ ->
   renumber() # Renumber everything when page loads
+
+  # Pluralize minute and second field labels based on field value
+  $(".minutes-field").keyup ->
+    if $(this).val() == "1"
+      $(this).siblings(".add-on").html("Minute")
+    else
+      $(this).siblings(".add-on").html("Minuten")
+  $(".seconds-field").keyup ->
+    if $(this).val() == "1"
+      $(this).siblings(".add-on").html("Sekunde")
+    else
+      $(this).siblings(".add-on").html("Sekunden")

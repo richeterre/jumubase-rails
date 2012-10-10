@@ -2,6 +2,11 @@
 
 # Remember to have a "vanilla" factory for each class
 FactoryGirl.define do
+  factory :appearance do
+    instrument
+    role
+  end
+
   factory :category do
     sequence(:name) { |n| "Kategorie #{n}" }
 
@@ -48,9 +53,18 @@ FactoryGirl.define do
     country
   end
 
+  factory :instrument do
+    sequence(:name) { |n| "Instrument #{n}" }
+  end
+
   factory :performance do
     category
     competition
+
+    after(:build) do |performance|
+      performance.appearances << FactoryGirl.create(:appearance, performance_id: performance.id)
+      performance.pieces << FactoryGirl.create(:piece, performance_id: performance.id)
+    end
   end
 
   factory :piece do
@@ -58,12 +72,11 @@ FactoryGirl.define do
     epoch
     minutes 4
     seconds 33
+  end
 
-    factory :piece_with_composer do
-      after_build do |piece|
-        piece.composer = FactoryGirl.build(:composer, piece: piece)
-      end
-    end
+  factory :role do
+    name "Solist"
+    slug "S"
   end
 
   factory :round do

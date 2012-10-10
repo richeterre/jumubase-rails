@@ -17,7 +17,7 @@ require 'spec_helper'
 
 describe Category do
 
-  let (:category) { FactoryGirl.create(:category) }
+  let (:category) { FactoryGirl.build(:category) }
 
   subject { category }
 
@@ -33,7 +33,5 @@ describe Category do
     it { should_not be_valid }
   end
 
-  it "should be able to return all categories that are currently active" do
-    pending "Check against list of active and non-active categories"
-  end
+  it "should be able to return all categories that are currently active"
 end

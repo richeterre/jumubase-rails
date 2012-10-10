@@ -18,7 +18,7 @@ require 'spec_helper'
 
 describe Performance do
 
-  let (:performance) { FactoryGirl.create(:performance) }
+  let (:performance) { FactoryGirl.build(:performance) }
 
   subject { performance }
 

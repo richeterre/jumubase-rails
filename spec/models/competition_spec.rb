@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Competition do
 
-  let (:competition) { FactoryGirl.create(:competition) }
+  let (:competition) { FactoryGirl.build(:competition) }
 
   subject { competition }
 

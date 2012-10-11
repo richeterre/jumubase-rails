@@ -212,6 +212,12 @@ de:
   activerecord:
     errors:
       <<: *errors
+      models:
+        performance:
+          attributes:
+            base:
+              needs_one_appearance: "Es muss mindestens ein Teilnehmer angegeben werden"
+              needs_one_piece: "Es muss mindestens ein Stück angegeben werden"
     attributes:
       appearance:
         role_id: Rolle

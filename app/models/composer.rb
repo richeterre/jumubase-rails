@@ -17,5 +17,5 @@ class Composer < ActiveRecord::Base
   has_one :piece # otherwise editing a piece's composer leads to conflicts
   
   validates :name, :presence => true
-  # Validate that the composer died after his/her birth – how?
+  # Validate that the composer died after his/her birth – how? Years are currently strings
 end

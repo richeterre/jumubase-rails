@@ -24,14 +24,14 @@ class Piece < ActiveRecord::Base
   
   accepts_nested_attributes_for :composer
   
-  validates :title,       presence: true
-  validates :epoch_id,    presence: true
-  validates :minutes,     presence: true,
-                          numericality: { only_integer: true },
-                          inclusion: { in: 0..45 }
-  validates :seconds,     presence: true,
-                          numericality: { only_integer: true },
-                          inclusion: { in: 0..59 }
+  validates :title,           presence: true
+  validates :epoch_id,        presence: true
+  validates :minutes,         presence: true,
+                              numericality: { only_integer: true },
+                              inclusion: { in: 0..45 }
+  validates :seconds,         presence: true,
+                              numericality: { only_integer: true },
+                              inclusion: { in: 0..59 }
                           
   def duration
     minutes*60 + seconds

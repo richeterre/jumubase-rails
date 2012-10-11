@@ -29,6 +29,10 @@ describe Piece do
     it { should_not be_valid }
   end
 
+  it "should not be valid without an associated composer"
+
+  it "should not be valid without an associated performance"
+
   describe "without an associated epoch" do
     before { piece.epoch_id = nil }
     it { should_not be_valid }

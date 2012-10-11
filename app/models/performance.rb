@@ -34,8 +34,8 @@ class Performance < ActiveRecord::Base
   validates :category_id,     presence: true
   validates :competition_id,  presence: true
 
-  validates :appearances,     length: { minimum: 1 }
-  validates :pieces,          length: { minimum: 1 }
+  validate :require_one_appearance
+  validate :require_one_piece
   
   # Override getters to always get times in competition time zone
   def warmup_time
@@ -150,5 +150,21 @@ class Performance < ActiveRecord::Base
     # Time the performance is scheduled to end (using rounded duration)
     self.stage_time + self.rounded_duration.seconds
   end
-    
+
+  private
+    def require_one_appearance
+      errors.add(:base, :needs_one_appearance) if appearances_empty?
+    end
+
+    def require_one_piece
+      errors.add(:base, :needs_one_piece) if pieces_empty?
+    end
+
+    def appearances_empty?
+      appearances.empty? || appearances.all? { |appearance| appearance.marked_for_destruction? }
+    end
+
+    def pieces_empty?
+      pieces.empty? || pieces.all? { |piece| piece.marked_for_destruction? }
+    end
 end

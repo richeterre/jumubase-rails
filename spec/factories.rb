@@ -39,17 +39,17 @@ FactoryGirl.define do
   end
 
   factory :country do
-    name "Deutschland"
-    slug "D"
+    sequence(:name) { |n| "Country #{n}" }
+    sequence(:slug) { |n| "C#{n}" }
   end
 
   factory :epoch do
-    name "Epoche A"
-    slug "a"
+    sequence(:name) { |n| "Epoch #{n}" }
+    sequence(:slug) { |n| "E#{n}" }
   end
 
   factory :host do
-    sequence(:name) { |n| "DS Stadt #{n}" }
+    sequence(:name) { |n| "Host #{n}" }
     country
   end
 
@@ -77,6 +77,16 @@ FactoryGirl.define do
   factory :role do
     name "Solist"
     slug "S"
+
+    factory :accompanist_role do
+      name "Begleiter"
+      slug "B"
+    end
+
+    factory :ensemblist_role do
+      name "Mitglied eines Ensembles"
+      slug "E"
+    end
   end
 
   factory :round do

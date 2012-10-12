@@ -142,8 +142,9 @@ describe "Performances" do
         }.to change(Performance, :count).by(1)
 
         open_last_email.should be_delivered_from "anmeldung@jumu-nordost.eu"
-        open_last_email.should be_delivered_to "john.doe@example.org"
-        open_last_email.should have_subject "JuMu-Anmeldung in der Kategorie #{@active_categories.first.name}"
+        open_last_email.should be_delivered_to "John Doe <john.doe@example.org>"
+        open_last_email.should have_subject "JuMu-Anmeldung in der Kategorie \"#{@active_categories.first.name}\""
+        open_last_email.should have_subject "JuMu-Anmeldung in der Kategorie \"#{@active_categories.first.name}\""
       end
 
       it "should allow only birthdays in a certain range"

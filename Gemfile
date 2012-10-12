@@ -21,9 +21,10 @@ group :assets do
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.0"
-  gem "annotate"
-  gem "email_spec"
+  gem 'rspec-rails', '~> 2.0'
+  gem 'annotate'
+  gem 'email_spec'
+  gem 'action_mailer_cache_delivery'
 end
 
 group :test do

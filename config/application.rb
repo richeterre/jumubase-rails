@@ -17,6 +17,23 @@ end
 
 module Jmd
   class Application < Rails::Application
+
+    # Set up mail server
+    
+    config.action_mailer.delivery_method = :smtp
+    
+    config.action_mailer.smtp_settings = {
+      :address              => "smtp.jumu-nordost.eu",
+      :port                 => 25,
+      :user_name            => "kontakt@jumu-nordost.eu",
+      :password             => "musikverbindet",
+      :authentication       => "login",
+      :enable_starttls_auto => true,
+      :openssl_verify_mode  => "none"
+    }
+
+    config.action_mailer.default_url_options = { host: "jumu-nordost.eu" }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

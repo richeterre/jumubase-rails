@@ -128,7 +128,7 @@ describe "Performances" do
           fill_in "Ort", with: "Exampletown"
           select Country.first.name, from: "Land"
           fill_in "Telefon", with: "123456789"
-          fill_in "E-Mail", with: "john.doe@example.com"
+          fill_in "E-Mail", with: "john.doe@example.org"
 
           fill_in "Titel", with: "Example Piece"
           fill_in "Komponist", with: "Example Composer"
@@ -140,6 +140,10 @@ describe "Performances" do
 
           click_button "Anmeldung absenden"
         }.to change(Performance, :count).by(1)
+
+        open_last_email.should be_delivered_from "anmeldung@jumu-nordost.eu"
+        open_last_email.should be_delivered_to "john.doe@example.org"
+        open_last_email.should have_subject "JuMu-Anmeldung in der Kategorie #{@active_categories.first.name}"
       end
 
       it "should allow only birthdays in a certain range"

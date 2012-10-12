@@ -23,6 +23,7 @@ end
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
   gem "annotate"
+  gem "email_spec"
 end
 
 group :test do

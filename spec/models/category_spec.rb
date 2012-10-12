@@ -33,5 +33,11 @@ describe Category do
     it { should_not be_valid }
   end
 
-  it "should be able to return all categories that are currently active"
+  describe "should be able to return all categories that are currently active" do
+    before do
+      FactoryGirl.create_list(:category, 3)
+      @active_categories = FactoryGirl.create_list(:active_category, 2)
+    end
+    specify { Category.current.should eq @active_categories }
+  end
 end

@@ -90,6 +90,16 @@ describe "Performances" do
         page.should have_content "Damit die Seite richtig funktioniert, musst du es zunächst einschalten. Wie das gemacht wird, steht z.B. hier."
       end
 
+      it "should allow adding new participants to the form", js: true do
+        click_button "Weiteren Teilnehmer hinzufügen"
+        page.should have_content "Teilnehmer 2"
+      end
+
+      it "should allow adding new pieces to the form", js: true do
+        click_button "Weiteres Stück hinzufügen"
+        page.should have_content "Stück 2"
+      end
+
       it "should complain if no participants are provided", js: true do
         click_button "Teilnehmer entfernen"
         click_button "Anmeldung absenden"

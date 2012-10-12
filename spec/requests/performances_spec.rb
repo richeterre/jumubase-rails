@@ -84,6 +84,12 @@ describe "Performances" do
         page.should have_content "Wettbewerb muss ausgefüllt werden"
       end
 
+      it "should complain about disabled JavaScript", js: false do
+        page.should have_alert_message
+        page.should have_content "Achtung: JavaScript ist in deinem Browser nicht aktiviert!"
+        page.should have_content "Damit die Seite richtig funktioniert, musst du es zunächst einschalten. Wie das gemacht wird, steht z.B. hier."
+      end
+
       it "should complain if no participants are provided", js: true do
         click_button "Teilnehmer entfernen"
         click_button "Anmeldung absenden"

@@ -47,6 +47,11 @@ describe Performance do
     it { should_not be_valid }
   end
 
+  describe "when created" do
+    before { performance.save }
+    its(:tracing_code) { should_not be_nil }
+  end
+
   describe "when creating a performance with valid attributes and nested pieces and participants" do
     before do
       @pieces = {}

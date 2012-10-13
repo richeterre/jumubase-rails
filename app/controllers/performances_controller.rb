@@ -24,13 +24,6 @@ class PerformancesController < ApplicationController
     # @performance.accessible = :all if admin?
     @performance.attributes = params[:performance]
     
-    begin
-      # Get edit code, repeat if already existent
-      code = new_tracing_code
-    end while Performance.where(:tracing_code => code).exists?
-    
-    @performance[:tracing_code] = code
-    
     if @performance.save
       # Send out confirmation emails with edit code
       @performance.participants.each do |participant|
@@ -81,12 +74,4 @@ class PerformancesController < ApplicationController
       render 'edit'
     end
   end
-  
-  private
-    
-    # Returns a code for signup editing and tracing
-    def new_tracing_code
-      # Generates a random string of seven lowercase letters and numbers
-      [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
-    end
 end

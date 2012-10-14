@@ -28,7 +28,7 @@ Jmd::Application.routes.draw do
     match 'venues/:venue_id/timetable(/:year-:month-:day)', to: 'venues#timetable', as: :timetable
   end
 
-  # Routes for signup and entry editing, if currently possible
+  # Routes for signup and performance editing, if currently possible
   if JUMU_SIGNUP_OPEN
     resources :performances, :except => [:index, :show, :destroy]
     match '/vorspiel-bearbeiten', :to => 'performances#search', :as => :signup_search

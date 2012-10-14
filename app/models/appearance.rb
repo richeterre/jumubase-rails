@@ -21,7 +21,7 @@ class Appearance < ActiveRecord::Base
   belongs_to :participant
   belongs_to :instrument
   belongs_to :role
-  
+
   accepts_nested_attributes_for :participant
   
   # validates :entry_id,        :presence => true
@@ -34,10 +34,10 @@ class Appearance < ActiveRecord::Base
   
   # Filter by given role
   scope :with_role, lambda { |role| joins(:role).where('roles.slug' => role) }
-  
+
   # Order by role: Soloists, accompanists, ensemblists
   scope :role_order, order(:role_id)
-  
+
   # Order by stage time
   scope :stage_order, joins(:entry).order('entries.stage_time')
   
@@ -46,7 +46,7 @@ class Appearance < ActiveRecord::Base
     if self.id == nil
       attributes[:id] = nil
     end
-    
+
     if attributes[:id].nil?
       # Birthdate check impossible because it's in three attributes, but country should be enough
       self.participant = Participant.find_by_first_name_and_last_name_and_country_id(
@@ -56,29 +56,29 @@ class Appearance < ActiveRecord::Base
       self.participant_attributes_without_existence_check=(attributes)
     end
   end
-  
+
   alias_method_chain 'participant_attributes=', :existence_check
-  
+
   # Returns whether the appearance is a solo
   def solo?
     self.role.slug == 'S'
   end
-  
+
   # Returns whether the appearance is an accompaniment
   def accompaniment?
     self.role.slug == 'B'
   end
-  
+
   # Returns whether the appearance is part of an ensemble
   def ensemble?
     self.role.slug == 'E'
   end
-  
+
   # Returns the solo appearance that is accompanied by this one
   def related_solo_appearance
     self.entry.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
   end
-  
+
   # Returns the participant's age group (Ia–VII)
   def age_group
     if self.solo? || (self.accompaniment? && !self.entry.category.popular)
@@ -92,7 +92,7 @@ class Appearance < ActiveRecord::Base
       calculate_age_group self.entry.accompanists.map(&:birthdate)
     end
   end
-  
+
   # Returns the achieved price's name
   def price
     # TODO: Move price ranges to JuMu parameters
@@ -106,15 +106,15 @@ class Appearance < ActiveRecord::Base
       "3. Preis"
     end
   end
-  
+
   # Returns whether the appearance will advance to the next competition stage
   def may_advance_to_next_round?
     # Basic condition is 23 or more points and that a next round exists
     return false if (!self.points || self.points < 23 || JUMU_ROUND == 3)
-    
+
     # Accompanists don't advance if their soloist doesn't
     return false if (self.accompaniment? && !self.related_solo_appearance.may_advance_to_next_round?)
-    
+
     # Check for other conditions
     case JUMU_ROUND
     when 1
@@ -126,9 +126,9 @@ class Appearance < ActiveRecord::Base
       # TODO: Generalize pop category restrictions
     end
   end
-  
+
   private
-    
+
     def calculate_age_group(birthdates)
       if birthdates.instance_of? Date
         # Skip averaging step if only one date
@@ -143,7 +143,7 @@ class Appearance < ActiveRecord::Base
       # Return age group for that date
       lookup_age_group(avg_date)
     end
-    
+
     def lookup_age_group(date)
       case date.year
       when (JUMU_YEAR - 8)..JUMU_YEAR

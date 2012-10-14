@@ -59,7 +59,7 @@ describe "Performances" do
 
       it "should complain about invalid field contents" do
         click_button "Anmeldung absenden"
-        
+
         page.should have_error_message
         page.should have_content "Vorname des Teilnehmers muss ausgefüllt werden"
         page.should have_content "Nachname des Teilnehmers muss ausgefüllt werden"
@@ -116,7 +116,7 @@ describe "Performances" do
         expect {
           select @current_competitions.first.name, from: "Wettbewerb"
           select @active_categories.first.name, from: "Kategorie"
-          
+
           fill_in "Vorname", with: "John"
           fill_in "Nachname", with: "Doe"
           select Role.first.name, from: "Rolle"

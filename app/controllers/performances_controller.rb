@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PerformancesController < ApplicationController
-  
+
   # Presents the signup form for participants
   def new
     @performance = Performance.new
@@ -15,7 +15,7 @@ class PerformancesController < ApplicationController
     end
     @title = "Anmeldung"
   end
-  
+
   # Creates a new performance upon signup form submission
   def create
     # Create empty performance

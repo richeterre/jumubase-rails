@@ -12,9 +12,9 @@
     <%= p.input :birthdate, as: :date, order: [:day,:month,:year],
           start_year: Time.now.year - 5, end_year: Time.now.year - 27,
           prompt: { day: "Tag", month: "Monat", year: "Jahr" }, input_html: { class: "span2" } %>
-    
-    <%= p.input :gender, collection: [:m, :w], as: :radio_buttons %>
-    
+
+    <%= p.input :gender, collection: [:m, :f], as: :radio_buttons %>
+
     <%= p.input :street %>
 
     <%= p.input :postal_code %>

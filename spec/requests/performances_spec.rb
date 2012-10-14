@@ -27,7 +27,8 @@ describe "Performances" do
         visit new_performance_path
       end
 
-      it "should have all the required fields" do
+      it "should have all the required content and fields" do
+        page.should have_selector "h2", text: "Anmeldung zum #{current_round_title}"
         page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
         page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
         page.should have_field "Vorname", text: ""
@@ -161,6 +162,78 @@ describe "Performances" do
   end
 
   describe "edit page" do
+
+    before { @performance = FactoryGirl.create(:current_performance) }
+
+    it "should find and display an existing performance based on its tracing code" do
+      search_for_performance_with_code(@performance.tracing_code)
+
+      page.should have_selector "h2", text: "Anmeldung bearbeiten"
+      page.should have_select 'Wettbewerb', count: @performance.competition.name
+      page.should have_select 'Kategorie', count: @performance.category.name
+
+      page.should have_selector 'div.appearance', count: @performance.appearances.count
+      page.should have_field "Vorname", with: @performance.participants.first.first_name
+      page.should have_field "Nachname", with: @performance.participants.first.last_name
+      page.should have_select "Rolle", selected: @performance.appearances.first.role.name
+      page.should have_select "Instrument", selected: @performance.appearances.first.instrument.name
+
+      page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_1i",
+                              selected: @performance.participants.first.birthdate.year.to_s
+      page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_2i",
+                              selected: I18n.t("date.month_names")[ @performance.participants.first.birthdate.month]
+      page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_3i",
+                              selected: @performance.participants.first.birthdate.day.to_s
+      page.should have_checked_field "weiblich"
+      page.should have_field "Straße", with: @performance.participants.first.street
+      page.should have_field "Postleitzahl", with: @performance.participants.first.postal_code
+      page.should have_select "Land", with: @performance.participants.first.country.name
+      page.should have_field "Telefon", with: @performance.participants.first.phone
+      page.should have_field "E-Mail", with: @performance.participants.first.email
+
+      page.should have_selector 'div.piece', count: @performance.pieces.count
+      page.should have_field "Titel", with: @performance.pieces.first.title
+      page.should have_field "Komponist", with: @performance.pieces.first.composer.name
+      page.should have_field "Geburtsjahr", with: @performance.pieces.first.composer.born
+      page.should have_field "(Todesjahr)", with: @performance.pieces.first.composer.died
+      page.should have_select "Epoche", selected: @performance.pieces.first.epoch.slug_with_name
+      page.should have_field "Dauer ca.", type: :number, text: @performance.pieces.first.minutes
+      page.should have_field "", type: :number, text: @performance.pieces.first.seconds
+
+      page.should have_button "Änderungen speichern"
+    end
+
+    it "should allow editing of an existing performance" do
+      search_for_performance_with_code(@performance.tracing_code)
+      fill_in "Vorname", with: "Jeanette"
+      choose "weiblich"
+      click_button "Änderungen speichern"
+
+      page.should have_selector "h2", text: "Nach Anmeldung suchen"
+      page.should have_success_message
+      page.should have_content "Die Anmeldung wurde erfolgreich aktualisiert."
+
+      search_for_performance_with_code(@performance.tracing_code)
+
+      page.should have_field "Vorname", with: "Jeanette"
+      page.should have_checked_field "weiblich"
+    end
+
+    it "should complain about an incorrect tracing code" do
+      search_for_performance_with_code("abc1234")
+
+      page.should have_error_message
+      page.should have_content "Keine Anmeldung unter diesem Änderungscode gefunden."
+    end
+
+    it "should complain about a missing tracing code" do
+      search_for_performance_with_code("")
+
+      page.should have_error_message
+      page.should have_content "Bitte gib den Änderungscode für die gesuchte Anmeldung an."
+    end
+
+    it "should not find a non-current performance"
 
     # See http://blog.leshill.org/blog/2010/04/20/validating-presence-with-nested-models.html
     it "should not allow the user to delete all appearances"

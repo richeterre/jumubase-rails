@@ -14,7 +14,7 @@ de:
       participant:
         gender:
           m: "männlich"
-          w: "weiblich"
+          f: "weiblich"
     # Labels and hints examples
     # labels:
     #   defaults:

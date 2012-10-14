@@ -34,7 +34,9 @@
   <div class="container">
     <div class="row">
       <div class="span3">
-        <%= render 'layouts/sidebar' %>
+        <div class="well sidebar-nav">
+          <%= render 'layouts/sidebar' %>
+        </div>
       </div>
       <div class="span9">
         <%= render 'layouts/flash_messages' %>
@@ -44,6 +46,8 @@
     <hr />
     <footer>
       <p>handmade by martin with <%= link_to "ruby on rails", "http://rubyonrails.org" %> and <%= link_to "twitter bootstrap", "http://twitter.github.com/bootstrap" %></p>
+
+      <%= debug(params) if Rails.env.development? %>
     </footer>
   </div>
 </body>

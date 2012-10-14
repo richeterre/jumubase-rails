@@ -5,7 +5,7 @@ module ApplicationHelper
     image_tag "jumuball.png", :id => "header-logo", :alt => "Logo von Jugend musiziert",
         :height => 120, :class => "left"
   end
-  
+
   # Return an icon image path
   def icon_tag(name, options = nil)
     if options.nil?
@@ -27,7 +27,7 @@ module ApplicationHelper
     when :error then "alert alert-error"
     end
   end
-  
+
   # Return a title on a per-page basis
   def title
     base_title ="“Jugend musiziert” Nord- und Osteuropa"
@@ -47,24 +47,33 @@ module ApplicationHelper
   def current_host_name
     JUMU_ROUND == 2 ? "an der #{JUMU_HOST}" : "an einer Schule der Wettbewerbsregion Nord- und Osteuropa"
   end
-  
+
   # Converts seconds into min'sec format
   def format_duration(seconds)
     min = seconds / 60
     sec = seconds % 60
     "#{min}'#{sec.to_s.rjust(2, "0")}"
   end
-  
+
   # Returns true if the current action matches the name
   def is_active?(controller, action)
     params[:controller] == controller && params[:action] == action
   end
-  
+
+  # Create a <li> link for navigation that can display as active
+  def nav_link_to(name, path)
+    class_name = current_page?(path) ? "active" : ""
+
+    content_tag(:li, class: class_name) do
+      link_to name, path
+    end
+  end
+
   # Create a link that removes a group of fields (e.g. piece or participant)
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + button_to_function(name, "Application.remove_fields(this)", :class => "btn btn-warning")
   end
-  
+
   # Create a link that adds a new appearance
   def link_to_add_appearance(name, f)
     new_appearance = Appearance.new
@@ -74,7 +83,7 @@ module ApplicationHelper
     end
     button_to_function(name, "Application.add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
-  
+
   # Create a link that adds a new piece
   def link_to_add_piece(name, f)
     new_piece = Piece.new
@@ -84,7 +93,7 @@ module ApplicationHelper
     end
     button_to_function(name, "Application.add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
-  
+
   # Creates a sortable column title
   def sortable(order, title)
     css_class = order == sort_order ? "current" : nil

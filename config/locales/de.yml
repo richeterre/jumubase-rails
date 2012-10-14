@@ -220,6 +220,8 @@ de:
               needs_one_piece: "Es muss mindestens ein Stück angegeben werden"
     attributes:
       appearance:
+        performance_id: "Vorspiel"
+        participant_id: "Teilnehmer"
         role_id: Rolle
         instrument_id: Instrument
         points: Punktzahl

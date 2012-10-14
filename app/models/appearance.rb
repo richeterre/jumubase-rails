@@ -15,23 +15,25 @@
 # -*- encoding : utf-8 -*-
 class Appearance < ActiveRecord::Base
   # Attributes that are accessible to everyone (needed for signup)
-  attr_accessible :entry_id, :participant_id, :instrument_id, :role_id, :participant_attributes
-  
-  belongs_to :entry, :touch => true
+  attr_accessible :performance_id, :participant_id, :instrument_id, :role_id, :participant_attributes
+
+  belongs_to :performance, touch: true
   belongs_to :participant
   belongs_to :instrument
   belongs_to :role
 
   accepts_nested_attributes_for :participant
-  
-  # validates :entry_id,        :presence => true
-  # validates :participant_id,  :presence => true
-  validates :instrument_id,   :presence => true
-  validates :role_id,         :presence => true
-  validates :points,          :numericality => true,
-                              :inclusion => { :in => 0..25 },
-                              :unless => lambda { |a| a.points.nil? } # Skip if none submitted
-  
+
+  # These do not currently play nicely with accept_nested_attributes
+  # validates :performance_id,  presence: true
+  # validates :participant_id,  presence: true
+
+  validates :instrument_id,   presence: true
+  validates :role_id,         presence: true
+  validates :points,          numericality: { only_integer: true },
+                              inclusion: { in: 0..25 },
+                              unless: lambda { |a| a.points.nil? } # Skip if none submitted
+
   # Filter by given role
   scope :with_role, lambda { |role| joins(:role).where('roles.slug' => role) }
 
@@ -39,8 +41,8 @@ class Appearance < ActiveRecord::Base
   scope :role_order, order(:role_id)
 
   # Order by stage time
-  scope :stage_order, joins(:entry).order('entries.stage_time')
-  
+  scope :stage_order, joins(:performance).order('entries.stage_time')
+
   # Perform participant existence check upon saving
   def participant_attributes_with_existence_check=(attributes)
     if self.id == nil
@@ -76,20 +78,20 @@ class Appearance < ActiveRecord::Base
 
   # Returns the solo appearance that is accompanied by this one
   def related_solo_appearance
-    self.entry.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
+    self.performance.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
   end
 
   # Returns the participant's age group (Ia–VII)
   def age_group
-    if self.solo? || (self.accompaniment? && !self.entry.category.popular)
+    if self.solo? || (self.accompaniment? && !self.performance.category.popular)
       # Soloists and classical accompanists have their own age group
       calculate_age_group self.participant.birthdate
     elsif self.ensemble?
       # Ensemble players share an age group
-      calculate_age_group self.entry.participants.map(&:birthdate)
+      calculate_age_group self.performance.participants.map(&:birthdate)
     else
       # Pop accompanists share an age group (excluding the soloist)
-      calculate_age_group self.entry.accompanists.map(&:birthdate)
+      calculate_age_group self.performance.accompanists.map(&:birthdate)
     end
   end
 
@@ -122,7 +124,7 @@ class Appearance < ActiveRecord::Base
       !["Ia", "Ib"].include?(self.age_group)
     when 2
       # Conditions for second round
-      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gesang (Pop) solo", "Gitarre (Pop) solo", "Drum-Set (Pop) solo"].include?(self.entry.category.name))
+      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gesang (Pop) solo", "Gitarre (Pop) solo", "Drum-Set (Pop) solo"].include?(self.performance.category.name))
       # TODO: Generalize pop category restrictions
     end
   end

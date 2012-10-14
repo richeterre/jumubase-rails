@@ -3,6 +3,8 @@
 # Remember to have a "vanilla" factory for each class
 FactoryGirl.define do
   factory :appearance do
+    participant
+    performance
     instrument
     role
   end
@@ -58,13 +60,23 @@ FactoryGirl.define do
     sequence(:name) { |n| "Instrument #{n}" }
   end
 
+  factory :participant do
+    sequence(:first_name) { |n| "Vorname #{n}" }
+    sequence(:last_name) { |n| "Nachname #{n}" }
+    gender "f"
+    birthdate Date.today - 15.years
+    country
+    phone "12345"
+    sequence(:email) { |n| "teilnehmer.#{n}@example.org" }
+  end
+
   factory :performance do
     category
     competition
 
     after(:build) do |performance|
-      performance.appearances << FactoryGirl.create(:appearance, performance_id: performance.id)
-      performance.pieces << FactoryGirl.create(:piece, performance_id: performance.id)
+      performance.appearances << FactoryGirl.build(:appearance, performance: performance)
+      performance.pieces << FactoryGirl.build(:piece, performance: performance)
     end
 
     factory :current_performance do

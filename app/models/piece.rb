@@ -23,7 +23,11 @@ class Piece < ActiveRecord::Base
   belongs_to :epoch
 
   accepts_nested_attributes_for :composer
-  
+
+  # These do not currently play nicely with accept_nested_attributes
+  # validates :composer_id,  presence: true
+  # validates :performance_id,  presence: true
+
   validates :title,           presence: true
   validates :epoch_id,        presence: true
   validates :minutes,         presence: true,

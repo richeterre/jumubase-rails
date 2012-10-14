@@ -86,6 +86,8 @@ FactoryGirl.define do
 
   factory :piece do
     sequence(:title) { |n| "Stück #{n}" }
+    composer
+    performance
     epoch
     minutes 4
     seconds 33

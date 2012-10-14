@@ -26,6 +26,7 @@ FactoryGirl.define do
     end
 
     factory :current_competition do
+      association :round, factory: :current_round
       ends Date.new(JUMU_YEAR, 01, 01)
     end
 
@@ -65,6 +66,10 @@ FactoryGirl.define do
       performance.appearances << FactoryGirl.create(:appearance, performance_id: performance.id)
       performance.pieces << FactoryGirl.create(:piece, performance_id: performance.id)
     end
+
+    factory :current_performance do
+      association :competition, factory: :current_competition
+    end
   end
 
   factory :piece do
@@ -93,5 +98,11 @@ FactoryGirl.define do
     level 1
     name "Regionalwettbewerb"
     slug "RW"
+
+    factory :current_round do
+      level JUMU_ROUND
+      name ["Regionalwettbewerb", "Landeswettbewerb", "Bundeswettbewerb"].at(JUMU_ROUND - 1)
+      slug ["RW", "LW", "BW"].at(JUMU_ROUND - 1)
+    end
   end
 end

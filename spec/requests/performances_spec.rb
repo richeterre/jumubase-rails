@@ -28,7 +28,7 @@ describe "Performances" do
       end
 
       it "should have all the required content and fields" do
-        page.should have_selector "h2", text: "Anmeldung zum #{current_round_title}"
+        page.should have_selector "h2", text: "Anmeldung zum #{JUMU_COUNT}. Wettbewerb \"Jugend musiziert\""
         page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
         page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
         page.should have_field "Vorname", text: ""
@@ -173,8 +173,8 @@ describe "Performances" do
       page.should have_select 'Kategorie', count: @performance.category.name
 
       page.should have_selector 'div.appearance', count: @performance.appearances.count
-      page.should have_field "Vorname", with: @performance.participants.first.first_name
-      page.should have_field "Nachname", with: @performance.participants.first.last_name
+      page.should have_field "Vorname", text: @performance.participants.first.first_name
+      page.should have_field "Nachname", text: @performance.participants.first.last_name
       page.should have_select "Rolle", selected: @performance.appearances.first.role.name
       page.should have_select "Instrument", selected: @performance.appearances.first.instrument.name
 
@@ -185,17 +185,17 @@ describe "Performances" do
       page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_3i",
                               selected: @performance.participants.first.birthdate.day.to_s
       page.should have_checked_field "weiblich"
-      page.should have_field "Straße", with: @performance.participants.first.street
-      page.should have_field "Postleitzahl", with: @performance.participants.first.postal_code
-      page.should have_select "Land", with: @performance.participants.first.country.name
-      page.should have_field "Telefon", with: @performance.participants.first.phone
-      page.should have_field "E-Mail", with: @performance.participants.first.email
+      page.should have_field "Straße", text: @performance.participants.first.street
+      page.should have_field "Postleitzahl", text: @performance.participants.first.postal_code
+      page.should have_select "Land", text: @performance.participants.first.country.name
+      page.should have_field "Telefon", text: @performance.participants.first.phone
+      page.should have_field "E-Mail", text: @performance.participants.first.email
 
       page.should have_selector 'div.piece', count: @performance.pieces.count
-      page.should have_field "Titel", with: @performance.pieces.first.title
-      page.should have_field "Komponist", with: @performance.pieces.first.composer.name
-      page.should have_field "Geburtsjahr", with: @performance.pieces.first.composer.born
-      page.should have_field "(Todesjahr)", with: @performance.pieces.first.composer.died
+      page.should have_field "Titel", text: @performance.pieces.first.title
+      page.should have_field "Komponist", text: @performance.pieces.first.composer.name
+      page.should have_field "Geburtsjahr", text: @performance.pieces.first.composer.born
+      page.should have_field "(Todesjahr)", text: @performance.pieces.first.composer.died
       page.should have_select "Epoche", selected: @performance.pieces.first.epoch.slug_with_name
       page.should have_field "Dauer ca.", type: :number, text: @performance.pieces.first.minutes
       page.should have_field "", type: :number, text: @performance.pieces.first.seconds
@@ -215,7 +215,7 @@ describe "Performances" do
 
       search_for_performance_with_code(@performance.tracing_code)
 
-      page.should have_field "Vorname", with: "Jeanette"
+      page.should have_field "Vorname", text: "Jeanette"
       page.should have_checked_field "weiblich"
     end
 

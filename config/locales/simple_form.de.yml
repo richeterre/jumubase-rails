@@ -10,6 +10,10 @@ de:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Bitte behebe die folgenden Probleme:"
+    labels:
+      session:
+        email: "E-Mail"
+        password: "Passwort"
     options:
       participant:
         gender:

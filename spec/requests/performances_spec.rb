@@ -129,7 +129,7 @@ describe "Performances" do
           fill_in "Ort", with: "Exampletown"
           select Country.first.name, from: "Land"
           fill_in "Telefon", with: "123456789"
-          fill_in "E-Mail", with: "john.doe@example.org"
+          fill_in "performance_appearances_attributes_0_participant_attributes_email", with: "john.doe@example.org"
 
           fill_in "Titel", with: "Example Piece"
           fill_in "Komponist", with: "Example Composer"

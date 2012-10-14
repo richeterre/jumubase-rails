@@ -23,48 +23,52 @@ class PerformancesController < ApplicationController
     # Make all attributes accessible to admins
     # @performance.accessible = :all if admin?
     @performance.attributes = params[:performance]
-    
+
     if @performance.save
       # Send out confirmation emails with edit code
       @performance.participants.each do |participant|
         ParticipantMailer.signup_confirmation(participant, @performance).deliver
       end
-      
+
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."
       redirect_to root_path
     else
       render 'new'
     end
   end
-  
+
   # Finds an existing signup form by edit code and redirects to it
   def search
-    unless params[:tracing_code].nil?
-      existing = Performance.current.find_by_tracing_code(params[:tracing_code])
-      if existing
-        redirect_to edit_performance_path(existing, :tracing_code => params[:tracing_code])
+    unless params[:tracing_code].nil? # needed to show empty form
+      if params[:tracing_code].empty?
+        flash.now[:error] = "Bitte gib den Änderungscode für die gesuchte Anmeldung an."
       else
-        flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
+        existing = Performance.current.find_by_tracing_code(params[:tracing_code])
+        if existing
+          redirect_to edit_performance_path(existing, :tracing_code => params[:tracing_code])
+        else
+          flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
+        end
       end
     end
     @title = "Nach Anmeldung suchen"
   end
-  
+
   # Presents an existing signup form for editing
   def edit
     @performance = Performance.current.find(params[:id])
-    unless admin? || @performance[:tracing_code] == params[:tracing_code]
+
+    unless @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
       redirect_to signup_search_path
     end
+
     @title = "Anmeldung bearbeiten"
   end
-  
+
   # Stores changes made to an existing signup form
   def update
     @performance = Performance.current.find(params[:id])
-    # Make all attributes accessible to admins
-    @performance.accessible = :all if admin?
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
       redirect_to signup_search_path

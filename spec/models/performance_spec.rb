@@ -69,6 +69,7 @@ describe Performance do
 
   describe "for admin users" do
     it "should allow access to all fields" do
+      # Use in controller: @performance.accessible = :all if admin?
       pending "This is required to enable editing of warmup and other non-public fields"
     end
   end

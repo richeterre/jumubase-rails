@@ -166,5 +166,7 @@ describe "Performances" do
     it "should not allow the user to delete all appearances"
     it "should not allow the user to delete all pieces"
 
+    # Use this in controller: unless admin? || @performance[:tracing_code] == params[:tracing_code]
+    it "should grant access to logged-in admins even without a tracing code"
   end
 end

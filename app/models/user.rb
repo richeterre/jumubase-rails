@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :competitions, through: :hosts
 
   before_save { |user| user.email = user.email.downcase }
+  before_create :create_remember_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email,                 presence: true,
@@ -37,4 +38,10 @@ class User < ActiveRecord::Base
     # Admins can access all competitions
     self.admin? ? Competition.scoped : super()
   end
+
+  private
+
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end

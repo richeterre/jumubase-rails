@@ -21,12 +21,7 @@
         </a>
         <a class="brand" href="/">JuMu Nordost</a>
         <div class="nav-collapse">
-          <ul class="nav">
-            <li><%= nav_link_to "Startseite", root_path %></li>
-            <li><%= nav_link_to "Wettbewerb", competition_path %></li>
-            <li><%= nav_link_to "Regeln", rules_path %></li>
-            <li><%= nav_link_to "Organisation", organisation_path %></li>
-          </ul>
+          <%= render 'layouts/header' %>
         </div>
       </div>
     </div>
@@ -45,7 +40,7 @@
     </div>
     <hr />
     <footer>
-      <p>handmade by martin with <%= link_to "ruby on rails", "http://rubyonrails.org" %> and <%= link_to "twitter bootstrap", "http://twitter.github.com/bootstrap" %></p>
+      <p id="byline" class="muted">handmade by martin with <%= link_to "ruby on rails", "http://rubyonrails.org" %> and <%= link_to "twitter bootstrap", "http://twitter.github.com/bootstrap" %></p>
 
       <%= debug(params) if Rails.env.development? %>
     </footer>

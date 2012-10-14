@@ -8,9 +8,19 @@ body {
   padding-top: 60px;
 }
 
+// Dropdown menu for signing in
+#signin-menu {
+  padding: 15px 15px 0 15px;
+}
+
 // "Add more" buttons in signup form
 #appearances > input.btn, #pieces > input.btn {
   margin-bottom: 20px;
+}
+
+// Byline in footer
+#byline {
+  text-align: right;
 }
 
 @import "bootstrap-responsive";

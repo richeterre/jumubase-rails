@@ -1,7 +1,10 @@
 # JuMu-related constants are defined here.
 # Be sure to restart the server after changing any of these.
 
-# The current competition year
+# The running number of the current competition year
+JUMU_COUNT = 50
+
+# The current competition (ending) year
 JUMU_YEAR = 2013
 
 # The upcoming/ongoing round for signup, timetables, etc.

@@ -38,6 +38,11 @@ module ApplicationHelper
     end
   end
 
+  # Return the full title of the ongoing JuMu contest (e.g. "50. Wettbewerb 'Jugend musiziert'")
+  def current_contest_title
+    "#{JUMU_COUNT}. Wettbewerb \"Jugend musiziert\""
+  end
+
   # Return the full title of the current round (e.g. "Landeswettbewerb 2006")
   def current_round_title
     "#{Round.find_by_level(JUMU_ROUND).name} #{JUMU_YEAR}"

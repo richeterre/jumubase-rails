@@ -67,7 +67,7 @@ FactoryGirl.define do
     birthdate Date.today - 15.years
     country
     phone "12345"
-    sequence(:email) { |n| "teilnehmer.#{n}@example.org" }
+    sequence(:email) { |n| "teilnehmer_#{n}@example.org" }
   end
 
   factory :performance do
@@ -118,5 +118,11 @@ FactoryGirl.define do
       name ["Regionalwettbewerb", "Landeswettbewerb", "Bundeswettbewerb"].at(JUMU_ROUND - 1)
       slug ["RW", "LW", "BW"].at(JUMU_ROUND - 1)
     end
+  end
+
+  factory :user do
+    sequence(:email) { |n| "person_#{n}@example.org" }
+    password "foobar"
+    password_confirmation "foobar"
   end
 end

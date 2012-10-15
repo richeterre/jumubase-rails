@@ -53,6 +53,7 @@ class Appearance < ActiveRecord::Base
       # Birthdate check impossible because it's in three attributes, but country should be enough
       self.participant = Participant.find_by_first_name_and_last_name_and_country_id(
           attributes[:first_name], attributes[:last_name], attributes[:country_id])
+      # TODO: Maybe update that participant's other data here with current values?
       self.participant_attributes_without_existence_check=(attributes) if participant.nil?
     else
       self.participant_attributes_without_existence_check=(attributes)

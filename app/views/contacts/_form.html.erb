@@ -1,0 +1,9 @@
+<%= simple_form_for(@contact, url: { action: "create" }, html: { method: :post, class: "form-horizontal" }) do |form| %>
+  <%= form.input :name %>
+  <%= form.input :email %>
+  <%= form.input :subject %>
+  <%= form.input :content, as: :text, input_html: { rows: 6, class: "span4" } %>
+  <div class="controls">
+    <%= form.button :submit, "Mitteilung senden", class: "btn-primary" %>
+  </div>
+<% end %>

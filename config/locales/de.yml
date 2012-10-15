@@ -208,7 +208,7 @@ de:
         name: "Name"
         email: "E-Mail"
         subject: "Betreff"
-        content: "Mitteilung"
+        content: "Nachricht"
   activerecord:
     errors:
       <<: *errors

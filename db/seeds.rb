@@ -63,7 +63,7 @@ end
 
 Category.create([
   {
-    name: "Kinder musizieren",
+    name: "\"Kinder musizieren\"",
     solo: true,
     ensemble: true,
     popular: false,

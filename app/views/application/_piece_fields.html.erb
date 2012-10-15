@@ -1,25 +1,25 @@
 <div class="piece field-group well">
   <h3 class="number">Stück</h3>
-  
+
   <%= f.input :title %>
-  
+
   <%= f.fields_for :composer do |composer_form| %>
     <%= render 'composer_fields', :f => composer_form %>
   <% end %>
-  
+
   <%= f.input :epoch_id, collection: Epoch.all, label_method: :slug_with_name, prompt: "Bitte wählen" %>
 
   <%= f.input :minutes, label: "Dauer ca.", wrapper: :append do %>
     <%= f.input_field :minutes, class: "span1 minutes-field" %>
     <span class="add-on">Minuten</span>
   <% end %>
-  
+
   <%= f.input :seconds, label: false, wrapper: :append do %>
     <%= f.input_field :seconds, class: "span1 seconds-field" %>
     <span class="add-on">Sekunden</span>
   <% end %>
-  
-  <div class="controls">
-    <%= link_to_remove_fields "Stück entfernen", f %>
+
+  <div class="controls" id="piece-remover">
+    <%= link_to_remove_fields "Dieses Stück entfernen", f %>
   </div>
 </div>

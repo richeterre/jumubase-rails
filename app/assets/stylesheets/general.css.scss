@@ -28,6 +28,11 @@ body {
   margin-bottom: 20px;
 }
 
+// "Remove this" buttons in signup form
+#participant-remover, #piece-remover {
+  text-align: right;
+}
+
 // Byline in footer
 #byline {
   text-align: right;

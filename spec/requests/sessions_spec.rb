@@ -17,7 +17,7 @@ describe "Sessions" do
   describe "signin dropdown on home page" do
     before { visit root_path }
 
-    it { should have_selector 'a.dropdown-toggle', text: "Anmelden" }
+    it { should have_selector 'a.dropdown-toggle', text: "Interne Seiten" }
     it { should have_field "E-Mail", type: :email, text: "" }
     it { should have_field "Passwort", type: :password, text: "" }
     it { should have_button "Anmelden" }
@@ -50,12 +50,12 @@ describe "Sessions" do
       it "should display some inside stuff"
 
       it { should have_link "Abmelden", href: signout_path }
-      it { should_not have_selector "a.dropdown-toggle", text: "Anmelden" }
+      it { should_not have_selector "a.dropdown-toggle", text: "Interne Seiten" }
 
       describe "followed by signout" do
         before { click_link "Abmelden" }
 
-        it { should have_selector "a.dropdown-toggle", text: "Anmelden" }
+        it { should have_selector "a.dropdown-toggle", text: "Interne Seiten" }
       end
     end
   end

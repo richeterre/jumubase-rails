@@ -11,7 +11,7 @@
     <li><%= link_to "Abmelden", signout_path, method: :delete %></li>
   <% else %>
     <li class="dropdown">
-      <a class="dropdown-toggle" href="#" data-toggle="dropdown">Anmelden <strong class="caret"></strong></a>
+      <a class="dropdown-toggle" href="#" data-toggle="dropdown">Interne Seiten <strong class="caret"></strong></a>
       <div class="dropdown-menu" id="signin-menu">
         <%= simple_form_for :session, url: sessions_path do |f| %>
           <%= f.input :email %>

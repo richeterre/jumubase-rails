@@ -1,7 +1,24 @@
-<h2>Hallo und herzlich willkommen&nbsp;&hellip;</h2>
+<div class="hero-unit">
+  <div class="row">
+    <div class="span2">
+      <%= image_tag "jumuball.png", alt: "JuMu-Ball", id: "hero-logo" %>
+    </div>
+    <div class="span5">
+      <h1>jumu-nordost.eu</h1>
 
-<p>&hellip;&nbsp;auf der Website des Wettbewerbs “Jugend musiziert” für die Deutschen Schulen der Wettbewerbsregion Nord- und Osteuropa!</p>
+      <p>Die Website des Wettbewerbs “Jugend musiziert”<br />für die Deutschen Schulen der Region Nord- und Osteuropa</p>
+    </div>
+  </div>
+</div>
 
-<p>Neben allgemeinen Informationen zum <%= link_to "Wettbewerb", competition_path %> und seiner <%= link_to "Organisation", organisation_path %> findest du auf diesen Seiten auch die <%= link_to "Ausschreibung", rules_path %> sowie <%= "vor jeder Wettbewerbsrunde" unless JUMU_SIGNUP_OPEN %> das elektronische <%= JUMU_SIGNUP_OPEN ? (link_to "Anmeldeformular", new_performance_path) : "Anmeldeformular" %>.</p>
-
-<p>Die Ausschreibung für das Wettbewerbsjahr 2012 steht unter dem Link <%= link_to "Regeln", rules_path %> zum Download bereit. Auf der gleichen Seite findest du auch die Teilnahmeregeln für die Pop-Kategorien.</p>
+<p class="lead">Herzlich willkommen! Auf diesen Seiten findest du:</p>
+<ul>
+  <li>die <%= link_to "Ausschreibung", rules_path %> für den 50. Wettbewerb “Jugend musiziert” <span class="label label-info">Neu</span></li>
+  <li>die <%= link_to "Teilnahmeregeln", rules_path %> für die Pop-Kategorien <span class="label label-info">Neu</span></li>
+  <li>das elektronische <%= link_to "Anmeldeformular", new_performance_path %> <span class="label label-info">Neu</span></li>
+</ul>
+<p>sowie</p>
+<ul>
+  <li>allgemeine <%= link_to "Informationen", competition_path %> zum Wettbewerb “Jugend musiziert”</li>
+  <li>sowie eine <%= link_to "Vorstellung", organisation_path %> der einzelnen Gremien</li>
+</ul>

@@ -13,6 +13,16 @@ body {
   padding: 15px 15px 0 15px;
 }
 
+// JuMu logos on header and home page
+#header-logo {
+  height: 20px;
+  vertical-align: top;
+}
+
+#hero-logo {
+  width: 170px;
+}
+
 // "Add more" buttons in signup form
 #appearances > input.btn, #pieces > input.btn {
   margin-bottom: 20px;

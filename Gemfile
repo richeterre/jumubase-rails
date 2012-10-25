@@ -22,13 +22,13 @@ end
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.0'
+  gem 'factory_girl_rails'
   gem 'annotate'
   gem 'email_spec'
   gem 'action_mailer_cache_delivery'
 end
 
 group :test do
-  gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'launchy'

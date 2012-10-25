@@ -29,6 +29,16 @@ describe "Sessions" do
     describe "with incorrect credentials" do
       before { click_button "Anmelden" }
 
+      it "should not display any inside stuff" do
+        page.should_not have_content "Verwalten"
+        page.should_not have_content "Vorspiele"
+        page.should_not have_content "Eingeben"
+        page.should_not have_content "Drucken"
+      end
+
+      it { should_not have_link "Abmelden", href: signout_path }
+      it { should have_selector "a.dropdown-toggle", text: "Interne Seiten" }
+
       it "should redirect to the signin page" do
         current_path.should eq signin_path
       end
@@ -47,7 +57,12 @@ describe "Sessions" do
       let(:user) { FactoryGirl.create(:user) }
       before { sign_in user }
 
-      it "should display some inside stuff"
+      it "should display some inside stuff" do
+        page.should have_content "Verwalten"
+        page.should have_content "Vorspiele"
+        page.should have_content "Eingeben"
+        page.should have_content "Drucken"
+      end
 
       it { should have_link "Abmelden", href: signout_path }
       it { should_not have_selector "a.dropdown-toggle", text: "Interne Seiten" }

@@ -243,4 +243,8 @@ describe "Performances" do
     # Use this in controller: unless admin? || @performance[:tracing_code] == params[:tracing_code]
     it "should grant access to logged-in admins even without a tracing code"
   end
+
+  describe "index page"
+    it "should not be reachable without signing in"
+    it "should have the right performances in the table"
 end

@@ -1,4 +1,4 @@
-<h2>Anmeldung zum <%= current_contest_title %></h2>
+<% provide(:title, "Anmeldung zum #{current_contest_title}") %>
 
 <p>Hier kannst du dein Vorspiel für den Wettbewerb <%= JUMU_YEAR %> anmelden. <strong>Anmeldeschluss ist der 15. November.</strong> Bei Fragen oder Problemen erreichst du uns am einfachsten über das <%= link_to "Kontaktformular", contact_path %>.</p>
 

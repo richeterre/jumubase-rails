@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JuMu Nordost</title>
+  <title><%= title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -45,6 +45,7 @@
       </div>
       <div class="span9">
         <%= render 'layouts/flash_messages' %>
+        <h2><%= yield :title %></h2>
         <%= yield %>
       </div>
     </div>

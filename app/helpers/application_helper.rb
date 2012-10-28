@@ -24,11 +24,12 @@ module ApplicationHelper
   # Return a title on a per-page basis
   def title
     base_title ="“Jugend musiziert” Nord- und Osteuropa"
-    if @title.nil?
-      base_title
-    else
-      "#{base_title} — #{@title}"
-    end
+    # TODO: Append page title?
+    # if @title.nil?
+    #   base_title
+    # else
+    #   "#{base_title} &ndash; #{@title}"
+    # end
   end
 
   # Return the full title of the ongoing JuMu contest (e.g. "50. Wettbewerb 'Jugend musiziert'")

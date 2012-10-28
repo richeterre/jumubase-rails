@@ -15,7 +15,6 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Manage entries at hosts the user has access to
   def index
-    @title = "Wertungen verwalten"
     # filter_sort_entries
     @performances = Performance.current.visible_to(current_user)
   end

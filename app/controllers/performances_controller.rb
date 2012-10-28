@@ -13,7 +13,6 @@ class PerformancesController < ApplicationController
       piece = @performance.pieces.build
       piece.build_composer
     end
-    @title = "Anmeldung"
   end
 
   # Creates a new performance upon signup form submission
@@ -51,7 +50,6 @@ class PerformancesController < ApplicationController
         end
       end
     end
-    @title = "Nach Anmeldung suchen"
   end
 
   # Presents an existing signup form for editing
@@ -62,8 +60,6 @@ class PerformancesController < ApplicationController
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
       redirect_to signup_search_path
     end
-
-    @title = "Anmeldung bearbeiten"
   end
 
   # Stores changes made to an existing signup form
@@ -74,7 +70,6 @@ class PerformancesController < ApplicationController
       redirect_to signup_search_path
       # redirect_to performances_path
     else
-      @title = "Anmeldung bearbeiten"
       render 'edit'
     end
   end

@@ -2,7 +2,6 @@
 class SessionsController < ApplicationController
 
   def new
-    @title = "Zugang für Organisatoren"
   end
 
   def create

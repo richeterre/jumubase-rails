@@ -2,7 +2,6 @@
 class ContactsController < ApplicationController
   def new
     @contact = Contact.new(:id => 1)
-    @title = "Kontakt"
   end
 
   def create

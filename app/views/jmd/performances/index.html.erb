@@ -8,35 +8,34 @@
   <%= link_to "Alle anzeigen", jmd_performances_path %>
 </p>
 
-<table id="entry-table" class="table table-hover">
+<table class="table table-hover">
   <thead>
     <tr>
-      <th class="span-1"><%# sortable "stage_time", "Vorspiel" %>Vorspiel</th>
-      <th class="span-3">
+      <th><%# sortable "stage_time", "Vorspiel" %>Vorspiel</th>
+      <th>
         <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
       </th>
-      <th class="span-9">Teilnehmer</th>
-      <th class="span-3 last">&nbsp;</th>
+      <th>Teilnehmer</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <% @performances.each do |performance| %>
     <tr>
-      <td><%= l performance.stage_time, :format => :tiny if performance.stage_time %></td>
+      <td><%= l performance.stage_time, format: :tiny if performance.stage_time %></td>
       <td><%= performance.category.name %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
-          <span class="participant <%= "accompanist" if appearance.accompaniment? %>">
-            <%= appearance.participant.full_name %>,
-            <%= appearance.instrument.name %>
-            <span class="quiet">(AG&nbsp;<%= appearance.age_group %>)</span>
-          </span>
+          <%= appearance.participant.full_name %>,
+          <%= appearance.instrument.name %>
+          (AG&nbsp;<%= appearance.age_group %>)
         <% end %>
       </td>
-      <td style="text-align: right">
+      <td>
         <%= link_to icon_tag("eye-open"), jmd_performance_path(performance) %>
         <%= link_to icon_tag("edit"), edit_jmd_performance_path(performance) %>
-        <%= link_to icon_tag("remove"),  jmd_performance_path(performance), :method => :delete, :confirm => "Soll die Wertung wirklich gelöscht werden?" %>
+        <%= link_to icon_tag("remove"),  jmd_performance_path(performance),
+              method: :delete, confirm: "Soll die Wertung wirklich gelöscht werden?" %>
       </td>
     </tr>
     <% end %>

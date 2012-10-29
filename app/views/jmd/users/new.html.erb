@@ -1,0 +1,13 @@
+<p>
+	<%= icon_tag "arrow_turn_left" %>
+	<%= link_to "zurück zur Benutzerliste", jmd_users_path %>
+</p>
+
+<h2>Neuen Benutzer erstellen</h2>
+
+<%= form_for [:jmd, @user] do |f| %>
+  <%= render 'user_fields', :f => f %>
+  <div class="actions">
+    <%= f.submit "Erstellen" %>
+  </div>
+<% end %>

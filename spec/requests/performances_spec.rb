@@ -170,8 +170,8 @@ describe "Performances" do
       search_for_performance_with_code(@performance.tracing_code)
 
       page.should have_selector "h2", text: "Anmeldung bearbeiten"
-      page.should have_select 'Wettbewerb', count: @performance.competition.name
-      page.should have_select 'Kategorie', count: @performance.category.name
+      page.should have_select 'Wettbewerb', selected: @performance.competition.name
+      page.should have_select 'Kategorie', selected: @performance.category.name
 
       page.should have_selector 'div.appearance', count: @performance.appearances.count
       page.should have_field "Vorname", text: @performance.participants.first.first_name

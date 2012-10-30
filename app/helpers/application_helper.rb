@@ -6,10 +6,22 @@ module ApplicationHelper
         :height => 120, :class => "left"
   end
 
-  # Return an icon image path
+  # Return a Glyphicon tag
   def icon_tag(name, options = {})
     options[:class] ||= "icon-#{name}"
     content_tag(:i, options) { nil }
+  end
+
+  # Return a label with given type and content
+  def info_label_tag(content, type = nil)
+    class_name = type ? "label label-#{type}" : "label"
+    content_tag(:span, class: class_name) { content }
+  end
+
+  # Return a badge with given type and content
+  def info_badge_tag(content, type = nil)
+    class_name = type ? "badge badge-#{type}" : "badge"
+    content_tag(:span, class: class_name) { content }
   end
 
   # Convert flash class for use with Twitter Bootstrap

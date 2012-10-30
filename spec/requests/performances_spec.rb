@@ -248,8 +248,17 @@ describe "Performances" do
   describe "JMD" do
 
     describe "index page" do
+
       it "should not be reachable without signing in"
+
       it "should have the right performances in the table"
+
+      describe "for performances that were edited" do
+
+        it "should display an info label"
+
+        it "should state how long ago they were edited"
+      end
     end
 
     describe "edit page" do

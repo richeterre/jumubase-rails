@@ -37,24 +37,23 @@ class Jmd::PerformancesController < Jmd::BaseController
     @performance = Performance.current.visible_to(current_user).find(params[:id])
   end
 
-  # def update
-  #   @entry = Entry.current.visible_to(current_user).find(params[:id])
-  #   # Make all attributes accessible to admins
-  #   @entry.accessible = :all if admin?
-  #   if @entry.update_attributes(params[:entry])
-  #     flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
-  #     redirect_to jmd_entries_path
-  #   else
-  #     @title = "Anmeldung bearbeiten"
-  #     render 'edit'
-  #   end
-  # end
+  def update
+    @performance = Performance.current.visible_to(current_user).find(params[:id])
+    # Make all attributes accessible to admins
+    @performance.accessible = :all if admin?
+    if @performance.update_attributes(params[:performance])
+      flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
+      redirect_to jmd_performances_path
+    else
+      render 'edit'
+    end
+  end
 
-  # def destroy
-  #   @entry = Entry.current.visible_to(current_user).find(params[:id]).destroy
-  #   flash[:success] = "Die Wertung wurde gelöscht."
-  #   redirect_to jmd_entries_path
-  # end
+  def destroy
+    @performance = Performance.current.visible_to(current_user).find(params[:id]).destroy
+    flash[:success] = "Das Vorspiel wurde gelöscht."
+    redirect_to jmd_performances_path
+  end
 
   # def retime
   #   entry = Entry.current.visible_to(current_user).find(params[:entry_id])

@@ -11,7 +11,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th><%# sortable "stage_time", "Vorspiel" %>Vorspiel</th>
+      <!-- <th><%# sortable "stage_time", "Vorspiel" %>Vorspiel</th> -->
+      <th>Angemeldet am</th>
       <th>
         <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
       </th>
@@ -22,17 +23,24 @@
   <tbody>
     <% @performances.each do |performance| %>
     <tr>
-      <td><%= l performance.stage_time, format: :tiny if performance.stage_time %></td>
+      <!-- <td><%# l performance.stage_time, format: :tiny if performance.stage_time %></td> -->
+      <td>
+        <%= l performance.created_at, format: :short %>
+        <% if performance.updated_at > performance.created_at %>
+          <br /><%= info_label_tag("Editiert #{time_ago_in_words(performance.updated_at - 1.hour)}", :info)  %>
+        <% end %>
+      </td>
       <td><%= performance.category.name %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
           <%= appearance.participant.full_name %>,
           <%= appearance.instrument.name %>
-          (AG&nbsp;<%= appearance.age_group %>)
+          <%= info_badge_tag(appearance.age_group) %>
+          <br />
         <% end %>
       </td>
       <td>
-        <%= link_to icon_tag("eye-open"), jmd_performance_path(performance) %>
+        <%# link_to icon_tag("eye-open"), jmd_performance_path(performance) %>
         <%= link_to icon_tag("edit"), edit_jmd_performance_path(performance) %>
         <%= link_to icon_tag("remove"),  jmd_performance_path(performance),
               method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?" %>

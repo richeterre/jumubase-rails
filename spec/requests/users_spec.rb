@@ -60,12 +60,37 @@ describe "Users" do
 
     it "should complain about invalid input"
 
-    it "should allow editing of the user"
+    it "should not have a password or password confirmation field" do
+      page.should_not have_content "Passwort"
+      page.should_not have_content "Passwort erneut"
+    end
+
+    it "should not require a password or password confirmation" do
+      fill_in "E-Mail", with: "new.address@example.org"
+      click_button "Änderungen speichern"
+
+      page.should_not have_error_message
+      page.should have_success_message
+    end
+
+    it "should allow editing of the user" do
+      correct_address = "correct.address@example.org"
+
+      expect {
+        fill_in "E-Mail", with: correct_address
+        click_button "Änderungen speichern"
+      }.to change(@user, :email).to(correct_address)
+    end
+
+    # Test this because at least earlier a hidden field was needed for this
+    # (which is now removed)
+    it "should allow removing all host associations at once"
 
     it "should allow going back to the index page without saving the changes" do
       expect {
+        fill_in "E-Mail", with: "wrong.address@example.org"
         click_link "Abbrechen"
-      }.to_not change(@user)
+      }.to_not change(@user, :email)
       current_path.should eq jmd_users_path
     end
   end

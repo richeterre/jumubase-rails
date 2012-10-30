@@ -13,7 +13,7 @@ class Jmd::UsersController < Jmd::BaseController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = "Der Benutzer #{@user.username} ist nun registriert."
+      flash[:success] = "Der Benutzer #{@user.email} wurde erstellt."
       redirect_to jmd_users_path
     else
       @user.password = ""
@@ -32,8 +32,13 @@ class Jmd::UsersController < Jmd::BaseController
 
   def update
     @user = User.find(params[:id])
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     if @user.update_attributes(params[:user])
-      flash[:success] = "Der Benutzer #{@user.username} wurde erfolgreich geändert."
+      flash[:success] = "Der Benutzer #{@user.email} wurde erfolgreich geändert."
       redirect_to jmd_users_path
     else
       render 'edit'
@@ -42,7 +47,7 @@ class Jmd::UsersController < Jmd::BaseController
 
   def destroy
     @user = User.find(params[:id]).destroy
-    flash[:success] = "Der Benutzer #{@user.username} wurde gelöscht."
+    flash[:success] = "Der Benutzer #{@user.email} wurde gelöscht."
     redirect_to jmd_users_path
   end
 end

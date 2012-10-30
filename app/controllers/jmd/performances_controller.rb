@@ -33,10 +33,9 @@ class Jmd::PerformancesController < Jmd::BaseController
   #   @entry = Entry.current.visible_to(current_user).find(params[:id])
   # end
 
-  # def edit
-  #   @entry = Entry.current.visible_to(current_user).find(params[:id])
-  #   @title = "Anmeldung bearbeiten"
-  # end
+  def edit
+    @performance = Performance.current.visible_to(current_user).find(params[:id])
+  end
 
   # def update
   #   @entry = Entry.current.visible_to(current_user).find(params[:id])

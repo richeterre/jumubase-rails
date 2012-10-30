@@ -241,10 +241,20 @@ describe "Performances" do
     it "should not allow the user to delete all pieces"
 
     # Use this in controller: unless admin? || @performance[:tracing_code] == params[:tracing_code]
-    it "should grant access to logged-in admins even without a tracing code"
+    # it "should grant access to logged-in admins even without a tracing code"
+    # or then not? Admins can edit entries in JMD after all
   end
 
-  describe "index page"
-    it "should not be reachable without signing in"
-    it "should have the right performances in the table"
+  describe "JMD" do
+
+    describe "index page" do
+      it "should not be reachable without signing in"
+      it "should have the right performances in the table"
+    end
+
+    describe "edit page" do
+      it "should allow returning to the index page without saving anything" do
+
+      end
+    end
 end

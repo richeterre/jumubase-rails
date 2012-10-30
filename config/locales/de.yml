@@ -279,7 +279,7 @@ de:
         epoch_id: Epoche
         duration: Dauer
       user:
-        username: Benutzername
+        email: E-Mail
         password: Passwort
         password_digest: Passwort
         password_confirmation: Passwort erneut

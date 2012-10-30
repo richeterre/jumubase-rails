@@ -1,0 +1,19 @@
+<% provide(:title, "Benutzerdetails") %>
+
+<dl>
+  <dt>E-Mail</dt>
+    <dd><%= @user.email %></dd>
+  <dt>Admininistrator</dt>
+    <dd><%= @user.admin ? "Ja" : "Nein" %></dd>
+  <dt>Rechte für</dt>
+    <dd>
+      <% if @user.admin %>
+        alle Schulen
+      <% else @user.hosts.each do |h| %>
+          <%= h.name %><br />
+        <% end %>
+      <% end %>
+    </dd>
+</dl>
+
+<%= link_to "Zurück zur Benutzerliste", jmd_users_path, class: "btn" %>

@@ -74,4 +74,16 @@ describe "Sessions" do
       end
     end
   end
+
+  describe "inside sidebar" do
+
+    describe "for non-admins" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { sign_in user }
+
+      it { should_not have_link "Benutzer", href: jmd_users_path }
+      it { should have_link "Wertungen", href: jmd_performances_path }
+      it { should have_link "Ergebnisse", href: jmd_appearances_path }
+    end
+  end
 end

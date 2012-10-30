@@ -39,9 +39,11 @@
         <div class="well sidebar-nav">
           <%= render 'layouts/public_sidebar' %>
         </div>
-        <div class="well sidebar-nav">
-          <%= render 'layouts/inside_sidebar' %>
-        </div>
+        <% if signed_in? %>
+          <div class="well sidebar-nav">
+            <%= render 'layouts/inside_sidebar' %>
+          </div>
+        <% end %>
       </div>
       <div class="span9">
         <%= render 'layouts/flash_messages' %>

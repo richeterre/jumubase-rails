@@ -7,8 +7,9 @@ module ApplicationHelper
   end
 
   # Return an icon image path
-  def icon_tag(name)
-    content_tag(:i, class: "icon-#{name}") { nil }
+  def icon_tag(name, options = {})
+    options[:class] ||= "icon-#{name}"
+    content_tag(:i, options) { nil }
   end
 
   # Convert flash class for use with Twitter Bootstrap

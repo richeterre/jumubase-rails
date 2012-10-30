@@ -1,32 +1,28 @@
 <% provide(:title, "Benutzer verwalten") %>
 
-<p>
-  <%= icon_tag("add") %> <%= link_to "Neuen Benutzer erstellen", new_jmd_user_path %>
-</p>
+<%= link_to "Neuen Benutzer erstellen", new_jmd_user_path, class: "btn" %>
 
-<table id="user-table" border="0" cellspacing="0" cellpadding="0">
+<table class="table table-hover">
   <thead>
     <tr>
-      <th class="span-1">ID</th>
-      <th class="span-5">Benutzername</th>
-      <th class="span-1">Admin</th>
-      <th class="span-3">Erstellt</th>
-      <th class="span-3">Letzter Login</th>
-      <th class="span-3 last">&nbsp;</th>
+      <th>E-Mail</th>
+      <th>Admin</th>
+      <th>Erstellt</th>
+      <th>Letzter Login</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
     <tr>
-      <td><%= user.id %></td>
-      <td><%= user.username %></td>
+      <td><%= user.email %></td>
       <td><%= user.admin? ? "Ja" : "Nein" %></td>
       <td><%= l user.created_at, :format => :short %></td>
       <td><%= user.last_login? ? (l user.last_login, :format => :short) : "?" %></td>
-      <td style="text-align: right">
-        <%= link_to icon_tag("information", :title => "Benutzerdetails anzeigen"), jmd_user_path(user) %>
-        <%= link_to icon_tag("pencil", :title => "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user) %>
-        <%= link_to icon_tag("delete", :title => "Diesen Benutzer löschen"), jmd_user_path(user), :method => :delete, :confirm => "Soll der Benutzer #{user.username} wirklich gelöscht werden?" %>
+      <td>
+        <%= link_to icon_tag("eye-open", :title => "Benutzerdetails anzeigen"), jmd_user_path(user) %>
+        <%= link_to icon_tag("edit", :title => "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user) %>
+        <%= link_to icon_tag("remove", :title => "Diesen Benutzer löschen"), jmd_user_path(user), :method => :delete, :confirm => "Soll der Benutzer #{user.email} wirklich gelöscht werden?" %>
       </td>
     </tr>
     <% end %>

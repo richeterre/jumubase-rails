@@ -64,6 +64,8 @@ describe "Sessions" do
         page.should have_content "Drucken"
       end
 
+      it "should have a link to the user profile"
+
       it { should have_link "Abmelden", href: signout_path }
       it { should_not have_selector "a.dropdown-toggle", text: "Interne Seiten" }
 

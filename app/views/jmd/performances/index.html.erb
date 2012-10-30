@@ -1,9 +1,9 @@
-<% provide(:title, "Wertungen verwalten") %>
+<% provide(:title, "Vorspiele verwalten") %>
 
 <%# render 'filter_form', :path => jmd_performances_path %>
 
 <p>
-  <%= @performances.length %> von <%= Performance.current.visible_to(current_user).count %> Wertungen
+  <%= @performances.length %> von <%= Performance.current.visible_to(current_user).count %> Vorspielen
   &middot;
   <%= link_to "Alle anzeigen", jmd_performances_path %>
 </p>
@@ -35,7 +35,7 @@
         <%= link_to icon_tag("eye-open"), jmd_performance_path(performance) %>
         <%= link_to icon_tag("edit"), edit_jmd_performance_path(performance) %>
         <%= link_to icon_tag("remove"),  jmd_performance_path(performance),
-              method: :delete, confirm: "Soll die Wertung wirklich gelöscht werden?" %>
+              method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?" %>
       </td>
     </tr>
     <% end %>

@@ -259,6 +259,8 @@ describe "Performances" do
 
         it "should state how long ago they were edited"
       end
+
+      it "should allow the user to delete performances"
     end
 
     describe "edit page" do

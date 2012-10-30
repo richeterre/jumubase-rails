@@ -26,7 +26,7 @@
       <!-- <td><%# l performance.stage_time, format: :tiny if performance.stage_time %></td> -->
       <td>
         <%= l performance.created_at, format: :short %>
-        <% if performance.updated_at > performance.created_at %>
+        <% if (performance.updated_at - performance.created_at) > 1.second %>
           <br /><%= info_label_tag("Editiert #{time_ago_in_words(performance.updated_at - 1.hour)}", :info)  %>
         <% end %>
       </td>

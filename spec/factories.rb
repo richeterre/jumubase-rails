@@ -80,6 +80,7 @@ FactoryGirl.define do
     end
 
     factory :current_performance do
+      association :category, factory: :active_category
       association :competition, factory: :current_competition
     end
   end

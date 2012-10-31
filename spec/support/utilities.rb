@@ -31,3 +31,9 @@ def sign_in(user)
   # Sign in when not using Capybara
   cookies[:remember_token] = user.remember_token
 end
+
+def search_for_performance_with_code(tracing_code)
+  visit signup_search_path
+  fill_in "tracing_code", with: tracing_code
+  click_button "Suchen"
+end

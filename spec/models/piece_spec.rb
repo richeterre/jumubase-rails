@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: pieces
+#
+#  id             :integer          not null, primary key
+#  title          :string(255)
+#  composer_id    :integer
+#  performance_id :integer
+#  epoch_id       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  minutes        :integer
+#  seconds        :integer
+#
+
 require 'spec_helper'
 
 describe Piece do

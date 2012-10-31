@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: appearances
+#
+#  id             :integer          not null, primary key
+#  performance_id :integer
+#  participant_id :integer
+#  instrument_id  :integer
+#  role_id        :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  points         :integer
+#
+
 require 'spec_helper'
 
 describe Appearance do

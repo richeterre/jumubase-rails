@@ -1,15 +1,17 @@
 # == Schema Information
-# Schema version: 20110228140044
 #
 # Table name: users
 #
-#  id                 :integer(4)      not null, primary key
-#  username           :string(255)
+#  id                 :integer          not null, primary key
+#  email              :string(255)
 #  encrypted_password :string(255)
-#  admin              :boolean(1)
+#  admin              :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #  salt               :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
+#  password_digest    :string(255)
+#  last_login         :datetime
+#  remember_token     :string(255)
 #
 
 # -*- encoding : utf-8 -*-

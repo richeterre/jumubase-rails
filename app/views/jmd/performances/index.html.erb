@@ -35,7 +35,7 @@
           <span class="<%= "muted" if appearance.accompaniment? %>">
             <%= appearance.participant.full_name %>,
             <%= appearance.instrument.name %>
-            <%= info_badge_tag(appearance.age_group) %>
+            <%= info_badge_tag(appearance.age_group, :info) %>
           </span>
           <br />
         <% end %>

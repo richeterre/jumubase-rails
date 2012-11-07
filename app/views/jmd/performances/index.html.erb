@@ -3,9 +3,8 @@
 <%# render 'filter_form', :path => jmd_performances_path %>
 
 <p>
-  <%= @performances.length %> von <%= Performance.current.visible_to(current_user).count %> Vorspielen
-  &middot;
-  <%= link_to "Alle anzeigen", jmd_performances_path %>
+  <%= @performances.length %> Vorspiele
+  <%# link_to "Alle anzeigen", jmd_performances_path, class: "btn btn-mini" %>
 </p>
 
 <table class="table table-hover">

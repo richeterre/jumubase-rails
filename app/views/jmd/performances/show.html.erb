@@ -1,0 +1,27 @@
+<% provide(:title, "Vorspieldetails") %>
+
+<h3>Teilnehmer</h3>
+
+<% @performance.appearances.role_order.each do |appearance| %>
+  <%= content_tag :p, class: (appearance.accompaniment? ? "muted" : "") do %>
+    <%= content_tag :strong, appearance.participant.full_name %>, <%= appearance.instrument.name %>
+    <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
+  <% end %>
+<% end %>
+
+<h3>Vorspielprogramm</h3>
+
+<% @performance.pieces.each do |piece| %>
+  <%= content_tag :p do %>
+    <%= content_tag :strong, piece.composer.name %>
+    <% unless piece.composer.born.blank? %>
+      (<%= piece.composer.born %>&ndash;<%= piece.composer.died %>)
+    <% end %>
+    <br />
+    <%= piece.title %>
+    <br />
+    <%= format_duration(piece.duration) %>, Epoche <%= info_badge_tag(piece.epoch.slug) %>
+  <% end %>
+<% end %>
+
+<%= link_to "Zurück zur Vorspielliste", jmd_performances_path, class: "btn" %>

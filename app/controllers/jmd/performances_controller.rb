@@ -28,10 +28,9 @@ class Jmd::PerformancesController < Jmd::BaseController
   #                   .paginate(:page => params[:page], :per_page => 10)
   # end
 
-  # def show
-  #   @title = "Wertungsdetails"
-  #   @entry = Entry.current.visible_to(current_user).find(params[:id])
-  # end
+  def show
+    @performance = Performance.current.visible_to(current_user).find(params[:id])
+  end
 
   def edit
     @performance = Performance.current.visible_to(current_user).find(params[:id])

@@ -5,7 +5,7 @@ describe "Contacts" do
 
   subject { page }
 
-  before { visit new_contact_path }
+  before { visit contact_path }
 
   describe "message form" do
     it "should have all the required form fields" do

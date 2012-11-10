@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014220336) do
+ActiveRecord::Schema.define(:version => 20121110002008) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20121014220336) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.date     "certificate_date"
+    t.integer  "season"
   end
 
   create_table "composers", :force => true do |t|

@@ -10,6 +10,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  certificate_date :date
+#  season           :integer
 #
 
 require 'spec_helper'
@@ -20,6 +21,7 @@ describe Competition do
 
   subject { competition }
 
+  it { should respond_to(:season) }
   it { should respond_to(:round_id) }
   it { should respond_to(:host_id) }
   it { should respond_to(:begins) }
@@ -28,6 +30,21 @@ describe Competition do
   it { should respond_to(:category_ids) }
 
   it { should be_valid }
+
+  describe "without an associated season" do
+    before { competition.season = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with a season that is not a positive integer" do
+    it "should be invalid" do
+      invalid_values = [-1, 1.5]
+      invalid_values.each do |value|
+        competition.season = value
+        competition.should_not be_valid
+      end
+    end
+  end
 
   describe "without an associated round" do
     before { competition.round_id = nil }

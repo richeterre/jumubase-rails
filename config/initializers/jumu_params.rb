@@ -2,7 +2,7 @@
 # Be sure to restart the server after changing any of these.
 
 # The running number of the current competition year
-JUMU_ORDINAL = 50
+JUMU_SEASON = 50
 
 # The current competition (ending) year
 JUMU_YEAR = 2013

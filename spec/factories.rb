@@ -18,22 +18,26 @@ FactoryGirl.define do
   end
 
   factory :competition do
+    season JUMU_SEASON + 3
     round
     host
     begins { ends - 5.days }
     ends { Date.today + 3.years }
 
     factory :old_competition do
-      ends Date.new(JUMU_YEAR - 1, 12, 31)
+      season JUMU_SEASON - 1
+      ends Date.new((Date.today - 1.year).year, 12, 31)
     end
 
     factory :current_competition do
+      season JUMU_SEASON
       association :round, factory: :current_round
-      ends Date.new(JUMU_YEAR, 01, 01)
+      ends Date.new(Date.today.year, 01, 01)
     end
 
     factory :future_competition do
-      ends Date.new(JUMU_YEAR + 1, 01, 01)
+      season JUMU_SEASON + 1
+      ends Date.new((Date.today + 1.year).year, 01, 01)
     end
   end
 

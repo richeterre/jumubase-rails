@@ -18,12 +18,12 @@ class Competition < ActiveRecord::Base
 
   # Finds current competitions (with matching round and end year)
   scope :current, joins(:round, :host)
-      .where("rounds.level = ? AND DATE_PART('YEAR', competitions.ends) = ?", JUMU_ROUND, JUMU_YEAR)
+      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND, JUMU_SEASON)
       .order("hosts.name")
 
   # Finds competitions of same year, but round precedent to current
   scope :preceding, joins(:round, :host)
-      .where("rounds.level = ? AND YEAR(competitions.ends) = ?", JUMU_ROUND - 1, JUMU_YEAR)
+      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND - 1, JUMU_SEASON)
       .order("hosts.name")
 
   belongs_to :round

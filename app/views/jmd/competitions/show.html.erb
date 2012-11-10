@@ -1,0 +1,16 @@
+<% provide(:title, "Wettbewerbsdetails") %>
+
+<dl>
+  <dt>Saison</dt>
+    <dd><%= @competition.season %></dd>
+  <dt>Runde</dt>
+    <dd><%= @competition.round.name %></dd>
+  <dt>Schule</dt>
+    <dd><%= @competition.host.name %></dd>
+  <dt>Dauer</dt>
+    <dd><%= "#{l @competition.begins} – #{l @competition.ends}" %></dd>
+  <dt>Urkundenvergabe</dt>
+    <dd><%= @competition.certificate_date || "unbekannt" %></dd>
+</dl>
+
+<%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>

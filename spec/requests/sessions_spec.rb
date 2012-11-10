@@ -112,8 +112,6 @@ describe "Sessions" do
 
         current_path.should eq root_path
         page.should_not have_alert_message
-        page.should_not have_error_message
-        page.should_not have_info_message
       end
     end
 

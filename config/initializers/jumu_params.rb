@@ -1,7 +1,7 @@
 # JuMu-related constants are defined here.
 # Be sure to restart the server after changing any of these.
 
-# The running number of the current competition year
+# The running number of the current competition season
 JUMU_SEASON = 50
 
 # The current competition (ending) year

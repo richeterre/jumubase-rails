@@ -24,7 +24,7 @@ FactoryGirl.define do
     begins { ends - 5.days }
     ends { Date.today + 3.years }
 
-    factory :old_competition do
+    factory :past_competition do
       season JUMU_SEASON - 1
       ends Date.new((Date.today - 1.year).year, 12, 31)
     end
@@ -89,7 +89,7 @@ FactoryGirl.define do
     end
 
     factory :old_performance do
-      association :competition, factory: :old_competition
+      association :competition, factory: :past_competition
     end
   end
 

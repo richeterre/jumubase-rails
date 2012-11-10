@@ -26,7 +26,7 @@ describe "Performances" do
     end
 
     it "should have all the required content and fields" do
-      page.should have_selector "h2", text: "Anmeldung zum #{JUMU_COUNT}. Wettbewerb \"Jugend musiziert\""
+      page.should have_selector "h2", text: "Anmeldung zum #{JUMU_ORDINAL}. Wettbewerb \"Jugend musiziert\""
       page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
       page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
       page.should have_field "Vorname", text: ""

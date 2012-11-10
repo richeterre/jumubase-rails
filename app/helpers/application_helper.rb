@@ -47,7 +47,7 @@ module ApplicationHelper
 
   # Return the full title of the ongoing JuMu contest (e.g. "50. Wettbewerb 'Jugend musiziert'")
   def current_contest_title
-    "#{JUMU_COUNT}. Wettbewerb \"Jugend musiziert\""
+    "#{JUMU_ORDINAL}. Wettbewerb \"Jugend musiziert\""
   end
 
   # Return the full title of the current round (e.g. "Landeswettbewerb 2006")

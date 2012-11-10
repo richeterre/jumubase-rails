@@ -226,10 +226,11 @@ de:
         instrument_id: Instrument
         points: Punktzahl
       competition:
-        round_id: Runde
-        host_id: Schule
-        begins: beginnt am
-        ends: endet am
+        season: Saison
+        round: Runde
+        host: Schule
+        begins: Beginn
+        ends: Ende
         certificate_date: Urkundenvergabe
         category_ids: Kategorien
       composer:
@@ -284,7 +285,7 @@ de:
         password_digest: Passwort
         password_confirmation: Passwort erneut
         admin: Administrator
-        host_ids: Zugriff auf
+        hosts: Schulen
       venue:
         slug: Code
         name: Bezeichnung

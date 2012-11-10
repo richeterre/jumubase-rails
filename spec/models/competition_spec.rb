@@ -67,6 +67,12 @@ describe Competition do
   end
 
   it "should be able to return all competitions that are currently ongoing" do
+    past_competitions = FactoryGirl.create_list(:past_competition, 3)
+    current_competitions = FactoryGirl.create_list(:current_competition, 3)
+    future_competitions = FactoryGirl.create_list(:future_competition, 3)
+
+    Competition.current.should eq current_competitions
+
     pending "Check against list of current, future and past competitions. IMPORTANT: Handle year spillover!"
   end
 

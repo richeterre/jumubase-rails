@@ -8,7 +8,7 @@ describe "Performances" do
   describe "signup page" do
 
     before do
-      FactoryGirl.create_list(:old_competition, 3)
+      FactoryGirl.create_list(:past_competition, 3)
       FactoryGirl.create_list(:future_competition, 3)
       @current_competitions = FactoryGirl.create_list(:current_competition, 3)
 
@@ -265,8 +265,8 @@ describe "Performances" do
           host = FactoryGirl.create(:host)
           @current_competition = FactoryGirl.create(:current_competition, host: host)
           current_performances = FactoryGirl.create_list(:performance, 3, competition: @current_competition)
-          @old_competition = FactoryGirl.create(:old_competition, host: host)
-          old_performances = FactoryGirl.create_list(:performance, 3, competition: @old_competition)
+          @past_competition = FactoryGirl.create(:past_competition, host: host)
+          old_performances = FactoryGirl.create_list(:performance, 3, competition: @past_competition)
           user = FactoryGirl.create(:user, hosts: [host])
 
           other_host = FactoryGirl.create(:host)
@@ -286,7 +286,7 @@ describe "Performances" do
         end
 
         it "should not list non-current performances from own hosts' competitions" do
-          @old_competition.performances.each do |performance|
+          @past_competition.performances.each do |performance|
             page.should_not have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
         end

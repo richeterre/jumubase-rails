@@ -8,7 +8,7 @@ Jmd::Application.routes.draw do
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end
-    resources :performances, except: [:new, :create] do
+    resources :performances do
       get 'browse', on: :collection
       put 'retime', on: :collection
       get 'make_certificates', on: :collection

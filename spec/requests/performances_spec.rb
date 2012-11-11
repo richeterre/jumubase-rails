@@ -258,22 +258,25 @@ describe "Performances" do
 
   describe "JMD" do
 
+    before do
+      @host = FactoryGirl.create(:host)
+      @current_competition = FactoryGirl.create(:current_competition, host: @host)
+      @current_performances = FactoryGirl.create_list(:performance, 3, competition: @current_competition)
+      past_competition = FactoryGirl.create(:past_competition, host: @host)
+      @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
+
+      other_host = FactoryGirl.create(:host)
+      other_current_competition = FactoryGirl.create(:competition, host: other_host)
+      @other_performances = FactoryGirl.create_list(:performance, 3, competition: other_current_competition)
+    end
+
+    let(:user) { FactoryGirl.create(:user, hosts: [@host]) }
+    let(:admin) { FactoryGirl.create(:admin) }
+
     describe "index page" do
 
       context "when signed in as a regular user" do
         before do
-          host = FactoryGirl.create(:host)
-          current_competition = FactoryGirl.create(:current_competition, host: host)
-          @current_performances = FactoryGirl.create_list(:performance, 3, competition: current_competition)
-          past_competition = FactoryGirl.create(:past_competition, host: host)
-          @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
-          user = FactoryGirl.create(:user, hosts: [host])
-
-          other_host = FactoryGirl.create(:host)
-          other_current_competition = FactoryGirl.create(:competition, host: other_host)
-          @other_performances = FactoryGirl.create_list(:performance, 3, competition: other_current_competition)
-          other_user = FactoryGirl.create(:user, hosts: [other_host])
-
           visit root_path
           sign_in(user)
           visit jmd_performances_path
@@ -304,11 +307,57 @@ describe "Performances" do
           it "should state how long ago they were edited"
         end
 
-        it "should allow the user to delete performances"
+        it "should allow the user to delete a performance"
+
+        it "should have a link to an internal performance creation form" do
+          click_link "Neues Vorspiel erstellen"
+
+          current_path.should eq new_jmd_performance_path
+        end
       end
 
       context "when signed in as an admin" do
-        it "should have all current performances in the table"
+        before do
+          visit root_path
+          sign_in(admin)
+          visit jmd_performances_path
+        end
+
+        it "should have all current performances in the table" do
+          Performance.current.each do |performance|
+            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          end
+        end
+      end
+    end
+
+    describe "create page" do
+      before do
+        # TODO: Create some competitions, current and other, here for different users
+      end
+
+      context "for non-admins" do
+        before do
+          visit root_path
+          sign_in(user)
+          visit new_jmd_performance_path
+        end
+
+        it "should only offer own competitions to add the performance to" do
+          page.should have_select "Wettbewerb", options: ["Bitte wählen", @current_competition.name]
+        end
+      end
+
+      context "for admins" do
+        before do
+          visit root_path
+          sign_in(admin)
+          visit new_jmd_performance_path
+        end
+
+        it "should offer all current competitions" do
+          page.should have_select "Wettbewerb", options: ["Bitte wählen"] + Competition.current.map(&:name)
+        end
       end
     end
 

@@ -4,6 +4,10 @@ class PerformancesController < ApplicationController
   # Presents the signup form for participants
   def new
     @performance = Performance.new
+
+    # Set available competitions to choose from
+    @competitions = Competition.current
+
     # Build initial resources for form
     1.times do
       appearance = @performance.appearances.build
@@ -55,6 +59,9 @@ class PerformancesController < ApplicationController
   # Presents an existing signup form for editing
   def edit
     @performance = Performance.current.find(params[:id])
+
+    # Populate competition selector
+    @competitions = Competition.current
 
     unless @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."

@@ -32,8 +32,49 @@ class Jmd::PerformancesController < Jmd::BaseController
     @performance = Performance.current.visible_to(current_user).find(params[:id])
   end
 
+  def new
+    @performance = Performance.new
+
+    # Set available competitions to choose from
+    @competitions = admin? ? Competition.current : current_user.competitions.current
+
+    # Build initial resources for form
+    1.times do
+      appearance = @performance.appearances.build
+      appearance.build_participant
+    end
+    1.times do
+      piece = @performance.pieces.build
+      piece.build_composer
+    end
+  end
+
+  # Creates a new performance upon signup form submission
+  def create
+    # Create empty performance
+    @performance = Performance.new
+    # Make all attributes accessible to admins
+    # @performance.accessible = :all if admin?
+    @performance.attributes = params[:performance]
+
+    if @performance.save
+      # Send out confirmation emails with edit code
+      @performance.participants.each do |participant|
+        ParticipantMailer.signup_confirmation(participant, @performance).deliver
+      end
+
+      flash[:success] = "Das Vorspiel wurde erstellt."
+      redirect_to jmd_performances_path
+    else
+      render 'new'
+    end
+  end
+
   def edit
     @performance = Performance.current.visible_to(current_user).find(params[:id])
+
+    # Populate competition selector
+    @competitions = admin? ? Competition.current : current_user.competitions.current
   end
 
   def update
@@ -41,7 +82,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Make all attributes accessible to admins
     @performance.accessible = :all if admin?
     if @performance.update_attributes(params[:performance])
-      flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
+      flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performances_path
     else
       render 'edit'

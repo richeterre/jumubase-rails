@@ -28,18 +28,26 @@ describe "Competitions" do
     context "for admins" do
       before do
         sign_in(@admin)
-        @competitions = FactoryGirl.create_list(:competition, 5)
+        @current_competition = FactoryGirl.create(:current_competition)
+        @future_competition = FactoryGirl.create(:future_competition)
+        @past_competition = FactoryGirl.create(:past_competition)
         visit jmd_competitions_path
       end
 
       it "should display all existing competitions" do
-        @competitions.each do |competition|
+        Competition.all.each do |competition|
           page.should have_content competition.name
         end
       end
 
+      it "should list the competitions in chronological order, earliest first" do
+        page.should have_selector "table tbody tr:first-child", text: @past_competition.name
+        page.should have_selector "table tbody tr:nth-last-child(2)", text: @current_competition.name
+        page.should have_selector "table tbody tr:last-child", text: @future_competition.name
+      end
+
       it "should not display any other items in the list" do
-        page.should have_selector "table tbody tr", count: @competitions.count
+        page.should have_selector "table tbody tr", count: Competition.count
       end
     end
   end

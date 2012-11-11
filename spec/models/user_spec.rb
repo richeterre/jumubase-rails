@@ -23,6 +23,8 @@ describe User do
   subject { user }
 
   # Attributes
+  it { should respond_to(:first_name) }
+  it { should respond_to(:last_name) }
   it { should respond_to(:email) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
@@ -34,9 +36,30 @@ describe User do
   it { should respond_to(:competitions) }
 
   # Convenience methods
+
   it { should respond_to(:admin?) }
 
+  describe "should return whether the user is an admin" do
+    before { user.admin = true }
+    its(:admin?) { should be_true }
+  end
+
+  it { should respond_to(:full_name) }
+  its(:full_name) { should eq "#{user.first_name} #{user.last_name}" }
+
+  # Validations
+
   it { should be_valid }
+
+  describe "without a first name" do
+    before { user.first_name = "" }
+    it { should_not be_valid }
+  end
+
+  describe "without a last name" do
+    before { user.last_name = "" }
+    it { should_not be_valid }
+  end
 
   describe "without an email" do
     before { user.email = "" }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121110002008) do
+ActiveRecord::Schema.define(:version => 20121111003816) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(:version => 20121110002008) do
     t.string   "password_digest"
     t.datetime "last_login"
     t.string   "remember_token"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

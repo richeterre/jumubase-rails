@@ -16,7 +16,7 @@
 
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :admin, :host_ids
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :admin, :host_ids
   has_secure_password # Enable authentication
 
   has_and_belongs_to_many :hosts
@@ -26,20 +26,25 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email,                 presence: true,
-                                    format: { with: VALID_EMAIL_REGEX },
-                                    uniqueness: { case_sensitive: false }
-  validates :password,              presence: true,
-                                    length: { minimum: 5 },
-                                    on: :create
-  validates :password,              length: { minimum: 5 },
-                                    on: :update,
-                                    unless: lambda { |user| user.password.blank? }
+  validates :first_name,  presence: true
+  validates :last_name,   presence: true
+  validates :email,       presence: true,
+                          format: { with: VALID_EMAIL_REGEX },
+                          uniqueness: { case_sensitive: false }
+  validates :password,    length: { minimum: 5 },
+                          on: :create
+  validates :password,    length: { minimum: 5 },
+                          on: :update,
+                          unless: lambda { |user| user.password.blank? }
 
 
 
   def admin?
     self.admin
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
   end
 
   def competitions

@@ -72,7 +72,17 @@ describe "Competitions" do
         visit new_jmd_competition_path
       end
 
-      it "should complain about invalid input"
+      it "should complain about invalid input" do
+        click_button "Wettbewerb erstellen"
+
+        page.should have_error_message
+        page.should have_content "Saison muss ausgefüllt werden"
+        page.should have_content "Saison ist keine Zahl"
+        page.should have_content "Runde muss ausgefüllt werden"
+        page.should have_content "Schule muss ausgefüllt werden"
+        page.should have_content "Beginn muss ausgefüllt werden"
+        page.should have_content "Ende muss ausgefüllt werden"
+      end
 
       it "should allow creating a new user"
 
@@ -107,16 +117,24 @@ describe "Competitions" do
         visit edit_jmd_competition_path(@competition)
       end
 
-      it "should complain about invalid input"
+      it "should complain about invalid input" do
+        fill_in "Saison", with: ""
+        click_button "Änderungen speichern"
+
+        page.should have_error_message
+        page.should have_content "Saison muss ausgefüllt werden"
+        page.should have_content "Saison ist keine Zahl"
+      end
 
       it "should allow editing of the competition" do
         correct_season = @competition.season + 1
-        expect {
-          fill_in "Saison", with: correct_season
-          click_button "Änderungen speichern"
-        }.to change(@competition, :season).to(correct_season)
 
+        fill_in "Saison", with: correct_season
+        click_button "Änderungen speichern"
+
+        current_path.should eq jmd_competitions_path
         page.should have_success_message
+        page.should have_selector "tbody td", text: correct_season
       end
 
       # Test this because at least earlier a hidden field was needed for this

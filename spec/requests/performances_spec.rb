@@ -263,36 +263,37 @@ describe "Performances" do
       context "when signed in as a regular user" do
         before do
           host = FactoryGirl.create(:host)
-          @current_competition = FactoryGirl.create(:current_competition, host: host)
-          current_performances = FactoryGirl.create_list(:performance, 3, competition: @current_competition)
-          @past_competition = FactoryGirl.create(:past_competition, host: host)
-          old_performances = FactoryGirl.create_list(:performance, 3, competition: @past_competition)
+          current_competition = FactoryGirl.create(:current_competition, host: host)
+          @current_performances = FactoryGirl.create_list(:performance, 3, competition: current_competition)
+          past_competition = FactoryGirl.create(:past_competition, host: host)
+          @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
           user = FactoryGirl.create(:user, hosts: [host])
 
           other_host = FactoryGirl.create(:host)
-          @other_current_competition = FactoryGirl.create(:competition, host: other_host)
-          other_performances = FactoryGirl.create_list(:performance, 3, competition: @other_current_competition)
+          other_current_competition = FactoryGirl.create(:competition, host: other_host)
+          @other_performances = FactoryGirl.create_list(:performance, 3, competition: other_current_competition)
           other_user = FactoryGirl.create(:user, hosts: [other_host])
 
           visit root_path
           sign_in(user)
           visit jmd_performances_path
+          save_and_open_page
         end
 
         it "should list current performances from own hosts' competitions" do
-          @current_competition.performances.each do |performance|
+          @current_performances.each do |performance|
             page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
         end
 
         it "should not list non-current performances from own hosts' competitions" do
-          @past_competition.performances.each do |performance|
+          @past_performances.each do |performance|
             page.should_not have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
         end
 
         it "should not list current performances from other hosts' competitions" do
-          @other_current_competition.performances.each do |performance|
+          @other_performances.each do |performance|
             page.should_not have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
         end

@@ -11,9 +11,14 @@ de:
     error_notification:
       default_message: "Bitte behebe die folgenden Probleme:"
     labels:
+      competition:
+        round: Runde
+        host: Schule
       session:
         email: "E-Mail"
         password: "Passwort"
+      user:
+        hosts: "Schulen"
     options:
       participant:
         gender:

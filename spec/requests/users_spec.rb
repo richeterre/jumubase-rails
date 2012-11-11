@@ -44,6 +44,12 @@ describe "Users" do
         page.should have_selector "table tbody tr", count: @users.count + 2 # for login users
       end
 
+      it "should display each user's full name" do
+        @users.each do |user|
+          page.should have_content user.full_name
+        end
+      end
+
       it "should display each user's admin status correctly" do
         page.should have_selector "tbody td", text: "Nein", count: @users.count + 1 # for login user
         page.should have_selector "tbody td", text: "Ja", count: 1 # for login admin
@@ -69,13 +75,39 @@ describe "Users" do
     context "for admins" do
 
       before do
+        @hosts = FactoryGirl.create_list(:host, 3)
         sign_in(@admin)
         visit new_jmd_user_path
       end
 
-      it "should complain about invalid input"
+      it "should complain about invalid input" do
+        click_button "Benutzer erstellen"
 
-      it "should allow creating a new user"
+        page.should have_error_message
+        page.should have_content "Vorname muss ausgefüllt werden"
+        page.should have_content "Nachname muss ausgefüllt werden"
+        page.should have_content "E-Mail muss ausgefüllt werden"
+        page.should have_content "E-Mail ist nicht gültig"
+        page.should have_content "Passwort muss ausgefüllt werden"
+        page.should have_content "Passwort ist zu kurz (nicht weniger als 5 Zeichen)"
+      end
+
+      it "should allow creating a new user" do
+        new_user = FactoryGirl.build(:user)
+
+        expect {
+          fill_in "Vorname", with: new_user.first_name
+          fill_in "Nachname", with: new_user.last_name
+          fill_in "E-Mail", with: new_user.email
+          fill_in "Passwort", with: new_user.password
+          fill_in "Passwort erneut", with: new_user.password_confirmation
+          check "Admin" if new_user.admin
+          select @hosts.first.name, from: "Schulen"
+          select @hosts.last.name, from: "Schulen"
+
+          click_button "Benutzer erstellen"
+        }.to change(User, :count).by(1)
+      end
 
       it "should allow going back to the index page without creating anything" do
         expect {
@@ -110,7 +142,13 @@ describe "Users" do
         visit edit_jmd_user_path(@user)
       end
 
-      it "should complain about invalid input"
+      it "should complain about invalid input" do
+        fill_in "Vorname", with: ""
+        click_button "Änderungen speichern"
+
+        page.should have_error_message
+        page.should have_content "Vorname muss ausgefüllt werden"
+      end
 
       it "should not have a password or password confirmation field" do
         page.should_not have_content "Passwort"
@@ -128,10 +166,11 @@ describe "Users" do
       it "should allow editing of the user" do
         correct_address = "correct.address@example.org"
 
-        expect {
-          fill_in "E-Mail", with: correct_address
-          click_button "Änderungen speichern"
-        }.to change(@user, :email).to(correct_address)
+        fill_in "E-Mail", with: correct_address
+        click_button "Änderungen speichern"
+
+        current_path.should eq jmd_users_path
+        page.should have_selector "tbody td", text: correct_address
       end
 
       # Test this because at least earlier a hidden field was needed for this
@@ -142,7 +181,7 @@ describe "Users" do
         expect {
           fill_in "E-Mail", with: "wrong.address@example.org"
           click_link "Abbrechen"
-        }.to_not change(@user, :email)
+        }.to_not change(User.find(@user), :email)
         current_path.should eq jmd_users_path
       end
     end

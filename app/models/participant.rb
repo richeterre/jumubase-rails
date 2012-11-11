@@ -21,13 +21,13 @@
 class Participant < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :gender, :birthdate,
       :street, :postal_code, :city, :country_id, :phone, :email
-  
+
   belongs_to :country
   has_many :appearances,  :dependent => :destroy
   has_many :entries,      :through => :appearances
-  
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  
+
   validates :first_name,  :presence => true
   validates :last_name,   :presence => true
   validates :gender,      :presence => true,
@@ -38,7 +38,6 @@ class Participant < ActiveRecord::Base
   validates :email,       :presence => true,
                           :format => { :with => email_regex }
 
-  # Virtual full name of participant
   def full_name
     "#{self.first_name} #{self.last_name}"
   end

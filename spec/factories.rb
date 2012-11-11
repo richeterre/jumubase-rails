@@ -130,6 +130,8 @@ FactoryGirl.define do
   end
 
   factory :user do
+    sequence(:first_name) { |n| "Vorname #{n}" }
+    sequence(:last_name) { |n| "Nachname #{n}" }
     sequence(:email) { |n| "person_#{n}@example.org" }
     password "foobar"
     password_confirmation "foobar"

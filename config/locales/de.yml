@@ -227,8 +227,8 @@ de:
         points: Punktzahl
       competition:
         season: Saison
-        round: Runde
-        host: Schule
+        round_id: Runde
+        host_id: Schule
         begins: Beginn
         ends: Ende
         certificate_date: Urkundenvergabe
@@ -280,12 +280,14 @@ de:
         epoch_id: Epoche
         duration: Dauer
       user:
+        first_name: Vorname
+        last_name: Nachname
         email: E-Mail
         password: Passwort
         password_digest: Passwort
         password_confirmation: Passwort erneut
         admin: Administrator
-        hosts: Schulen
+        host_ids: Schulen
       venue:
         slug: Code
         name: Bezeichnung

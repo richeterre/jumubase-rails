@@ -134,7 +134,7 @@ describe "Competitions" do
 
         current_path.should eq jmd_competitions_path
         page.should have_success_message
-        page.should have_selector "tbody td", text: correct_season
+        page.should have_selector "tbody td", text: correct_season.to_s
       end
 
       # Test this because at least earlier a hidden field was needed for this

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       # Update date of last login
       user.update_attribute(:last_login, DateTime.now)
       # Redirect to originally requested page if applicable, else to root
-      redirect_back_or root_path, notice: "Willkommen, #{user.email}! Du bist jetzt angemeldet."
+      redirect_back_or root_path, notice: "Willkommen, #{user.full_name}! Du bist jetzt angemeldet."
     else
       flash[:error] = "Die E-Mailadresse oder das Passwort war falsch."
       redirect_to signin_path

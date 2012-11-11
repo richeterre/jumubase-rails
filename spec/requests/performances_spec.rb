@@ -277,7 +277,6 @@ describe "Performances" do
           visit root_path
           sign_in(user)
           visit jmd_performances_path
-          save_and_open_page
         end
 
         it "should list current performances from own hosts' competitions" do

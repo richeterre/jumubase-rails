@@ -61,8 +61,8 @@ describe "Sessions" do
       end
 
       it "should have a link to the user profile"
-      it "should display the user's email in the top bar" do
-        page.should have_selector "header a", text: user.email
+      it "should display the user's full name in the top bar" do
+        page.should have_selector "header a", text: user.full_name
       end
 
       it { should have_link "Abmelden", href: signout_path }
@@ -91,7 +91,7 @@ describe "Sessions" do
 
       current_path.should eq jmd_performances_path
       page.should have_info_message
-      page.should have_content "Willkommen, #{user.email}! Du bist jetzt angemeldet."
+      page.should have_content "Willkommen, #{user.full_name}! Du bist jetzt angemeldet."
     end
   end
 
@@ -123,7 +123,7 @@ describe "Sessions" do
 
         current_path.should eq jmd_users_path
         page.should have_info_message
-        page.should have_content "Willkommen, #{admin.email}! Du bist jetzt angemeldet."
+        page.should have_content "Willkommen, #{admin.full_name}! Du bist jetzt angemeldet."
       end
     end
   end

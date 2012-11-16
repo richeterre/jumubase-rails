@@ -33,7 +33,8 @@ FactoryGirl.define do
     factory :current_competition do
       season JUMU_SEASON
       association :round, factory: :current_round
-      ends Date.new(Date.today.year, 01, 01)
+      ends { Date.today + 1.month }
+      signup_deadline { Date.today + 1.day }
     end
 
     factory :future_competition do

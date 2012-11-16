@@ -56,6 +56,8 @@ describe "Performances" do
       page.should have_button "Anmeldung absenden"
     end
 
+    it "should not have deadlined competitions in the select box"
+
     it "should complain about invalid field contents" do
       click_button "Anmeldung absenden"
 

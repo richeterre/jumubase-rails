@@ -72,6 +72,8 @@ describe "Competitions" do
         visit new_jmd_competition_path
       end
 
+      it "should have all required form fields"
+
       it "should complain about invalid input" do
         click_button "Wettbewerb erstellen"
 
@@ -82,6 +84,7 @@ describe "Competitions" do
         page.should have_content "Schule muss ausgefüllt werden"
         page.should have_content "Beginn muss ausgefüllt werden"
         page.should have_content "Ende muss ausgefüllt werden"
+        page.should have_content "Anmeldeschluss muss ausgefüllt werden"
       end
 
       it "should allow creating a new user"

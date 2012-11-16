@@ -66,6 +66,21 @@ describe Competition do
     it { should_not be_valid }
   end
 
+  describe "without an associated signup deadline" do
+    before { competition.signup_deadline = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with a signup deadline that is not before the competition begins" do
+    it "should be invalid" do
+      invalid_deadlines = [competition.begins, competition.begins + 1.hour]
+      invalid_deadlines.each do |deadline|
+        competition.signup_deadline = deadline
+        competition.should_not be_valid
+      end
+    end
+  end
+
   it "should be able to return all competitions that are currently ongoing" do
     past_competitions = FactoryGirl.create_list(:past_competition, 3)
     current_competitions = FactoryGirl.create_list(:current_competition, 3)
@@ -75,6 +90,8 @@ describe Competition do
 
     pending "Check against list of current, future and past competitions. IMPORTANT: Handle year spillover!"
   end
+
+  it "should be able to return all current competitions whose signup is open"
 
   it "should be able to return all competitions of the preceding round in this year" do
     pending "Check against list of current, future and past competitions"

@@ -23,6 +23,7 @@ FactoryGirl.define do
     host
     begins { ends - 5.days }
     ends { Date.today + 3.years }
+    signup_deadline { begins - 1.month }
 
     factory :past_competition do
       season JUMU_SEASON - 1
@@ -38,6 +39,14 @@ FactoryGirl.define do
     factory :future_competition do
       season JUMU_SEASON + 1
       ends Date.new((Date.today + 1.year).year, 01, 01)
+    end
+
+    # Create an upcoming competition whose deadline has passed
+    factory :deadlined_competition do
+      season JUMU_SEASON
+      association :round, factory: :current_round
+      ends { Date.today + 1.month }
+      signup_deadline { Date.today - 1.day }
     end
   end
 

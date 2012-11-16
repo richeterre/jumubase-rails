@@ -12,6 +12,8 @@
 #  password_digest    :string(255)
 #  last_login         :datetime
 #  remember_token     :string(255)
+#  first_name         :string(255)
+#  last_name          :string(255)
 #
 
 require 'spec_helper'

@@ -11,6 +11,7 @@
 #  updated_at       :datetime         not null
 #  certificate_date :date
 #  season           :integer
+#  signup_deadline  :datetime
 #
 
 class Competition < ActiveRecord::Base

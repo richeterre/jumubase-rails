@@ -95,7 +95,7 @@ class Performance < ActiveRecord::Base
 
   # Returns all performances in pop categories
   # (using "popular" here to steer clear of Ruby #pop method)
-  scope :popular, joins(:category).where('categories.popular = TRUe')
+  scope :popular, joins(:category).where('categories.popular = TRUE')
 
   # Orders performances chronologically by stage date
   scope :stage_order, order(:stage_time)

@@ -58,6 +58,7 @@ FactoryGirl.define do
   factory :country do
     sequence(:name) { |n| "Country #{n}" }
     sequence(:slug) { |n| "C#{n}" }
+    country_code "fam"
   end
 
   factory :epoch do

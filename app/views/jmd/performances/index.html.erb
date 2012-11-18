@@ -17,6 +17,7 @@
       <th>
         <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
       </th>
+      <th>Land</th>
       <th>Teilnehmer</th>
       <th>&nbsp;</th>
     </tr>
@@ -32,6 +33,7 @@
         <% end %>
       </td>
       <td><%= performance.category.name %></td>
+      <td><%= flag_tag(performance.participants.first.country.country_code) %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
           <span class="<%= "muted" if appearance.accompaniment? %>">

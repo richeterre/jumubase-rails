@@ -1,5 +1,6 @@
 <% provide(:title, "Vorspieldetails") %>
 
+<%= flag_tag @performance.competition.host.country.country_code %>
 <%= @performance.competition.name %>
 <br />
 <%= @performance.category.name %>

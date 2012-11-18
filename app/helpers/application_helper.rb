@@ -2,8 +2,8 @@
 module ApplicationHelper
   # Return the header logo
   def logo
-    image_tag "jumuball.png", :id => "header-logo", :alt => "Logo von Jugend musiziert",
-        :height => 120, :class => "left"
+    image_tag "jumuball.png", id: "header-logo", alt: "Logo von Jugend musiziert",
+              height: 120, class: "left"
   end
 
   # Return a Glyphicon tag
@@ -22,6 +22,11 @@ module ApplicationHelper
   def info_badge_tag(content, type = nil)
     class_name = type ? "badge badge-#{type}" : "badge"
     content_tag(:span, class: class_name) { content }
+  end
+
+  # Return a flag image based on given country code
+  def flag_tag(country_code)
+    image_tag "flags/#{country_code}.png", alt: "Flag of #{country_code}"
   end
 
   # Convert flash class for use with Twitter Bootstrap

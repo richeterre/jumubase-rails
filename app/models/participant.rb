@@ -23,22 +23,26 @@ class Participant < ActiveRecord::Base
       :street, :postal_code, :city, :country_id, :phone, :email
 
   belongs_to :country
-  has_many :appearances,  :dependent => :destroy
-  has_many :entries,      :through => :appearances
+  has_many :appearances,  dependent: :destroy
+  has_many :performances, through: :appearances
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :first_name,  :presence => true
-  validates :last_name,   :presence => true
-  validates :gender,      :presence => true,
-                          :inclusion => { :in => ["m", "f"] }
-  validates :birthdate,   :presence => true
-  validates :country_id,  :presence => true
-  validates :phone,       :presence => true
-  validates :email,       :presence => true,
-                          :format => { :with => email_regex }
+  validates :first_name,  presence: true
+  validates :last_name,   presence: true
+  validates :gender,      presence: true,
+                          inclusion: { :in => ["m", "f"] }
+  validates :birthdate,   presence: true
+  validates :country_id,  presence: true
+  validates :phone,       presence: true
+  validates :email,       presence: true,
+                          format: { with: email_regex }
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def address
+    "#{self.street}, #{self.postal_code} #{self.city}"
   end
 end

@@ -34,3 +34,6 @@ $ ->
       $(this).siblings(".add-on").html("Sekunde")
     else
       $(this).siblings(".add-on").html("Sekunden")
+
+  # Enable popover for participant names that shows address
+  $(".participant-name").popover()

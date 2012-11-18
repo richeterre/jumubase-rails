@@ -11,7 +11,11 @@
 
 <% @performance.appearances.role_order.each do |appearance| %>
   <%= content_tag :p, class: (appearance.accompaniment? ? "muted" : "") do %>
-    <%= content_tag :strong, appearance.participant.full_name %>, <%= appearance.instrument.name %>
+    <strong>
+      <%= link_to(appearance.participant.full_name, "#", class: "participant-name",
+            rel: "popover", title: appearance.participant.full_name, "data-placement" => "top",
+            "data-content" => "#{appearance.participant.address}<br />#{appearance.participant.phone}<br />#{mail_to appearance.participant.email}") %></strong>,
+    <%= appearance.instrument.name %>
     <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
   <% end %>
 <% end %>

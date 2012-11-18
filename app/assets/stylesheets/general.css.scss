@@ -23,6 +23,11 @@ body {
   width: 170px;
 }
 
+// Country flags
+.inline-flag {
+  vertical-align: baseline;
+}
+
 // "Add more" buttons in signup form
 #appearances > input.btn, #pieces > input.btn {
   margin-bottom: 20px;

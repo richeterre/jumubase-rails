@@ -26,7 +26,7 @@ module ApplicationHelper
 
   # Return a flag image based on given country code
   def flag_tag(country_code)
-    image_tag "flags/#{country_code}.png", alt: "Flag of #{country_code}"
+    image_tag "flags/#{country_code}.png", alt: "Flag of #{country_code}", class: "inline-flag"
   end
 
   # Convert flash class for use with Twitter Bootstrap

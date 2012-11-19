@@ -29,6 +29,15 @@ module ApplicationHelper
     image_tag "flags/#{country_code}.png", alt: "Flag of #{country_code}", class: "inline-flag"
   end
 
+  # Return a male or female symbol based on given gender
+  def gender_symbol(gender)
+    if gender == "f"
+      "&#9792;".html_safe
+    elsif gender == "m"
+      "&#9794;".html_safe
+    end
+  end
+
   # Convert flash class for use with Twitter Bootstrap
   def flash_class(level)
     case level

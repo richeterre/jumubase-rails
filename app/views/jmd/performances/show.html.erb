@@ -9,16 +9,7 @@
 
 <h3>Teilnehmer</h3>
 
-<% @performance.appearances.role_order.each do |appearance| %>
-  <%= content_tag :p, class: (appearance.accompaniment? ? "muted" : "") do %>
-    <strong>
-      <%= link_to(appearance.participant.full_name, "#", class: "participant-name",
-            rel: "popover", title: appearance.participant.full_name, "data-placement" => "top",
-            "data-content" => "#{appearance.participant.address}<br />#{appearance.participant.phone}<br />#{mail_to appearance.participant.email}") %></strong>,
-    <%= appearance.instrument.name %>
-    <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
-  <% end %>
-<% end %>
+<%= render @performance.appearances.role_order %>
 
 <h3>Vorspielprogramm</h3>
 

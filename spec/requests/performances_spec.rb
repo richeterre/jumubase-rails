@@ -364,9 +364,24 @@ describe "Performances" do
     end
 
     describe "edit page" do
-      it "should allow returning to the index page without saving anything" do
+      it "should allow returning to the index page without saving anything"
+    end
 
+    describe "show page" do
+      before do
+        @current_performance = @current_performances.first
+        visit root_path
+        sign_in(user)
+        visit jmd_performance_path(@current_performance)
       end
+
+      it "should list all participants in the performance" do
+        @current_performance.participants.each do |participant|
+          page.should have_selector "a.modal-link", text: participant.full_name
+        end
+      end
+
+      it "should open a modal window with contact info when clicking a participant's name"
     end
   end
 end

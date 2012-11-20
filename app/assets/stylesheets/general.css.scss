@@ -38,6 +38,11 @@ body {
   text-align: right;
 }
 
+// Links that spawn modal windows
+.modal-link:focus {
+  outline: none;
+}
+
 // Byline in footer
 #byline {
   text-align: right;

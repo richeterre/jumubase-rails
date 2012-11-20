@@ -1,7 +1,7 @@
 <%= content_tag :p, class: (appearance.accompaniment? ? "muted" : nil) do %>
     <%= content_tag :strong,
           link_to(appearance.participant.full_name, "#participant#{appearance.participant.id}Modal",
-          role: "button", "data-toggle" => "modal") %>,
+          class: "modal-link", role: "button", "data-toggle" => "modal") %>,
     <%= appearance.instrument.name %>
     <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
 

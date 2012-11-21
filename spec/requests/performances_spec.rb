@@ -28,6 +28,7 @@ describe "Performances" do
     it "should have all the required content and fields" do
       page.should have_selector "h2", text: "Anmeldung zum #{JUMU_SEASON}. Wettbewerb \"Jugend musiziert\""
       page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
+      page.should have_selector ".help-block", text: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
       page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
       page.should have_field "Vorname", text: ""
       page.should have_field "Nachname", text: ""
@@ -161,6 +162,7 @@ describe "Performances" do
 
       page.should have_selector "h2", text: "Anmeldung bearbeiten"
       page.should have_select 'Wettbewerb', selected: @performance.competition.name
+      page.should have_selector ".help-block", text: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
       page.should have_select 'Kategorie', selected: @performance.category.name
 
       page.should have_selector 'div.appearance', count: @performance.appearances.count
@@ -172,7 +174,7 @@ describe "Performances" do
       page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_1i",
                               selected: @performance.participants.first.birthdate.year.to_s
       page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_2i",
-                              selected: I18n.t("date.month_names")[ @performance.participants.first.birthdate.month]
+                              selected: I18n.t('date.month_names')[ @performance.participants.first.birthdate.month]
       page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_3i",
                               selected: @performance.participants.first.birthdate.day.to_s
       page.should have_checked_field "weiblich"
@@ -348,6 +350,10 @@ describe "Performances" do
         it "should only offer own competitions to add the performance to" do
           page.should have_select "Wettbewerb", options: ["Bitte wählen", @current_competition.name]
         end
+
+        it "should not display a hint for the competition selector" do
+          page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.competition_id')
+        end
       end
 
       context "for admins" do
@@ -364,6 +370,10 @@ describe "Performances" do
     end
 
     describe "edit page" do
+      it "should not display a hint for the competition selector" do
+        page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.competition_id')
+      end
+
       it "should allow returning to the index page without saving anything"
     end
 

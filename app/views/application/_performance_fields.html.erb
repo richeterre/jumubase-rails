@@ -1,7 +1,7 @@
 <%= render 'shared/error_messages', :object => f.object %>
+
 <%= field_set_tag "Teilnahmeort und Kategorie" do %>
-  <%= f.input :competition_id, collection: @competitions,
-      prompt: "Bitte wählen", hint: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)." %>
+  <%= f.input :competition_id, collection: @competitions, prompt: "Bitte wählen", hint: show_hints %>
   <%= f.input :category_id, collection: Category.current, prompt: "Bitte wählen", input_html: { class: "span3" } %>
 <% end %>
 

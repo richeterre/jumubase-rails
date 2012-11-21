@@ -33,7 +33,7 @@ de:
     #       email: 'E-mail to sign in.'
     #     edit:
     #       email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
+    hints:
+      performance:
+        competition_id: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
     #     password: 'No special characters, please.'

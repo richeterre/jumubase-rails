@@ -210,6 +210,11 @@ de:
         subject: "Betreff"
         content: "Nachricht"
   activerecord:
+    models:
+      performance:
+        zero: "Vorspiele"
+        one: "Vorspiel"
+        other: "Vorspiele"
     errors:
       <<: *errors
       models:
@@ -295,3 +300,19 @@ de:
         address: Anschrift
         usage: Verwendung
         host_id: Schule
+  will_paginate:
+    previous_label: "&#8592;"
+    next_label: "&#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "Kein %{model} gefunden"
+        one:   "1 %{model}"
+        other: "Alle %{count} %{model}"
+      single_page_html:
+        zero:  "Kein %{model} gefunden"
+        one:   "<b>1</b> %{model}"
+        other: "Alle&nbsp;<b>%{count}</b> %{model}"
+
+      multi_page: "%{model} %{from} - %{to} von insgesamt %{count}"
+      multi_page_html: "%{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> von insgesamt <b>%{count}</b>"

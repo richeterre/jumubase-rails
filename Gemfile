@@ -10,6 +10,8 @@ gem 'pg'
 gem 'jquery-rails'
 
 gem 'simple_form'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 gem 'sass-rails',     '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'

@@ -1,13 +1,12 @@
 <% provide(:title, "Vorspiele verwalten") %>
 
-<%= link_to "Neues Vorspiel erstellen", new_jmd_performance_path, class: "btn" %>
+<p><%= link_to "Neues Vorspiel erstellen", new_jmd_performance_path, class: "btn" %></p>
 
 <%# render 'filter_form', :path => jmd_performances_path %>
 
-<p>
-  <%= @performances.length %> Vorspiele
-  <%# link_to "Alle anzeigen", jmd_performances_path, class: "btn btn-mini" %>
-</p>
+<p><%= page_entries_info %></p>
+
+<%= will_paginate %>
 
 <table class="table table-hover">
   <thead>
@@ -57,3 +56,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>

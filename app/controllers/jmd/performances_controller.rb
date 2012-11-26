@@ -16,7 +16,8 @@ class Jmd::PerformancesController < Jmd::BaseController
   # Manage entries at hosts the user has access to
   def index
     # filter_sort_entries
-    @performances = Performance.current.visible_to(current_user).order("created_at DESC")
+    @performances = Performance.current.visible_to(current_user)
+                      .order("created_at DESC").paginate(page: params[:page], per_page: 30)
   end
 
   # def browse

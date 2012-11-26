@@ -25,6 +25,7 @@ norway = Country.create(name: "Norwegen", slug: "N", country_code: "no")
 poland = Country.create(name: "Polen", slug: "PL", country_code: "pl")
 romania = Country.create(name: "Rumänien", slug: "RO", country_code: "ro")
 russia = Country.create(name: "Russland", slug: "RUS", country_code: "ru")
+slovakia = Country.create(name: "Slowakei", slug: "SK", country_code: "sk")
 sweden = Country.create(name: "Schweden", slug: "S", country_code: "se")
 switzerland = Country.create(name: "Schweiz", slug: "CH", country_code: "ch")
 czech = Country.create(name: "Tschechien", slug: "CZ", country_code: "cz")
@@ -43,6 +44,7 @@ hosts = Host.create([
     { name: "DS Warschau", city: "Warschau", country_id: poland.id },
     { name: "DS Temeschwar", city: "Temeschwar", country_id: romania.id },
     { name: "DS Moskau", city: "Moskau", country_id: russia.id },
+    { name: "DS Bratislava", city: "Bratislava", country_id: slovakia.id },
     { name: "DS Stockholm", city: "Stockholm", country_id: sweden.id },
     { name: "DS Genf", city: "Genf", country_id: switzerland.id },
     { name: "DS Prag", city: "Prag", country_id: czech.id },

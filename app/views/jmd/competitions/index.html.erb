@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Saison</th>
       <th>Dauer</th>
+      <th>Anmeldeschluss</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -19,6 +20,7 @@
       <td>
         <%= "#{l competition.begins} – #{l competition.ends}" %>
       </td>
+      <td><%= l competition.signup_deadline, format: :tiny %></td>
       <td>
         <%= link_to icon_tag("eye-open", :title => "Wettbewerbsdetails anzeigen"),
             jmd_competition_path(competition) %>

@@ -255,6 +255,18 @@ describe "Performances" do
       page.should have_content "Keine Anmeldung unter diesem Änderungscode gefunden."
     end
 
+    it "should not allow editing a performance for a deadlined competition" do
+      deadlined_competition = FactoryGirl.create(:deadlined_competition)
+      deadlined_performance = FactoryGirl.create(:performance, competition: deadlined_competition)
+
+      search_for_performance_with_code(deadlined_performance.tracing_code)
+
+      page.should have_error_message
+      page.should have_content "Der Anmeldeschluss für deinen Wettbewerb war bereits am "\
+                               "#{I18n.l deadlined_competition.signup_deadline - 1.second, format: :date}. "\
+                               "Bitte nimm Kontakt zu einem JuMu-Ansprechpartner an deiner Schule auf."
+    end
+
     # Use this in controller: unless admin? || @performance[:tracing_code] == params[:tracing_code]
     # it "should grant access to logged-in admins even without a tracing code"
     # or then not? Admins can edit entries in JMD after all
@@ -265,7 +277,7 @@ describe "Performances" do
     before do
       @host = FactoryGirl.create(:host)
       @current_competition = FactoryGirl.create(:current_competition, host: @host)
-      @current_performances = FactoryGirl.create_list(:performance, 3, competition: @current_competition)
+      @current_performances = FactoryGirl.create_list(:performance, 31, competition: @current_competition)
       past_competition = FactoryGirl.create(:past_competition, host: @host)
       @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
 
@@ -287,9 +299,14 @@ describe "Performances" do
         end
 
         it "should list current performances from own hosts' competitions" do
-          @current_performances.each do |performance|
+          @current_performances[1..30].each do |performance| # Newest first
             page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
+
+          click_link "2" # Proceed to next page
+
+          performance = @current_performances[0] # Second page has the one remaining performance
+          page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
         end
 
         it "should not list non-current performances from own hosts' competitions" do
@@ -317,6 +334,39 @@ describe "Performances" do
           click_link "Neues Vorspiel erstellen"
 
           current_path.should eq new_jmd_performance_path
+        end
+
+        describe "pagination" do
+
+          before do
+            # TODO: Remove when current vs. visible_to issue is fixed
+            Performance.destroy @past_performances
+            visit current_path
+          end
+
+          context "with more than 30 performances" do
+            it "should display the counts of the paginated list" do
+              page.should have_content "Vorspiele 1 – 30 von insgesamt 31"
+            end
+
+            it "should display the paginator" do
+              page.should have_selector "div.pagination"
+              page.should have_link "2", href: jmd_performances_path(page: 2)
+              page.should have_link "→", href: jmd_performances_path(page: 2)
+            end
+          end
+
+          context "with exactly 30 performances" do
+            describe "should display the total performance count" do
+              before do
+                @current_performances.last.destroy
+                visit current_path
+              end
+
+              it { should have_content "Alle 30 Vorspiele" }
+              it { should_not have_selector "div.pagination" }
+            end
+          end
         end
       end
 

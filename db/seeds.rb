@@ -8,6 +8,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+if Rails.env == "development"
+  User.create({
+    first_name: "Martin",
+    last_name: "Richter",
+    email: "me@martinrichter.net",
+    password: "martin",
+    admin: true
+  })
+end
+
 rounds = Round.create([
     { level: 1, name: "Regionalwettbewerb", slug: "RW" },
     { level: 2, name: "Landeswettbewerb",   slug: "LW" },

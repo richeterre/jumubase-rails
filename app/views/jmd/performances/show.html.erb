@@ -24,8 +24,9 @@
     <br />
     <%= format_duration(piece.duration) %>, Epoche <%= info_badge_tag(piece.epoch.slug) %>
   <% end %>
-  <p><i>Gesamtdauer: <%= format_duration(@performance.duration) %></i></p>
 <% end %>
+
+<p><i>Gesamtdauer: <%= format_duration(@performance.duration) %></i></p>
 
 <%= link_to "Vorspiel bearbeiten", edit_jmd_performance_path(@performance), class: "btn" %>
 <%= link_to "Zurück zur Vorspielliste", jmd_performances_path, class: "btn" %>

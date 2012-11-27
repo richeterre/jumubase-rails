@@ -19,9 +19,7 @@ module Jmd
   class Application < Rails::Application
 
     # Set up mail server
-
     config.action_mailer.delivery_method = :smtp
-
     config.action_mailer.smtp_settings = {
       :address              => "smtp.jumu-nordost.eu",
       :port                 => 25,
@@ -31,8 +29,10 @@ module Jmd
       :enable_starttls_auto => true,
       :openssl_verify_mode  => "none"
     }
-
     config.action_mailer.default_url_options = { host: "www.jumu-nordost.eu" }
+
+    # Prevent initialize when precompiling (Heroku requires this)
+    config.assets.initialize_on_precompile = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

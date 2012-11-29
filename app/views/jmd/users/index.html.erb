@@ -7,7 +7,6 @@
     <tr>
       <th>Name</th>
       <th>E-Mail</th>
-      <th>Admin</th>
       <th>Letzter Login</th>
       <th>&nbsp;</th>
     </tr>
@@ -15,9 +14,11 @@
   <tbody>
     <% @users.each do |user| %>
     <tr>
-      <td><%= user.full_name %></td>
+      <td>
+        <%= user.full_name %>
+        <%= info_label_tag("Admin", :important) if user.admin? %>
+      </td>
       <td><%= user.email %></td>
-      <td><%= user.admin? ? "Ja" : "Nein" %></td>
       <td><%= user.last_login? ? (l user.last_login, :format => :short) : "?" %></td>
       <td>
         <%= link_to icon_tag("eye-open", :title => "Benutzerdetails anzeigen"), jmd_user_path(user) %>

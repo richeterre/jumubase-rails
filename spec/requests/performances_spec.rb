@@ -114,6 +114,9 @@ describe "Performances" do
       page.should have_content "Es muss mindestens ein Stück angegeben werden"
     end
 
+    # This is currently enforced through a db index, but causes the app to go 500
+    it "should complain if a participant is contained twice in the form"
+
     it "should perform the signup when given valid data" do
       expect {
         select @current_competitions.first.name, from: "Wettbewerb"

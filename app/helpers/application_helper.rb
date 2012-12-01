@@ -38,6 +38,12 @@ module ApplicationHelper
     end
   end
 
+  # Return a link to a modal as defined in _modal partial
+  def link_to_modal(body, item_type, item_id, html_options = {})
+    html_options = html_options.merge(class: "modal-link", role: "button", "data-toggle" => "modal")
+    link_to body, "##{item_type}#{item_id}Modal", html_options
+  end
+
   # Convert flash class for use with Twitter Bootstrap
   def flash_class(level)
     case level

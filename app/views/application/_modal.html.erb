@@ -1,0 +1,14 @@
+<div id="<%= item_type %><%= item_id %>Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="<%= item_type %><%= item_id %>ModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="<%= item_type %><%= item_id %>ModalLabel">
+      <%= title %>
+    </h3>
+  </div>
+  <div class="modal-body">
+    <%= yield %>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>

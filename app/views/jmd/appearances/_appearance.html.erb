@@ -1,38 +1,26 @@
 <%= content_tag :p, class: (appearance.accompaniment? ? "muted" : nil) do %>
     <%= content_tag :strong,
-          link_to(appearance.participant.full_name, "#participant#{appearance.participant.id}Modal",
-          class: "modal-link", role: "button", "data-toggle" => "modal") %>,
+          link_to_modal(appearance.participant.full_name, :participant, appearance.participant.id) %>,
     <%= appearance.instrument.name %>
     <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
 
-    <div id="participant<%= appearance.participant.id %>Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="participant<%= appearance.participant.id %>ModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="participant<%= appearance.participant.id %>ModalLabel">
-          <%= appearance.participant.full_name %>
-        </h3>
-      </div>
-      <div class="modal-body">
-        <p>
-          * <%= l appearance.participant.birthdate %>
-          <%= gender_symbol(appearance.participant.gender) %>
-        </p>
-        <p>
-          <% unless appearance.participant.street.blank? %>
-            <%= appearance.participant.street %><br />
-          <% end %>
-          <% unless appearance.participant.city.blank? %>
-            <%= appearance.participant.postal_code %>
-            <%= appearance.participant.city %>
-            <br />
-          <% end %>
-          <%= flag_tag(appearance.participant.country.country_code) %>
-        </p>
-        <p>Telefon: <%= appearance.participant.phone %></p>
-        <p><%= mail_to appearance.participant.email %></p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-      </div>
-    </div>
+    <%= render layout: "modal", locals: { item_type: "participant", item_id: appearance.participant.id, title: appearance.participant.full_name } do %>
+      <p>
+        * <%= l appearance.participant.birthdate %>
+        <%= gender_symbol(appearance.participant.gender) %>
+      </p>
+      <p>
+        <% unless appearance.participant.street.blank? %>
+        <%= appearance.participant.street %><br />
+        <% end %>
+        <% unless appearance.participant.city.blank? %>
+        <%= appearance.participant.postal_code %>
+        <%= appearance.participant.city %>
+        <br />
+        <% end %>
+        <%= flag_tag(appearance.participant.country.country_code) %>
+      </p>
+      <p>Telefon: <%= appearance.participant.phone %></p>
+      <p><%= mail_to appearance.participant.email %></p>
+    <% end %>
   <% end %>

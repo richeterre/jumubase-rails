@@ -1,0 +1,31 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Kategorie</th>
+      <th>Teilnehmer</th>
+      <th>AG</th>
+      <th>Punkte</th>
+    </tr>
+  </thead>
+  <tbody id="appearance-rows">
+    <% @performances.each do |performance| %>
+      <% performance.appearances.each do |appearance| %>
+      <tr>
+        <% if appearance == performance.appearances.first %>
+        <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
+        <% end %>
+        <td><%= appearance.participant.full_name %>, <%= appearance.instrument.name %></td>
+        <td><%= info_badge_tag(appearance.age_group, :info) %></td>
+        <td>
+          <span class="points" data-path="<%= jmd_appearance_path(appearance) %>">
+            <%= appearance.points %>
+          </span>
+          <%= icon_tag("edit", title: "Punkte bearbeiten") %>
+          <%= icon_tag("ok-circle", title: "Punkte speichern") %>
+          <%= icon_tag("remove-circle", title: "Abbrechen") %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

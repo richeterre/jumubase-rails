@@ -136,8 +136,9 @@ describe "Sessions" do
       before { sign_in user }
 
       it { should_not have_link "Benutzer", href: jmd_users_path }
+      it { should_not have_link "Wettbewerbe", href: jmd_competitions_path }
       it { should have_link "Vorspiele", href: jmd_performances_path }
-      it { should_not have_link "Ergebnisse", href: jmd_appearances_path }
+      it { should have_link "Ergebnisse", href: jmd_appearances_path }
     end
 
     describe "for admins" do
@@ -145,6 +146,7 @@ describe "Sessions" do
       before { sign_in admin }
 
       it { should have_link "Benutzer", href: jmd_users_path }
+      it { should have_link "Wettbewerbe", href: jmd_competitions_path }
     end
   end
 end

@@ -30,8 +30,11 @@ class Appearance < ActiveRecord::Base
 
   validates :instrument_id,   presence: true
   validates :role_id,         presence: true
-  validates :points,          numericality: { only_integer: true },
-                              inclusion: { in: 0..25 },
+  validates :points,          numericality: {
+                                only_integer: true,
+                                greater_than_or_equal_to: 0,
+                                less_than_or_equal_to: 25
+                              },
                               unless: lambda { |a| a.points.nil? } # Skip if none submitted
 
   # Filter by given role

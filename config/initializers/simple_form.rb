@@ -34,7 +34,7 @@ SimpleForm.setup do |config|
     b.optional :pattern
 
     # Calculates min and max from length validations for numeric inputs
-    b.use :min_max
+    b.optional :min_max
 
     # Calculates readonly automatically from readonly attributes
     b.optional :readonly
@@ -49,6 +49,7 @@ SimpleForm.setup do |config|
     b.use :html5
     b.use :placeholder
     b.use :label
+    b.use :min_max
     b.wrapper :tag => 'div', :class => 'controls' do |ba|
       ba.use :input
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }

@@ -3,7 +3,7 @@ class Jmd::AppearancesController < Jmd::BaseController
   before_filter :require_admin if JUMU_ROUND > 1 # Non-admins can edit points only in 1st round
 
   def index
-    @performances = Performance.current.visible_to(current_user)
+    @performances = Performance.current.visible_to(current_user).category_order
     @appearances = Appearance.where(performance_id: @performances)
   end
 

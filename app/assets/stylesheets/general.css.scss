@@ -49,6 +49,11 @@ body {
   outline: none;
 }
 
+// Forms in modal windows
+.modal > form {
+  margin-bottom: 0; // If form encloses footer, remove margin that would appear below it
+}
+
 // Byline in footer
 #byline {
   text-align: right;

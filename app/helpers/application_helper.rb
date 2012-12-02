@@ -44,6 +44,11 @@ module ApplicationHelper
     link_to body, "##{item_type}#{item_id}Modal", html_options
   end
 
+  def link_to_close_modal(body, html_options = {})
+    html_options = html_options.merge("data-dismiss" => "modal", "aria-hidden" => "true")
+    link_to body, "#", html_options
+  end
+
   # Convert flash class for use with Twitter Bootstrap
   def flash_class(level)
     case level

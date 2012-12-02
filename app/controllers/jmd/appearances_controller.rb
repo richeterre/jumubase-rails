@@ -4,19 +4,19 @@ class Jmd::AppearancesController < Jmd::BaseController
 
   def index
     @performances = Performance.current.visible_to(current_user)
+    @appearances = Appearance.where(performance_id: @performances)
   end
 
-  # def update
-  #   appearance = Appearance.find(params[:id])
-  #   if Entry.visible_to(current_user).include? appearance.entry
-  #     appearance.accessible = :all # Allow editing if user can see appearance
-  #   end
-  #   if appearance.update_attributes(params[:appearance])
-  #     show_editable_appearances # Pass all for table refresh
-  #     # JS view is rendered automatically
-  #   else
-  #     # Return error code 400
-  #     head :bad_request
-  #   end
-  # end
+  def update
+    appearance = Appearance.find(params[:id])
+    if Performance.visible_to(current_user).include? appearance.performance
+      appearance.accessible = :all # Allow editing if user can see appearance
+    end
+    if appearance.update_attributes(params[:appearance])
+      flash[:success] = "Die Punktzahl wurde erfolgreich aktualisiert."
+    else
+      flash[:error] = "Die Punktzahl konnte nicht gespeichert werden."
+    end
+    redirect_to jmd_appearances_path
+  end
 end

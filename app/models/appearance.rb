@@ -128,7 +128,7 @@ class Appearance < ActiveRecord::Base
       !["Ia", "Ib"].include?(self.age_group)
     when 2
       # Conditions for second round
-      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gesang (Pop) solo", "Gitarre (Pop) solo", "Drum-Set (Pop) solo"].include?(self.performance.category.name))
+      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gitarre (Pop) solo", "E-Bass (Pop) solo", "Drum-Set (Pop) solo"].include?(self.performance.category.name))
       # TODO: Generalize pop category restrictions
     end
   end

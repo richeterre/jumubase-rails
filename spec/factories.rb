@@ -133,6 +133,12 @@ FactoryGirl.define do
     name "Regionalwettbewerb"
     slug "RW"
 
+    factory :second_round do
+      level 2
+      name "Landeswettbewerb"
+      slug "LW"
+    end
+
     factory :current_round do
       level JUMU_ROUND
       name ["Regionalwettbewerb", "Landeswettbewerb", "Bundeswettbewerb"].at(JUMU_ROUND - 1)

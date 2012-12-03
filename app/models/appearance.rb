@@ -99,24 +99,24 @@ class Appearance < ActiveRecord::Base
     end
   end
 
-  # Returns the achieved price's name
-  def price
-    # TODO: Move price ranges to JuMu parameters
-    # The ranges below are for round 1 (RW)
-    case self.points
-    when 21..25
-      "1. Preis"
-    when 17..20
-      "2. Preis"
-    when 13..16
-      "3. Preis"
+  # Returns the achieved prize's name
+  def prize
+    # Get prize point ranges for the appearance's competition round
+    prize_point_ranges = JUMU_PRIZE_POINT_RANGES[self.performance.competition.round.level - 1]
+    # Try to match points to a prize range
+    prize_point_ranges.each do |prize, point_range|
+      if point_range.include?(self.points)
+        return prize
+      end
     end
+    # Points not found in any prize range
+    return nil
   end
 
   # Returns whether the appearance will advance to the next competition stage
   def may_advance_to_next_round?
     # Basic condition is 23 or more points and that a next round exists
-    return false if (!self.points || self.points < 23 || JUMU_ROUND == 3)
+    return false if (!self.points || self.points < 23 || self.performance.competition.round.level == 3)
 
     # Accompanists don't advance if their soloist doesn't
     return false if (self.accompaniment? && !self.related_solo_appearance.may_advance_to_next_round?)

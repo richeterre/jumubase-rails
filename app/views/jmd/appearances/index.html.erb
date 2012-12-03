@@ -22,7 +22,7 @@
         <td><%= info_badge_tag(appearance.age_group, :info) %></td>
         <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
         <td>
-          <%= appearance.price %>
+          <%= appearance.prize %>
           <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
         </td>
         <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id %></td>

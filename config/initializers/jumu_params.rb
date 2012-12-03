@@ -10,6 +10,22 @@ JUMU_YEAR = 2013
 # The upcoming/ongoing round for signup, timetables, etc.
 JUMU_ROUND = 1
 
+# The point ranges for the different prizes
+JUMU_PRIZE_POINT_RANGES = [
+  # First round:
+  {
+    "1. Preis" => 21..25,
+    "2. Preis" => 17..20,
+    "3. Preis" => 13..16
+  },
+  # Second round:
+  {
+    "1. Preis" => 23..25,
+    "2. Preis" => 20..22,
+    "3. Preis" => 17..19
+  }
+]
+
 # Whether signup is possible for the above round
 JUMU_SIGNUP_OPEN = true
 

@@ -17,9 +17,10 @@
   </thead>
   <tbody id="appearance-rows">
     <% @performances.each do |performance| %>
-      <% performance.appearances.role_order.each do |appearance| %>
+      <% appearances = performance.appearances.role_order %>
+      <% appearances.each do |appearance| %>
       <tr>
-        <% if appearance == performance.appearances.first %>
+        <% if appearance == appearances.first %>
         <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
         <% end %>
         <td><%= appearance.participant.full_name %>, <%= appearance.instrument.name %></td>

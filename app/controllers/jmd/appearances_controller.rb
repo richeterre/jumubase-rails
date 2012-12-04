@@ -3,8 +3,8 @@ class Jmd::AppearancesController < Jmd::BaseController
   before_filter :require_admin if JUMU_ROUND > 1 # Non-admins can edit points only in 1st round
 
   def index
-    @performances = Performance.current.visible_to(current_user).category_order
-    @appearances = Appearance.where(performance_id: @performances)
+    @performances = Performance.current.visible_to(current_user)
+                               .category_order.paginate(page: params[:page], per_page: 15)
   end
 
   def update
@@ -13,10 +13,10 @@ class Jmd::AppearancesController < Jmd::BaseController
       appearance.accessible = :all # Allow editing if user can see appearance
     end
     if appearance.update_attributes(params[:appearance])
-      flash[:success] = "Die Punktzahl wurde erfolgreich aktualisiert."
+      flash[:success] = "Die Punktzahl für #{appearance.participant.full_name} wurde gespeichert."
     else
-      flash[:error] = "Die Punktzahl konnte nicht gespeichert werden."
+      flash[:error] = "Die Punktzahl für #{appearance.participant.full_name} konnte nicht gespeichert werden."
     end
-    redirect_to jmd_appearances_path
+    redirect_to :back
   end
 end

@@ -1,5 +1,9 @@
 <% provide(:title, "Ergebnisse verwalten") %>
 
+<p><%= page_entries_info @performances, model: Performance %></p>
+
+<%= will_paginate @performances %>
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -32,17 +36,21 @@
   </tbody>
 </table>
 
+<%= will_paginate @performances %>
+
 <!-- Modals (invisible by default) -->
-<% @appearances.each do |appearance| %>
-  <%= render layout: "modal", locals: { item_type: "appearance", item_id: appearance.id, title: "#{appearance.participant.full_name}, #{appearance.instrument.name}" } do %>
-    <%= simple_form_for([:jmd, appearance], html: { class: "form-horizontal" }) do |form| %>
-      <div class="modal-body">
-        <%= form.input :points, input_html: { class: "span1" } %>
-      </div>
-      <div class="modal-footer">
-        <%= form.button :submit, "Punkte speichern", class: "btn-primary" %>
-        <%= link_to_close_modal "Abbrechen", class: "btn" %>
-      </div>
+<% @performances.each do |performance| %>
+  <% performance.appearances.each do |appearance| %>
+    <%= render layout: "modal", locals: { item_type: "appearance", item_id: appearance.id, title: "#{appearance.participant.full_name}, #{appearance.instrument.name}" } do %>
+      <%= simple_form_for([:jmd, appearance], html: { class: "form-horizontal" }) do |form| %>
+        <div class="modal-body">
+          <%= form.input :points, input_html: { class: "span1" } %>
+        </div>
+        <div class="modal-footer">
+          <%= form.button :submit, "Punkte speichern", class: "btn-primary" %>
+          <%= link_to_close_modal "Abbrechen", class: "btn" %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

@@ -17,7 +17,7 @@
   </thead>
   <tbody id="appearance-rows">
     <% @performances.each do |performance| %>
-      <% performance.appearances.each do |appearance| %>
+      <% performance.appearances.role_order.each do |appearance| %>
       <tr>
         <% if appearance == performance.appearances.first %>
         <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>

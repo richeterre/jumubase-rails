@@ -17,7 +17,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   def index
     # filter_sort_entries
     @performances = Performance.current.visible_to(current_user)
-                      .order("created_at DESC").paginate(page: params[:page], per_page: 30)
+                      .order("created_at DESC").paginate(page: params[:page], per_page: 15)
   end
 
   # def browse

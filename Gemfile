@@ -6,7 +6,6 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
 gem 'jquery-rails'
 
 gem 'simple_form'
@@ -15,6 +14,9 @@ gem 'bootstrap-will_paginate'
 
 gem 'sass-rails',     '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
+
+gem 'prawn'
+gem 'prawnto_2', require: 'prawnto'
 
 # Gems used only for assets and not required
 # in production environments by default.

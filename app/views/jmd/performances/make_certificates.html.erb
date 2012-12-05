@@ -1,0 +1,40 @@
+<% provide(:title, "Urkunden erstellen") %>
+
+<%# render 'filter_form', :path => make_certificates_jmd_entries_path %>
+
+<p>
+  <%= @performances.length %> von <%= Performance.current.visible_to(current_user).count %> Wertungen
+</p>
+<p>
+  <%= link_to "Alle anzeigen", make_certificates_jmd_performances_path, class: "btn" %>
+  <%= link_to "Urkunden ausgeben", params.merge(format: :pdf), class: "btn" %>
+</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th><%# sortable "stage_time", "Zeit" %>Zeit</th>
+      <th>
+        <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
+      </th>
+      <th>Teilnehmer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @performances.each do |performance| %>
+    <tr>
+      <td><%= l performance.stage_time, format: :tiny if performance.stage_time %></td>
+      <td><%= performance.category.name %></td>
+      <td>
+        <% performance.appearances.role_order.each do |appearance| %>
+          <span class="participant <%= "accompanist" if appearance.accompaniment? %>">
+            <%= appearance.participant.full_name %>,
+            <%= appearance.instrument.name %>
+            <span class="quiet">(AG&nbsp;<%= appearance.age_group %>)</span>
+          </span>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

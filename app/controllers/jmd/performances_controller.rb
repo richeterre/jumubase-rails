@@ -133,12 +133,12 @@ class Jmd::PerformancesController < Jmd::BaseController
   #   end
   # end
 
-  # def make_certificates
-  #   # Define params for PDF output
-  #   prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
-  #   @title = "Urkunden erstellen"
-  #   filter_sort_entries
-  # end
+  def make_certificates
+    # Define params for PDF output
+    prawnto prawn: { page_size: 'A4', skip_page_creation: true }
+    # filter_sort_entries
+    @performances = Performance.current.visible_to(current_user)
+  end
 
   # def make_jury_sheets
   #   # Define params for PDF output

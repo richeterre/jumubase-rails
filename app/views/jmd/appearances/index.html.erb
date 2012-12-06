@@ -23,7 +23,11 @@
         <% if appearance == appearances.first %>
         <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
         <% end %>
-        <td><%= appearance.participant.full_name %>, <%= appearance.instrument.name %></td>
+        <td>
+          <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
+            <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+          <% end %>
+        </td>
         <td><%= info_badge_tag(appearance.age_group, :info) %></td>
         <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
         <td>

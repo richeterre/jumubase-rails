@@ -2,39 +2,47 @@
 
 <%# render 'filter_form', :path => make_certificates_jmd_entries_path %>
 
+<p><%= page_entries_info @performances, model: Performance %></p>
+
 <p>
-  <%= @performances.length %> von <%= Performance.current.visible_to(current_user).count %> Wertungen
+  <%= link_to "Urkunden für diese Vorspiele ausgeben", params.merge(format: :pdf), class: "btn btn-primary" %>
 </p>
-<p>
-  <%= link_to "Alle anzeigen", make_certificates_jmd_performances_path, class: "btn" %>
-  <%= link_to "Urkunden ausgeben", params.merge(format: :pdf), class: "btn" %>
-</p>
+
+<%= will_paginate @performances %>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th><%# sortable "stage_time", "Zeit" %>Zeit</th>
-      <th>
-        <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
-      </th>
+      <th>Kategorie</th>
       <th>Teilnehmer</th>
+      <th>AG</th>
+      <th>Punkte</th>
+      <th>Preis</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="appearance-rows">
     <% @performances.each do |performance| %>
-    <tr>
-      <td><%= l performance.stage_time, format: :tiny if performance.stage_time %></td>
-      <td><%= performance.category.name %></td>
-      <td>
-        <% performance.appearances.role_order.each do |appearance| %>
-          <span class="participant <%= "accompanist" if appearance.accompaniment? %>">
-            <%= appearance.participant.full_name %>,
-            <%= appearance.instrument.name %>
-            <span class="quiet">(AG&nbsp;<%= appearance.age_group %>)</span>
-          </span>
+      <% appearances = performance.appearances.role_order %>
+      <% appearances.each do |appearance| %>
+      <tr>
+        <% if appearance == appearances.first %>
+        <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
         <% end %>
-      </td>
-    </tr>
+        <td>
+          <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
+            <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+          <% end %>
+        </td>
+        <td><%= info_badge_tag(appearance.age_group, :info) %></td>
+        <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
+        <td>
+          <%= appearance.prize %>
+          <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
+        </td>
+      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @performances %>

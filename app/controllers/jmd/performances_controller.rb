@@ -138,6 +138,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     prawnto prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
     @performances = Performance.current.visible_to(current_user)
+                               .category_order.paginate(page: params[:page], per_page: 15)
   end
 
   # def make_jury_sheets

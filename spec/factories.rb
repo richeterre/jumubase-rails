@@ -7,6 +7,10 @@ FactoryGirl.define do
     performance
     instrument
     role
+
+    factory :acc_appearance do
+      association :role, factory: :accompanist_role
+    end
   end
 
   factory :category do
@@ -97,6 +101,13 @@ FactoryGirl.define do
     factory :current_performance do
       association :category, factory: :active_category
       association :competition, factory: :current_competition
+
+      factory :current_solo_acc_performance do
+        after(:build) do |performance|
+          # Add accompanist to the soloist added earlier
+          performance.appearances << FactoryGirl.build(:acc_appearance, performance: performance)
+        end
+      end
     end
 
     factory :old_performance do

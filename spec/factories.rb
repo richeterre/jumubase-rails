@@ -11,6 +11,10 @@ FactoryGirl.define do
     factory :acc_appearance do
       association :role, factory: :accompanist_role
     end
+
+    factory :ensemble_appearance do
+      association :role, factory: :ensemblist_role
+    end
   end
 
   factory :category do
@@ -106,6 +110,13 @@ FactoryGirl.define do
         after(:build) do |performance|
           # Add accompanist to the soloist added earlier
           performance.appearances << FactoryGirl.build(:acc_appearance, performance: performance)
+        end
+      end
+
+      factory :current_ensemble_performance do
+        after(:build) do |performance|
+          # Replace soloist added earlier by two ensemblists
+          performance.appearances = FactoryGirl.build_list(:ensemble_appearance, 2, performance: performance)
         end
       end
     end

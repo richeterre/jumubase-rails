@@ -9,6 +9,7 @@ gem 'pg'
 gem 'jquery-rails'
 
 gem 'simple_form'
+gem 'has_scope'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 

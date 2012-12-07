@@ -9,6 +9,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 if Rails.env == "development"
+  # Create dev user
   User.create({
     first_name: "Martin",
     last_name: "Richter",
@@ -16,6 +17,11 @@ if Rails.env == "development"
     password: "martin",
     admin: true
   })
+
+  # Create some mock performances
+  FactoryGirl.create_list(:current_performance, 6)
+  FactoryGirl.create_list(:current_solo_acc_performance, 6)
+  FactoryGirl.create_list(:current_ensemble_performance, 6)
 end
 
 rounds = Round.create([

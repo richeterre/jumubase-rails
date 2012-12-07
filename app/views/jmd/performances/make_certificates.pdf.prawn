@@ -52,10 +52,10 @@ pdf.font_families.update(
         end
 
         if appearance.ensemble?
-          pdf.text "und erreichten <i>#{appearance.points || '__'} Punkte</i>.",
+          pdf.text "und erreichten <i>#{appearance.points || '___'} Punkte</i>.",
               :inline_format => true
         else
-          pdf.text "und erreichte <i>#{appearance.points || '__'} Punkte</i>.",
+          pdf.text "und erreichte <i>#{appearance.points || '___'} Punkte</i>.",
               :inline_format => true
         end
       end

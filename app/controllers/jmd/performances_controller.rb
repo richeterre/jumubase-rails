@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Jmd::PerformancesController < Jmd::BaseController
+  include PerformancesHelper
+
   # if JUMU_ROUND > 1
   #   # Non-admins can own entries only in 1st round
   #   before_filter :require_admin, :except => :browse
@@ -135,7 +137,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   def make_certificates
     # Define params for PDF output
-    prawnto prawn: { page_size: 'A4', skip_page_creation: true }
+    prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
     @performances = apply_scopes(Performance).current.visible_to(current_user).category_order
                                              .paginate(page: params[:page], per_page: 15)

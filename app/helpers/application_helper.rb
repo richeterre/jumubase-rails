@@ -131,7 +131,7 @@ module ApplicationHelper
     button_to_function(name, "Application.add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
   end
 
-  # Creates a sortable column title
+  # Create a sortable column title
   def sortable(order, title)
     css_class = order == sort_order ? "current" : nil
     link_to title, params.merge(:sort => order), {:class => css_class}

@@ -5,7 +5,7 @@
 JUMU_SEASON = 50
 
 # The current competition (ending) year
-JUMU_YEAR = 2013
+JUMU_YEAR = 1963 + JUMU_SEASON
 
 # The upcoming/ongoing round for signup, timetables, etc.
 JUMU_ROUND = 1

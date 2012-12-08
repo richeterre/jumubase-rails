@@ -82,6 +82,46 @@ describe Competition do
     end
   end
 
+  # Convencience methods
+
+  it { should respond_to(:name) }
+  it { should respond_to(:host_name) }
+  it { should respond_to(:days) }
+  it { should respond_to(:year) }
+
+  describe "should return a name to describe itself" do
+    before do
+      competition.host = FactoryGirl.build(:host, name: "The Host")
+      competition.round = FactoryGirl.build(:round, slug: "Round Slug")
+      competition.season = 100
+    end
+
+    its(:name) { should eq "The Host, Round Slug 2063" }
+  end
+
+  describe "should return the correct host name" do
+    before do
+      @host = FactoryGirl.build(:host, name: "The Host")
+      competition.host = @host
+    end
+
+    its(:host_name) { should eq @host.name }
+  end
+
+  describe "should return the days it takes place as a range" do
+    before do
+      competition.begins = @today = Date.today
+      competition.ends = @in_3_days = Date.today + 3.days
+    end
+
+    its(:days) { should eq (@today..@in_3_days) }
+  end
+
+  describe "should return the correct season year" do
+    before { competition.season = 100 }
+    its(:year) { should eq 2063 }
+  end
+
   it "should be able to return all competitions that are currently ongoing" do
     past_competitions = FactoryGirl.create_list(:past_competition, 3)
     current_competitions = FactoryGirl.create_list(:current_competition, 3)

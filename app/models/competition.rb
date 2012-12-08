@@ -50,7 +50,7 @@ class Competition < ActiveRecord::Base
 
   # Virtual name that identifies the competition
   def name
-    "#{self.host.name}, #{self.round.slug} #{self.ends.year}"
+    "#{self.host.name}, #{self.round.slug} #{self.year}"
   end
 
   # Name of school hosting the competition
@@ -63,8 +63,8 @@ class Competition < ActiveRecord::Base
     self.begins..self.ends
   end
 
-  # Year in which the competition takes place
+  # Season (not necessarily calendar) year of this competition
   def year
-    self.ends.year
+    JUMU_YEAR + self.season - JUMU_SEASON
   end
 end

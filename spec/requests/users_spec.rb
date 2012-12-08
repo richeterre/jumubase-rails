@@ -51,8 +51,7 @@ describe "Users" do
       end
 
       it "should display each user's admin status correctly" do
-        page.should have_selector "tbody td", text: "Nein", count: @users.count + 1 # for login user
-        page.should have_selector "tbody td", text: "Ja", count: 1 # for login admin
+        page.should have_selector "tbody td > span.label", text: "Admin", count: 1 # for login admin
       end
     end
   end

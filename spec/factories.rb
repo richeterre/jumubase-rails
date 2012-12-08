@@ -35,7 +35,7 @@ FactoryGirl.define do
 
     factory :past_competition do
       season JUMU_SEASON - 1
-      ends Date.new((Date.today - 1.year).year, 12, 31)
+      ends { Date.today - 1.year }
     end
 
     factory :current_competition do
@@ -47,7 +47,7 @@ FactoryGirl.define do
 
     factory :future_competition do
       season JUMU_SEASON + 1
-      ends Date.new((Date.today + 1.year).year, 01, 01)
+      ends { Date.today + 1.year }
     end
 
     # Create an upcoming competition whose deadline has passed

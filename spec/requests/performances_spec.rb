@@ -280,7 +280,7 @@ describe "Performances" do
     before do
       @host = FactoryGirl.create(:host)
       @current_competition = FactoryGirl.create(:current_competition, host: @host)
-      @current_performances = FactoryGirl.create_list(:performance, 31, competition: @current_competition)
+      @current_performances = FactoryGirl.create_list(:performance, 16, competition: @current_competition)
       past_competition = FactoryGirl.create(:past_competition, host: @host)
       @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
 
@@ -302,7 +302,7 @@ describe "Performances" do
         end
 
         it "should list current performances from own hosts' competitions" do
-          @current_performances[1..30].each do |performance| # Newest first
+          @current_performances[1..15].each do |performance| # Newest first
             page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
 
@@ -347,9 +347,9 @@ describe "Performances" do
             visit current_path
           end
 
-          context "with more than 30 performances" do
+          context "with more than 15 performances" do
             it "should display the counts of the paginated list" do
-              page.should have_content "Vorspiele 1 – 30 von insgesamt 31"
+              page.should have_content "Vorspiele 1 – 15 von insgesamt 16"
             end
 
             it "should display the paginator" do
@@ -359,14 +359,14 @@ describe "Performances" do
             end
           end
 
-          context "with exactly 30 performances" do
+          context "with exactly 15 performances" do
             describe "should display the total performance count" do
               before do
                 @current_performances.last.destroy
                 visit current_path
               end
 
-              it { should have_content "Alle 30 Vorspiele" }
+              it { should have_content "Alle 15 Vorspiele" }
               it { should_not have_selector "div.pagination" }
             end
           end

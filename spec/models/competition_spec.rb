@@ -22,14 +22,23 @@ describe Competition do
 
   subject { competition }
 
+  # Attributes
   it { should respond_to(:season) }
   it { should respond_to(:round_id) }
   it { should respond_to(:host_id) }
   it { should respond_to(:begins) }
   it { should respond_to(:ends) }
+  it { should respond_to(:signup_deadline) }
   it { should respond_to(:certificate_date) }
   it { should respond_to(:category_ids) }
 
+  # Relationships
+  it { should respond_to(:round) }
+  it { should respond_to(:host) }
+  it { should respond_to(:performances) }
+  it { should respond_to(:categories) }
+
+  # Validations
   it { should be_valid }
 
   describe "without an associated season" do

@@ -222,6 +222,11 @@ de:
     errors:
       <<: *errors
       models:
+        competition:
+          attributes:
+            base:
+              beginning_not_before_end: "Der Beginn muss zeitlich vor dem Ende liegen"
+              signup_deadline_not_before_beginning: "Der Anmeldeschluss muss zeitlich vor dem Beginn liegen"
         performance:
           attributes:
             base:

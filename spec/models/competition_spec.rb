@@ -76,6 +76,16 @@ describe Competition do
     it { should_not be_valid }
   end
 
+  describe "that ends before it begins" do
+    before { competition.ends = competition.begins - 1.day }
+    it { should_not be_valid }
+  end
+
+  describe "that ends on the same day it begins" do
+    before { competition.ends = competition.begins }
+    it { should be_valid }
+  end
+
   describe "without an associated signup deadline" do
     before { competition.signup_deadline = nil }
     it { should_not be_valid }

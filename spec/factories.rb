@@ -76,6 +76,7 @@ FactoryGirl.define do
 
   factory :host do
     sequence(:name) { |n| "Host #{n}" }
+    sequence(:city) { |n| "City #{n}" }
     country
   end
 

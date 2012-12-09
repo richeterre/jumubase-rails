@@ -29,9 +29,9 @@ pdf.font_families.update(
     pdf.bounding_box [50, 350], :width => 400, :height => 200 do
       pdf.indent(30) do
         if appearance.ensemble?
-          pdf.text "haben am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.ends.year}"
+          pdf.text "haben am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.year}"
         else
-          pdf.text "hat am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.ends.year}"
+          pdf.text "hat am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.year}"
         end
 
         pdf.text "für das instrumentale und vokale Musizieren der Jugend"

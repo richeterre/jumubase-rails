@@ -14,11 +14,12 @@
 # -*- encoding : utf-8 -*-
 class Host < ActiveRecord::Base
   attr_accessible :name, :city, :country_id, :time_zone
-  
+
   belongs_to :country
   has_many :competitions
   has_many :venues
-  
-  validates :name,        :presence => true
-  validates :country_id,  :presence => true
+
+  validates :name,        presence: true
+  validates :city,        presence: true
+  validates :country_id,  presence: true
 end

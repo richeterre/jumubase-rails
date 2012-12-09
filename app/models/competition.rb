@@ -61,6 +61,11 @@ class Competition < ActiveRecord::Base
     "#{self.host.name}"
   end
 
+  # Last full day of signup
+  def last_signup_date
+    self.signup_deadline.to_date - 1.day
+  end
+
   # Day range during which the competition takes place
   def days
     self.begins..self.ends

@@ -127,6 +127,13 @@ describe Competition do
     its(:host_name) { should eq @host.name }
   end
 
+  it "should return the last full day when signup is possible" do
+    [Date.today, Date.today + 1.hour].each do |deadline|
+      competition.signup_deadline = deadline
+      competition.last_signup_day.should eq Date.yesterday
+    end
+  end
+
   describe "should return the days it takes place as a range" do
     before do
       competition.begins = @today = Date.today

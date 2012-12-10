@@ -15,9 +15,9 @@
       <a class="dropdown-toggle" href="#" data-toggle="dropdown">Interne Seiten <strong class="caret"></strong></a>
       <div class="dropdown-menu" id="signin-menu">
         <%= simple_form_for :session, url: sessions_path do |f| %>
-          <%= f.input :email %>
-          <%= f.input :password %>
-          <%= f.button :submit, "Anmelden", class: "btn-primary" %>
+          <%= f.input :email, input_html: { id: "dropdown_session_email" } %>
+          <%= f.input :password, input_html: { id: "dropdown_session_password" } %>
+          <%= f.button :submit, "Anmelden", id: "dropdown_session_submit", class: "btn-primary" %>
         <% end %>
       </div>
     </li>

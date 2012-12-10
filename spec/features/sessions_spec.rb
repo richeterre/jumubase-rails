@@ -9,8 +9,8 @@ describe "Sessions" do
     before { visit signin_path }
 
     it { should have_selector "h2", text: "Zugang für Organisatoren" }
-    it { should have_field "E-Mail", type: :email, text: "" }
-    it { should have_field "Passwort", type: :password, text: "" }
+    it { should have_field "E-Mail", type: "email", text: "" }
+    it { should have_field "Passwort", type: "password", text: "" }
     it { should have_button "Anmelden" }
   end
 
@@ -18,8 +18,8 @@ describe "Sessions" do
     before { visit root_path }
 
     it { should have_selector 'a.dropdown-toggle', text: "Interne Seiten" }
-    it { should have_field "E-Mail", type: :email, text: "" }
-    it { should have_field "Passwort", type: :password, text: "" }
+    it { should have_field "E-Mail", type: "email", text: "" }
+    it { should have_field "Passwort", type: "password", text: "" }
     it { should have_button "Anmelden" }
   end
 
@@ -85,7 +85,22 @@ describe "Sessions" do
       page.should have_content "Bitte melde dich an, um diese Seite zu besuchen."
     end
 
-    it "should redirect to the requested page after signing in" do
+    it "should present a signin form" do
+
+    end
+
+    it "should redirect to the requested page after signing in through the form" do
+      user = FactoryGirl.create(:user)
+      fill_in "session_email", with: user.email
+      fill_in "session_password", with: user.password
+      click_button "session_submit"
+
+      current_path.should eq jmd_performances_path
+      page.should have_info_message
+      page.should have_content "Willkommen, #{user.full_name}! Du bist jetzt angemeldet."
+    end
+
+    it "should redirect to the requested page after signing in through the dropdown" do
       user = FactoryGirl.create(:user)
       sign_in(user)
 

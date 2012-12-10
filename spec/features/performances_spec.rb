@@ -11,6 +11,7 @@ describe "Performances" do
       FactoryGirl.create_list(:past_competition, 3)
       FactoryGirl.create_list(:future_competition, 3)
       @current_competitions = FactoryGirl.create_list(:current_competition, 3)
+      @deadlined_competition = FactoryGirl.create(:deadlined_competition)
 
       FactoryGirl.create_list(:category, 3)
       @active_categories = FactoryGirl.create_list(:active_category, 3)
@@ -42,7 +43,7 @@ describe "Performances" do
       page.should have_field "Ort", text: ""
       page.should have_select "Land", options: ["Bitte wählen"] + Country.all.map(&:name)
       page.should have_field "Telefon", text: ""
-      page.should have_field "E-Mail", type: :email, text: ""
+      page.should have_field "E-Mail", type: "email", text: ""
       page.should have_button "Teilnehmer entfernen"
       page.should have_button "Weiteren Teilnehmer hinzufügen"
       page.should have_field "Titel", text: ""
@@ -50,14 +51,16 @@ describe "Performances" do
       page.should have_field "Geburtsjahr", text: ""
       page.should have_field "(Todesjahr)", text: ""
       page.should have_select "Epoche", options: ["Bitte wählen"] + Epoch.all.map(&:slug_with_name)
-      page.should have_field "Dauer ca.", type: :number, text: ""
-      page.should have_field "", type: :number, text: ""
+      page.should have_field "Dauer ca.", type: "text", text: "" # Minutes field
+      page.should have_field "performance_pieces_attributes_0_seconds", type: "text", text: "" # Seconds field
       page.should have_button "Stück entfernen"
       page.should have_button "Weiteres Stück hinzufügen"
       page.should have_button "Anmeldung absenden"
     end
 
-    it "should not have deadlined competitions in the select box"
+    it "should not have deadlined competitions in the select box" do
+      page.should_not have_select "Wettbewerb", with_options: [@deadlined_competition.name]
+    end
 
     it "should complain about invalid field contents" do
       click_button "Anmeldung absenden"
@@ -79,11 +82,15 @@ describe "Performances" do
       page.should have_content "Epoche des Stücks muss ausgefüllt werden"
       page.should have_content "Dauer (Minuten) des Stücks muss ausgefüllt werden"
       page.should have_content "Dauer (Minuten) des Stücks ist keine Zahl"
-      page.should have_content "Dauer (Minuten) des Stücks ist kein gültiger Wert"
       page.should have_content "Dauer (Sekunden) des Stücks muss ausgefüllt werden"
       page.should have_content "Dauer (Sekunden) des Stücks ist keine Zahl"
       page.should have_content "Kategorie muss ausgefüllt werden"
       page.should have_content "Wettbewerb muss ausgefüllt werden"
+    end
+
+    it "should correctly populate the competition selector when there are errors" do
+      click_button "Anmeldung absenden"
+      page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
     end
 
     it "should complain about disabled JavaScript", js: false do
@@ -94,12 +101,12 @@ describe "Performances" do
 
     it "should allow adding new participants to the form", js: true do
       click_button "Weiteren Teilnehmer hinzufügen"
-      page.should have_content "Teilnehmer 2"
+      page.should have_selector "h3", text: "Teilnehmer 2"
     end
 
     it "should allow adding new pieces to the form", js: true do
       click_button "Weiteres Stück hinzufügen"
-      page.should have_content "Stück 2"
+      page.should have_selector "h3", text: "Stück 2"
     end
 
     it "should complain if no participants are provided", js: true do
@@ -116,6 +123,22 @@ describe "Performances" do
 
     # This is currently enforced through a db index, but causes the app to go 500
     it "should complain if a participant is contained twice in the form"
+
+    it "should mention the min/max values for minutes and seconds in the error message" do
+      fill_in "performance_pieces_attributes_0_minutes", with: "60"
+      fill_in "performance_pieces_attributes_0_seconds", with: "60"
+      click_button "Anmeldung absenden"
+
+      page.should have_content "Dauer (Minuten) des Stücks muss kleiner als 60 sein"
+      page.should have_content "Dauer (Sekunden) des Stücks muss kleiner als 60 sein"
+
+      fill_in "performance_pieces_attributes_0_minutes", with: "-1"
+      fill_in "performance_pieces_attributes_0_seconds", with: "-1"
+      click_button "Anmeldung absenden"
+
+      page.should have_content "Dauer (Minuten) des Stücks muss größer oder gleich 0 sein"
+      page.should have_content "Dauer (Sekunden) des Stücks muss größer oder gleich 0 sein"
+    end
 
     it "should perform the signup when given valid data" do
       expect {
@@ -139,7 +162,7 @@ describe "Performances" do
         fill_in "Komponist", with: "Example Composer"
         fill_in "Geburtsjahr", with: "1850"
         fill_in "(Todesjahr)", with: "1950"
-        select Epoch.first.name, from: "Epoche"
+        select Epoch.first.slug_with_name, from: "Epoche"
         fill_in "performance_pieces_attributes_0_minutes", with: 4
         fill_in "performance_pieces_attributes_0_seconds", with: 33
 
@@ -170,8 +193,8 @@ describe "Performances" do
       page.should have_select 'Kategorie', selected: @performance.category.name
 
       page.should have_selector 'div.appearance', count: @performance.appearances.count
-      page.should have_field "Vorname", text: @performance.participants.first.first_name
-      page.should have_field "Nachname", text: @performance.participants.first.last_name
+      page.should have_field "Vorname", with: @performance.participants.first.first_name
+      page.should have_field "Nachname", with: @performance.participants.first.last_name
       page.should have_select "Rolle", selected: @performance.appearances.first.role.name
       page.should have_select "Instrument", selected: @performance.appearances.first.instrument.name
 
@@ -182,20 +205,21 @@ describe "Performances" do
       page.should have_select "performance_appearances_attributes_0_participant_attributes_birthdate_3i",
                               selected: @performance.participants.first.birthdate.day.to_s
       page.should have_checked_field "weiblich"
-      page.should have_field "Straße", text: @performance.participants.first.street
-      page.should have_field "Postleitzahl", text: @performance.participants.first.postal_code
-      page.should have_select "Land", text: @performance.participants.first.country.name
-      page.should have_field "Telefon", text: @performance.participants.first.phone
-      page.should have_field "E-Mail", text: @performance.participants.first.email
+      page.should have_field "Straße", with: @performance.participants.first.street
+      page.should have_field "Postleitzahl", with: @performance.participants.first.postal_code
+      page.should have_select "Land", selected: @performance.participants.first.country.name
+      page.should have_field "Telefon", with: @performance.participants.first.phone
+      page.should have_field "E-Mail", with: @performance.participants.first.email
 
       page.should have_selector 'div.piece', count: @performance.pieces.count
-      page.should have_field "Titel", text: @performance.pieces.first.title
-      page.should have_field "Komponist", text: @performance.pieces.first.composer.name
-      page.should have_field "Geburtsjahr", text: @performance.pieces.first.composer.born
-      page.should have_field "(Todesjahr)", text: @performance.pieces.first.composer.died
+      page.should have_field "Titel", with: @performance.pieces.first.title
+      page.should have_field "Komponist", with: @performance.pieces.first.composer.name
+      page.should have_field "Geburtsjahr", with: @performance.pieces.first.composer.born
+      page.should have_field "(Todesjahr)", with: @performance.pieces.first.composer.died
       page.should have_select "Epoche", selected: @performance.pieces.first.epoch.slug_with_name
-      page.should have_field "Dauer ca.", type: :number, text: @performance.pieces.first.minutes
-      page.should have_field "", type: :number, text: @performance.pieces.first.seconds
+      page.should have_field "Dauer ca.", type: "text", with: @performance.pieces.first.minutes.to_s
+      page.should have_field "performance_pieces_attributes_0_seconds",
+                             type: "text", with: @performance.pieces.first.seconds.to_s
 
       page.should have_button "Änderungen speichern"
     end
@@ -212,7 +236,7 @@ describe "Performances" do
 
       search_for_performance_with_code(@performance.tracing_code)
 
-      page.should have_field "Vorname", text: "Jeanette"
+      page.should have_field "Vorname", with: "Jeanette"
       page.should have_checked_field "weiblich"
     end
 
@@ -304,13 +328,18 @@ describe "Performances" do
 
         it "should list current performances from own hosts' competitions" do
           @current_performances[1..15].each do |performance| # Newest first
-            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+            page.should have_selector "tbody tr > td",
+                                      text: "#{performance.appearances.first.participant.full_name},\
+                                             #{performance.appearances.first.instrument.name}"
           end
 
           click_link "2" # Proceed to next page
 
+
           performance = @current_performances[0] # Second page has the one remaining performance
-          page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          page.should have_selector "tbody tr > td",
+                                    text: "#{performance.appearances.first.participant.full_name},\
+                                           #{performance.appearances.first.instrument.name}"
         end
 
         it "should not list non-current performances from own hosts' competitions" do
@@ -382,7 +411,13 @@ describe "Performances" do
         end
 
         it "should have all current performances in the table" do
-          Performance.current.each do |performance|
+          Performance.current[0, 15].each do |performance|
+            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          end
+
+          click_link "2" # Proceed to next page
+
+          Performance.current[15, 15].each do |performance|
             page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
           end
         end

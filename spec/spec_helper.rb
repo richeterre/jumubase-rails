@@ -4,6 +4,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+require 'capybara/rails' # Enable Capybara
+
 require 'email_spec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -35,7 +37,4 @@ RSpec.configure do |config|
   # automatically. This will be the default behavior in future versions of
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
-
-  # Include macros that facilitate integration tests, e.g. Capybara date selecting
-  config.include RequestMacros, type: :request
 end

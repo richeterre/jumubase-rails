@@ -130,7 +130,7 @@ describe Competition do
   it "should return the last full day when signup is possible" do
     [Date.today, Date.today + 1.hour].each do |deadline|
       competition.signup_deadline = deadline
-      competition.last_signup_day.should eq Date.yesterday
+      competition.last_signup_date.should eq Date.yesterday
     end
   end
 

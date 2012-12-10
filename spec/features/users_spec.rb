@@ -95,14 +95,14 @@ describe "Users" do
         new_user = FactoryGirl.build(:user)
 
         expect {
-          fill_in "Vorname", with: new_user.first_name
-          fill_in "Nachname", with: new_user.last_name
-          fill_in "E-Mail", with: new_user.email
-          fill_in "Passwort", with: new_user.password
-          fill_in "Passwort erneut", with: new_user.password_confirmation
-          check "Admin" if new_user.admin
-          select @hosts.first.name, from: "Schulen"
-          select @hosts.last.name, from: "Schulen"
+          fill_in "user_first_name", with: new_user.first_name
+          fill_in "user_last_name", with: new_user.last_name
+          fill_in "user_email", with: new_user.email
+          fill_in "user_password", with: new_user.password
+          fill_in "user_password_confirmation", with: new_user.password_confirmation
+          check "user_admin" if new_user.admin
+          select @hosts.first.name, from: "user_host_ids"
+          select @hosts.last.name, from: "user_host_ids"
 
           click_button "Benutzer erstellen"
         }.to change(User, :count).by(1)
@@ -150,12 +150,12 @@ describe "Users" do
       end
 
       it "should not have a password or password confirmation field" do
-        page.should_not have_content "Passwort"
-        page.should_not have_content "Passwort erneut"
+        page.should_not have_selector "user_password"
+        page.should_not have_content "user_password_confirmation"
       end
 
       it "should not require a password or password confirmation" do
-        fill_in "E-Mail", with: "new.address@example.org"
+        fill_in "user_email", with: "new.address@example.org"
         click_button "Änderungen speichern"
 
         page.should_not have_error_message
@@ -165,7 +165,7 @@ describe "Users" do
       it "should allow editing of the user" do
         correct_address = "correct.address@example.org"
 
-        fill_in "E-Mail", with: correct_address
+        fill_in "user_email", with: correct_address
         click_button "Änderungen speichern"
 
         current_path.should eq jmd_users_path
@@ -178,7 +178,7 @@ describe "Users" do
 
       it "should allow going back to the index page without saving the changes" do
         expect {
-          fill_in "E-Mail", with: "wrong.address@example.org"
+          fill_in "user_email", with: "wrong.address@example.org"
           click_link "Abbrechen"
         }.to_not change(User.find(@user), :email)
         current_path.should eq jmd_users_path

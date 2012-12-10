@@ -12,9 +12,9 @@ describe "Contacts" do
       page.should have_selector "h2", text: "Kontakt"
       page.should have_selector "h3", text: "Mitteilung an das JuMu-Team"
       page.should have_field "Name", text: ""
-      page.should have_field "E-Mail", type: :email, text: ""
+      page.should have_field "E-Mail", type: "email", text: ""
       page.should have_field "Betreff", text: ""
-      page.should have_field "Nachricht", type: :text, text: ""
+      page.should have_field "Nachricht", text: ""
       page.should have_button "Mitteilung senden"
     end
 

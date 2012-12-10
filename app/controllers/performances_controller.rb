@@ -36,6 +36,9 @@ class PerformancesController < ApplicationController
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."
       redirect_to root_path
     else
+      # Here, too, set competitions that the person can sign up for
+      @competitions = Competition.current_and_open
+
       render 'new'
     end
   end
@@ -80,6 +83,9 @@ class PerformancesController < ApplicationController
       redirect_to signup_search_path
       # redirect_to performances_path
     else
+      # Here, too, set competitions that the person can sign up for
+      @competitions = Competition.current_and_open
+
       render 'edit'
     end
   end

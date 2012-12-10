@@ -69,6 +69,9 @@ class Jmd::PerformancesController < Jmd::BaseController
       flash[:success] = "Das Vorspiel wurde erstellt."
       redirect_to jmd_performances_path
     else
+      # Here, too, set available competitions to choose from
+      @competitions = admin? ? Competition.current : current_user.competitions.current
+
       render 'new'
     end
   end
@@ -88,6 +91,9 @@ class Jmd::PerformancesController < Jmd::BaseController
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performances_path
     else
+      # Here, too, set available competitions to choose from
+      @competitions = admin? ? Competition.current : current_user.competitions.current
+
       render 'edit'
     end
   end

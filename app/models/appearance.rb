@@ -121,6 +121,9 @@ class Appearance < ActiveRecord::Base
     # Accompanists don't advance if their soloist doesn't
     return false if (self.accompaniment? && !self.related_solo_appearance.may_advance_to_next_round?)
 
+    # KiMu participants don't advance
+    return false if (self.performance.category.name == "\"Kinder musizieren\"")
+
     # Check for other conditions
     case JUMU_ROUND
     when 1

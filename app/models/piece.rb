@@ -31,11 +31,17 @@ class Piece < ActiveRecord::Base
   validates :title,           presence: true
   validates :epoch_id,        presence: true
   validates :minutes,         presence: true,
-                              numericality: { only_integer: true },
-                              inclusion: { in: 0..45 }
+                              numericality: {
+                                only_integer: true,
+                                greater_than_or_equal_to: 0,
+                                less_than: 60
+                              }
   validates :seconds,         presence: true,
-                              numericality: { only_integer: true },
-                              inclusion: { in: 0..59 }
+                              numericality: {
+                                only_integer: true,
+                                greater_than_or_equal_to: 0,
+                                less_than: 60
+                              }
 
   def duration
     minutes*60 + seconds

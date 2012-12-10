@@ -65,10 +65,20 @@ describe Piece do
 
   describe "with a minutes value that is out of range" do
     it "should be invalid" do
-      invalid_values = [-1, 46]
+      invalid_values = [-1, 60]
       invalid_values.each do |invalid_value|
         piece.minutes = invalid_value
         piece.should_not be_valid
+      end
+    end
+  end
+
+  describe "with a minutes value that is within range" do
+    it "should be valid" do
+      valid_values = [0, 1, 59]
+      valid_values.each do |valid_value|
+        piece.minutes = valid_value
+        piece.should be_valid
       end
     end
   end
@@ -89,6 +99,16 @@ describe Piece do
       invalid_values.each do |invalid_value|
         piece.seconds = invalid_value
         piece.should_not be_valid
+      end
+    end
+  end
+
+  describe "with a seconds value that is within range" do
+    it "should be valid" do
+      valid_values = [0, 1, 59]
+      valid_values.each do |valid_value|
+        piece.seconds = valid_value
+        piece.should be_valid
       end
     end
   end

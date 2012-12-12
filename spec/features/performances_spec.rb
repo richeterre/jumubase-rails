@@ -482,5 +482,15 @@ describe "Performances" do
 
       it "should open a modal window with contact info when clicking a participant's name"
     end
+
+    describe "certificate maker page" do
+      before do
+        visit root_path
+        sign_in(user)
+        visit make_certificates_jmd_performances_path
+      end
+
+      it "should list all performances with their appearances"
+    end
   end
 end

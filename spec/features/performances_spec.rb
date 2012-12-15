@@ -305,7 +305,7 @@ describe "Performances" do
     before do
       @host = FactoryGirl.create(:host)
       @current_competition = FactoryGirl.create(:current_competition, host: @host)
-      @current_performances = FactoryGirl.create_list(:performance, 16, competition: @current_competition)
+      @current_performances = FactoryGirl.create_list(:current_performance, 16, competition: @current_competition)
       past_competition = FactoryGirl.create(:past_competition, host: @host)
       @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
 
@@ -491,6 +491,20 @@ describe "Performances" do
       end
 
       it "should list all performances with their appearances"
+
+      it "should allow filtering of appearances by category" do
+        performance = @current_performances.first
+        select performance.category.name, from: "_in_category"
+        click_button "Filtern"
+        page.should have_selector "tbody tr", count: performance.appearances.count
+        performance.appearances.each do |appearance|
+          page.should have_selector "tbody tr",
+                      text: "#{performance.category.name}" + " " +
+                            "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+        end
+      end
+
+      it "should allow the user to clear the filters"
     end
   end
 end

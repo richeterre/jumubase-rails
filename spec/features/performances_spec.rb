@@ -483,7 +483,7 @@ describe "Performances" do
       it "should open a modal window with contact info when clicking a participant's name"
     end
 
-    describe "certificate maker page" do
+    describe "certificate page" do
       before do
         visit root_path
         sign_in(user)
@@ -492,19 +492,29 @@ describe "Performances" do
 
       it "should list all performances with their appearances"
 
-      it "should allow filtering of appearances by category" do
-        performance = @current_performances.first
-        select performance.category.name, from: "_in_category"
-        click_button "Filtern"
-        page.should have_selector "tbody tr", count: performance.appearances.count
-        performance.appearances.each do |appearance|
-          page.should have_selector "tbody tr",
-                      text: "#{performance.category.name}" + " " +
-                            "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+      describe "category filter" do
+
+        before do
+          # Apply filter
+          @performance = @current_performances.first
+          select @performance.category.name, from: "_in_category"
+          click_on "Filtern"
+        end
+
+        it "should display only performances in the selected category" do
+          page.should have_selector "tbody tr", count: 1
+          @performance.appearances.each do |appearance|
+            page.should have_selector "tbody tr",
+                        text: "#{@performance.category.name}" + " " +
+                              "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+          end
+        end
+
+        it "should allow the user to clear the filters" do
+          click_on "Alle anzeigen"
+          page.should have_content "von insgesamt 19" # Paginator info shows full amount
         end
       end
-
-      it "should allow the user to clear the filters"
     end
   end
 end

@@ -8,6 +8,8 @@ gem 'rails', '3.2.8'
 gem 'pg'
 gem 'jquery-rails'
 
+gem 'cancan'
+
 gem 'simple_form'
 gem 'has_scope'
 gem 'will_paginate'

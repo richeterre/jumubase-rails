@@ -2,8 +2,8 @@
   <li class="nav-header">Verwalten</li>
   <% if admin? %>
     <%= nav_link_to "Benutzer", jmd_users_path %>
-    <%= nav_link_to "Wettbewerbe", jmd_competitions_path %>
   <% end %>
+  <%= nav_link_to "Wettbewerbe", jmd_competitions_path %>
   <%= nav_link_to "Vorspiele", jmd_performances_path %>
   <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
   <li class="nav-header">Erstellen</li>

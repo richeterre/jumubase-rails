@@ -311,6 +311,9 @@ de:
         host_id: Schule
   messages:
     deadline_passed: "Der Anmeldeschluss für deinen Wettbewerb war bereits am %{deadline}. Bitte nimm Kontakt zu einem JuMu-Ansprechpartner an deiner Schule auf."
+  unauthorized:
+    manage:
+      all: "Bitte melde dich an, um diese Seite zu besuchen."
   will_paginate:
     previous_label: "&#8592;"
     next_label: "&#8594;"

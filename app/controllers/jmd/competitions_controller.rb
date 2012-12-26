@@ -1,17 +1,17 @@
 # -*- encoding : utf-8 -*-
 class Jmd::CompetitionsController < Jmd::BaseController
-  before_filter :require_admin # All Competition actions are admin-only
+
+  load_and_authorize_resource # CanCan
 
   def index
-    @competitions = Competition.order(:begins)
+    # @competitions are fetched by CanCan
+    @competitions = @competitions.order(:begins)
   end
 
-  def new
-    @competition = Competition.new
-  end
+  # new: @competition is built by CanCan
 
   def create
-    @competition = Competition.new(params[:competition])
+    # @competition is built by CanCan
     if @competition.save
       flash[:success] = "Der Wettbewerb #{@competition.name} wurde erstellt."
       redirect_to jmd_competitions_path
@@ -20,16 +20,12 @@ class Jmd::CompetitionsController < Jmd::BaseController
     end
   end
 
-  def show
-    @competition = Competition.find(params[:id])
-  end
+  # show: @competition is fetched by CanCan
 
-  def edit
-    @competition = Competition.find(params[:id])
-  end
+  # edit: @competition is fetched by CanCan
 
   def update
-    @competition = Competition.find(params[:id])
+    # @competition is fetched by CanCan
     if @competition.update_attributes(params[:competition])
       flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde erfolgreich geändert."
       redirect_to jmd_competitions_path
@@ -39,7 +35,8 @@ class Jmd::CompetitionsController < Jmd::BaseController
   end
 
   def destroy
-    @competition = Competition.find(params[:id]).destroy
+    # @competition is fetched by CanCan
+    @competition.destroy
     flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde gelöscht."
     redirect_to jmd_competitions_path
   end

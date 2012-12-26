@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Jmd::AppearancesController < Jmd::BaseController
-  before_filter :require_admin if JUMU_ROUND > 1 # Non-admins can edit points only in 1st round
+
+  skip_authorization_check
 
   def index
     @performances = Performance.current.visible_to(current_user)

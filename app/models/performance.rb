@@ -56,6 +56,9 @@ class Performance < ActiveRecord::Base
     is_popular == "1" ? popular : classical
   }
 
+  # Returns all performances in given competition
+  scope :in_competition, lambda { |competition_id| where(competition_id: competition_id) }
+
   # Returns all performances in given category
   scope :in_category, lambda { |category_id| where(:category_id => category_id) }
 

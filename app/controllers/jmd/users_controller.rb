@@ -1,17 +1,14 @@
 # -*- encoding : utf-8 -*-
 class Jmd::UsersController < Jmd::BaseController
-  before_filter :require_admin # All user actions are admin-only
 
-  def index
-    @users = User.all
-  end
+  load_and_authorize_resource
 
-  def new
-    @user = User.new
-  end
+  # index: @users are fetched by CanCan
+
+  # new: @user is built by CanCan
 
   def create
-    @user = User.new(params[:user])
+    # @user is built by CanCan
     if @user.save
       flash[:success] = "Der Benutzer #{@user.email} wurde erstellt."
       redirect_to jmd_users_path
@@ -23,15 +20,15 @@ class Jmd::UsersController < Jmd::BaseController
   end
 
   def show
-    @user = User.find(params[:id])
+    # @user is fetched by CanCan
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user is fetched by CanCan
   end
 
   def update
-    @user = User.find(params[:id])
+    # @user is fetched by CanCan
     if params[:user][:password].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
@@ -46,7 +43,8 @@ class Jmd::UsersController < Jmd::BaseController
   end
 
   def destroy
-    @user = User.find(params[:id]).destroy
+    # @user is fetched by CanCan
+    @user.destroy
     flash[:success] = "Der Benutzer #{@user.email} wurde gelöscht."
     redirect_to jmd_users_path
   end

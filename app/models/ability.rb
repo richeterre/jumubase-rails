@@ -9,6 +9,7 @@ class Ability
       can :manage, :all
     else
       can :read, Competition, host_id: user.host_ids
+      can :create, Performance
       can :manage, Performance, competition: { host_id: user.host_ids }
     end
     #

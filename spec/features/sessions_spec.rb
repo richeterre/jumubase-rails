@@ -81,7 +81,7 @@ describe "Sessions" do
 
     it "should ask the user to sign in first" do
       current_path.should eq signin_path
-      page.should have_info_message
+      page.should have_alert_message
       page.should have_content "Bitte melde dich an, um diese Seite zu besuchen."
     end
 
@@ -115,18 +115,19 @@ describe "Sessions" do
 
     it "should ask the user to sign in first" do
       current_path.should eq signin_path
-      page.should have_info_message
+      page.should have_alert_message
       page.should have_content "Bitte melde dich an, um diese Seite zu besuchen."
     end
 
     context "as a non-admin user" do
 
-      it "should silently redirect to the home page" do
+      it "should ask the user to sign in as an admin" do
         user = FactoryGirl.create(:user)
         sign_in(user)
 
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
+        page.should have_content "Bitte melde dich als Administrator an, um diese Seite zu besuchen."
       end
     end
 

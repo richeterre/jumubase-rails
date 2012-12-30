@@ -1,6 +1,6 @@
-<% provide(:title, "Urkunden erstellen") %>
+<% provide(:title, "Jurybögen erstellen") %>
 
-<%= render 'filter_form', path: make_certificates_jmd_performances_path %>
+<%= render 'filter_form', path: make_jury_sheets_jmd_performances_path %>
 
 <p>
   <%= page_entries_info @performances, model: Performance %>
@@ -8,7 +8,7 @@
 </p>
 
 <p>
-  <%= link_to "Urkunden ausgeben", params.merge(format: :pdf),
+  <%= link_to "Jurybögen ausgeben", params.merge(format: :pdf),
         class: "btn btn-primary" unless @performances.empty? %></p>
 
 <%= will_paginate @performances %>
@@ -19,8 +19,6 @@
       <th>Kategorie</th>
       <th>Teilnehmer</th>
       <th>AG</th>
-      <th>Punkte</th>
-      <th>Preis</th>
     </tr>
   </thead>
   <tbody id="appearance-rows">
@@ -37,11 +35,6 @@
           <% end %>
         </td>
         <td><%= info_badge_tag(appearance.age_group, :info) %></td>
-        <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
-        <td>
-          <%= appearance.prize %>
-          <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
-        </td>
       </tr>
       <% end %>
     <% end %>

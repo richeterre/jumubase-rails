@@ -3,5 +3,5 @@
   <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
   <%= submit_tag "Filtern", class: (filter_active? ? "btn btn-warning" : "btn") %>
-  <%= link_to "Alle anzeigen", make_certificates_jmd_performances_path, class: "btn" %>
+  <%= link_to "Alle anzeigen", path, class: "btn" %>
 <% end %>

@@ -11,7 +11,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Define scopes for entry filtering
   # has_scope :is_popular, only: :make_certificates
-  has_scope :in_category, only: :make_certificates
+  has_scope :in_category, only: [:make_certificates, :make_jury_sheets]
   # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 
@@ -149,12 +149,12 @@ class Jmd::PerformancesController < Jmd::BaseController
                                              .paginate(page: params[:page], per_page: 15)
   end
 
-  # def make_jury_sheets
-  #   # Define params for PDF output
-  #   prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
-  #   @title = "Jurybögen erstellen"
-  #   filter_sort_entries
-  # end
+  def make_jury_sheets
+    # Define params for PDF output
+    prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
+    @performances = apply_scopes(Performance).current.visible_to(current_user).category_order
+                                             .paginate(page: params[:page], per_page: 15)
+  end
 
   # def make_result_sheets
   #   # Define params for PDF output

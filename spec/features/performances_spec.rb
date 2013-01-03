@@ -310,7 +310,7 @@ describe "Performances" do
       @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
 
       other_host = FactoryGirl.create(:host)
-      other_current_competition = FactoryGirl.create(:competition, host: other_host)
+      other_current_competition = FactoryGirl.create(:current_competition, host: other_host)
       @other_performances = FactoryGirl.create_list(:performance, 3, competition: other_current_competition)
     end
 
@@ -327,19 +327,18 @@ describe "Performances" do
         end
 
         it "should list current performances from own hosts' competitions" do
+          page.should have_content "Vorspiele 1 – 15 von insgesamt 16"
+
           @current_performances[1..15].each do |performance| # Newest first
             page.should have_selector "tbody tr > td",
-                                      text: "#{performance.appearances.first.participant.full_name},\
-                                             #{performance.appearances.first.instrument.name}"
+                                      text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
           end
 
-          click_link "2" # Proceed to next page
-
+          first(:css, "li.next_page a").click # Proceed to next page
 
           performance = @current_performances[0] # Second page has the one remaining performance
           page.should have_selector "tbody tr > td",
-                                    text: "#{performance.appearances.first.participant.full_name},\
-                                           #{performance.appearances.first.instrument.name}"
+                                    text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
         end
 
         it "should not list non-current performances from own hosts' competitions" do
@@ -372,8 +371,6 @@ describe "Performances" do
         describe "pagination" do
 
           before do
-            # TODO: Remove when current vs. visible_to issue is fixed
-            Performance.destroy @past_performances
             visit current_path
           end
 
@@ -411,14 +408,18 @@ describe "Performances" do
         end
 
         it "should have all current performances in the table" do
-          Performance.current[0, 15].each do |performance|
-            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          page.should have_content "Vorspiele 1 – 15 von insgesamt 19"
+
+          Performance.current[5, 15].each do |performance| # Newest first
+            page.should have_selector "tbody tr > td",
+                                      text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
           end
 
-          click_link "2" # Proceed to next page
+          first(:css, "li.next_page a").click # Proceed to next page
 
-          Performance.current[15, 15].each do |performance|
-            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          Performance.current[0, 4].each do |performance| # Remaining performances
+            page.should have_selector "tbody tr > td",
+                                      text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
           end
         end
       end
@@ -512,7 +513,7 @@ describe "Performances" do
 
         it "should allow the user to clear the filters" do
           click_on "Alle anzeigen"
-          page.should have_content "von insgesamt 19" # Paginator info shows full amount
+          page.should have_content "von insgesamt 16" # Paginator info shows full amount
         end
       end
     end

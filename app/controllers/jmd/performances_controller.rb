@@ -9,8 +9,8 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Define scopes for entry filtering
   # has_scope :is_popular, only: :make_certificates
-  has_scope :in_competition, only: :make_certificates
-  has_scope :in_category, only: :make_certificates
+  has_scope :in_competition, only: [:make_certificates, :make_jury_sheets]
+  has_scope :in_category, only: [:make_certificates, :make_jury_sheets]
   # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 
@@ -18,7 +18,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   def index
     # filter_sort_entries
     # @performances are fetched by CanCan
-    @performances = @performances.order("created_at DESC")
+    @performances = @performances.current.order("created_at DESC")
                                  .paginate(page: params[:page], per_page: 15)
   end
 
@@ -28,7 +28,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is built by CanCan
 
     # Populate competition selector
-    @competitions = Competition.accessible_by(current_ability)
+    @competitions = Competition.accessible_by(current_ability).current
 
     # Build initial resources for form
     1.times do
@@ -57,7 +57,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       redirect_to jmd_performances_path
     else
       # Here, too, set available competitions to choose from
-      @competitions = Competition.accessible_by(current_ability)
+      @competitions = Competition.accessible_by(current_ability).current
 
       render 'new'
     end
@@ -67,20 +67,18 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is fetched by CanCan
 
     # Populate competition selector
-    @competitions = Competition.accessible_by(current_ability)
+    @competitions = Competition.accessible_by(current_ability).current
   end
 
   def update
     # @performance is fetched by CanCan
 
-    # Make all attributes accessible to admins
-    @performance.accessible = :all if admin?
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performances_path
     else
       # Here, too, set available competitions to choose from
-      @competitions = Competition.accessible_by(current_ability)
+      @competitions = Competition.accessible_by(current_ability).current
 
       render 'edit'
     end
@@ -134,8 +132,8 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Define params for PDF output
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
-    @performances = apply_scopes(Performance).accessible_by(current_ability).category_order
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+                                             .category_order.paginate(page: params[:page], per_page: 15)
   end
 
   # def make_jury_sheets

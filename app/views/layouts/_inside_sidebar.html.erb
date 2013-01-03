@@ -1,15 +1,11 @@
 <ul class="nav nav-list">
   <li class="nav-header">Verwalten</li>
-  <% if admin? %>
-    <%= nav_link_to "Benutzer", jmd_users_path %>
+  <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
+  <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
+  <% if can? :manage, Performance %>
+    <%= nav_link_to "Vorspiele", jmd_performances_path %>
+    <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
+    <li class="nav-header">Erstellen</li>
+    <%= nav_link_to "Urkunden", make_certificates_jmd_performances_path %>
   <% end %>
-  <%= nav_link_to "Wettbewerbe", jmd_competitions_path %>
-  <%= nav_link_to "Vorspiele", jmd_performances_path %>
-  <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
-  <li class="nav-header">Erstellen</li>
-  <%= nav_link_to "Urkunden", make_certificates_jmd_performances_path %>
-  <!--
-  <li class="nav-header">Eingeben</li>
-  <li class="nav-header">Drucken</li>
-  -->
 </ul>

@@ -4,7 +4,7 @@ class Jmd::AppearancesController < Jmd::BaseController
   load_and_authorize_resource :performance, parent: false, only: :index
 
   def index
-    @performances = @performances.category_order
+    @performances = @performances.current.category_order
                                  .paginate(page: params[:page], per_page: 15)
   end
 

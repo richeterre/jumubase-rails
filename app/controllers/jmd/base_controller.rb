@@ -1,4 +1,3 @@
 class Jmd::BaseController < ApplicationController
-  # All inside features require authentication (not necessarily admin)
-  before_filter :authenticate
+  check_authorization # All JMD actions must be authorized unless whitelisted
 end

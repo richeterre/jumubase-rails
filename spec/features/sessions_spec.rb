@@ -81,8 +81,8 @@ describe "Sessions" do
 
     it "should ask the user to sign in first" do
       current_path.should eq signin_path
-      page.should have_info_message
-      page.should have_content "Bitte melde dich an, um diese Seite zu besuchen."
+      page.should have_alert_message
+      page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
     end
 
     it "should present a signin form" do
@@ -115,18 +115,19 @@ describe "Sessions" do
 
     it "should ask the user to sign in first" do
       current_path.should eq signin_path
-      page.should have_info_message
-      page.should have_content "Bitte melde dich an, um diese Seite zu besuchen."
+      page.should have_alert_message
+      page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
     end
 
     context "as a non-admin user" do
 
-      it "should silently redirect to the home page" do
+      it "should ask the user to sign in with sufficient rights" do
         user = FactoryGirl.create(:user)
         sign_in(user)
 
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
+        page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
       end
     end
 
@@ -154,6 +155,7 @@ describe "Sessions" do
       it { should_not have_link "Wettbewerbe", href: jmd_competitions_path }
       it { should have_link "Vorspiele", href: jmd_performances_path }
       it { should have_link "Ergebnisse", href: jmd_appearances_path }
+      it { should have_link "Urkunden", href: make_certificates_jmd_performances_path }
     end
 
     describe "for admins" do

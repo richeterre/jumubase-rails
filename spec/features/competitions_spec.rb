@@ -6,12 +6,22 @@ describe "Competitions" do
   subject { page }
 
   before do
+    @host = FactoryGirl.create(:host)
+    @non_admin = FactoryGirl.create(:user, hosts: [@host])
     @admin = FactoryGirl.create(:admin)
-    @non_admin = FactoryGirl.create(:user)
     visit root_path
   end
 
   describe "index page" do
+
+    before do
+      # Competitions the user may see
+      @current_competition = FactoryGirl.create(:current_competition, host: @host)
+      @future_competition = FactoryGirl.create(:future_competition, host: @host)
+      @past_competition = FactoryGirl.create(:past_competition, host: @host)
+
+      @other_competition = FactoryGirl.create(:competition, host: FactoryGirl.create(:host))
+    end
 
     context "for non-admins" do
       before do
@@ -19,18 +29,21 @@ describe "Competitions" do
         visit jmd_competitions_path
       end
 
-      it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+      it "should list the competitions in chronological order, earliest first" do
+        page.should have_selector "table tbody tr:first-child", text: @past_competition.name
+        page.should have_selector "table tbody tr:nth-last-child(2)", text: @current_competition.name
+        page.should have_selector "table tbody tr:last-child", text: @future_competition.name
+      end
+
+      it "should not list competitions from hosts the user is not associated with" do
+        page.should_not have_content @other_competition.name
       end
     end
 
     context "for admins" do
+
       before do
         sign_in(@admin)
-        @current_competition = FactoryGirl.create(:current_competition)
-        @future_competition = FactoryGirl.create(:future_competition)
-        @past_competition = FactoryGirl.create(:past_competition)
         visit jmd_competitions_path
       end
 
@@ -38,12 +51,6 @@ describe "Competitions" do
         Competition.all.each do |competition|
           page.should have_content competition.name
         end
-      end
-
-      it "should list the competitions in chronological order, earliest first" do
-        page.should have_selector "table tbody tr:first-child", text: @past_competition.name
-        page.should have_selector "table tbody tr:nth-last-child(2)", text: @current_competition.name
-        page.should have_selector "table tbody tr:last-child", text: @future_competition.name
       end
 
       it "should not display any other items in the list" do
@@ -61,8 +68,8 @@ describe "Competitions" do
       end
 
       it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
       end
     end
 
@@ -109,8 +116,8 @@ describe "Competitions" do
       end
 
       it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
       end
     end
 

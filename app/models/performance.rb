@@ -49,39 +49,42 @@ class Performance < ActiveRecord::Base
   end
 
   # Returns all performances in current round and year
-  scope :current, where(:competition_id => Competition.current)
+  scope :current, where(competition_id: Competition.current)
 
   # Returns all performances in given genre
   scope :is_popular, lambda { |is_popular|
     is_popular == "1" ? popular : classical
   }
 
+  # Returns all performances in given competition
+  scope :in_competition, lambda { |competition_id| where(competition_id: competition_id) }
+
   # Returns all performances in given category
-  scope :in_category, lambda { |category_id| where(:category_id => category_id) }
+  scope :in_category, lambda { |category_id| where(category_id: category_id) }
 
   # Returns all performances with at least one participant from a listed country
   scope :from_countries, lambda { |countries|
     joins(:participants).
-    where(:participants => { :country_id => countries }).
+    where(participants: { country_id: countries }).
     group("performances.id")
   }
 
   # Returns all performances sent on from a given host
   scope :from_host, lambda { |host_id|
     joins(:first_competition).
-    where(:competitions => { :host_id => host_id })
+    where(competitions: { host_id: host_id })
   }
 
   # Returns all performances scheduled on a given date,
   # or unscheduled if no date given
   scope :on_date, lambda { |date|
     if date.nil?
-      where(:stage_time => nil)
+      where(stage_time: nil)
     else
       if date.class == String
         date = Date.new(*date.split('-').map(&:to_i))
       end
-      where(:stage_time => date...(date + 1.day))
+      where(stage_time: date...(date + 1.day))
     end
   }
 
@@ -104,19 +107,6 @@ class Performance < ActiveRecord::Base
   scope :category_order,
       joins(:category).
       order('categories.popular, categories.solo DESC, categories.name')
-
-  # Returns all performances the given user is authorized to see
-  scope :visible_to, lambda { |user|
-    if user.admin?
-      scoped # Admins can see all performances
-    elsif JUMU_ROUND == 1
-      # Users see performances in competitions they own
-      where(:competition_id => user.competitions)
-    else
-      # In later rounds, users see performances coming from their competitions
-      where(:first_competition_id => user.competitions)
-    end
-  }
 
   def accompanists
     # Return all participants of performance that have an accompanist role
@@ -174,7 +164,7 @@ class Performance < ActiveRecord::Base
       begin
         # Generates a random string of seven lowercase letters and numbers
         code = [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
-      end while Performance.where(:tracing_code => code).exists?
+      end while Performance.where(tracing_code: code).exists?
 
       self.tracing_code = code
     end

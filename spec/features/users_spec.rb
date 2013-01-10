@@ -21,8 +21,8 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
       end
     end
 
@@ -66,8 +66,8 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
       end
     end
 
@@ -129,8 +129,8 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq root_path
-        page.should_not have_alert_message
+        current_path.should eq signin_path
+        page.should have_alert_message
       end
     end
 

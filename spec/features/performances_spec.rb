@@ -149,7 +149,7 @@ describe "Performances" do
         fill_in "Nachname", with: "Doe"
         select Role.first.name, from: "Rolle"
         select Instrument.first.name, from: "Instrument"
-        select_date Date.today - 15.years, from: "performance_appearances_attributes_0_participant_attributes_birthdate"
+        select_date "Geburtsdatum", with: Date.today - 15.years
         choose "männlich"
         fill_in "Straße", with: "Example Street 123"
         fill_in "Postleitzahl", with: "12345"
@@ -167,6 +167,7 @@ describe "Performances" do
         fill_in "performance_pieces_attributes_0_seconds", with: 33
 
         click_button "Anmeldung absenden"
+
       }.to change(Performance, :count).by(1)
 
       open_last_email.should be_delivered_from "anmeldung@jumu-nordost.eu"
@@ -305,13 +306,13 @@ describe "Performances" do
     before do
       @host = FactoryGirl.create(:host)
       @current_competition = FactoryGirl.create(:current_competition, host: @host)
-      @current_performances = FactoryGirl.create_list(:current_performance, 16, competition: @current_competition)
+      @current_performance = FactoryGirl.create(:current_performance, competition: @current_competition)
       past_competition = FactoryGirl.create(:past_competition, host: @host)
-      @past_performances = FactoryGirl.create_list(:performance, 3, competition: past_competition)
+      @past_performance = FactoryGirl.create(:performance, competition: past_competition)
 
       other_host = FactoryGirl.create(:host)
-      other_current_competition = FactoryGirl.create(:competition, host: other_host)
-      @other_performances = FactoryGirl.create_list(:performance, 3, competition: other_current_competition)
+      other_current_competition = FactoryGirl.create(:current_competition, host: other_host)
+      @other_performance = FactoryGirl.create(:performance, competition: other_current_competition)
     end
 
     let(:user) { FactoryGirl.create(:user, hosts: [@host]) }
@@ -327,31 +328,15 @@ describe "Performances" do
         end
 
         it "should list current performances from own hosts' competitions" do
-          @current_performances[1..15].each do |performance| # Newest first
-            page.should have_selector "tbody tr > td",
-                                      text: "#{performance.appearances.first.participant.full_name},\
-                                             #{performance.appearances.first.instrument.name}"
-          end
-
-          click_link "2" # Proceed to next page
-
-
-          performance = @current_performances[0] # Second page has the one remaining performance
-          page.should have_selector "tbody tr > td",
-                                    text: "#{performance.appearances.first.participant.full_name},\
-                                           #{performance.appearances.first.instrument.name}"
+          page.should have_selector "tbody tr > td", text: @current_performance.participants.first.full_name
         end
 
         it "should not list non-current performances from own hosts' competitions" do
-          @past_performances.each do |performance|
-            page.should_not have_selector "tbody tr > td", text: performance.participants.first.full_name
-          end
+          page.should_not have_selector "tbody tr > td", text: @past_performance.participants.first.full_name
         end
 
         it "should not list current performances from other hosts' competitions" do
-          @other_performances.each do |performance|
-            page.should_not have_selector "tbody tr > td", text: performance.participants.first.full_name
-          end
+          page.should_not have_selector "tbody tr > td", text: @other_performance.participants.first.full_name
         end
 
         describe "for performances that were edited" do
@@ -372,8 +357,9 @@ describe "Performances" do
         describe "pagination" do
 
           before do
-            # TODO: Remove when current vs. visible_to issue is fixed
-            Performance.destroy @past_performances
+            @current_performances = [@current_performance]
+            @current_performances += FactoryGirl.create_list(:current_performance, 15,
+                                                             competition: @current_competition)
             visit current_path
           end
 
@@ -386,6 +372,19 @@ describe "Performances" do
               page.should have_selector "div.pagination"
               page.should have_link "2", href: jmd_performances_path(page: 2)
               page.should have_link "→", href: jmd_performances_path(page: 2)
+            end
+
+            it "should allow paginating between performances" do
+              @current_performances[1..15].each do |performance| # Newest first
+                page.should have_selector "tbody tr > td",
+                                          text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
+              end
+
+              first(:css, "li.next_page a").click # Proceed to next page
+
+              performance = @current_performances[0] # Second page has the one remaining performance
+              page.should have_selector "tbody tr > td",
+                                        text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
             end
           end
 
@@ -411,14 +410,11 @@ describe "Performances" do
         end
 
         it "should have all current performances in the table" do
-          Performance.current[0, 15].each do |performance|
-            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
-          end
+          page.should have_content "Alle 2 Vorspiele"
 
-          click_link "2" # Proceed to next page
-
-          Performance.current[15, 15].each do |performance|
-            page.should have_selector "tbody tr > td", text: performance.participants.first.full_name
+          Performance.current.each do |performance| # Newest first
+            page.should have_selector "tbody tr > td",
+                                      text: "#{performance.appearances.first.participant.full_name}, #{performance.appearances.first.instrument.name}"
           end
         end
       end
@@ -468,7 +464,6 @@ describe "Performances" do
 
     describe "show page" do
       before do
-        @current_performance = @current_performances.first
         visit root_path
         sign_in(user)
         visit jmd_performance_path(@current_performance)
@@ -487,7 +482,6 @@ describe "Performances" do
       before do
         visit root_path
         sign_in(user)
-        visit make_certificates_jmd_performances_path
       end
 
       it "should list all performances with their appearances"
@@ -495,24 +489,36 @@ describe "Performances" do
       describe "category filter" do
 
         before do
+          @second_performance = FactoryGirl.create(:current_performance, competition: @current_competition)
+          visit make_certificates_jmd_performances_path
+
           # Apply filter
-          @performance = @current_performances.first
-          select @performance.category.name, from: "_in_category"
+          select @current_performance.category.name, from: "_in_category"
           click_on "Filtern"
         end
 
         it "should display only performances in the selected category" do
           page.should have_selector "tbody tr", count: 1
-          @performance.appearances.each do |appearance|
+          @current_performance.appearances.each do |appearance|
             page.should have_selector "tbody tr",
-                        text: "#{@performance.category.name}" + " " +
-                              "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+                                      text: "#{@current_performance.category.name}" + " " +
+                                            "#{appearance.participant.full_name}, #{appearance.instrument.name}"
           end
         end
 
         it "should allow the user to clear the filters" do
           click_on "Alle anzeigen"
-          page.should have_content "von insgesamt 19" # Paginator info shows full amount
+          page.should have_content "Alle 2 Vorspiele" # Paginator info shows full amount
+          @current_performance.appearances.each do |appearance|
+            page.should have_selector "tbody tr",
+                                      text: "#{@current_performance.category.name}" + " " +
+                                            "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+          end
+          @second_performance.appearances.each do |appearance|
+            page.should have_selector "tbody tr",
+                                      text: "#{@second_performance.category.name}" + " " +
+                                            "#{appearance.participant.full_name}, #{appearance.instrument.name}"
+          end
         end
       end
     end

@@ -149,7 +149,7 @@ describe "Performances" do
         fill_in "Nachname", with: "Doe"
         select Role.first.name, from: "Rolle"
         select Instrument.first.name, from: "Instrument"
-        select_date Date.today - 15.years, from: "performance_appearances_attributes_0_participant_attributes_birthdate"
+        select_date "Geburtsdatum", with: Date.today - 15.years
         choose "männlich"
         fill_in "Straße", with: "Example Street 123"
         fill_in "Postleitzahl", with: "12345"

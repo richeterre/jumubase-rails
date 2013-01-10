@@ -1,3 +1,3 @@
 class Jmd::BaseController < ApplicationController
-  check_authorization # Inside features are whitelisted
+  check_authorization # All JMD actions must be authorized unless whitelisted
 end

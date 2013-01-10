@@ -7,7 +7,7 @@ describe "Competitions" do
 
   before do
     @host = FactoryGirl.create(:host)
-    @user = FactoryGirl.create(:user, hosts: [@host])
+    @non_admin = FactoryGirl.create(:user, hosts: [@host])
     @admin = FactoryGirl.create(:admin)
     visit root_path
   end
@@ -25,7 +25,7 @@ describe "Competitions" do
 
     context "for non-admins" do
       before do
-        sign_in(@user)
+        sign_in(@non_admin)
         visit jmd_competitions_path
       end
 

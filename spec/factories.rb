@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
 
   factory :category do
-    sequence(:name) { |n| "Kategorie #{n}" }
+    sequence(:name) { |n| "Category #{n}" }
 
     factory :active_category do
       active true
@@ -85,13 +85,13 @@ FactoryGirl.define do
   end
 
   factory :participant do
-    sequence(:first_name) { |n| "Vorname #{n}" }
-    sequence(:last_name) { |n| "Nachname #{n}" }
+    sequence(:first_name) { |n| "Participant #{n}" }
+    sequence(:last_name) { |n| "Last Name #{n}" }
     gender "f"
     birthdate Date.today - 15.years
     country
     phone "12345"
-    sequence(:email) { |n| "teilnehmer_#{n}@example.org" }
+    sequence(:email) { |n| "participant_#{n}@example.org" }
   end
 
   factory :performance do
@@ -137,16 +137,16 @@ FactoryGirl.define do
   end
 
   factory :role do
-    name "Solist"
+    name "Soloist"
     slug "S"
 
     factory :accompanist_role do
-      name "Begleiter"
+      name "Accompanist"
       slug "B"
     end
 
     factory :ensemblist_role do
-      name "Mitglied eines Ensembles"
+      name "Ensemblist"
       slug "E"
     end
   end
@@ -170,8 +170,8 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:first_name) { |n| "Vorname #{n}" }
-    sequence(:last_name) { |n| "Nachname #{n}" }
+    sequence(:first_name) { |n| "User #{n}" }
+    sequence(:last_name) { |n| "Last Name #{n}" }
     sequence(:email) { |n| "person_#{n}@example.org" }
     password "foobar"
     password_confirmation "foobar"

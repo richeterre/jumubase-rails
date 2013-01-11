@@ -116,8 +116,8 @@ class Performance < ActiveRecord::Base
 
   # Orders performances by category default order
   def self.category_order
-    joins(:category).
-    order('categories.popular, categories.solo DESC, categories.name')
+    joins(:category)
+    .order('categories.popular, categories.solo DESC, categories.name')
   end
 
   def accompanists

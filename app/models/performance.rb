@@ -38,6 +38,7 @@ class Performance < ActiveRecord::Base
   validate :require_one_piece
 
   before_create :add_unique_tracing_code
+  before_save :update_age_group
 
   # Override getters to always get times in competition time zone
   def warmup_time
@@ -116,24 +117,18 @@ class Performance < ActiveRecord::Base
 
   # Orders performances by category default order
   def self.category_order
-    joins(:category).
-    order('categories.popular, categories.solo DESC, categories.name')
+    joins(:category)
+    .order('categories.popular, categories.solo DESC, categories.name')
+  end
+
+  def self.age_order
+    joins(:participants)
+    .order('participants.birthdate ASC')
   end
 
   def accompanists
     # Return all participants of performance that have an accompanist role
     self.appearances.with_role('B').map(&:participant)
-  end
-
-  def age_group
-    # Returns age group of soloist or ensemble
-    soloist = self.appearances.with_role('S').first
-    if soloist.nil?
-      # Just return any, as they all have the same
-      self.appearances.first.age_group
-    else
-      soloist.age_group
-    end
   end
 
   def duration
@@ -156,6 +151,27 @@ class Performance < ActiveRecord::Base
   end
 
   private
+
+    def add_unique_tracing_code
+      begin
+        # Generates a random string of seven lowercase letters and numbers
+        code = [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
+      end while Performance.where(tracing_code: code).exists?
+
+      self.tracing_code = code
+    end
+
+    def update_age_group
+      soloist = self.appearances.with_role('S').first
+      if soloist.nil?
+        # Just return any, as they all have the same
+        self.age_group = self.appearances.first.age_group
+      else
+        # Use age group of soloist
+        self.age_group = soloist.age_group
+      end
+    end
+
     def require_one_appearance
       errors.add(:base, :needs_one_appearance) if appearances_empty?
     end
@@ -170,14 +186,5 @@ class Performance < ActiveRecord::Base
 
     def pieces_empty?
       pieces.empty? || pieces.all? { |piece| piece.marked_for_destruction? }
-    end
-
-    def add_unique_tracing_code
-      begin
-        # Generates a random string of seven lowercase letters and numbers
-        code = [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
-      end while Performance.where(tracing_code: code).exists?
-
-      self.tracing_code = code
     end
 end

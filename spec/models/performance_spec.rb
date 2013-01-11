@@ -22,9 +22,29 @@ describe Performance do
 
   subject { performance }
 
+  # Attributes
   it { should respond_to(:category_id) }
   it { should respond_to(:competition_id) }
+  it { should respond_to(:stage_venue_id) }
+  it { should respond_to(:warmup_time) }
+  it { should respond_to(:stage_time) }
+  it { should respond_to(:tracing_code) }
+  it { should respond_to(:warmup_venue_id) }
 
+  it "should return the stage time in the competition's time zone"
+
+  it "should return the warmup time in the competition's time zone"
+
+  # Relationships
+  it { should respond_to(:category) }
+  it { should respond_to(:competition) }
+  it { should respond_to(:warmup_venue) }
+  it { should respond_to(:stage_venue) }
+  it { should respond_to(:appearances) }
+  it { should respond_to(:participants) }
+  it { should respond_to(:pieces) }
+
+  # Validations
   it { should be_valid }
 
   describe "without an associated category" do
@@ -63,9 +83,85 @@ describe Performance do
     end
   end
 
+  # Class methods
+
+  it "should respond_to :current" do
+    Performance.should respond_to(:current)
+  end
+
+  it "should respond_to :in_competition" do
+    Performance.should respond_to(:in_competition)
+  end
+
+  it "should respond_to :in_category" do
+    Performance.should respond_to(:in_category)
+  end
+
+  it "should respond_to :in_genre" do
+    Performance.should respond_to(:in_genre)
+  end
+
+  it "should respond_to :classical" do
+    Performance.should respond_to(:classical)
+  end
+
+  it "should respond_to :popular" do
+    Performance.should respond_to(:popular)
+  end
+
+  it "should respond_to :stage_order" do
+    Performance.should respond_to(:stage_order)
+  end
+
+  it "should respond_to :category_order" do
+    Performance.should respond_to(:category_order)
+  end
+
+  it "should return all current performances" do
+    @current_performances = FactoryGirl.create_list(:current_performance, 2)
+    @old_performances = FactoryGirl.create_list(:old_performance, 2)
+    Performance.current.should eq @current_performances
+  end
+
+  it "should return all performances for a given competition"
+
+  it "should return all performances for a given category"
+
+  it "should return all performances for a given genre"
+
+  it "should return all classical categories' performances"
+
+  it "should return all popular categories' performances"
+
+  it "should correctly construct a chain of conditions"
+
+  it "should order performances by stage time"
+
+  it "should order performances by category"
+
   it "should return all performances sent onwards from a given competition" do
     pending "This needs to be implemented in a new way"
   end
+
+  # Convenience methods
+
+  it { should respond_to(:accompanists) }
+  it { should respond_to(:age_group) }
+  it { should respond_to(:duration) }
+  it { should respond_to(:rounded_duration) }
+  it { should respond_to(:rounded_end_time) }
+
+  it "should return all participants with an accompanist role"
+
+  it "should return the correct age group"
+
+  it "should return the correct duration"
+
+  it "should return the duration rounded up to the next 5-minute mark"
+
+  it "should return the correct end time based on rounded duration"
+
+  # Authorizations
 
   describe "for admin users" do
     it "should allow access to all fields" do

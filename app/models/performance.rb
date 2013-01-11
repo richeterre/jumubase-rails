@@ -49,18 +49,34 @@ class Performance < ActiveRecord::Base
   end
 
   # Returns all performances in current round and year
-  scope :current, where(competition_id: Competition.current)
-
-  # Returns all performances in given genre
-  scope :is_popular, lambda { |is_popular|
-    is_popular == "1" ? popular : classical
-  }
+  def self.current
+    where(competition_id: Competition.current)
+  end
 
   # Returns all performances in given competition
-  scope :in_competition, lambda { |competition_id| where(competition_id: competition_id) }
+  def self.in_competition(competition_id)
+    where(competition_id: competition_id)
+  end
 
-  # Returns all performances in given category
-  scope :in_category, lambda { |category_id| where(category_id: category_id) }
+  def self.in_category(category_id)
+    where(category_id: category_id)
+  end
+
+  # Returns all performances in given genre
+  def self.in_genre(popular)
+    popular == 1 ? popular : classical
+  end
+
+  # Returns all performances in classical categories
+  def self.classical
+    joins(:category).where('categories.popular = FALSE')
+  end
+
+  # Returns all performances in pop categories
+  # (using "popular" here to steer clear of Ruby #pop method)
+  def self.popular
+    joins(:category).where('categories.popular = TRUE')
+  end
 
   # Returns all performances with at least one participant from a listed country
   scope :from_countries, lambda { |countries|
@@ -93,20 +109,16 @@ class Performance < ActiveRecord::Base
     where("warmup_venue_id = ? OR stage_venue_id = ?", venue, venue)
   }
 
-  # Returns all performances in classical categories
-  scope :classical, joins(:category).where('categories.popular = FALSE')
-
-  # Returns all performances in pop categories
-  # (using "popular" here to steer clear of Ruby #pop method)
-  scope :popular, joins(:category).where('categories.popular = TRUE')
-
   # Orders performances chronologically by stage date
-  scope :stage_order, order(:stage_time)
+  def self.stage_order
+    order(:stage_time)
+  end
 
   # Orders performances by category default order
-  scope :category_order,
-      joins(:category).
-      order('categories.popular, categories.solo DESC, categories.name')
+  def self.category_order
+    joins(:category).
+    order('categories.popular, categories.solo DESC, categories.name')
+  end
 
   def accompanists
     # Return all participants of performance that have an accompanist role

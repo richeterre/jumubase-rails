@@ -486,6 +486,12 @@ describe "Performances" do
 
       it "should list all performances with their appearances"
 
+      describe "competition filter" do
+
+        it "should display only performances from the selected competition"
+
+      end
+
       describe "category filter" do
 
         before do

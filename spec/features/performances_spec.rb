@@ -514,7 +514,7 @@ describe "Performances" do
 
         it "should allow the user to clear the filters" do
           click_on "Alle anzeigen"
-          page.should have_content "Alle 2 Vorspiele" # Paginator info shows full amount
+          page.should have_selector "tbody tr", count: 2
           @current_performance.appearances.each do |appearance|
             page.should have_selector "tbody tr",
                                       text: "#{@current_performance.category.name}" + " " +

@@ -122,15 +122,10 @@ class Performance < ActiveRecord::Base
     order(:stage_time)
   end
 
-  # Orders performances by category default order
-  def self.category_order
+  # Orders performances by category, then age group (smallest first)
+  def self.browsing_order
     joins(:category)
-    .order('categories.popular, categories.solo DESC, categories.name')
-  end
-
-  def self.age_order
-    joins(:participants)
-    .order('participants.birthdate ASC')
+    .order('categories.popular, categories.solo DESC, categories.name, age_group')
   end
 
   def accompanists

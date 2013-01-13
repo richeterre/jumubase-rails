@@ -5,7 +5,7 @@ class Jmd::AppearancesController < Jmd::BaseController
 
   def index
     # @performances is fetched by CanCan, scoped here further
-    @performances = @performances.current.category_order
+    @performances = @performances.current.browsing_order
                                  .paginate(page: params[:page], per_page: 15)
   end
 

@@ -131,8 +131,8 @@ describe Performance do
     Performance.should respond_to(:stage_order)
   end
 
-  it "should respond_to :category_order" do
-    Performance.should respond_to(:category_order)
+  it "should respond_to :browsing_order" do
+    Performance.should respond_to(:browsing_order)
   end
 
   it "should return all current performances" do
@@ -155,7 +155,7 @@ describe Performance do
 
   it "should order performances by stage time"
 
-  it "should order performances by category"
+  it "should order performances by category and age group for browsing"
 
   it "should return all performances sent onwards from a given competition" do
     pending "This needs to be implemented in a new way"

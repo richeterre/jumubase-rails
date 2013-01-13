@@ -134,14 +134,16 @@ class Jmd::PerformancesController < Jmd::BaseController
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
-                                             .category_order.paginate(page: params[:page], per_page: 15)
+                                             .browsing_order
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   def make_jury_sheets
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
-                                             .category_order.paginate(page: params[:page], per_page: 15)
+                                             .browsing_order
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   # def make_result_sheets

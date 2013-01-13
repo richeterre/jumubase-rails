@@ -33,6 +33,7 @@ describe Appearance do
   it { should respond_to(:role) }
 
   # Convenience methods
+  it { should respond_to(:age_group) }
   # ...
 
   # Validations

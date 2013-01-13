@@ -26,6 +26,9 @@ JUMU_PRIZE_POINT_RANGES = [
   }
 ]
 
+# Possible age group values
+JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
+
 # Whether signup is possible for the above round
 JUMU_SIGNUP_OPEN = true
 

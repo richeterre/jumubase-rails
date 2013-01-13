@@ -11,6 +11,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   # has_scope :is_popular, only: :make_certificates
   has_scope :in_competition, only: [:make_certificates, :make_jury_sheets]
   has_scope :in_category, only: [:make_certificates, :make_jury_sheets]
+  has_scope :in_age_group, only: [:make_certificates, :make_jury_sheets]
   # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 

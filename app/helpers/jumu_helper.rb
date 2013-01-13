@@ -18,21 +18,21 @@ module JumuHelper
   def lookup_age_group(date)
     case date.year
     when (JUMU_YEAR - 8)..JUMU_YEAR
-      "Ia"
+      JUMU_AGE_GROUPS[0]
     when (JUMU_YEAR - 10)..(JUMU_YEAR - 9)
-      "Ib"
+      JUMU_AGE_GROUPS[1]
     when (JUMU_YEAR - 12)..(JUMU_YEAR - 11)
-      "II"
+      JUMU_AGE_GROUPS[2]
     when (JUMU_YEAR - 14)..(JUMU_YEAR - 13)
-      "III"
+      JUMU_AGE_GROUPS[3]
     when (JUMU_YEAR - 16)..(JUMU_YEAR - 15)
-      "IV"
+      JUMU_AGE_GROUPS[4]
     when (JUMU_YEAR - 18)..(JUMU_YEAR - 17)
-      "V"
+      JUMU_AGE_GROUPS[5]
     when (JUMU_YEAR - 21)..(JUMU_YEAR - 19)
-      "VI"
+      JUMU_AGE_GROUPS[6]
     when (JUMU_YEAR - 27)..(JUMU_YEAR - 22)
-      "VII"
+      JUMU_AGE_GROUPS[7]
     end
   end
 end

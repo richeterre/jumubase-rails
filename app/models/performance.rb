@@ -60,8 +60,14 @@ class Performance < ActiveRecord::Base
     where(competition_id: competition_id)
   end
 
+  # Returns all performances in given category
   def self.in_category(category_id)
     where(category_id: category_id)
+  end
+
+  # Returns all performances in given age group
+  def self.in_age_group(age_group)
+    where(age_group: age_group)
   end
 
   # Returns all performances in given genre

@@ -69,10 +69,20 @@ describe Performance do
     it { should_not be_valid }
   end
 
-  it "should update its age group when saved" do
+  it "should update its age group when saved for the first time" do
     expect {
       performance.save
     }.to change(performance, :age_group) # was nil before
+  end
+
+  it "should update its age group when a participant birthdate changes" do
+    performance.save # Save record created by factory
+    expect {
+      participant = performance.participants.first
+      participant.birthdate -= 2.years
+      participant.save
+      # performance.save # should get called automatically, somehow
+    }.to change(performance, :age_group)
   end
 
   describe "when created" do

@@ -12,6 +12,7 @@
 #  updated_at      :datetime         not null
 #  tracing_code    :string(255)
 #  warmup_venue_id :integer
+#  age_group       :string(255)
 #
 
 require 'spec_helper'
@@ -30,6 +31,7 @@ describe Performance do
   it { should respond_to(:stage_time) }
   it { should respond_to(:tracing_code) }
   it { should respond_to(:warmup_venue_id) }
+  it { should respond_to(:age_group) }
 
   it "should return the stage time in the competition's time zone"
 
@@ -65,6 +67,12 @@ describe Performance do
   describe "without at least one associated piece" do
     before { performance.pieces = [] }
     it { should_not be_valid }
+  end
+
+  it "should update its age group when saved" do
+    expect {
+      performance.save
+    }.to change(performance, :age_group) # was nil before
   end
 
   describe "when created" do

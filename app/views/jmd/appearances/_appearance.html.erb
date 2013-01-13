@@ -2,7 +2,7 @@
     <%= content_tag :strong,
           link_to_modal(appearance.participant.full_name, :participant, appearance.participant.id) %>,
     <%= appearance.instrument.name %>
-    <%= info_badge_tag(appearance.age_group, :info) %> (* <%= l appearance.participant.birthdate %>)
+    <%= age_group_badge_tag(appearance) %> (* <%= l appearance.participant.birthdate %>)
 
     <%= render layout: "modal", locals: { item_type: "participant", item_id: appearance.participant.id, title: appearance.participant.full_name } do %>
       <div class="modal-body">

@@ -87,17 +87,20 @@ class Appearance < ActiveRecord::Base
     self.performance.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
   end
 
-  # Returns the participant's age group (Ia–VII)
+  # Returns the participant's age group
   def age_group
+    # NOTE: This method may be called before saving, so database queries are a no-no!
+
     if self.solo? || (self.accompaniment? && !self.performance.category.popular)
       # Soloists and classical accompanists have their own age group
       calculate_age_group self.participant.birthdate
     elsif self.ensemble?
       # Ensemble players share an age group
-      calculate_age_group self.performance.participants.map(&:birthdate)
+      calculate_age_group self.performance.appearances.map { |a| a.participant.birthdate }
     else
       # Pop accompanists share an age group (excluding the soloist)
-      calculate_age_group self.performance.accompanists.map(&:birthdate)
+      accompanist_appearances = self.performance.appearances.select(&:accompaniment?)
+      calculate_age_group accompanist_appearances.map { |a| a.participant.birthdate }
     end
   end
 

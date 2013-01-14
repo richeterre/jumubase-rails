@@ -164,14 +164,14 @@ class Performance < ActiveRecord::Base
     end
 
     def update_age_group
-      soloist = self.appearances.with_role('S').first
-      if soloist.nil?
-        # Just return any, as they all have the same
-        self.age_group = self.appearances.first.age_group
-      else
-        # Use age group of soloist
-        self.age_group = soloist.age_group
+      self.appearances.each do |appearance|
+        if appearance.solo?
+          self.age_group = appearance.age_group # Use age group of soloist
+          return
+        end
       end
+      # Else use that of first appearance, as they all have the same
+      self.age_group = self.appearances.first.age_group
     end
 
     def require_one_appearance

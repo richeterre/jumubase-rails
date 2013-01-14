@@ -75,15 +75,7 @@ describe Performance do
     }.to change(performance, :age_group) # was nil before
   end
 
-  it "should update its age group when a participant birthdate changes" do
-    performance.save # Save record created by factory
-    expect {
-      participant = performance.participants.first
-      participant.birthdate -= 2.years
-      participant.save
-      # performance.save # should get called automatically, somehow
-    }.to change(performance, :age_group)
-  end
+  it "should update its age group when saved again later"
 
   describe "when created" do
     before { performance.save }

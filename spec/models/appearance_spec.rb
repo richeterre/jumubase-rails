@@ -34,6 +34,11 @@ describe Appearance do
 
   # Convenience methods
   it { should respond_to(:age_group) }
+  it "should return the correct age group for a soloist"
+  it "should return the correct age group for a classical accompanist"
+  it "should return the correct age group for an ensemblist"
+  it "should return the correct age group for a pop accompanist"
+
   # ...
 
   # Validations

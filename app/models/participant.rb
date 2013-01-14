@@ -26,6 +26,8 @@ class Participant < ActiveRecord::Base
   has_many :appearances,  dependent: :destroy
   has_many :performances, through: :appearances
 
+  after_save :resave_performances # since their age group might have changed
+
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :first_name,  presence: true
@@ -45,4 +47,12 @@ class Participant < ActiveRecord::Base
   def address
     "#{self.street}, #{self.postal_code} #{self.city}"
   end
+
+  private
+
+    def resave_performances
+      self.performances.each do |performance|
+        performance.save
+      end
+    end
 end

@@ -13,4 +13,24 @@
     <dd><%= @competition.certificate_date || "unbekannt" %></dd>
 </dl>
 
+<h3>Statistik</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Teilnehmer</th>
+      <th>Wertungen</th>
+      <th>Auftritte</th>
+      <th>ohne Ergebnis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>?</td>
+      <td><%= @competition.performances.count %></td>
+      <td><%= @competition.performances.map(&:appearances).count %></td>
+    </tr>
+  </tbody>
+</table>
+
 <%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>

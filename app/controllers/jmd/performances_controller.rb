@@ -2,16 +2,18 @@
 class Jmd::PerformancesController < Jmd::BaseController
   include PerformancesHelper
 
-  load_and_authorize_resource except: [:make_certificates, :make_jury_sheets]
-  skip_authorization_check only: [:make_certificates, :make_jury_sheets]
+  filterable_actions = [:index, :make_certificates, :make_jury_sheets]
+
+  load_and_authorize_resource except: filterable_actions
+  skip_authorization_check only: filterable_actions
 
   # helper_method :sort_order
 
   # Define scopes for entry filtering
   # has_scope :is_popular, only: :make_certificates
-  has_scope :in_competition, only: [:make_certificates, :make_jury_sheets]
-  has_scope :in_category, only: [:make_certificates, :make_jury_sheets]
-  has_scope :in_age_group, only: [:make_certificates, :make_jury_sheets]
+  has_scope :in_competition, only: filterable_actions
+  has_scope :in_category, only: filterable_actions
+  has_scope :in_age_group, only: filterable_actions
   # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 
@@ -19,8 +21,9 @@ class Jmd::PerformancesController < Jmd::BaseController
   def index
     # filter_sort_entries
     # @performances are fetched by CanCan
-    @performances = @performances.current.order("created_at DESC")
-                                 .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+                                             .order("created_at DESC")
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   # show: @performance is fetched by CanCan

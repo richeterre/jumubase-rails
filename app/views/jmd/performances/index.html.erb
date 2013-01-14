@@ -2,9 +2,14 @@
 
 <p><%= link_to "Neues Vorspiel erstellen", new_jmd_performance_path, class: "btn" %></p>
 
-<%# render 'filter_form', :path => jmd_performances_path %>
+<hr />
 
-<p><%= page_entries_info @performances, model: Performance %></p>
+<%= render 'filter_form', :path => jmd_performances_path %>
+
+<p>
+  <%= page_entries_info @performances, model: Performance %>
+  <%= info_label_tag("Filter aktiv", :warning) if filter_active? %>
+</p>
 
 <%= will_paginate @performances %>
 

@@ -3,8 +3,15 @@
 <%= render 'filter_form', path: make_jury_sheets_jmd_performances_path %>
 
 <p>
+  <%= page_entries_info @performances, model: Performance %>
+  <%= info_label_tag("Filter aktiv", :warning) if filter_active? %>
+</p>
+
+<p>
   <%= link_to "Jurybögen ausgeben", params.merge(format: :pdf),
         class: "btn btn-primary" unless @performances.empty? %></p>
+
+<%= will_paginate @performances %>
 
 <table class="table table-bordered">
   <thead>
@@ -33,3 +40,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @performances %>

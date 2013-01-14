@@ -12,6 +12,7 @@
 #  updated_at      :datetime         not null
 #  tracing_code    :string(255)
 #  warmup_venue_id :integer
+#  age_group       :string(255)
 #
 
 # -*- encoding : utf-8 -*-
@@ -24,9 +25,9 @@ class Performance < ActiveRecord::Base
   belongs_to  :competition
   belongs_to  :warmup_venue,  class_name: "Venue"
   belongs_to  :stage_venue,   class_name: "Venue"
-  has_many    :appearances,   dependent: :destroy
+  has_many    :appearances,   inverse_of: :performance, dependent: :destroy
   has_many    :participants,  through: :appearances
-  has_many    :pieces,        dependent: :destroy
+  has_many    :pieces,        inverse_of: :performance, dependent: :destroy
 
   accepts_nested_attributes_for :pieces,      allow_destroy: true
   accepts_nested_attributes_for :appearances, allow_destroy: true
@@ -38,6 +39,7 @@ class Performance < ActiveRecord::Base
   validate :require_one_piece
 
   before_create :add_unique_tracing_code
+  before_save :update_age_group
 
   # Override getters to always get times in competition time zone
   def warmup_time
@@ -58,8 +60,14 @@ class Performance < ActiveRecord::Base
     where(competition_id: competition_id)
   end
 
+  # Returns all performances in given category
   def self.in_category(category_id)
     where(category_id: category_id)
+  end
+
+  # Returns all performances in given age group
+  def self.in_age_group(age_group)
+    where(age_group: age_group)
   end
 
   # Returns all performances in given genre
@@ -114,26 +122,15 @@ class Performance < ActiveRecord::Base
     order(:stage_time)
   end
 
-  # Orders performances by category default order
-  def self.category_order
+  # Orders performances by category, then age group (smallest first)
+  def self.browsing_order
     joins(:category)
-    .order('categories.popular, categories.solo DESC, categories.name')
+    .order('categories.popular, categories.solo DESC, categories.name, age_group')
   end
 
   def accompanists
     # Return all participants of performance that have an accompanist role
     self.appearances.with_role('B').map(&:participant)
-  end
-
-  def age_group
-    # Returns age group of soloist or ensemble
-    soloist = self.appearances.with_role('S').first
-    if soloist.nil?
-      # Just return any, as they all have the same
-      self.appearances.first.age_group
-    else
-      soloist.age_group
-    end
   end
 
   def duration
@@ -156,6 +153,27 @@ class Performance < ActiveRecord::Base
   end
 
   private
+
+    def add_unique_tracing_code
+      begin
+        # Generates a random string of seven lowercase letters and numbers
+        code = [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
+      end while Performance.where(tracing_code: code).exists?
+
+      self.tracing_code = code
+    end
+
+    def update_age_group
+      self.appearances.each do |appearance|
+        if appearance.solo?
+          self.age_group = appearance.age_group # Use age group of soloist
+          return
+        end
+      end
+      # Else use that of first appearance, as they all have the same
+      self.age_group = self.appearances.first.age_group
+    end
+
     def require_one_appearance
       errors.add(:base, :needs_one_appearance) if appearances_empty?
     end
@@ -170,14 +188,5 @@ class Performance < ActiveRecord::Base
 
     def pieces_empty?
       pieces.empty? || pieces.all? { |piece| piece.marked_for_destruction? }
-    end
-
-    def add_unique_tracing_code
-      begin
-        # Generates a random string of seven lowercase letters and numbers
-        code = [('a'..'z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
-      end while Performance.where(tracing_code: code).exists?
-
-      self.tracing_code = code
     end
 end

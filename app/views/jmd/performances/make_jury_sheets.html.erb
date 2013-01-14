@@ -27,7 +27,7 @@
             <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
           <% end %>
         </td>
-        <td><%= info_badge_tag(appearance.age_group, :info) %></td>
+        <td><%= age_group_badge_tag(appearance) %></td>
       </tr>
       <% end %>
     <% end %>

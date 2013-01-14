@@ -14,6 +14,8 @@
 
 # -*- encoding : utf-8 -*-
 class Appearance < ActiveRecord::Base
+  include JumuHelper
+
   # Attributes that are accessible to everyone (needed for signup)
   attr_accessible :performance_id, :participant_id, :instrument_id, :role_id, :participant_attributes
 
@@ -85,17 +87,20 @@ class Appearance < ActiveRecord::Base
     self.performance.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
   end
 
-  # Returns the participant's age group (Ia–VII)
+  # Returns the participant's age group
   def age_group
+    # NOTE: This method may be called before saving, so database queries are a no-no!
+
     if self.solo? || (self.accompaniment? && !self.performance.category.popular)
       # Soloists and classical accompanists have their own age group
       calculate_age_group self.participant.birthdate
     elsif self.ensemble?
       # Ensemble players share an age group
-      calculate_age_group self.performance.participants.map(&:birthdate)
+      calculate_age_group self.performance.appearances.map { |a| a.participant.birthdate }
     else
       # Pop accompanists share an age group (excluding the soloist)
-      calculate_age_group self.performance.accompanists.map(&:birthdate)
+      accompanist_appearances = self.performance.appearances.select(&:accompaniment?)
+      calculate_age_group accompanist_appearances.map { |a| a.participant.birthdate }
     end
   end
 
@@ -135,42 +140,4 @@ class Appearance < ActiveRecord::Base
       # TODO: Generalize pop category restrictions
     end
   end
-
-  private
-
-    def calculate_age_group(birthdates)
-      if birthdates.instance_of? Date
-        # Skip averaging step if only one date
-        avg_date = birthdates
-      else
-        # Convert dates to timestamps
-        timestamps = birthdates.map{ |date| date.to_time.to_i }
-        # Get "average" date
-        avg_timestamp = timestamps.sum.to_f / birthdates.size
-        avg_date = Time.at(avg_timestamp).to_date
-      end
-      # Return age group for that date
-      lookup_age_group(avg_date)
-    end
-
-    def lookup_age_group(date)
-      case date.year
-      when (JUMU_YEAR - 8)..JUMU_YEAR
-        "Ia"
-      when (JUMU_YEAR - 10)..(JUMU_YEAR - 9)
-        "Ib"
-      when (JUMU_YEAR - 12)..(JUMU_YEAR - 11)
-        "II"
-      when (JUMU_YEAR - 14)..(JUMU_YEAR - 13)
-        "III"
-      when (JUMU_YEAR - 16)..(JUMU_YEAR - 15)
-        "IV"
-      when (JUMU_YEAR - 18)..(JUMU_YEAR - 17)
-        "V"
-      when (JUMU_YEAR - 21)..(JUMU_YEAR - 19)
-        "VI"
-      when (JUMU_YEAR - 27)..(JUMU_YEAR - 22)
-        "VII"
-      end
-    end
 end

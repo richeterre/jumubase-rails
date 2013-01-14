@@ -4,6 +4,8 @@
       { selected: params[:in_competition], include_blank: "Alle Wettbewerbe" } %>
   <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
+  <%= select nil, :in_age_group, JUMU_AGE_GROUPS,
+      { selected: params[:in_age_group], include_blank: "Alle AG" }, class: "span2" %>
   <%= submit_tag "Filtern", class: (filter_active? ? "btn btn-warning" : "btn") %>
   <%= link_to "Alle anzeigen", path, class: "btn" %>
 <% end %>

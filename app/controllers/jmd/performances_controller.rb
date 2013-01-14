@@ -11,6 +11,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   # has_scope :is_popular, only: :make_certificates
   has_scope :in_competition, only: [:make_certificates, :make_jury_sheets]
   has_scope :in_category, only: [:make_certificates, :make_jury_sheets]
+  has_scope :in_age_group, only: [:make_certificates, :make_jury_sheets]
   # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
   # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 
@@ -133,14 +134,16 @@ class Jmd::PerformancesController < Jmd::BaseController
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
-                                             .sort_by {|p| [(p.category.popular ? 1 : 0), (p.category.solo ? 0 : 1), p.category.name, p.age_group]}
+                                             .browsing_order
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   def make_jury_sheets
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
-                                             .sort_by {|p| [(p.category.popular ? 1 : 0), (p.category.solo ? 0 : 1), p.category.name, p.age_group]}
+                                             .browsing_order
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   # def make_result_sheets

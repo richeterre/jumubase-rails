@@ -12,6 +12,7 @@
 #  updated_at      :datetime         not null
 #  tracing_code    :string(255)
 #  warmup_venue_id :integer
+#  age_group       :string(255)
 #
 
 require 'spec_helper'
@@ -30,6 +31,7 @@ describe Performance do
   it { should respond_to(:stage_time) }
   it { should respond_to(:tracing_code) }
   it { should respond_to(:warmup_venue_id) }
+  it { should respond_to(:age_group) }
 
   it "should return the stage time in the competition's time zone"
 
@@ -66,6 +68,14 @@ describe Performance do
     before { performance.pieces = [] }
     it { should_not be_valid }
   end
+
+  it "should update its age group when saved for the first time" do
+    expect {
+      performance.save
+    }.to change(performance, :age_group) # was nil before
+  end
+
+  it "should update its age group when saved again later"
 
   describe "when created" do
     before { performance.save }
@@ -113,8 +123,8 @@ describe Performance do
     Performance.should respond_to(:stage_order)
   end
 
-  it "should respond_to :category_order" do
-    Performance.should respond_to(:category_order)
+  it "should respond_to :browsing_order" do
+    Performance.should respond_to(:browsing_order)
   end
 
   it "should return all current performances" do
@@ -137,7 +147,7 @@ describe Performance do
 
   it "should order performances by stage time"
 
-  it "should order performances by category"
+  it "should order performances by category and age group for browsing"
 
   it "should return all performances sent onwards from a given competition" do
     pending "This needs to be implemented in a new way"

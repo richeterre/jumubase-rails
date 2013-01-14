@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Land</th>
       <th>Saison</th>
       <th>Dauer</th>
       <th>Anmeldeschluss</th>
@@ -15,7 +16,8 @@
   <tbody>
     <% @competitions.each do |competition| %>
     <tr>
-      <td><%= competition.name %></td>
+      <td><%= link_to competition.name, jmd_competition_path(competition) %></td>
+      <td><%= flag_tag(competition.host.country.country_code) %></td>
       <td><%= competition.season %></td>
       <td>
         <%= "#{l competition.begins} – #{l competition.ends}" %>

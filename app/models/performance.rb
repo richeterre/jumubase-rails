@@ -25,9 +25,9 @@ class Performance < ActiveRecord::Base
   belongs_to  :competition
   belongs_to  :warmup_venue,  class_name: "Venue"
   belongs_to  :stage_venue,   class_name: "Venue"
-  has_many    :appearances,   dependent: :destroy
+  has_many    :appearances,   inverse_of: :performance, dependent: :destroy
   has_many    :participants,  through: :appearances
-  has_many    :pieces,        dependent: :destroy
+  has_many    :pieces,        inverse_of: :performance, dependent: :destroy
 
   accepts_nested_attributes_for :pieces,      allow_destroy: true
   accepts_nested_attributes_for :appearances, allow_destroy: true

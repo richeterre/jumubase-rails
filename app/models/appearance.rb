@@ -39,10 +39,15 @@ class Appearance < ActiveRecord::Base
                               },
                               unless: lambda { |a| a.points.nil? } # Skip if none submitted
 
-  # Filter by given role
+  # Return appearances with given role
   def self.with_role(role_slug)
     joins(:role)
     .where(roles: { slug: role_slug })
+  end
+
+  # Return appearances with no associated points
+  def self.pointless
+    where(points: nil)
   end
 
   # Order by role: soloists -> accompanists -> ensemblists

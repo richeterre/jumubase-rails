@@ -42,6 +42,7 @@ describe Appearance do
   # ...
 
   # Validations
+
   it { should be_valid }
 
   it "should not be valid without an associated performance"
@@ -85,6 +86,24 @@ describe Appearance do
       end
     end
   end
+
+  # Class methods
+
+  it "should respond_to :with_role" do
+    Appearance.should respond_to(:with_role)
+  end
+
+  it "should respond_to :pointless" do
+    Appearance.should respond_to(:pointless)
+  end
+
+  it "should respond_to :role_order" do
+    Appearance.should respond_to(:role_order)
+  end
+
+  it "should return all appearances with a given role"
+  it "should return all appearances without points"
+  it "should order appearances by role (solo, accompanist, ensemble)"
 
   # Result calculations
   describe "based on awarded points" do

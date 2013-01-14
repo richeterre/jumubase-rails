@@ -47,6 +47,7 @@ describe Performance do
   it { should respond_to(:pieces) }
 
   # Validations
+
   it { should be_valid }
 
   describe "without an associated category" do

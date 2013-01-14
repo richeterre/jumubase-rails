@@ -1,6 +1,11 @@
 <% provide(:title, "Ergebnisse verwalten") %>
 
-<p><%= page_entries_info @performances, model: Performance %></p>
+<%= render 'jmd/performances/filter_form', path: jmd_appearances_path %>
+
+<p>
+  <%= page_entries_info @performances, model: Performance %>
+  <%= info_label_tag("Filter aktiv", :warning) if filter_active? %>
+</p>
 
 <%= will_paginate @performances %>
 

@@ -9,13 +9,10 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # helper_method :sort_order
 
-  # Define scopes for entry filtering
-  # has_scope :is_popular, only: :make_certificates
+  # Set up filters
   has_scope :in_competition, only: filterable_actions
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
-  # has_scope :from_host, :only => [:index, :make_certificates, :make_jury_sheets]
-  # has_scope :on_date, :only => [:index, :make_certificates, :make_jury_sheets]
 
   # Manage entries at hosts the user has access to
   def index

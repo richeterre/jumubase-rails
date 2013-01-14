@@ -1,12 +1,17 @@
 # -*- encoding : utf-8 -*-
 class Jmd::AppearancesController < Jmd::BaseController
 
-  load_and_authorize_resource :performance, parent: false, only: :index
+  authorize_resource :performance, parent: false, only: :index # Don't load here, it's custom
+
+  # Set up filters
+  has_scope :in_competition, only: :index
+  has_scope :in_category, only: :index
+  has_scope :in_age_group, only: :index
 
   def index
-    # @performances is fetched by CanCan, scoped here further
-    @performances = @performances.current.browsing_order
-                                 .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+                                .browsing_order
+                                .paginate(page: params[:page], per_page: 15)
   end
 
   def update

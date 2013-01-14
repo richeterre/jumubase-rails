@@ -18,16 +18,18 @@ class Competition < ActiveRecord::Base
   attr_accessible :season, :round_id, :host_id, :begins, :ends, :signup_deadline,
                   :certificate_date, :category_ids
 
-  # Finds current competitions (with matching round and end year)
-  scope :current, joins(:round, :host)
-      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND, JUMU_SEASON)
-      .order("hosts.name")
+  # Find competitions with matching season and round
+  def self.current
+    joins(:round, :host)
+    .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND })
+    .order("hosts.name")
+  end
 
-  # Finds current competitions whose signup is open
-  scope :current_and_open, lambda {
+  # Find current competitions whose signup is open
+  def self.current_and_open
     now = Time.now
     current.where("competitions.signup_deadline > ?", now)
-  }
+  end
 
   # Finds competitions of same year, but round precedent to current
   scope :preceding, joins(:round, :host)

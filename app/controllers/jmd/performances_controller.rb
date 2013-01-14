@@ -4,8 +4,8 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   filterable_actions = [:index, :make_certificates, :make_jury_sheets]
 
-  load_and_authorize_resource except: filterable_actions
-  skip_authorization_check only: filterable_actions
+  load_and_authorize_resource # CanCan
+  skip_load_resource only: filterable_actions # for custom loading
 
   # helper_method :sort_order
 
@@ -20,7 +20,6 @@ class Jmd::PerformancesController < Jmd::BaseController
   # Manage entries at hosts the user has access to
   def index
     # filter_sort_entries
-    # @performances are fetched by CanCan
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)

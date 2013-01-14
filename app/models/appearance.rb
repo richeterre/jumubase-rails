@@ -40,13 +40,15 @@ class Appearance < ActiveRecord::Base
                               unless: lambda { |a| a.points.nil? } # Skip if none submitted
 
   # Filter by given role
-  scope :with_role, lambda { |role| joins(:role).where('roles.slug' => role) }
+  def self.with_role(role_slug)
+    joins(:role)
+    .where(roles: { slug: role_slug })
+  end
 
-  # Order by role: Soloists, accompanists, ensemblists
-  scope :role_order, order(:role_id)
-
-  # Order by stage time
-  scope :stage_order, joins(:performance).order('entries.stage_time')
+  # Order by role: soloists -> accompanists -> ensemblists
+  def self.role_order
+    order(:role_id)
+  end
 
   # Perform participant existence check upon saving
   def participant_attributes_with_existence_check=(attributes)

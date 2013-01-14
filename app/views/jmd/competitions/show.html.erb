@@ -26,9 +26,10 @@
   </thead>
   <tbody>
     <tr>
-      <td>?</td>
-      <td><%= @competition.performances.count %></td>
-      <td><%= @competition.performances.map(&:appearances).count %></td>
+      <td><%= @competition.participants.size %></td>
+      <td><%= @competition.performances.size %></td>
+      <td><%= @competition.appearances.size %></td>
+      <td><%= @competition.appearances.pointless.size %></td>
     </tr>
   </tbody>
 </table>

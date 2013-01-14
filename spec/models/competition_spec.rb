@@ -36,6 +36,8 @@ describe Competition do
   it { should respond_to(:round) }
   it { should respond_to(:host) }
   it { should respond_to(:performances) }
+  it { should respond_to(:appearances) }
+  it { should respond_to(:participants) }
   it { should respond_to(:categories) }
 
   # Validations

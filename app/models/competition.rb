@@ -18,24 +18,6 @@ class Competition < ActiveRecord::Base
   attr_accessible :season, :round_id, :host_id, :begins, :ends, :signup_deadline,
                   :certificate_date, :category_ids
 
-  # Find competitions with matching season and round
-  def self.current
-    joins(:round, :host)
-    .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND })
-    .order("hosts.name")
-  end
-
-  # Find current competitions whose signup is open
-  def self.current_and_open
-    now = Time.now
-    current.where("competitions.signup_deadline > ?", now)
-  end
-
-  # Finds competitions of same year, but round precedent to current
-  scope :preceding, joins(:round, :host)
-      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND - 1, JUMU_SEASON)
-      .order("hosts.name")
-
   belongs_to :round
   belongs_to :host
   has_many :performances, dependent: :destroy
@@ -54,6 +36,24 @@ class Competition < ActiveRecord::Base
   # Validate order of associated dates, if available (presence is validated separately)
   validate :require_beginning_before_end
   validate :require_signup_deadline_before_beginning
+
+  # Find competitions with matching season and round
+  def self.current
+    joins(:round, :host)
+    .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND })
+    .order("hosts.name")
+  end
+
+  # Find current competitions whose signup is open
+  def self.current_and_open
+    now = Time.now
+    current.where("competitions.signup_deadline > ?", now)
+  end
+
+  # Finds competitions of same year, but round precedent to current
+  scope :preceding, joins(:round, :host)
+      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND - 1, JUMU_SEASON)
+      .order("hosts.name")
 
   # Virtual name that identifies the competition
   def name

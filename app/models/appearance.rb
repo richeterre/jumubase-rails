@@ -94,7 +94,7 @@ class Appearance < ActiveRecord::Base
 
   # Returns the solo appearance that is accompanied by this one
   def related_solo_appearance
-    self.performance.appearances.with_role('S')
+    self.performance.appearances.with_role('S').first
   end
 
   # Returns the participant's age group

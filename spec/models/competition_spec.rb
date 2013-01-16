@@ -155,7 +155,7 @@ describe Competition do
     FactoryGirl.create(:future_competition)
     current_competitions = FactoryGirl.create_list(:current_competition, 2)
 
-    Competition.current.should eq current_competitions
+    Competition.current.should =~ current_competitions
   end
 
   it "should be able to return all current competitions whose signup is open" do
@@ -165,7 +165,7 @@ describe Competition do
     # TODO: Include competition whose deadline is exactly "now"
     current_and_open_competitions = FactoryGirl.create_list(:current_competition, 2)
 
-    Competition.current_and_open.should eq current_and_open_competitions
+    Competition.current_and_open.should =~ current_and_open_competitions
   end
 
   it "should be able to return all competitions of the preceding round in this year" do

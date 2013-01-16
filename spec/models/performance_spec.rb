@@ -183,9 +183,9 @@ describe Performance do
   end
 
   it "should return all current performances" do
-    @current_performances = FactoryGirl.create_list(:current_performance, 2)
-    @old_performances = FactoryGirl.create_list(:old_performance, 2)
-    Performance.current.should eq @current_performances
+    current_performances = FactoryGirl.create_list(:current_performance, 2)
+    old_performances = FactoryGirl.create_list(:old_performance, 2)
+    Performance.current.should =~ current_performances
   end
 
   it "should return all performances for a given competition"

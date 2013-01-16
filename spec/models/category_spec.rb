@@ -38,6 +38,6 @@ describe Category do
       FactoryGirl.create_list(:category, 3)
       @active_categories = FactoryGirl.create_list(:active_category, 2)
     end
-    specify { Category.current.should eq @active_categories }
+    specify { Category.current.should =~ @active_categories }
   end
 end

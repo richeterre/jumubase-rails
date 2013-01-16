@@ -38,6 +38,8 @@ class Performance < ActiveRecord::Base
   validate :require_one_appearance
   validate :require_one_piece
 
+  validate :check_role_combinations
+
   before_create :add_unique_tracing_code
   before_save :update_age_group
 
@@ -180,6 +182,10 @@ class Performance < ActiveRecord::Base
 
     def require_one_piece
       errors.add(:base, :needs_one_piece) if pieces_empty?
+    end
+
+    def check_role_combinations
+      errors.add(:base, :cannot_have_many_soloists) if appearances.size{ |a| a.solo? } > 1
     end
 
     def appearances_empty?

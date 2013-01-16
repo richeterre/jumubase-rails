@@ -70,6 +70,15 @@ describe Performance do
     it { should_not be_valid }
   end
 
+  describe "with more than one soloist" do
+    before do
+      performance.appearances << FactoryGirl.build(:appearance)
+    end
+    it { should_not be_valid }
+  end
+
+  # Callbacks
+
   it "should update its age group when saved for the first time" do
     expect {
       performance.save

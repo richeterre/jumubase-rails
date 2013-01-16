@@ -232,6 +232,7 @@ de:
             base:
               needs_one_appearance: "Es muss mindestens ein Teilnehmer angegeben werden"
               needs_one_piece: "Es muss mindestens ein Stück angegeben werden"
+              cannot_have_many_soloists: "Vorspiel kann höchstens einen Solisten haben"
     attributes:
       appearance:
         performance_id: "Vorspiel"

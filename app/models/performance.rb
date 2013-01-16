@@ -185,7 +185,18 @@ class Performance < ActiveRecord::Base
     end
 
     def check_role_combinations
-      errors.add(:base, :cannot_have_many_soloists) if appearances.size{ |a| a.solo? } > 1
+      errors.add(:base, :cannot_have_many_soloists) if appearances.select { |a| a.solo? }.size > 1
+      errors.add(:base, :cannot_have_mere_accompanists) if appearances.all? {|a| a.accompaniment? }
+
+      # Check if there is a lonely ensemblist
+      if appearances.size == 1 && appearances.all? {|a| a.ensemble? }
+        errors.add(:base, :cannot_have_single_ensemblist)
+      end
+
+      # Check if one or more, but not all participants are ensemblists
+      if (1...appearances.size).include? appearances.select {|a| a.ensemble? }.size
+        errors.add(:base, :cannot_have_ensemblists_and_others)
+      end
     end
 
     def appearances_empty?

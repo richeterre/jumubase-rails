@@ -77,6 +77,51 @@ describe Performance do
     it { should_not be_valid }
   end
 
+  describe "with a single ensemblist" do
+    before do
+      performance.appearances = [FactoryGirl.build(:ensemble_appearance)]
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with all participants being accompanists" do
+    before do
+      performance.appearances.clear
+      performance.appearances << FactoryGirl.build(:acc_appearance)
+    end
+    it { should_not be_valid }
+  end
+
+  describe "with both ensemblists and other participant roles" do
+    it "should not be valid" do
+      # Soloist & ensemblist
+      performance.appearances << FactoryGirl.build(:ensemble_appearance)
+      performance.should_not be_valid
+
+      # Accompanist & ensemblist
+      performance.appearances = [FactoryGirl.build(:acc_appearance)]
+      performance.appearances << FactoryGirl.build(:ensemble_appearance)
+      performance.should_not be_valid
+    end
+  end
+
+  describe "with a soloist and one or more accompanists" do
+    it "should be valid" do
+      performance.appearances << FactoryGirl.build(:acc_appearance)
+      performance.should be_valid # for one accompanist
+
+      performance.appearances << FactoryGirl.build(:acc_appearance)
+      performance.should be_valid # for many accompanists
+    end
+  end
+
+  describe "with all participants being ensemblists" do
+    before do
+      performance.appearances = FactoryGirl.build_list(:ensemble_appearance, 2)
+    end
+    it { should be_valid }
+  end
+
   # Callbacks
 
   it "should update its age group when saved for the first time" do

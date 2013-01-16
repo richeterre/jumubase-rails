@@ -232,7 +232,10 @@ de:
             base:
               needs_one_appearance: "Es muss mindestens ein Teilnehmer angegeben werden"
               needs_one_piece: "Es muss mindestens ein Stück angegeben werden"
-              cannot_have_many_soloists: "Vorspiel kann höchstens einen Solisten haben"
+              cannot_have_many_soloists: "Vorspiel kann nicht mehrere Solisten haben"
+              cannot_have_mere_accompanists: "Vorspiel kann nicht nur Begleiter haben"
+              cannot_have_single_ensemblist: "Vorspiel kann nicht nur einen Ensembleteilnehmer haben"
+              cannot_have_ensemblists_and_others: "Vorspiel kann nicht sowohl Ensembleteilnehmer als auch Solisten oder Begleiter haben"
     attributes:
       appearance:
         performance_id: "Vorspiel"

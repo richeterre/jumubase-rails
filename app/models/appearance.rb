@@ -74,24 +74,27 @@ class Appearance < ActiveRecord::Base
 
   alias_method_chain 'participant_attributes=', :existence_check
 
+  # Helper methods
+  # (Role helpers needed in performance validation, so role may be nil then)
+
   # Returns whether the appearance is a solo
   def solo?
-    self.role.slug == 'S'
+    self.role.try(:slug) == 'S'
   end
 
   # Returns whether the appearance is an accompaniment
   def accompaniment?
-    self.role.slug == 'B'
+    self.role.try(:slug) == 'B'
   end
 
   # Returns whether the appearance is part of an ensemble
   def ensemble?
-    self.role.slug == 'E'
+    self.role.try(:slug) == 'E'
   end
 
   # Returns the solo appearance that is accompanied by this one
   def related_solo_appearance
-    self.performance.appearances.with_role('S').first # TODO: Validate that there is always just one, then remove this
+    self.performance.appearances.with_role('S')
   end
 
   # Returns the participant's age group

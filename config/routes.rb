@@ -13,7 +13,8 @@ Jmd::Application.routes.draw do
       put 'retime', on: :collection
       get 'make_certificates', on: :collection
       get 'make_jury_sheets', on: :collection
-      get 'make_result_sheets', :on => :collection
+      get 'make_result_sheets', on: :collection
+      get 'list_advancing', on: :collection
     end
   end
 

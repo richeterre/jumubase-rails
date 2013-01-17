@@ -2,7 +2,7 @@
 class Jmd::PerformancesController < Jmd::BaseController
   include PerformancesHelper
 
-  filterable_actions = [:index, :make_certificates, :make_jury_sheets]
+  filterable_actions = [:index, :make_certificates, :make_jury_sheets, :list_advancing]
 
   load_and_authorize_resource # CanCan
   skip_load_resource only: filterable_actions # for custom loading
@@ -143,6 +143,12 @@ class Jmd::PerformancesController < Jmd::BaseController
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
+  end
+
+  def list_advancing
+    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+                                             .browsing_order
+    @performances = @performances.select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
   end
 
   # def make_result_sheets

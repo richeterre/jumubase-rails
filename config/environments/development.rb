@@ -34,4 +34,15 @@ Jmd::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Set up Bullet for performance monitoring
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false
+    Bullet.bullet_logger = false
+    Bullet.console = true
+    Bullet.growl = false
+    Bullet.rails_logger = false
+    Bullet.disable_browser_cache = true
+  end
 end

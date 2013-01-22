@@ -34,6 +34,7 @@ group :test, :development do
   gem 'annotate'
   gem 'email_spec'
   gem 'action_mailer_cache_delivery'
+  gem 'bullet'
 end
 
 group :test do

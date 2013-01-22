@@ -5,7 +5,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
   def index
     # @competitions are fetched by CanCan
-    @competitions = @competitions.order(:begins)
+    @competitions = @competitions.includes(:host, :round).order(:begins)
   end
 
   # new: @competition is built by CanCan

@@ -2,11 +2,11 @@
 $baseFontSize: 16px;
 $baseLineHeight: 22px;
 
-@import 'bootstrap';
+@import "bootstrap";
 
-body {
-  padding-top: 60px;
-}
+@import "sticky_footer"; /* Make footer stay on bottom */
+
+/* Note: top-padding for navbar is handled in sticky footer styles */
 
 // Dropdown menu for signing in
 #signin-menu {
@@ -56,6 +56,7 @@ body {
 
 // Byline in footer
 #byline {
+  margin: 20px 0;
   text-align: right;
 }
 

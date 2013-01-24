@@ -16,46 +16,51 @@
   <%= render 'analytics' %>
 </head>
 <body>
-  <header class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="/">
-          <%= image_tag "jumuball_header.png", id: "header-logo" %> JuMu Nordost
-          <% if Rails.env.development? %>(Dev)<% end %>
-        </a>
-        <div class="nav-collapse">
-          <%= render 'layouts/header' %>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="container">
-    <div class="row">
-      <div class="span3">
-        <div class="well sidebar-nav">
-          <%= render 'layouts/public_sidebar' %>
-        </div>
-        <% if signed_in? %>
-          <div class="well sidebar-nav">
-            <%= render 'layouts/inside_sidebar' %>
+  <div id="wrap">
+    <header class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">
+            <%= image_tag "jumuball_header.png", id: "header-logo" %> JuMu Nordost
+            <% if Rails.env.development? %>(Dev)<% end %>
+          </a>
+          <div class="nav-collapse">
+            <%= render 'layouts/header' %>
           </div>
-        <% end %>
+        </div>
       </div>
-      <div class="span9">
-        <%= render 'layouts/flash_messages' %>
-        <h2><%= yield :title %></h2>
-        <%= yield %>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <%= render 'layouts/public_sidebar' %>
+          </div>
+          <% if signed_in? %>
+            <div class="well sidebar-nav">
+              <%= render 'layouts/inside_sidebar' %>
+            </div>
+          <% end %>
+        </div>
+        <div class="span9">
+          <%= render 'layouts/flash_messages' %>
+          <h2><%= yield :title %></h2>
+          <%= yield %>
+        </div>
       </div>
     </div>
-    <hr />
-    <footer>
-      <%= render 'layouts/footer' %>
-    </footer>
+    <div id="push"></div>
   </div>
+  <footer>
+    <div class="container">
+      <%= render 'layouts/footer' %>
+    </div>
+  </footer>
+  <%= debug(params) if Rails.env.development? %>
 </body>
 </html>

@@ -7,18 +7,25 @@
       <h1>jumu-nordost.eu</h1>
 
       <p>Die Website des Wettbewerbs “Jugend musiziert”<br />für die Deutschen Schulen der Region Nord- und Osteuropa</p>
+
     </div>
   </div>
 </div>
 
-<p class="lead">Herzlich willkommen! Auf diesen Seiten findest du:</p>
-<ul>
-  <li>die <%= link_to "Ausschreibung", rules_path %> für den 50. Wettbewerb “Jugend musiziert” <span class="label label-info">Neu</span></li>
-  <li>die <%= link_to "Teilnahmeregeln", rules_path %> für die Pop-Kategorien <span class="label label-info">Neu</span></li>
-  <li>das elektronische <%= link_to "Anmeldeformular", new_performance_path %> <span class="label label-info">Neu</span></li>
-</ul>
-<p>sowie</p>
-<ul>
-  <li>allgemeine <%= link_to "Informationen", competition_path %> zum Wettbewerb “Jugend musiziert”</li>
-  <li>eine <%= link_to "Vorstellung", organisation_path %> der einzelnen Gremien</li>
-</ul>
+<p class="lead">Herzlich willkommen! Auf diesen Seiten findest du Infos zu folgenden Themen:</p>
+
+<div class="row">
+  <div class="span3">
+    <h3>LW in Moskau</h3>
+    <p>Der Landeswettbewerb 2013 findet vom 6. bis 10. März an der <a href="http://www.dsmoskau.ru">Deutschen Schule Moskau</a> statt.</p>
+    <p><%= link_to "Mehr Informationen »", lw_path, class: "btn" %></p>
+  </div>
+  <div class="span3">
+    <h3>Teilnahme</h3>
+    <p>Die Regeln zur Teilnahme an “Jugend musiziert” kannst du der <%= link_to "Ausschreibung", asset_path('ausschreibung_2013.pdf') %> entnehmen. Auf der Seite <%= link_to "Regeln", rules_path %> gibt es außerdem Infos zu den Pop-Kategorien.</p>
+  </div>
+  <div class="span3">
+    <h3>Allgemeines</h3>
+    <p>Hier findest du eine kurze <%= link_to "Vorstellung", competition_path %> des Wettbewerb “Jugend musiziert” sowie der einzelnen <%= link_to "Gremien", organisation_path %>. Für Fragen gibt es das <%= link_to "Kontaktformular", contact_path %>.</p>
+  </div>
+</div>

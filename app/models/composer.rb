@@ -12,10 +12,10 @@
 
 # -*- encoding : utf-8 -*-
 class Composer < ActiveRecord::Base
-  attr_accessible :name, :born, :died
-  
-  has_one :piece # otherwise editing a piece's composer leads to conflicts
-  
-  validates :name, :presence => true
+  attr_accessible :piece_id, :name, :born, :died
+
+  belongs_to :piece # otherwise editing a piece's composer corrupts other pieces
+
+  validates :name, presence: true
   # Validate that the composer died after his/her birth – how? Years are currently strings
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111003218) do
+ActiveRecord::Schema.define(:version => 20130126181752) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -61,7 +61,10 @@ ActiveRecord::Schema.define(:version => 20130111003218) do
     t.string   "died"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "piece_id"
   end
+
+  add_index "composers", ["piece_id"], :name => "index_composers_on_piece_id"
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -130,7 +133,6 @@ ActiveRecord::Schema.define(:version => 20130111003218) do
 
   create_table "pieces", :force => true do |t|
     t.string   "title"
-    t.integer  "composer_id"
     t.integer  "performance_id"
     t.integer  "epoch_id"
     t.datetime "created_at",     :null => false

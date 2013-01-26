@@ -192,4 +192,39 @@ describe "Competitions" do
                                 href: list_advancing_jmd_competition_path(@competition) }
     end
   end
+
+  describe "migration page for advancing performances" do
+    before do
+      @competition = FactoryGirl.create(:competition, host: @host)
+    end
+
+    context "for non-admins" do
+      it "should not be accessible" do
+        visit root_path
+        sign_in(@non_admin)
+        visit list_advancing_jmd_competition_path(@competition)
+
+        current_path.should eq signin_path
+        page.should have_alert_message
+      end
+    end
+
+    context "for admins" do
+      before do
+        next_round = FactoryGirl.create(:round, level: @competition.round.level + 1)
+        FactoryGirl.create(:competition, round: @competition.round) # to test for correct exclusion
+        @next_competitions = FactoryGirl.create_list(:competition, 3, round: next_round)
+
+        visit root_path
+        sign_in(@admin)
+        visit list_advancing_jmd_competition_path(@competition)
+      end
+
+      it "should have the correct target competition candidates to choose from" do
+        page.should have_select "_target_competition_id", options: @next_competitions.map(&:name)
+      end
+
+      it { should have_button "Migrieren" }
+    end
+  end
 end

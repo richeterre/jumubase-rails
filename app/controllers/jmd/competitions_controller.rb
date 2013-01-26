@@ -47,5 +47,6 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @performances = @competition.performances
                                 .browsing_order
                                 .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
+    @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
   end
 end

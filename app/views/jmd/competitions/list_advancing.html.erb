@@ -1,8 +1,11 @@
 <% provide(:title, "Weiterleitungen migrieren") %>
 
-<div class="well">
-  von <strong><%= @competition.name %></strong> nach
-</div>
+<%= form_tag nil, class: "form-search well" do %>
+  von <strong><%= @competition.name %></strong> zu
+  <%= select nil, :target_competition_id,
+                  @possible_target_competitions.collect { |c| [c.name, c.id] } %>
+  <%= submit_tag "Migrieren", class: "btn btn-primary" %>
+<% end %>
 
 <table class="table table-bordered">
   <thead>

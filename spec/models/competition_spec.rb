@@ -168,6 +168,19 @@ describe Competition do
     Competition.current_and_open.should =~ current_and_open_competitions
   end
 
+  it "should be able to return all competitions of same season and next-higher round" do
+    next_round = FactoryGirl.create(:round, level: competition.round.level + 1)
+    possible_successors = FactoryGirl.create_list(:competition, 2, round: next_round)
+
+    # We're not interested in these
+    FactoryGirl.create(:competition) # same round and season
+    FactoryGirl.create(:competition, round: next_round, season: competition.season + 1)
+    round_after_next = FactoryGirl.create(:round, level: competition.round.level + 2)
+    FactoryGirl.create(:competition, round: round_after_next)
+
+    competition.possible_successors.should =~ possible_successors
+  end
+
   it "should be able to return all competitions of the preceding round in this year" do
     pending "Check against list of current, future and past competitions"
   end

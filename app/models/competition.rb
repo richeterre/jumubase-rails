@@ -50,7 +50,14 @@ class Competition < ActiveRecord::Base
     current.where("competitions.signup_deadline > ?", now)
   end
 
-  # Finds competitions of same year, but round precedent to current
+  # Find competitions of the same season that are one round higher
+  def possible_successors
+    Competition.joins(:round, :host)
+               .where({ rounds: { level: self.round.level + 1 }, season: self.season })
+               .order("hosts.name")
+  end
+
+  # Find competitions of same year, but round preceding current
   scope :preceding, joins(:round, :host)
       .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND - 1, JUMU_SEASON)
       .order("hosts.name")

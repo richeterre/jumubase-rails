@@ -6,6 +6,7 @@ Jmd::Application.routes.draw do
     resources :appearances, :users, :venues
     resources :competitions do
       get 'list_advancing', on: :member
+      post 'migrate_advancing', on: :member
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end

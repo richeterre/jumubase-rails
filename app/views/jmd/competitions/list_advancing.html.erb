@@ -1,6 +1,6 @@
 <% provide(:title, "Weiterleitungen migrieren") %>
 
-<%= form_tag nil, class: "form-search well" do %>
+<%= form_tag migrate_advancing_jmd_competition_path, class: "form-search well" do %>
   von <strong><%= @competition.name %></strong> zu
   <%= select nil, :target_competition_id,
                   @possible_target_competitions.collect { |c| [c.name, c.id] } %>

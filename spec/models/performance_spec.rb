@@ -37,6 +37,9 @@ describe Performance do
 
   it "should return the warmup time in the competition's time zone"
 
+  # Extensions
+  it { should respond_to(:amoeba_dup) } # Duplication with 'amoeba' gem
+
   # Relationships
   it { should respond_to(:category) }
   it { should respond_to(:competition) }

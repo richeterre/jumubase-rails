@@ -21,6 +21,10 @@ class Performance < ActiveRecord::Base
   attr_accessible :category_id, :competition_id,
       :pieces_attributes, :appearances_attributes
 
+  amoeba do
+    enable # Allow deep duplication
+  end
+
   belongs_to  :category
   belongs_to  :competition
   belongs_to  :warmup_venue,  class_name: "Venue"

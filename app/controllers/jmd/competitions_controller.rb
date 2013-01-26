@@ -49,4 +49,21 @@ class Jmd::CompetitionsController < Jmd::BaseController
                                 .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
     @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
   end
+
+  # Migrate advancing performances to a selected competition
+  def migrate_advancing
+    # @competition is fetched by CanCan
+    target_competition = @competition.possible_successors.find(params[:target_competition_id])
+
+    # Get advancing performances
+    @performances = @competition.performances
+                                .browsing_order
+                                .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
+
+    # Migrate each performance
+    @performances.each do |performance|
+      new_performance = performance.amoeba_dup
+      target_competition.performances << new_performance
+    end
+  end
 end

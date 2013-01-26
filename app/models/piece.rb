@@ -18,6 +18,10 @@ class Piece < ActiveRecord::Base
   attr_accessible :title, :performance_id, :epoch_id, :minutes, :seconds,
       :composer_attributes
 
+  amoeba do
+    enable # Allow deep duplication
+  end
+
   has_one :composer, dependent: :destroy # since every piece has its own composer
   belongs_to :performance, touch: true
   belongs_to :epoch

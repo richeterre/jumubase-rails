@@ -8,17 +8,17 @@ gem 'rails', '3.2.11'
 gem 'pg'
 gem 'jquery-rails'
 
-gem 'cancan'
-
-gem 'simple_form'
-gem 'has_scope'
-gem 'will_paginate'
+gem 'amoeba' # Deep record duplication
+gem 'cancan' # Authorization
+gem 'has_scope' # Record filtering
+gem 'simple_form' # Form builder
+gem 'will_paginate' # Pagination
 gem 'bootstrap-will_paginate'
 
 gem 'sass-rails',     '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
 
-gem 'prawn'
+gem 'prawn' # PDF output
 gem 'prawnto_2', require: 'prawnto'
 
 # Gems used only for assets and not required

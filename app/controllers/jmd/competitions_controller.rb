@@ -40,4 +40,12 @@ class Jmd::CompetitionsController < Jmd::BaseController
     flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde gelöscht."
     redirect_to jmd_competitions_path
   end
+
+  # List performances that advance to the next round
+  def list_advancing
+    # @competition is fetched by CanCan
+    @performances = @competition.performances
+                                .browsing_order
+                                .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
+  end
 end

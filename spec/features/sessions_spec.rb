@@ -164,7 +164,6 @@ describe "Sessions" do
 
       it { should have_link "Benutzer", href: jmd_users_path }
       it { should have_link "Wettbewerbe", href: jmd_competitions_path }
-      it { should have_link "Weiterleitungen", href: list_advancing_jmd_performances_path }
     end
   end
 end

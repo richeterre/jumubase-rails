@@ -5,6 +5,7 @@ Jmd::Application.routes.draw do
   namespace :jmd do
     resources :appearances, :users, :venues
     resources :competitions do
+      get 'list_advancing', on: :member
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end
@@ -14,7 +15,6 @@ Jmd::Application.routes.draw do
       get 'make_certificates', on: :collection
       get 'make_jury_sheets', on: :collection
       get 'make_result_sheets', on: :collection
-      get 'list_advancing', on: :collection
     end
   end
 

@@ -162,4 +162,34 @@ describe "Competitions" do
       end
     end
   end
+
+  describe "show page" do
+    before do
+      @competition = FactoryGirl.create(:competition, host: @host)
+    end
+
+    context "for non-admins" do
+      before do
+        visit root_path
+        sign_in(@non_admin)
+        visit jmd_competition_path(@competition)
+      end
+
+      specify { current_path.should eq jmd_competition_path(@competition) }
+
+      it { should_not have_link "Weiterleitungen migrieren",
+                                href: list_advancing_jmd_competition_path(@competition) }
+    end
+
+    context "for admins" do
+      before do
+        visit root_path
+        sign_in(@admin)
+        visit jmd_competition_path(@competition)
+      end
+
+      it { should have_link "Weiterleitungen migrieren",
+                                href: list_advancing_jmd_competition_path(@competition) }
+    end
+  end
 end

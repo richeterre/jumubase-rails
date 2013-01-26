@@ -1,6 +1,8 @@
 <% provide(:title, "Weiterleitungen migrieren") %>
 
-<%= render 'filter_form', path: list_advancing_jmd_performances_path %>
+<div class="well">
+  von <strong><%= @competition.name %></strong> nach
+</div>
 
 <table class="table table-bordered">
   <thead>

@@ -35,8 +35,8 @@ JUMU_SIGNUP_OPEN = true
 # Whether timetables for the above round are public
 JUMU_TIMETABLES_PUBLIC = false
 
-# The 2nd round host (name must match database entry)
-JUMU_HOST = "DS Moskau" # TODO: Find out why we need this at all
+# The 2nd round host
+JUMU_HOST = "DS Moskau"
 
 # The core organization team's mail addresses
 JUMU_ORGMAILS = ["me@martinrichter.net",

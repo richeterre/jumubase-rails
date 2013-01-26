@@ -21,8 +21,8 @@ Jmd::Application.routes.draw do
 
   # Routes for public pages
 
-  resources :contacts, :only => [:new, :create]
-  resources :sessions, :only => [:create, :destroy]
+  resources :contacts, only: [:new, :create]
+  resources :sessions, only: [:create, :destroy]
 
   # Routes for venue timetables
   if JUMU_TIMETABLES_PUBLIC
@@ -31,25 +31,26 @@ Jmd::Application.routes.draw do
 
   # Routes for signup and performance editing, if currently possible
   if JUMU_SIGNUP_OPEN
-    resources :performances, :except => [:index, :show, :destroy]
-    match '/vorspiel-bearbeiten', :to => 'performances#search', :as => :signup_search
+    resources :performances, except: [:index, :show, :destroy]
+    match '/vorspiel-bearbeiten', to: 'performances#search', as: :signup_search
   end
 
   # User session routes
-  match '/anmelden',            :to => 'sessions#new', :as => :signin
-  match '/abmelden',            :to => 'sessions#destroy', :as => :signout
+  match '/anmelden',      to: 'sessions#new', as: :signin
+  match '/abmelden',      to: 'sessions#destroy', as: :signout
 
   # Public pages, mostly static
-  match '/wettbewerb',    :to => 'pages#competition', :as => :competition
-  match '/regeln',        :to => 'pages#rules', :as => :rules
-  match '/organisation',  :to => 'pages#organisation', :as => :organisation
-  match '/kontakt',       :to => 'contacts#new', :as => :contact
+  match "lw#{JUMU_YEAR}", to: 'pages#lw', as: :lw
+  match '/wettbewerb',    to: 'pages#competition', as: :competition
+  match '/regeln',        to: 'pages#rules', as: :rules
+  match '/organisation',  to: 'pages#organisation', as: :organisation
+  match '/kontakt',       to: 'contacts#new', as: :contact
 
-  root :to => 'pages#home'
+  root to: 'pages#home'
 
   # Legacy paths
-  match '/ausschreibung' => redirect('/regeln')
+  match '/ausschreibung', to: redirect('/regeln')
 
   # Handling 404s
-  match '*a', :to => 'pages#not_found'
+  match '*a', to: 'pages#not_found'
 end

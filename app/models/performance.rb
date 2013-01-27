@@ -134,6 +134,23 @@ class Performance < ActiveRecord::Base
     .order('categories.popular, categories.solo DESC, categories.name, age_group')
   end
 
+  # Return the performance's predecessor from the previous round, if available
+  def predecessor
+    # TODO: Get and return it here
+  end
+
+  # Return the country the performance is associated with
+  def associated_country
+    case self.competition.round.level
+    when 1
+      self.competition.host.country
+    when 2
+      if self.predecessor
+        self.predecessor.competition.host.country
+      end
+    end
+  end
+
   # Return participant of performance that has a soloist role
   def soloist
     self.appearances.select { |a| a.solo? }.first

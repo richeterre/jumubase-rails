@@ -37,7 +37,7 @@
         <% end %>
       </td>
       <td><%= performance.category.name %></td>
-      <td><%= flag_tag(performance.competition.host.country.country_code) %></td>
+      <td><%= flag_tag(performance.associated_country.try(:country_code)) %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
           <span class="<%= "muted" if appearance.accompaniment? %>">

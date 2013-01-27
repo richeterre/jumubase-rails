@@ -107,13 +107,10 @@ describe Appearance do
 
   # Result calculations
   describe "based on awarded points" do
-    before do
-      @rounds = [FactoryGirl.build(:round), FactoryGirl.build(:second_round)]
-    end
 
     it "should assign the correct prize to different points" do
       # Test for first and second round
-      @rounds.each do |round|
+      [FactoryGirl.build(:round), FactoryGirl.build(:second_round)].each do |round|
 
         competition = FactoryGirl.build(:competition, round: round)
         performance = FactoryGirl.build(:performance, competition: competition)
@@ -142,25 +139,19 @@ describe Appearance do
     end
 
     it "should correctly determine whether an appearance may advance to the next round" do
-      @rounds.each do |round|
-        competition = FactoryGirl.build(:competition, round: round)
-        performance = FactoryGirl.build(:performance, competition: competition)
-        appearance = performance.appearances.first
-
-        advancing_points = 23..25
-        advancing_points.each do |points|
-          appearance.points = points
-          appearance.may_advance_to_next_round?.should be(true)
-        end
-
-        non_advancing_points = 0..22
-        non_advancing_points.each do |points|
-          appearance.points = points
-          appearance.may_advance_to_next_round?.should_not be(true)
-        end
+      advancing_points = 23..25
+      advancing_points.each do |points|
+        appearance.points = points
+        appearance.may_advance_to_next_round?.should be(true)
       end
 
-      pending "Check for age group and category limitations"
+      non_advancing_points = 0..22
+      non_advancing_points.each do |points|
+        appearance.points = points
+        appearance.may_advance_to_next_round?.should_not be(true)
+      end
+
+      # TODO: Test for different age groups
     end
   end
 end

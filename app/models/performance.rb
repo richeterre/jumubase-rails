@@ -154,6 +154,24 @@ class Performance < ActiveRecord::Base
     self.stage_time + self.rounded_duration.seconds
   end
 
+  # Return whether the performance as a whole can migrate to next round
+  def advances_to_next_round?
+    # KiMu participants don't advance
+    return false if self.category.name == "\"Kinder musizieren\""
+
+    if JUMU_ROUND == 2
+      # Most pop categories don't advance from 2nd round
+      return false if ["Gitarre (Pop) solo", "E-Bass (Pop) solo", "Drum-Set (Pop) solo"].include?(self.category.name)
+      # TODO: Generalize pop category restrictions
+    end
+
+    if self.soloist
+      self.soloist.may_advance_to_next_round? # Soloist determines
+    else
+      self.appearances.first.may_advance_to_next_round? # Use some ensemblist
+    end
+  end
+
   private
 
     def add_unique_tracing_code

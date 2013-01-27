@@ -63,7 +63,7 @@ pdf.font_families.update(
       pdf.move_down(30)
 
       pdf.text "Zuerkannt wurde ein #{appearance.prize}", :style => :bold if appearance.prize
-      if appearance.may_advance_to_next_round?
+      if appearance.advances_to_next_round?
         pdf.text "mit der Berechtigung zur Teilnahme am #{performance.competition.round.next_round_name}."
       end
     end

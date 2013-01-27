@@ -213,11 +213,15 @@ describe Performance do
 
   # Convenience methods
 
+  it { should respond_to(:soloist) }
   it { should respond_to(:accompanists) }
   it { should respond_to(:age_group) }
   it { should respond_to(:duration) }
   it { should respond_to(:rounded_duration) }
   it { should respond_to(:rounded_end_time) }
+  it { should respond_to(:advances_to_next_round?) }
+
+  it "should return the soloist participant, if any"
 
   it "should return all participants with an accompanist role"
 
@@ -228,6 +232,29 @@ describe Performance do
   it "should return the duration rounded up to the next 5-minute mark"
 
   it "should return the correct end time based on rounded duration"
+
+  it "should state correctly whether it is eligible for migration to next round" do
+    solo_acc_performance = FactoryGirl.build(:current_solo_acc_performance)
+    solo_acc_performance.accompanists.each do |accompanist|
+      accompanist.points = 23
+    end
+    solo_acc_performance.soloist.points = 22 # Soloist doesn't advance
+    solo_acc_performance.advances_to_next_round?.should be(false)
+    solo_acc_performance.soloist.points = 23 # Soloist advances as well
+    solo_acc_performance.advances_to_next_round?.should be(true)
+
+    ensemble_performance = FactoryGirl.build(:current_ensemble_performance)
+    ensemble_performance.appearances.each do |appearance|
+      appearance.points = 22 # Ensemblists don't advance
+    end
+    ensemble_performance.advances_to_next_round?.should be(false)
+    ensemble_performance.appearances.each do |appearance|
+      appearance.points = 23 # Ensemblists advance
+    end
+    ensemble_performance.advances_to_next_round?.should be(true)
+
+    # TODO: Include tests for KiMu, pop categories
+  end
 
   # Authorizations
 

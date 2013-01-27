@@ -19,7 +19,7 @@ pdf.font_families.update(
          e.age_group,
          e.appearances.role_order.collect { |a| a.participant.full_name + ", " + a.instrument.name + ((a.age_group == e.age_group) ? "" : " (AG #{a.age_group})") + "\n" }.join,
          e.appearances.role_order.collect { |a| "#{a.points}\n" }.join,
-         e.appearances.role_order.collect { |a| (a.prize.nil? ? "mit gutem Erfolg teilgenommen" : "#{a.prize}") + (a.may_advance_to_next_round? ? "*" : "") + "\n" }.join
+         e.appearances.role_order.collect { |a| (a.prize.nil? ? "mit gutem Erfolg teilgenommen" : "#{a.prize}") + (a.advances_to_next_round? ? "*" : "") + "\n" }.join
   ]
   end
   pdf.table entry_rows do |table|

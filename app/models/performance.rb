@@ -130,12 +130,17 @@ class Performance < ActiveRecord::Base
 
   # Orders performances by category, then age group (smallest first)
   def self.browsing_order
-    joins(:category)
+    includes(:category)
     .order('categories.popular, categories.solo DESC, categories.name, age_group')
   end
 
+  # Return participant of performance that has a soloist role
+  def soloist
+    self.appearances.select { |a| a.solo? }.first
+  end
+
+  # Return all participants of performance that have an accompanist role
   def accompanists
-    # Return all participants of performance that have an accompanist role
     self.appearances.with_role('B').map(&:participant)
   end
 
@@ -156,6 +161,24 @@ class Performance < ActiveRecord::Base
   def rounded_end_time
     # Time the performance is scheduled to end (using rounded duration)
     self.stage_time + self.rounded_duration.seconds
+  end
+
+  # Return whether the performance as a whole can migrate to next round
+  def advances_to_next_round?
+    # KiMu participants don't advance
+    return false if self.category.name == "\"Kinder musizieren\""
+
+    if JUMU_ROUND == 2
+      # Most pop categories don't advance from 2nd round
+      return false if ["Gitarre (Pop) solo", "E-Bass (Pop) solo", "Drum-Set (Pop) solo"].include?(self.category.name)
+      # TODO: Generalize pop category restrictions
+    end
+
+    if self.soloist
+      self.soloist.may_advance_to_next_round? # Soloist determines
+    else
+      self.appearances.first.may_advance_to_next_round? # Use some ensemblist
+    end
   end
 
   private

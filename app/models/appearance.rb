@@ -128,26 +128,23 @@ class Appearance < ActiveRecord::Base
     return nil
   end
 
-  # Returns whether the appearance will advance to the next competition stage
+  # Return whether the participant fulfills the necessary conditions for advancing
   def may_advance_to_next_round?
-    # Basic condition is 23 or more points and that a next round exists
-    return false if (!self.points || self.points < 23 || self.performance.competition.round.level == 3)
-
-    # Accompanists don't advance if their soloist doesn't
-    return false if (self.accompaniment? && !self.related_solo_appearance.may_advance_to_next_round?)
-
-    # KiMu participants don't advance
-    return false if (self.performance.category.name == "\"Kinder musizieren\"")
-
-    # Check for other conditions
     case JUMU_ROUND
     when 1
       # Check for sufficient age
-      !["Ia", "Ib"].include?(self.age_group)
+      return false if ["Ia", "Ib"].include?(self.age_group)
     when 2
       # Conditions for second round
-      (!["Ia", "Ib", "II"].include?(self.age_group) && !["Gitarre (Pop) solo", "E-Bass (Pop) solo", "Drum-Set (Pop) solo"].include?(self.performance.category.name))
-      # TODO: Generalize pop category restrictions
+      return false if ["Ia", "Ib", "II"].include?(self.age_group)
     end
+
+    return (self.points && self.points >= 23) # Basic condition is 23 or more points
+  end
+
+  # Return whether the participant will advance to the next round
+  def advances_to_next_round?
+    # Needs to fulfill necessary (own points) and sufficient (performance points) conditions
+    return self.may_advance_to_next_round? && self.performance.advances_to_next_round?
   end
 end

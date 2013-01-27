@@ -34,7 +34,7 @@
         <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
         <td>
           <%= appearance.prize %>
-          <% info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
+          <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
         </td>
       </tr>
       <% end %>

@@ -66,22 +66,22 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # Collect performances for migration
     @performances.each do |performance|
       new_performance = performance.amoeba_dup # Deep duplicate
-      new_performance.appearances.each do |appearance|
-        # Remove appearances that don't advance
-        new_performance.delete(appearance) unless appearance.may_advance_to_next_round?
+      new_performance.appearances.each do |appearance| # Remove appearances that don't advance
+        new_performance.appearances.delete(appearance) unless appearance.may_advance_to_next_round?
       end
 
-      new_performances << new_performance
-      if target_competition.performances << new_performances
-        migrated_count += new_performances.size
+      new_performances << new_performance # Add to list of performances that will be migrated
+    end
 
-        flash[:success] = "#{migrated_count} #{Performance.model_name.human(count: migrated_count)} \
-                       wurden erfolgreich nach #{target_competition.name} migriert."
-        redirect_to jmd_competition_path(target_competition)
-      else
-        flash[:error] = "Die Vorspiele konnten nicht migriert werden."
-        render 'list_advancing'
-      end
+    if target_competition.performances << new_performances
+      migrated_count += new_performances.size
+
+      flash[:success] = "#{migrated_count} #{Performance.model_name.human(count: migrated_count)} \
+                     wurden erfolgreich nach #{target_competition.name} migriert."
+      redirect_to jmd_competition_path(target_competition)
+    else
+      flash[:error] = "Die Vorspiele konnten nicht migriert werden."
+      render 'list_advancing'
     end
   end
 end

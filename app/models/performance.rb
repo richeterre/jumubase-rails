@@ -126,12 +126,17 @@ class Performance < ActiveRecord::Base
 
   # Orders performances by category, then age group (smallest first)
   def self.browsing_order
-    joins(:category)
+    includes(:category)
     .order('categories.popular, categories.solo DESC, categories.name, age_group')
   end
 
+  # Return participant of performance that has a soloist role
+  def soloist
+    self.appearances.select { |a| a.solo? }.first
+  end
+
+  # Return all participants of performance that have an accompanist role
   def accompanists
-    # Return all participants of performance that have an accompanist role
     self.appearances.with_role('B').map(&:participant)
   end
 

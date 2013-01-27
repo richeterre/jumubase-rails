@@ -1,7 +1,8 @@
 <% provide(:title, "Weiterleitungen migrieren") %>
 
-<%= form_tag migrate_advancing_jmd_competition_path, class: "form-search well" do %>
-  von <strong><%= @competition.name %></strong> zu
+<%= form_tag migrate_advancing_jmd_competition_path, method: :post, class: "form-search well" do %>
+  <%= "#{@performances.size} #{Performance.model_name.human(count: @performances.size)}" %>
+  von <strong><%= @competition.name %></strong> nach
   <%= select nil, :target_competition_id,
                   @possible_target_competitions.collect { |c| [c.name, c.id] } %>
   <%= submit_tag "Migrieren", class: "btn btn-primary" %>

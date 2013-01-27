@@ -46,7 +46,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # @competition is fetched by CanCan
     @performances = @competition.performances
                                 .browsing_order
-                                .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
+                                .select { |p| p.advances_to_next_round? }
     @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
   end
 
@@ -56,14 +56,32 @@ class Jmd::CompetitionsController < Jmd::BaseController
     target_competition = @competition.possible_successors.find(params[:target_competition_id])
 
     # Get advancing performances
-    @performances = @competition.performances
+    @performances = @competition.performances.includes(:appearances, :pieces)
                                 .browsing_order
-                                .select { |p| p.appearances.any? { |a| a.may_advance_to_next_round? }}
+                                .select { |p| p.advances_to_next_round? }
 
-    # Migrate each performance
+    new_performances = []
+    migrated_count = 0
+
+    # Collect performances for migration
     @performances.each do |performance|
-      new_performance = performance.amoeba_dup
-      target_competition.performances << new_performance
+      new_performance = performance.amoeba_dup # Deep duplicate
+      new_performance.appearances.each do |appearance|
+        # Remove appearances that don't advance
+        new_performance.delete(appearance) unless appearance.may_advance_to_next_round?
+      end
+
+      new_performances << new_performance
+      if target_competition.performances << new_performances
+        migrated_count += new_performances.size
+
+        flash[:success] = "#{migrated_count} #{Performance.model_name.human(count: migrated_count)} \
+                       wurden erfolgreich nach #{target_competition.name} migriert."
+        redirect_to jmd_competition_path(target_competition)
+      else
+        flash[:error] = "Die Vorspiele konnten nicht migriert werden."
+        render 'list_advancing'
+      end
     end
   end
 end

@@ -66,10 +66,13 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # Collect performances for migration
     @performances.each do |performance|
       new_performance = performance.amoeba_dup # Deep duplicate
-      new_performance.appearances.each do |appearance| # Remove appearances that don't advance
+
+      # Remove appearances that don't advance
+      new_performance.appearances.each do |appearance|
         new_performance.appearances.delete(appearance) unless appearance.may_advance_to_next_round?
       end
 
+      new_performance.predecessor = performance # Link to predecessor
       new_performances << new_performance # Add to list of performances that will be migrated
     end
 

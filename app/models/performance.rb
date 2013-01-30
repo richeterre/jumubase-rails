@@ -29,9 +29,14 @@ class Performance < ActiveRecord::Base
   belongs_to  :competition
   belongs_to  :warmup_venue,  class_name: "Venue"
   belongs_to  :stage_venue,   class_name: "Venue"
+  belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
+                              include: { competition: { host: :country }}
+  has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",
+                              inverse_of: :predecessor, dependent: :nullify
   has_many    :appearances,   inverse_of: :performance, dependent: :destroy
   has_many    :participants,  through: :appearances
   has_many    :pieces,        inverse_of: :performance, dependent: :destroy
+
 
   accepts_nested_attributes_for :pieces,      allow_destroy: true
   accepts_nested_attributes_for :appearances, allow_destroy: true
@@ -132,11 +137,6 @@ class Performance < ActiveRecord::Base
   def self.browsing_order
     includes(:category)
     .order('categories.popular, categories.solo DESC, categories.name, age_group')
-  end
-
-  # Return the performance's predecessor from the previous round, if available
-  def predecessor
-    # TODO: Get and return it here
   end
 
   # Return the country the performance is associated with

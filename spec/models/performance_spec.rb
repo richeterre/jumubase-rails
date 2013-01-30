@@ -29,6 +29,8 @@ describe Performance do
   it { should respond_to(:stage_venue_id) }
   it { should respond_to(:warmup_time) }
   it { should respond_to(:stage_time) }
+  it { should respond_to(:predecessor) }
+  it { should respond_to(:successor) }
   it { should respond_to(:tracing_code) }
   it { should respond_to(:warmup_venue_id) }
   it { should respond_to(:age_group) }
@@ -36,6 +38,13 @@ describe Performance do
   it "should return the stage time in the competition's time zone"
 
   it "should return the warmup time in the competition's time zone"
+
+  it "should cease being its successor's predecessor when destroyed" do
+    performance.save
+    successor = FactoryGirl.create(:performance, predecessor: performance)
+    Performance.find(performance).destroy
+    Performance.find(successor).predecessor_id.should be_nil
+  end
 
   # Extensions
   it { should respond_to(:amoeba_dup) } # Duplication with 'amoeba' gem

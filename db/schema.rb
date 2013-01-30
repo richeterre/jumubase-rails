@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130126181752) do
+ActiveRecord::Schema.define(:version => 20130130210302) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -127,9 +127,10 @@ ActiveRecord::Schema.define(:version => 20130126181752) do
     t.string   "tracing_code"
     t.integer  "warmup_venue_id"
     t.string   "age_group"
+    t.integer  "predecessor_id"
   end
 
-  add_index "performances", ["tracing_code"], :name => "index_performances_on_tracing_code", :unique => true
+  add_index "performances", ["tracing_code"], :name => "index_performances_on_tracing_code"
 
   create_table "pieces", :force => true do |t|
     t.string   "title"

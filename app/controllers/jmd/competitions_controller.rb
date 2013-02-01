@@ -47,6 +47,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @performances = @competition.performances
                                 .browsing_order
                                 .select { |p| p.advances_to_next_round? }
+    # Split up based on whether the performance already has a successor
+    @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
+
     @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
   end
 
@@ -59,6 +62,8 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @performances = @competition.performances.includes(:appearances, :pieces)
                                 .browsing_order
                                 .select { |p| p.advances_to_next_round? }
+    # Split up based on whether the performance already has a successor
+    @performances, already_migrated = @performances.partition { |p| p.successor == nil }
 
     new_performances = []
     migrated_count = 0
@@ -80,7 +85,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
       migrated_count += new_performances.size
 
       flash[:success] = "#{migrated_count} #{Performance.model_name.human(count: migrated_count)} \
-                     wurden erfolgreich nach #{target_competition.name} migriert."
+                         wurden erfolgreich nach #{target_competition.name} migriert \
+                         (#{already_migrated.size} #{Performance.model_name.human(count: already_migrated.size)} \
+                         bereits migriert)."
       redirect_to jmd_competition_path(target_competition)
     else
       flash[:error] = "Die Vorspiele konnten nicht migriert werden."

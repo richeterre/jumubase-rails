@@ -5,7 +5,12 @@
   von <strong><%= @competition.name %></strong> nach
   <%= select nil, :target_competition_id,
                   @possible_target_competitions.collect { |c| [c.name, c.id] } %>
-  <%= submit_tag "Migrieren", class: "btn btn-primary" %>
+  <%= submit_tag "migrieren", class: "btn btn-primary" %>
+  <br />
+  <span class="muted">
+    <%= "#{@already_migrated.size} #{Performance.model_name.human(count: @already_migrated.size)}" %>
+    bereits migriert
+  </span>
 <% end %>
 
 <table class="table table-bordered">

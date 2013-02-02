@@ -215,6 +215,9 @@ de:
       competition:
         one: "Wettbewerb"
         other: "Wettbewerbe"
+      participant:
+        one: "Teilnehmer"
+        other: "Teilnehmer"
       performance:
         one: "Vorspiel"
         other: "Vorspiele"

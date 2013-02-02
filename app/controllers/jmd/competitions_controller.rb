@@ -97,10 +97,19 @@ class Jmd::CompetitionsController < Jmd::BaseController
   # Send an info email to all participants who advanced to this competition
   def welcome_advanced
     # @competition is fetched by CanCan
+
+    welcome_mail_count = 0
+
     @competition.performances.includes(:participants).each do |performance|
       performance.participants.each do |participant|
         ParticipantMailer.welcome_advanced(participant, performance).deliver
+        welcome_mail_count += 1
       end
     end
+
+    flash[:success] = "#{welcome_mail_count} \
+                       #{Participant.model_name.human(count: welcome_mail_count)} \
+                       erfolgreich benachrichtigt."
+    redirect_to jmd_competition_path(@competition)
   end
 end

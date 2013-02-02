@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(:version => 20130130210302) do
     t.integer  "predecessor_id"
   end
 
-  add_index "performances", ["tracing_code"], :name => "index_performances_on_tracing_code"
+  add_index "performances", ["tracing_code"], :name => "index_performances_on_tracing_code", :unique => true
 
   create_table "pieces", :force => true do |t|
     t.string   "title"

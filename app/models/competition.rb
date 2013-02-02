@@ -57,11 +57,6 @@ class Competition < ActiveRecord::Base
                .order("hosts.name")
   end
 
-  # Find competitions of same year, but round preceding current
-  scope :preceding, joins(:round, :host)
-      .where("rounds.level = ? AND competitions.season = ?", JUMU_ROUND - 1, JUMU_SEASON)
-      .order("hosts.name")
-
   # Virtual name that identifies the competition
   def name
     "#{self.host.name}, #{self.round.slug} #{self.year}"

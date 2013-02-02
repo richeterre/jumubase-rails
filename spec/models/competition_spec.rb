@@ -185,8 +185,4 @@ describe Competition do
 
     competition.possible_successors.should =~ possible_successors
   end
-
-  it "should be able to return all competitions of the preceding round in this year" do
-    pending "Check against list of current, future and past competitions"
-  end
 end

@@ -87,6 +87,11 @@ class Competition < ActiveRecord::Base
     JUMU_YEAR + self.season - JUMU_SEASON
   end
 
+  # Full round name and year
+  def round_name_and_year
+    "#{self.round.name} #{self.year}"
+  end
+
   private
 
     def require_beginning_before_end

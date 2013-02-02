@@ -150,6 +150,11 @@ describe Competition do
     its(:year) { should eq 2063 }
   end
 
+  describe "should return the correct round name with year" do
+    before { competition.season = 100 }
+    its(:round_name_and_year) { should eq "Regionalwettbewerb 2063" }
+  end
+
   it "should be able to return all competitions that are currently ongoing" do
     FactoryGirl.create(:past_competition)
     FactoryGirl.create(:future_competition)

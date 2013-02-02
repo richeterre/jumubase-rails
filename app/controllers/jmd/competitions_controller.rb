@@ -92,7 +92,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
     if target_competition && target_competition.performances << new_performances
       flash[:success] = "#{new_performances.size} \
                          #{Performance.model_name.human(count: new_performances.size)} \
-                         wurden erfolgreich nach #{target_competition.name} migriert."
+                         wurde(n) erfolgreich nach #{target_competition.name} migriert."
       redirect_to jmd_competition_path(target_competition)
     else
       flash[:error] = "Die Vorspiele konnten nicht migriert werden."
@@ -117,7 +117,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
       flash[:success] = "#{welcome_mail_count} \
                          #{Participant.model_name.human(count: welcome_mail_count)} \
-                         erfolgreich benachrichtigt."
+                         wurde(n) erfolgreich benachrichtigt."
     else
       flash[:error] = "Zu diesem Wettbewerb gibt es keine Weiterleitungen."
     end

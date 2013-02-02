@@ -39,8 +39,10 @@
         <td><%= age_group_badge_tag(appearance) %></td>
         <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
         <td>
-          <%= appearance.prize %>
-          <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
+          <%= content_tag :span, class: (appearance.may_advance_to_next_round?) ? nil : "muted" do %>
+            <%= appearance.prize %>
+            <%= info_label_tag("WL", :success) if appearance.may_advance_to_next_round? %>
+          <% end %>
         </td>
       </tr>
       <% end %>

@@ -96,18 +96,23 @@ class Jmd::CompetitionsController < Jmd::BaseController
   def welcome_advanced
     # @competition is fetched by CanCan
 
-    welcome_mail_count = 0
+    # Proceed if competition level is such that one can actually advance there
+    if @competition.round.level > 1
+      welcome_mail_count = 0
 
-    @competition.performances.includes(:participants).each do |performance|
-      performance.participants.each do |participant|
-        ParticipantMailer.welcome_advanced(participant, performance).deliver
-        welcome_mail_count += 1
+      @competition.performances.includes(:participants).each do |performance|
+        performance.participants.each do |participant|
+          ParticipantMailer.welcome_advanced(participant, performance).deliver
+          welcome_mail_count += 1
+        end
       end
-    end
 
-    flash[:success] = "#{welcome_mail_count} \
-                       #{Participant.model_name.human(count: welcome_mail_count)} \
-                       erfolgreich benachrichtigt."
+      flash[:success] = "#{welcome_mail_count} \
+                         #{Participant.model_name.human(count: welcome_mail_count)} \
+                         erfolgreich benachrichtigt."
+    else
+      flash[:error] = "Zu diesem Wettbewerb gibt es keine Weiterleitungen."
+    end
     redirect_to jmd_competition_path(@competition)
   end
 end

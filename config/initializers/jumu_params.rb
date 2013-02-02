@@ -8,7 +8,7 @@ JUMU_SEASON = 50
 JUMU_YEAR = 1963 + JUMU_SEASON
 
 # The upcoming/ongoing round for signup, timetables, etc.
-JUMU_ROUND = 1
+JUMU_ROUND = 2
 
 # The point ranges for the different prizes
 JUMU_PRIZE_POINT_RANGES = [

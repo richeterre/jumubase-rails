@@ -94,4 +94,14 @@ class Jmd::CompetitionsController < Jmd::BaseController
       render 'list_advancing'
     end
   end
+
+  # Send an info email to all participants who advanced to this competition
+  def welcome_advanced
+    # @competition is fetched by CanCan
+    @competition.performances.includes(:participants).each do |performance|
+      performance.participants.each do |participant|
+        ParticipantMailer.welcome_advanced(participant, performance).deliver
+      end
+    end
+  end
 end

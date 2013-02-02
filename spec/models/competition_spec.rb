@@ -109,6 +109,9 @@ describe Competition do
   it { should respond_to(:host_name) }
   it { should respond_to(:days) }
   it { should respond_to(:year) }
+  it { should respond_to(:round_name_and_year) }
+  it { should respond_to(:can_be_advanced_to?) }
+  it { should respond_to(:can_be_advanced_from?) }
 
   describe "should return a name to describe itself" do
     before do
@@ -153,6 +156,24 @@ describe Competition do
   describe "should return the correct round name with year" do
     before { competition.season = 100 }
     its(:round_name_and_year) { should eq "Regionalwettbewerb 2063" }
+  end
+
+  it "should return whether performances can advance here" do
+    competition.round.level = 1
+    competition.can_be_advanced_to?.should be_false
+    [2, 3].each do |level|
+      competition.round.level = level
+      competition.can_be_advanced_to?.should be_true
+    end
+  end
+
+  it "should return whether performances can advance onwards from here" do
+    competition.round.level = 1
+    competition.can_be_advanced_from?.should be_true
+    [2, 3].each do |level|
+      competition.round.level = level
+      competition.can_be_advanced_from?.should be_false
+    end
   end
 
   it "should be able to return all competitions that are currently ongoing" do

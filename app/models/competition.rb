@@ -87,6 +87,16 @@ class Competition < ActiveRecord::Base
     "#{self.round.name} #{self.year}"
   end
 
+  # Whether participants can advance to this competition
+  def can_be_advanced_to?
+    self.round.level > 1
+  end
+
+  # Whether participants can advance onwards from this competition
+  def can_be_advanced_from?
+    self.round.level < 2 # Currently no LW > BW migration is possible
+  end
+
   private
 
     def require_beginning_before_end

@@ -66,7 +66,6 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @performances, already_migrated = @performances.partition { |p| p.successor == nil }
 
     new_performances = []
-    migrated_count = 0
 
     # Collect performances for migration
     @performances.each do |performance|
@@ -82,9 +81,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
     end
 
     if target_competition.performances << new_performances
-      migrated_count += new_performances.size
 
-      flash[:success] = "#{migrated_count} #{Performance.model_name.human(count: migrated_count)} \
+      flash[:success] = "#{new_performances.size} \
+                         #{Performance.model_name.human(count: new_performances.size)} \
                          wurden erfolgreich nach #{target_competition.name} migriert \
                          (#{already_migrated.size} #{Performance.model_name.human(count: already_migrated.size)} \
                          bereits migriert)."

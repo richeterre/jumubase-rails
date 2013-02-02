@@ -12,11 +12,8 @@ Jmd::Application.routes.draw do
       get 'schedule_popular', on: :member
     end
     resources :performances do
-      get 'browse', on: :collection
-      put 'retime', on: :collection
       get 'make_certificates', on: :collection
       get 'make_jury_sheets', on: :collection
-      get 'make_result_sheets', on: :collection
     end
   end
 

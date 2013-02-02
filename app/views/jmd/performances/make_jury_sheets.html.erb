@@ -9,7 +9,8 @@
 
 <p>
   <%= link_to "Jurybögen ausgeben", params.merge(format: :pdf),
-        class: "btn btn-primary" unless @performances.empty? %></p>
+              class: "btn btn-primary" unless @performances.empty? %>
+</p>
 
 <%= will_paginate @performances %>
 

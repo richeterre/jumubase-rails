@@ -81,6 +81,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
         new_performance.appearances.delete(appearance) unless appearance.may_advance_to_next_round?
       end
 
+      new_performance.warmup_time = new_performance.stage_time = nil # Clear scheduled times
+      new_performance.warmup_venue_id = new_performance.stage_venue_id = nil # Clear assigned venues
+      new_performance.appearances.each { |appearance| appearance.points = nil } # Clear points
       new_performance.predecessor = performance # Link to predecessor
       new_performances << new_performance # Add to list of performances that will be migrated
     end

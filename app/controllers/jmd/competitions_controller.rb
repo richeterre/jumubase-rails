@@ -84,9 +84,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
       flash[:success] = "#{new_performances.size} \
                          #{Performance.model_name.human(count: new_performances.size)} \
-                         wurden erfolgreich nach #{target_competition.name} migriert \
-                         (#{already_migrated.size} #{Performance.model_name.human(count: already_migrated.size)} \
-                         bereits migriert)."
+                         wurden erfolgreich nach #{target_competition.name} migriert."
       redirect_to jmd_competition_path(target_competition)
     else
       flash[:error] = "Die Vorspiele konnten nicht migriert werden."

@@ -44,13 +44,19 @@ class Jmd::CompetitionsController < Jmd::BaseController
   # List performances that advance to the next round
   def list_advancing
     # @competition is fetched by CanCan
-    @performances = @competition.performances
-                                .browsing_order
-                                .select { |p| p.advances_to_next_round? }
-    # Split up based on whether the performance already has a successor
-    @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
 
-    @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
+    if @competition.can_be_advanced_from?
+      @performances = @competition.performances
+                                  .browsing_order
+                                  .select { |p| p.advances_to_next_round? }
+      # Split up based on whether the performance already has a successor
+      @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
+
+      @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
+    else
+      flash[:error] = "Aus diesem Wettbewerb können leider keine Vorspiele weitergeleitet werden."
+      redirect_to jmd_competition_path(@competition)
+    end
   end
 
   # Migrate advancing performances to a selected competition
@@ -65,9 +71,8 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # Split up based on whether the performance already has a successor
     @performances, already_migrated = @performances.partition { |p| p.successor == nil }
 
-    new_performances = []
-
     # Collect performances for migration
+    new_performances = []
     @performances.each do |performance|
       new_performance = performance.amoeba_dup # Deep duplicate
 
@@ -80,8 +85,8 @@ class Jmd::CompetitionsController < Jmd::BaseController
       new_performances << new_performance # Add to list of performances that will be migrated
     end
 
-    if target_competition.performances << new_performances
-
+    # Perform migration
+    if target_competition && target_competition.performances << new_performances
       flash[:success] = "#{new_performances.size} \
                          #{Performance.model_name.human(count: new_performances.size)} \
                          wurden erfolgreich nach #{target_competition.name} migriert."
@@ -97,7 +102,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # @competition is fetched by CanCan
 
     # Proceed if competition level is such that one can actually advance there
-    if @competition.round.level > 1
+    if @competition.can_be_advanced_to?
       welcome_mail_count = 0
 
       @competition.performances.includes(:participants).each do |performance|

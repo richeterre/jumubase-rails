@@ -49,9 +49,13 @@
 </table>
 
 <% if can? :manage, Competition %>
-  <%= link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
-              class: "btn btn-primary" %>
-  <%= link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
-              class: "btn btn-warning" %>
+  <%= if @competition.can_be_advanced_from?
+      link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
+              class: "btn btn-primary"
+      end %>
+  <%= if @competition.can_be_advanced_to?
+      link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
+              class: "btn btn-warning", confirm: "Sollen wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
+      end %>
 <% end %>
 <%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>

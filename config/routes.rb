@@ -30,7 +30,11 @@ Jmd::Application.routes.draw do
 
   # Routes for signup and performance editing, if currently possible
   if JUMU_SIGNUP_OPEN
-    resources :performances, except: [:index, :show, :destroy]
+    if JUMU_ROUND == 1
+      resources :performances, only: [:new, :create, :edit, :update]
+    else
+      resources :performances, only: [:edit, :update] # no signup after round 1
+    end
     match '/vorspiel-bearbeiten', to: 'performances#search', as: :signup_search
   end
 

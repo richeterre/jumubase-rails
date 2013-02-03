@@ -170,6 +170,10 @@ describe Performance do
     Performance.should respond_to(:in_competition)
   end
 
+  it "should respond_to :advanced_from_competition" do
+    Performance.should respond_to(:advanced_from_competition)
+  end
+
   it "should respond_to :in_category" do
     Performance.should respond_to(:in_category)
   end
@@ -201,6 +205,8 @@ describe Performance do
   end
 
   it "should return all performances for a given competition"
+
+  it "should return all performances that advanced from a given competition"
 
   it "should return all performances for a given category"
 

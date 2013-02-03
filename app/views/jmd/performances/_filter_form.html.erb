@@ -1,12 +1,24 @@
 <%= form_tag path, method: :get, class: "form-search well" do %>
   <%= hidden_field_tag :sort, params[:sort] %>
-  <%= select nil, :in_competition,
-                  Competition.accessible_by(current_ability).collect { |c| [c.name, c.id] },
-      { selected: params[:in_competition], include_blank: "Alle Wettbewerbe" } %>
+
+  <% if JUMU_ROUND == 1 %>
+    <%= select nil, :in_competition,
+                    Competition.accessible_by(current_ability).collect { |c| [c.name, c.id] },
+        { selected: params[:in_competition], include_blank: "Alle Wettbewerbe" } %>
+  <% end %>
+
+  <% if JUMU_ROUND == 2 %>
+    <%= select nil, :advanced_from_competition,
+                    Competition.accessible_by(current_ability).collect { |c| [c.name, c.id] },
+        { selected: params[:advanced_from_competition], include_blank: "Alle RW" } %>
+  <% end %>
+
   <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
+
   <%= select nil, :in_age_group, JUMU_AGE_GROUPS,
       { selected: params[:in_age_group], include_blank: "Alle AG" }, class: "span2" %>
+
   <%= submit_tag "Filtern", class: (filter_active? ? "btn btn-warning" : "btn") %>
   <%= link_to "Alle anzeigen", path, class: "btn" %>
 <% end %>

@@ -71,6 +71,12 @@ class Performance < ActiveRecord::Base
     where(competition_id: competition_id)
   end
 
+  # Returns all performances that advanced from given competition
+  def self.advanced_from_competition(competition_id)
+    joins("INNER JOIN performances AS predecessors ON predecessors.id = performances.predecessor_id")
+    .where(predecessors: { competition_id: competition_id })
+  end
+
   # Returns all performances in given category
   def self.in_category(category_id)
     where(category_id: category_id)

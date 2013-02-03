@@ -11,6 +11,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Set up filters
   has_scope :in_competition, only: filterable_actions
+  has_scope :advanced_from_competition, only: filterable_actions
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
 

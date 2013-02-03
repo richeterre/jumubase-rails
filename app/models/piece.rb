@@ -4,7 +4,6 @@
 #
 #  id             :integer          not null, primary key
 #  title          :string(255)
-#  composer_id    :integer
 #  performance_id :integer
 #  epoch_id       :integer
 #  created_at     :datetime         not null

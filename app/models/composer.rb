@@ -8,6 +8,7 @@
 #  died       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  piece_id   :integer
 #
 
 # -*- encoding : utf-8 -*-
@@ -16,6 +17,5 @@ class Composer < ActiveRecord::Base
 
   belongs_to :piece # otherwise editing a piece's composer corrupts other pieces
 
-  validates :name, presence: true
-  # Validate that the composer died after his/her birth – how? Years are currently strings
+  validates :name,      presence: true
 end

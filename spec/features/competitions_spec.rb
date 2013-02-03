@@ -224,7 +224,7 @@ describe "Competitions" do
         page.should have_select "_target_competition_id", options: @next_competitions.map(&:name)
       end
 
-      it { should have_button "Migrieren" }
+      it { should have_button "migrieren" }
     end
   end
 end

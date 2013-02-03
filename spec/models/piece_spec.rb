@@ -4,7 +4,6 @@
 #
 #  id             :integer          not null, primary key
 #  title          :string(255)
-#  composer_id    :integer
 #  performance_id :integer
 #  epoch_id       :integer
 #  created_at     :datetime         not null
@@ -23,7 +22,6 @@ describe Piece do
 
   # Attributes
   it { should respond_to(:title) }
-  it { should respond_to(:composer_id) }
   it { should respond_to(:performance_id) }
   it { should respond_to(:epoch_id) }
   it { should respond_to(:minutes) }
@@ -43,8 +41,6 @@ describe Piece do
     before { piece.title = "" }
     it { should_not be_valid }
   end
-
-  it "should not be valid without an associated composer"
 
   it "should not be valid without an associated performance"
 

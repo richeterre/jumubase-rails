@@ -13,6 +13,7 @@
 #  tracing_code    :string(255)
 #  warmup_venue_id :integer
 #  age_group       :string(255)
+#  predecessor_id  :integer
 #
 
 # -*- encoding : utf-8 -*-

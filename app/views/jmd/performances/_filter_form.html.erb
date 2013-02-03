@@ -3,13 +3,13 @@
 
   <% if JUMU_ROUND == 1 %>
     <%= select nil, :in_competition,
-                    Competition.accessible_by(current_ability).collect { |c| [c.name, c.id] },
+                    Competition.accessible_by(current_ability).current.collect { |c| [c.name, c.id] },
         { selected: params[:in_competition], include_blank: "Alle Wettbewerbe" } %>
   <% end %>
 
   <% if JUMU_ROUND == 2 %>
     <%= select nil, :advanced_from_competition,
-                    Competition.accessible_by(current_ability).collect { |c| [c.name, c.id] },
+                    Competition.accessible_by(current_ability).preceding.collect { |c| [c.name, c.id] },
         { selected: params[:advanced_from_competition], include_blank: "Alle RW" } %>
   <% end %>
 

@@ -50,11 +50,11 @@ class Competition < ActiveRecord::Base
     current.where("competitions.signup_deadline > ?", now)
   end
 
-  # Find competitions of the same season that are one round higher
-  def possible_successors
-    Competition.joins(:round, :host)
-               .where({ rounds: { level: self.round.level + 1 }, season: self.season })
-               .order("hosts.name")
+  # Find competitions one round earlier than the current
+  def self.preceding
+    joins(:round, :host)
+    .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND - 1 })
+    .order("hosts.name")
   end
 
   # Virtual name that identifies the competition
@@ -95,6 +95,13 @@ class Competition < ActiveRecord::Base
   # Whether participants can advance onwards from this competition
   def can_be_advanced_from?
     self.round.level < 2 # Currently no LW > BW migration is possible
+  end
+
+  # Find competitions of the same season that are one round higher
+  def possible_successors
+    Competition.joins(:round, :host)
+               .where({ rounds: { level: self.round.level + 1 }, season: self.season })
+               .order("hosts.name")
   end
 
   private

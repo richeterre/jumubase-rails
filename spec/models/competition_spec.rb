@@ -103,7 +103,39 @@ describe Competition do
     end
   end
 
-  # Convencience methods
+  # Class methods
+
+  it "should respond_to :current" do
+    Competition.should respond_to(:current)
+  end
+
+  it "should respond_to :current_and_open" do
+    Competition.should respond_to(:current_and_open)
+  end
+
+  it "should respond_to :preceding" do
+    Competition.should respond_to(:preceding)
+  end
+
+  it "should be able to return all competitions that are currently ongoing" do
+    FactoryGirl.create(:past_competition)
+    FactoryGirl.create(:future_competition)
+    current_competitions = FactoryGirl.create_list(:current_competition, 2)
+
+    Competition.current.should =~ current_competitions
+  end
+
+  it "should be able to return all current competitions whose signup is open" do
+    FactoryGirl.create(:past_competition)
+    FactoryGirl.create(:future_competition)
+    FactoryGirl.create(:deadlined_competition)
+    # TODO: Include competition whose deadline is exactly "now"
+    current_and_open_competitions = FactoryGirl.create_list(:current_competition, 2)
+
+    Competition.current_and_open.should =~ current_and_open_competitions
+  end
+
+  # Convenience methods
 
   it { should respond_to(:name) }
   it { should respond_to(:host_name) }
@@ -174,24 +206,6 @@ describe Competition do
       competition.round.level = level
       competition.can_be_advanced_from?.should be_false
     end
-  end
-
-  it "should be able to return all competitions that are currently ongoing" do
-    FactoryGirl.create(:past_competition)
-    FactoryGirl.create(:future_competition)
-    current_competitions = FactoryGirl.create_list(:current_competition, 2)
-
-    Competition.current.should =~ current_competitions
-  end
-
-  it "should be able to return all current competitions whose signup is open" do
-    FactoryGirl.create(:past_competition)
-    FactoryGirl.create(:future_competition)
-    FactoryGirl.create(:deadlined_competition)
-    # TODO: Include competition whose deadline is exactly "now"
-    current_and_open_competitions = FactoryGirl.create_list(:current_competition, 2)
-
-    Competition.current_and_open.should =~ current_and_open_competitions
   end
 
   it "should be able to return all competitions of same season and next-higher round" do

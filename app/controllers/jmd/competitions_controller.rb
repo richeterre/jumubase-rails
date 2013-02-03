@@ -66,9 +66,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
       new_performance = performance.amoeba_dup # Deep duplicate
 
       # Remove appearances that don't advance
-      new_performance.appearances.each do |appearance|
-        new_performance.appearances.delete(appearance) unless appearance.may_advance_to_next_round?
-      end
+      # This is buggy when not deleting all at once, probably due to coupling during age group calculation
+      not_advancing = new_performance.appearances.select { |a| !a.may_advance_to_next_round? }
+      new_performance.appearances.delete(not_advancing)
 
       new_performance.warmup_time = new_performance.stage_time = nil # Clear scheduled times
       new_performance.warmup_venue_id = new_performance.stage_venue_id = nil # Clear assigned venues

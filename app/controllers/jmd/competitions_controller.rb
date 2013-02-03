@@ -84,7 +84,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
                          wurde(n) erfolgreich nach #{target_competition.name} migriert."
       redirect_to jmd_competition_path(target_competition)
     else
-      flash[:error] = "Die Vorspiele konnten nicht migriert werden."
+      flash[:error] = "Es konnten nicht alle Vorspiele migriert werden."
       render 'list_advancing'
     end
   end

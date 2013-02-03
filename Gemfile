@@ -43,6 +43,10 @@ group :test do
   gem 'launchy'
 end
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
 

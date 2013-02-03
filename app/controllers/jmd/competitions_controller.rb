@@ -46,13 +46,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
     # @competition is fetched by CanCan
 
     if @competition.can_be_advanced_from?
-      @performances = @competition.performances
-                                  .browsing_order
-                                  .select { |p| p.advances_to_next_round? }
-      # Split up based on whether the performance already has a successor
-      @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
-
-      @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
+      load_migration_resources # Loads possible target competitions, migratable performances and already migrated
     else
       flash[:error] = "Aus diesem Wettbewerb können leider keine Vorspiele weitergeleitet werden."
       redirect_to jmd_competition_path(@competition)
@@ -62,14 +56,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
   # Migrate advancing performances to a selected competition
   def migrate_advancing
     # @competition is fetched by CanCan
-    target_competition = @competition.possible_successors.find(params[:target_competition_id])
 
-    # Get advancing performances
-    @performances = @competition.performances.includes(:appearances, :pieces)
-                                .browsing_order
-                                .select { |p| p.advances_to_next_round? }
-    # Split up based on whether the performance already has a successor
-    @performances, already_migrated = @performances.partition { |p| p.successor == nil }
+    load_migration_resources # Loads possible target competitions, migratable performances and already migrated
+    target_competition = @possible_target_competitions.find(params[:target_competition_id]) # Load selected target
 
     # Collect performances for migration
     new_performances = []
@@ -123,4 +112,17 @@ class Jmd::CompetitionsController < Jmd::BaseController
     end
     redirect_to jmd_competition_path(@competition)
   end
+
+  private
+
+    def load_migration_resources
+      @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
+
+      # Get advancing performances
+      @performances = @competition.performances.includes(:appearances, :pieces)
+                                  .browsing_order
+                                  .select { |p| p.advances_to_next_round? }
+      # Split up based on whether the performance already has a successor
+      @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
+    end
 end

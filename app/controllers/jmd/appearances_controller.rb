@@ -3,6 +3,7 @@ class Jmd::AppearancesController < Jmd::BaseController
 
   # Set up filters
   has_scope :in_competition, only: :index
+  has_scope :advanced_from_competition, only: :index
   has_scope :in_category, only: :index
   has_scope :in_age_group, only: :index
 

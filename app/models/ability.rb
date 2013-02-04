@@ -9,8 +9,14 @@ class Ability
       can :manage, :all
     else
       can :read, Competition, host_id: user.host_ids
-      can :create, Performance
-      can :manage, Performance, competition: { host_id: user.host_ids }
+      if JUMU_ROUND == 1
+        can :create, Performance
+        can :manage, Performance, competition: { host_id: user.host_ids }
+      else
+        can :read, Performance, Performance.advanced_from_competition(user.competitions) do |p|
+          user.competitions.include? p.predecessor.competition
+        end
+      end
     end
 
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities

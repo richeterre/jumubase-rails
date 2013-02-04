@@ -51,11 +51,15 @@
       <td>
         <%= link_to icon_tag("eye-open", title: "Vorspieldetails anzeigen"),
               jmd_performance_path(performance) %>
-        <%= link_to icon_tag("edit", title: "Dieses Vorspiel bearbeiten"),
-              edit_jmd_performance_path(performance) %>
-        <%= link_to icon_tag("remove", title: "Dieses Vorspiel löschen"),
-              jmd_performance_path(performance),
-              method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?" %>
+        <% if can? :update, Performance %>
+          <%= link_to icon_tag("edit", title: "Dieses Vorspiel bearbeiten"),
+                edit_jmd_performance_path(performance) %>
+        <% end %>
+        <% if can? :destroy, Performance %>
+          <%= link_to icon_tag("remove", title: "Dieses Vorspiel löschen"),
+                jmd_performance_path(performance),
+                method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?" %>
+        <% end %>
       </td>
     </tr>
     <% end %>

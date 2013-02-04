@@ -2,8 +2,11 @@
   <li class="nav-header">Verwalten</li>
   <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
   <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
-  <% if can? :manage, Performance %>
+  <% if can? :read, Performance %>
     <%= nav_link_to "Vorspiele", jmd_performances_path %>
+  <% end %>
+
+  <% if can? :manage, Performance %>
     <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
     <li class="nav-header">Ausgeben</li>
     <%= nav_link_to "Jurybögen", make_jury_sheets_jmd_performances_path %>

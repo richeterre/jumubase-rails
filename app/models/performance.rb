@@ -192,7 +192,7 @@ class Performance < ActiveRecord::Base
     # KiMu participants don't advance
     return false if self.category.name == "\"Kinder musizieren\""
 
-    if JUMU_ROUND == 2
+    if self.competition.round.level == 2
       # Most pop categories don't advance from 2nd round
       return false if ["Gitarre (Pop) solo", "E-Bass (Pop) solo", "Drum-Set (Pop) solo"].include?(self.category.name)
       # TODO: Generalize pop category restrictions

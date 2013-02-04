@@ -130,7 +130,7 @@ class Appearance < ActiveRecord::Base
 
   # Return whether the participant fulfills the necessary conditions for advancing
   def may_advance_to_next_round?
-    case JUMU_ROUND
+    case self.performance.competition.round.level
     when 1
       # Check for sufficient age
       return false if ["Ia", "Ib"].include?(self.age_group)

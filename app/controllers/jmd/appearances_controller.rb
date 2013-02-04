@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 class Jmd::AppearancesController < Jmd::BaseController
 
-  authorize_resource :performance, parent: false, only: :index # Don't load here, it's custom
-
   # Set up filters
   has_scope :in_competition, only: :index
   has_scope :in_category, only: :index
   has_scope :in_age_group, only: :index
 
   def index
+    authorize! :update, Performance # Users can see points only if authorized to change them
+
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
                                 .browsing_order
                                 .paginate(page: params[:page], per_page: 15)

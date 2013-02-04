@@ -5,6 +5,7 @@
     <li class="nav-header">Verwalten</li>
     <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
     <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
+    <%= nav_link_to "Vorspiele", jmd_performances_path %>
     <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
 
     <li class="nav-header">Ausgeben</li>

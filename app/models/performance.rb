@@ -143,7 +143,7 @@ class Performance < ActiveRecord::Base
   # Orders performances by category, then age group (smallest first)
   def self.browsing_order
     includes(:category)
-    .order('categories.popular, categories.solo DESC, categories.name, age_group')
+    .order('categories.popular, categories.solo DESC, categories.name, performances.age_group')
   end
 
   # Return the country the performance is associated with

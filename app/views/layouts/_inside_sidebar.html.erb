@@ -1,21 +1,24 @@
 <ul class="nav nav-list">
+  <% Competition.current.each do |competition| %>
+    <h5><%= competition.name %></h5>
 
-  <% if can? :manage, Performance %>
+    <% if can? :manage, Performance %>
 
-    <li class="nav-header">Verwalten</li>
-    <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
-    <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
-    <%= nav_link_to "Vorspiele", jmd_performances_path %>
-    <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
+      <li class="nav-header">Verwalten</li>
+      <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
+      <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
+      <%= nav_link_to "Aktuelle Vorspiele", current_jmd_performances_path %>
+      <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
 
-    <li class="nav-header">Ausgeben</li>
-    <%= nav_link_to "Jurybögen", make_jury_sheets_jmd_performances_path %>
-    <%= nav_link_to "Urkunden", make_certificates_jmd_performances_path %>
+      <li class="nav-header">Ausgeben</li>
+      <%= nav_link_to "Jurybögen", make_jury_sheets_jmd_competition_performances_path(competition) %>
+      <%= nav_link_to "Urkunden", make_certificates_jmd_competition_performances_path(competition) %>
 
-  <% elsif can? :read, Performance %>
+    <% elsif can? :read, Performance %>
 
-    <li class="nav-header">Einsehen</li>
-    <%= nav_link_to "Vorspiele", jmd_performances_path %>
+      <li class="nav-header">Einsehen</li>
+      <%= nav_link_to "Aktuelle Vorspiele", current_jmd_performances_path %>
 
+    <% end %>
   <% end %>
 </ul>

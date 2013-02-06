@@ -5,15 +5,18 @@ Jmd::Application.routes.draw do
   namespace :jmd do
     resources :appearances, :users, :venues
     resources :competitions do
+      resources :performances, only: :index do
+        get 'make_certificates', on: :collection
+        get 'make_jury_sheets', on: :collection
+      end
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member
       get 'welcome_advanced', on: :member
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end
-    resources :performances do
-      get 'make_certificates', on: :collection
-      get 'make_jury_sheets', on: :collection
+    resources :performances, except: :index do
+      get 'current', on: :collection
     end
   end
 

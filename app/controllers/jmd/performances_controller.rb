@@ -15,12 +15,20 @@ class Jmd::PerformancesController < Jmd::BaseController
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
 
-  # Manage entries at hosts the user has access to
+  # List performances in the given competition
   def index
-    # filter_sort_entries
+    @performances = apply_scopes(Performance).where(competition_id: params[:competition_id])
+                                             .accessible_by(current_ability)
+                                             .order("created_at DESC")
+                                             .paginate(page: params[:page], per_page: 15)
+  end
+
+  # List current performances the user has access to
+  def current
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)
+    render 'index'
   end
 
   # show: @performance is fetched by CanCan
@@ -133,7 +141,8 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Define params for PDF output
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     # filter_sort_entries
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+    @performances = apply_scopes(Performance).where(competition_id: params[:competition_id])
+                                             .accessible_by(current_ability)
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
   end
@@ -141,7 +150,8 @@ class Jmd::PerformancesController < Jmd::BaseController
   def make_jury_sheets
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+    @performances = apply_scopes(Performance).where(competition_id: params[:competition_id])
+                                             .accessible_by(current_ability).current
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
   end

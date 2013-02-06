@@ -58,4 +58,7 @@
               class: "btn btn-warning", confirm: "Soll(en) wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
       end %>
 <% end %>
+<%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
+<%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
+                                class: "btn" %>
 <%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>

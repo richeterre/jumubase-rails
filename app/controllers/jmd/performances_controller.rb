@@ -92,56 +92,27 @@ class Jmd::PerformancesController < Jmd::BaseController
     redirect_to jmd_performances_path
   end
 
-  # def retime
-  #   entry = Entry.current.visible_to(current_user).find(params[:entry_id])
-  #   # Switch to competition host's timeframe
-  #   Time.zone = entry.competition.host.time_zone
-
-  #   date = params[:date]
-  #   if (date == 'unscheduled')
-  #     # Handle date removal
-  #     time = nil
-  #     @new_day = nil
-  #   else
-  #     offset = params[:offset]
-  #     # Calculate time based on 9 o'clock start in host's time zone
-  #     date_array = date.split('-').map(&:to_i)
-  #     time = Time.zone.local(*date_array, 9) + offset.to_i.seconds
-  #     # Pass new date to view for update
-  #     @new_day = Date.strptime(date)
-  #   end
-
-  #   # Store old date for view update
-  #   @old_day = (entry.stage_time) ? entry.stage_time.to_date : nil
-
-  #   # Pass all entries for current view
-  #   @entries = (entry.category.popular?) ?
-  #                entry.competition.entries.popular.category_order
-  #              : entry.competition.entries.classical.category_order
-
-  #   # Update entry time and date
-  #   entry.stage_time = time
-  #   entry.save
-
-  #   # Respond only to Ajax requests
-  #   respond_to do |format|
-  #     format.js
-  #   end
-  # end
+  ####
+  # The following actions are nested under competitions/{id}
 
   def make_certificates
+    @competition = Competition.find(params[:competition_id])
+
     # Define params for PDF output
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    # filter_sort_entries
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+    @performances = apply_scopes(Performance).where(competition_id: @competition)
+                                             .accessible_by(current_ability)
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
   end
 
   def make_jury_sheets
+    @competition = Competition.find(params[:competition_id])
+
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+    @performances = apply_scopes(Performance).where(competition_id: @competition)
+                                             .accessible_by(current_ability)
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
   end

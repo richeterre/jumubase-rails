@@ -1,6 +1,6 @@
 <% provide(:title, "Urkunden erstellen") %>
 
-<%= render 'filter_form', path: make_certificates_jmd_performances_path %>
+<%= render 'filter_form', path: make_certificates_jmd_competition_performances_path(@competition) %>
 
 <p>
   <%= page_entries_info @performances, model: Performance %>

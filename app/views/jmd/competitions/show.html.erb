@@ -57,5 +57,9 @@
       link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
               class: "btn btn-warning", confirm: "Soll(en) wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
       end %>
+  <%= link_to "Jurybögen drucken", make_certificates_jmd_competition_performances_path(@competition),
+                                   class: "btn" %>
+  <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
+                                  class: "btn" %>
 <% end %>
 <%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>

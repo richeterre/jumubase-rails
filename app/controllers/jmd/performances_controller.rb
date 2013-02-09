@@ -65,7 +65,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       end
 
       flash[:success] = "Das Vorspiel wurde erstellt."
-      redirect_to jmd_performances_path
+      redirect_to jmd_competition_performances_path(@performance.competition)
     else
       # Here, too, set available competitions to choose from
       @competitions = Competition.accessible_by(current_ability).current
@@ -86,7 +86,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
-      redirect_to jmd_performances_path
+      redirect_to jmd_competition_performances_path(@performance.competition)
     else
       # Here, too, set available competitions to choose from
       @competitions = Competition.accessible_by(current_ability).current
@@ -99,7 +99,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is fetched by CanCan
     @performance.destroy
     flash[:success] = "Das Vorspiel wurde gelöscht."
-    redirect_to jmd_performances_path
+    redirect_to jmd_competition_performances_path(@performance.competition)
   end
 
   ####

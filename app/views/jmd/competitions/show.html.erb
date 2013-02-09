@@ -1,4 +1,4 @@
-<% provide(:title, "Wettbewerbsdetails") %>
+<% provide(:title, @competition.name) %>
 
 <%= link_to "Zurück zur Wettbewerbsliste", jmd_competitions_path, class: "btn" %>
 
@@ -15,6 +15,13 @@
     <dd><%= @competition.certificate_date ?
             (l @competition.certificate_date, format: :long) : "unbekannt" %></dd>
 </dl>
+
+<%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
+<%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
+<%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition),
+            class: "btn" %>
+<%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
+            class: "btn" %>
 
 <h3>Statistik</h3>
 
@@ -51,17 +58,14 @@
 </table>
 
 <% if can? :manage, Competition %>
+  <h3>Admin</h3>
+
   <%= if @competition.can_be_advanced_from?
       link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
-              class: "btn btn-primary"
+              class: "btn"
       end %>
   <%= if @competition.can_be_advanced_to?
       link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
               class: "btn btn-warning", confirm: "Soll(en) wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
       end %>
 <% end %>
-<%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
-<%= link_to "Jurybögen drucken", make_certificates_jmd_competition_performances_path(@competition),
-            class: "btn" %>
-<%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
-            class: "btn" %>

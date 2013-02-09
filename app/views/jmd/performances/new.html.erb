@@ -6,6 +6,6 @@
   <%= render 'performance_fields', { f: form, show_hints: false } %>
   <div class="form-actions">
     <%= form.button :submit, "Vorspiel erstellen", class: "btn-primary" %>
-    <%= link_to "Abbrechen", jmd_performances_path, class: "btn" %>
+    <%= link_to "Abbrechen", jmd_competition_performances_path(@performance.competition), class: "btn" %>
   </div>
 <% end %>

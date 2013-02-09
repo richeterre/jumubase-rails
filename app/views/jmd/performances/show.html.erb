@@ -29,4 +29,4 @@
 <p><i>Gesamtdauer: <%= format_duration(@performance.duration) %></i></p>
 
 <%= link_to "Vorspiel bearbeiten", edit_jmd_performance_path(@performance), class: "btn" %>
-<%= link_to "Zurück zur Vorspielliste", jmd_performances_path, class: "btn" %>
+<%= link_to "Alle Vorspiele des Wettbewerbs", jmd_competition_performances_path(@performance.competition), class: "btn" %>

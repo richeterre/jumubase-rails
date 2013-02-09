@@ -1,5 +1,4 @@
 <%= form_tag path, method: :get, class: "form-search well" do %>
-  <%= hidden_field_tag :sort, params[:sort] %>
 
   <% if JUMU_ROUND == 1 %>
     <%= select nil, :in_competition,

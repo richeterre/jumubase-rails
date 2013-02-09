@@ -7,8 +7,6 @@ class Jmd::PerformancesController < Jmd::BaseController
   load_and_authorize_resource # CanCan
   skip_load_resource only: filterable_actions # for custom loading
 
-  # helper_method :sort_order
-
   # Set up filters
   has_scope :in_competition, only: filterable_actions
   has_scope :advanced_from_competition, only: filterable_actions
@@ -17,7 +15,6 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Manage entries at hosts the user has access to
   def index
-    # filter_sort_entries
     @performances = apply_scopes(Performance).accessible_by(current_ability).current
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)
@@ -116,33 +113,4 @@ class Jmd::PerformancesController < Jmd::BaseController
                                              .browsing_order
                                              .paginate(page: params[:page], per_page: 15)
   end
-
-  # def make_result_sheets
-  #   # Define params for PDF output
-  #   prawnto :prawn => { :page_size => 'A4', :skip_page_creation => true }
-  #   @pop_entries = Entry.current.popular.stage_order
-  #   @classical_entries = Entry.current.classical.stage_order
-  #   @title = "Ergebnislisten erstellen"
-  # end
-
-  # private
-
-  #   def filter_sort_entries
-  #     # Filter and column-sort entries
-  #     @entries = apply_scopes(Entry)
-  #                .current
-  #                .visible_to(current_user)
-  #                .joins(:category)
-  #                .order(sort_order)
-  #     # Provide competition for date filtering
-  #     @competition = current_user.competitions.current.first
-  #   end
-
-  #   def sort_order
-  #     if params[:sort].blank?
-  #       "stage_time"
-  #     else
-  #       params[:sort] + ", stage_time"
-  #     end
-  #   end
 end

@@ -16,11 +16,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <!-- <th><%# sortable "stage_time", "Vorspiel" %>Vorspiel</th> -->
       <th>Angemeldet am</th>
-      <th>
-        <%# sortable "categories.popular, categories.solo desc, categories.name", "Kategorie" %>Kategorie
-      </th>
+      <th>Kategorie</th>
       <th>Land</th>
       <th>Teilnehmer</th>
       <th>&nbsp;</th>
@@ -29,7 +26,6 @@
   <tbody>
     <% @performances.each do |performance| %>
     <tr>
-      <!-- <td><%# l performance.stage_time, format: :tiny if performance.stage_time %></td> -->
       <td>
         <%= l performance.created_at, format: :short %>
         <% if (performance.updated_at - performance.created_at) > 1.second %>

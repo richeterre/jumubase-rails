@@ -2,7 +2,7 @@
 class Jmd::PerformancesController < Jmd::BaseController
   include PerformancesHelper
 
-  filterable_actions = [:index, :make_certificates, :make_jury_sheets]
+  filterable_actions = [:index, :current, :make_certificates, :make_jury_sheets]
 
   load_and_authorize_resource # CanCan
   skip_load_resource only: filterable_actions # for custom loading
@@ -15,7 +15,8 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # List performances in the given competition
   def index
-    @performances = apply_scopes(Performance).where(competition_id: params[:competition_id])
+    @competition = Competition.find(params[:competition_id])
+    @performances = apply_scopes(Performance).where(competition_id: @competition)
                                              .accessible_by(current_ability)
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)
@@ -23,10 +24,10 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # List current performances the user has access to
   def current
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
+    @performances = apply_scopes(Performance).current
+                                             .accessible_by(current_ability)
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)
-    render 'index'
   end
 
   # show: @performance is fetched by CanCan

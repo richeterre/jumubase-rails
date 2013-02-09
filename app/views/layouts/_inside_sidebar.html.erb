@@ -6,7 +6,6 @@
     <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
     <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
     <%= nav_link_to "Aktuelle Vorspiele", list_current_jmd_performances_path %>
-    <%= nav_link_to "Ergebnisse", jmd_appearances_path %>
 
   <% elsif can? :list_current, Performance %>
 

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Jmd::AppearancesController < Jmd::BaseController
 
+  load_and_authorize_resource :competition, only: :index
+
   # Set up filters
   has_scope :in_competition, only: :index
   has_scope :advanced_from_competition, only: :index
@@ -10,9 +12,10 @@ class Jmd::AppearancesController < Jmd::BaseController
   def index
     authorize! :update, Performance # Users can see points only if authorized to change them
 
-    @performances = apply_scopes(Performance).accessible_by(current_ability).current
-                                .browsing_order
-                                .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance).in_competition(@competition)
+                                             .accessible_by(current_ability)
+                                             .browsing_order
+                                             .paginate(page: params[:page], per_page: 15)
   end
 
   def update

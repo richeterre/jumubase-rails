@@ -1,6 +1,6 @@
 <% provide(:title, "Ergebnisse verwalten") %>
 
-<%= render 'jmd/performances/filter_form', path: jmd_appearances_path %>
+<%= render 'jmd/performances/filter_form', path: jmd_competition_appearances_path(@competition) %>
 
 <p>
   <%= page_entries_info @performances, model: Performance %>
@@ -52,7 +52,7 @@
 <% @performances.each do |performance| %>
   <% performance.appearances.each do |appearance| %>
     <%= render layout: "modal", locals: { item_type: "appearance", item_id: appearance.id, title: "#{appearance.participant.full_name}, #{appearance.instrument.name}" } do %>
-      <%= simple_form_for([:jmd, appearance], html: { class: "form-horizontal" }) do |form| %>
+      <%= simple_form_for([:jmd, @competition, appearance], html: { class: "form-horizontal" }) do |form| %>
         <div class="modal-body">
           <%= form.input :points, input_html: { class: "span1" } %>
         </div>

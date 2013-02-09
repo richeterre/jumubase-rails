@@ -3,8 +3,9 @@ Jmd::Application.routes.draw do
   # Routes for internal (JMD) pages
 
   namespace :jmd do
-    resources :appearances, :users, :venues
+    resources :users, :venues
     resources :competitions do
+      resources :appearances, only: [:index, :update]
       resources :performances, only: :index do
         get 'make_certificates', on: :collection
         get 'make_jury_sheets', on: :collection

@@ -16,7 +16,7 @@ Jmd::Application.routes.draw do
       get 'schedule_popular', on: :member
     end
     resources :performances, except: :index do
-      get 'current', on: :collection
+      get 'list_current', on: :collection
     end
   end
 

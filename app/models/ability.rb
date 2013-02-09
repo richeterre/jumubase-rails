@@ -13,7 +13,8 @@ class Ability
         can :create, Performance
         can :manage, Performance, competition: { host_id: user.host_ids }
       else
-        can :read, Performance, Performance.advanced_from_competition(user.competitions) do |p|
+        # Authorize to read and list performances that advanced from own competition
+        can [:read, :list_current], Performance, Performance.advanced_from_competition(user.competitions) do |p|
           user.competitions.include? p.predecessor.competition
         end
       end

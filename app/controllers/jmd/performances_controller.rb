@@ -2,10 +2,14 @@
 class Jmd::PerformancesController < Jmd::BaseController
   include PerformancesHelper
 
-  filterable_actions = [:index, :current, :make_certificates, :make_jury_sheets]
+  filterable_actions = [:index, :list_current, :make_certificates, :make_jury_sheets]
+  nested_actions = [:index, :make_certificates, :make_jury_sheets] # Routes are nested under Competition
 
-  load_and_authorize_resource # CanCan
-  skip_load_resource only: filterable_actions # for custom loading
+  load_and_authorize_resource :competition, only: nested_actions
+  load_and_authorize_resource :performance, except: nested_actions
+  load_and_authorize_resource :performance, through: :competition, only: nested_actions
+
+  skip_load_resource :performance, only: filterable_actions # for custom loading
 
   # Set up filters
   has_scope :in_competition, only: filterable_actions
@@ -15,7 +19,6 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # List performances in the given competition
   def index
-    @competition = Competition.find(params[:competition_id])
     @performances = apply_scopes(Performance).where(competition_id: @competition)
                                              .accessible_by(current_ability)
                                              .order("created_at DESC")
@@ -23,9 +26,9 @@ class Jmd::PerformancesController < Jmd::BaseController
   end
 
   # List current performances the user has access to
-  def current
+  def list_current
     @performances = apply_scopes(Performance).current
-                                             .accessible_by(current_ability)
+                                             .accessible_by(current_ability, :list_current)
                                              .order("created_at DESC")
                                              .paginate(page: params[:page], per_page: 15)
   end
@@ -103,7 +106,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   # The following actions are nested under competitions/{id}
 
   def make_certificates
-    @competition = Competition.find(params[:competition_id])
+    # @competition is fetched by CanCan
 
     # Define params for PDF output
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
@@ -114,7 +117,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   end
 
   def make_jury_sheets
-    @competition = Competition.find(params[:competition_id])
+    # @competition is fetched by CanCan
 
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }

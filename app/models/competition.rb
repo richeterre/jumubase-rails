@@ -37,10 +37,16 @@ class Competition < ActiveRecord::Base
   validate :require_beginning_before_end
   validate :require_signup_deadline_before_beginning
 
-  # Find competitions with matching season and round
+  # Find competitions of this season with given round level
+  def self.seasonal_with_level(level)
+    joins(:round)
+    .where(season: JUMU_SEASON, rounds: { level: level })
+  end
+
+  # Find competitions with season and round currently set in JUMU_PARAMS
   def self.current
-    joins(:round, :host)
-    .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND })
+    seasonal_with_level(JUMU_ROUND)
+    .joins(:host)
     .order("hosts.name")
   end
 

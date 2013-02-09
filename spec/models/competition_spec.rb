@@ -105,6 +105,10 @@ describe Competition do
 
   # Class methods
 
+  it "should respond_to :seasonal_with_level" do
+    Competition.should respond_to(:seasonal_with_level)
+  end
+
   it "should respond_to :current" do
     Competition.should respond_to(:current)
   end
@@ -115,6 +119,16 @@ describe Competition do
 
   it "should respond_to :preceding" do
     Competition.should respond_to(:preceding)
+  end
+
+  it "should be able to return all competitions of the current season with given level" do
+    FactoryGirl.create(:past_competition)
+    FactoryGirl.create(:future_competition)
+    seasonal_rws = FactoryGirl.create_list(:current_competition, 2, round: FactoryGirl.create(:round))
+    seasonal_lws = FactoryGirl.create_list(:current_competition, 2, round: FactoryGirl.create(:second_round))
+
+    Competition.seasonal_with_level(1).should =~ seasonal_rws
+    Competition.seasonal_with_level(2).should =~ seasonal_lws
   end
 
   it "should be able to return all competitions that are currently ongoing" do

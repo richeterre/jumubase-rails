@@ -1,4 +1,4 @@
-<% provide(:title, "Ergebnisse verwalten") %>
+<% provide(:title, "Ergebnisse für #{@competition.name}") %>
 
 <%= render 'jmd/performances/filter_form', path: jmd_competition_appearances_path(@competition) %>
 

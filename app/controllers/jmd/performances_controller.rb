@@ -39,7 +39,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is built by CanCan
 
     # Populate competition selector
-    @competitions = Competition.accessible_by(current_ability).current
+    @competitions = Competition.accessible_by(current_ability)
 
     # Build initial resources for form
     1.times do
@@ -68,7 +68,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       redirect_to jmd_competition_performances_path(@performance.competition)
     else
       # Here, too, set available competitions to choose from
-      @competitions = Competition.accessible_by(current_ability).current
+      @competitions = Competition.accessible_by(current_ability)
 
       render 'new'
     end
@@ -78,7 +78,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is fetched by CanCan
 
     # Populate competition selector
-    @competitions = Competition.accessible_by(current_ability).current
+    @competitions = Competition.accessible_by(current_ability)
   end
 
   def update
@@ -89,7 +89,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       redirect_to jmd_competition_performances_path(@performance.competition)
     else
       # Here, too, set available competitions to choose from
-      @competitions = Competition.accessible_by(current_ability).current
+      @competitions = Competition.accessible_by(current_ability)
 
       render 'edit'
     end

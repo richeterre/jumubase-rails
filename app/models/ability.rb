@@ -10,7 +10,7 @@ class Ability
     else
       can :read, Competition, host_id: user.host_ids
       if JUMU_ROUND == 1
-        can :create, Performance
+        can :create, Performance # TODO: Check that user has access to selected competition
         can :manage, Performance, competition: { host_id: user.host_ids }
       else
         # Authorize to read and list performances that advanced from own competition

@@ -54,9 +54,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Creates a new performance upon signup form submission
   def create
-    # @performance is built by CanCan
-
-    @performance.attributes = params[:performance]
+    # @performance is built and populated from attributes by CanCan
 
     if @performance.save
       # Send out confirmation emails with edit code

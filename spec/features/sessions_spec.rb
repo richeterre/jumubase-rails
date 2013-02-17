@@ -14,8 +14,8 @@ describe "Sessions" do
     it { should have_button "Anmelden" }
   end
 
-  describe "signin via the home page" do
-    before { visit root_path }
+  describe "signin via the signin page" do
+    before { visit signin_path }
 
     describe "with incorrect credentials" do
       before { click_button "Anmelden" }
@@ -26,7 +26,7 @@ describe "Sessions" do
       end
 
       it { should_not have_link "Abmelden", href: signout_path }
-      it { should have_selector "a.dropdown-toggle", text: "Interne Seiten" }
+      it { should have_link "Interne Seiten »", href: signin_path }
 
       it "should redirect to the signin page" do
         current_path.should eq signin_path
@@ -36,7 +36,7 @@ describe "Sessions" do
       it { should have_content "Die E-Mailadresse oder das Passwort war falsch." }
 
       describe "after revisiting the page" do
-        before { click_link "Startseite" }
+        before { click_link "Interne Seiten »" }
 
         it { should_not have_error_message }
       end
@@ -47,8 +47,8 @@ describe "Sessions" do
       before { sign_in user }
 
       it "should display some inside stuff" do
-        page.should have_selector "li", text: "Verwalten"
-        page.should have_link "Vorspiele"
+        page.should have_selector "li", text: "Einsehen"
+        page.should have_link "Aktuelle Vorspiele"
       end
 
       it "should have a link to the user profile"
@@ -57,18 +57,18 @@ describe "Sessions" do
       end
 
       it { should have_link "Abmelden", href: signout_path }
-      it { should_not have_selector "a.dropdown-toggle", text: "Interne Seiten" }
+      it { should_not have_link "Interne Seiten »", href: signin_path }
 
       describe "followed by signout" do
         before { click_link "Abmelden" }
 
-        it { should have_selector "a.dropdown-toggle", text: "Interne Seiten" }
+        it { should have_link "Interne Seiten »", href: signin_path }
       end
     end
   end
 
   describe "requesting a page restricted to signed-in users" do
-    before { visit jmd_performances_path }
+    before { visit list_current_jmd_performances_path }
 
     it "should ask the user to sign in first" do
       current_path.should eq signin_path
@@ -86,7 +86,7 @@ describe "Sessions" do
       fill_in "session_password", with: user.password
       click_button "session_submit"
 
-      current_path.should eq jmd_performances_path
+      current_path.should eq list_current_jmd_performances_path
       page.should have_info_message
       page.should have_content "Willkommen, #{user.full_name}! Du bist jetzt angemeldet."
     end
@@ -135,9 +135,7 @@ describe "Sessions" do
 
       it { should_not have_link "Benutzer", href: jmd_users_path }
       it { should_not have_link "Wettbewerbe", href: jmd_competitions_path }
-      it { should have_link "Vorspiele", href: jmd_performances_path }
-      it { should have_link "Ergebnisse", href: jmd_appearances_path }
-      it { should have_link "Urkunden", href: make_certificates_jmd_performances_path }
+      it { should have_link "Aktuelle Vorspiele", href: list_current_jmd_performances_path }
     end
 
     describe "for admins" do
@@ -146,6 +144,7 @@ describe "Sessions" do
 
       it { should have_link "Benutzer", href: jmd_users_path }
       it { should have_link "Wettbewerbe", href: jmd_competitions_path }
+      it { should have_link "Aktuelle Vorspiele", href: list_current_jmd_performances_path }
     end
   end
 end

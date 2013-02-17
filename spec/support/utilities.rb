@@ -29,7 +29,7 @@ end
 # Custom macros
 
 def sign_in(user)
-  visit login_path
+  visit signin_path
   fill_in "E-Mail", with: user.email
   fill_in "Passwort", with: user.password
   click_button "Anmelden"

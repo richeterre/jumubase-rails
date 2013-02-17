@@ -18,6 +18,7 @@ Jmd::Application.routes.draw do
     end
     resources :performances, except: :index do
       get 'list_current', on: :collection
+      put 'retime', on: :member
     end
   end
 

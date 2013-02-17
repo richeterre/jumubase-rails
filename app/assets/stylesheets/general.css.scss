@@ -4,6 +4,7 @@ $baseLineHeight: 22px;
 
 @import "bootstrap";
 
+@import "colors";
 @import "sticky_footer"; /* Make footer stay on bottom */
 
 /* Note: top-padding for navbar is handled in sticky footer styles */
@@ -52,6 +53,52 @@ $baseLineHeight: 22px;
 // Forms in modal windows
 .modal > form {
   margin-bottom: 0; // If form encloses footer, remove margin that would appear below it
+}
+
+/* Performance scheduling */
+
+.draggable-performance {
+  background-color: $draggable-background;
+  cursor: move;
+  min-height: 3px;
+  opacity: 0.9;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.draggable-performance span {
+  margin: 0 3px;
+}
+
+.draggable-performance-duration {
+  float: right;
+}
+
+.droppable-timetable {
+  background-color: $droppable-background;
+  height: 1800px;
+  position: relative;
+}
+
+#unscheduled-container {
+  background-color: #fff;
+  position: absolute;
+  right: 10px;
+}
+
+#unscheduled {
+  height: 60px;
+}
+
+#unschedule-text {
+  color: #666;
+  display: block;
+  padding: 0.75em 0 0 0.75em;
+}
+
+.droppable-timetable.drophover {
+  background-color: #ddd;
 }
 
 // Byline in footer

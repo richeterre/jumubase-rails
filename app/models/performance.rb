@@ -104,6 +104,19 @@ class Performance < ActiveRecord::Base
     joins(:category).where('categories.popular = TRUE')
   end
 
+  # Returns all performances on a given date, or unschedule if not date given
+  def self.on_date(date)
+    if date.nil?
+      where(stage_time: nil)
+    else
+      if date.class == String
+        # Convert to Date object first
+        date = Date.new(*date.split('-').map(&:to_i))
+      end
+      where(stage_time: date...(date + 1.day))
+    end
+  end
+
   # Returns all performances with at least one participant from a listed country
   scope :from_countries, lambda { |countries|
     joins(:participants).
@@ -115,19 +128,6 @@ class Performance < ActiveRecord::Base
   scope :from_host, lambda { |host_id|
     joins(:first_competition).
     where(competitions: { host_id: host_id })
-  }
-
-  # Returns all performances scheduled on a given date,
-  # or unscheduled if no date given
-  scope :on_date, lambda { |date|
-    if date.nil?
-      where(stage_time: nil)
-    else
-      if date.class == String
-        date = Date.new(*date.split('-').map(&:to_i))
-      end
-      where(stage_time: date...(date + 1.day))
-    end
   }
 
   # Returns all performances with given venue as either warmup or stage

@@ -1,0 +1,33 @@
+<%
+  # One minute corresponds to 3 pixels => 1 pixel is 20 seconds
+  height = (performance.duration.to_f / 20).round
+  margin = ((performance.rounded_duration - performance.duration).to_f / 20).round
+  if performance.stage_time
+    top = (performance.stage_time.hour - 9) * 180 + performance.stage_time.min * 3
+  else
+    # List unscheduled entries in 20 min distance
+    top = performance_counter * 60 + 120
+  end
+
+  mouseover_text = "Predecessor host name here"
+  # Add participant names to mouseover text
+  performance.participants.each do |p|
+    mouseover_text << p.full_name
+    mouseover_text << ", " unless p == performance.participants.last
+  end
+%>
+<div
+  id="<%= performance.id %>"
+  class="draggable-performance"
+  style="height: <%= height %>px; margin-bottom: <%= margin %>px; top: <%= top %>px;"
+  title="<%= mouseover_text %>"
+>
+  <span>
+    <%= l performance.stage_time, format: :time unless performance.stage_time.nil? %>
+    <%= performance.category.slug %>
+    <%= performance.age_group %>
+  </span>
+  <span class="muted draggable-performance-duration">
+    <%= format_duration(performance.duration) %>
+  </span>
+</div>

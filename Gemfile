@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'pg'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'amoeba' # Deep record duplication
 gem 'cancan' # Authorization

@@ -100,6 +100,44 @@ class Jmd::PerformancesController < Jmd::BaseController
     redirect_to jmd_competition_performances_path(@performance.competition)
   end
 
+  def retime
+    # @performance is fetched by CanCan
+
+    # Switch to competition host's timeframe
+    Time.zone = @performance.competition.host.time_zone
+
+    date = params[:date]
+    if (date == 'unscheduled')
+      # Handle date removal
+      time = nil
+      @new_day = nil
+    else
+      offset = params[:offset]
+      # Calculate time based on 9 o'clock start in host's time zone
+      date_array = date.split('-').map(&:to_i)
+      time = Time.zone.local(*date_array, 9) + offset.to_i.seconds
+      # Pass new date to view for update
+      @new_day = Date.strptime(date)
+    end
+
+    # Store old date for view update
+    @old_day = (@performance.stage_time) ? @performance.stage_time.to_date : nil
+
+    # Pass all entries for current view
+    @performances = (@performance.category.popular?) ?
+                     @performance.competition.performances.popular.browsing_order
+                     : @performance.competition.performances.classical.browsing_order
+
+    # Update entry time and date
+    @performance.stage_time = time
+    @performance.save
+
+    # Respond only to Ajax requests
+    respond_to do |format|
+      format.js
+    end
+  end
+
   ####
   # The following actions are nested under competitions/{id}
 

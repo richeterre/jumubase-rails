@@ -56,6 +56,9 @@
 <% if can? :manage, Competition %>
   <h3>Admin</h3>
 
+  <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition),
+              class: "btn" %>
+
   <%= if @competition.can_be_advanced_from?
       link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
               class: "btn"

@@ -41,6 +41,11 @@ class Jmd::CompetitionsController < Jmd::BaseController
     redirect_to jmd_competitions_path
   end
 
+  # Schedule classical performance stage times
+  def schedule_classical
+    @performances = @competition.performances.includes(:participants).classical.browsing_order
+  end
+
   # List performances that advance to the next round
   def list_advancing
     # @competition is fetched by CanCan

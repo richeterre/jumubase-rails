@@ -29,9 +29,10 @@ end
 # Custom macros
 
 def sign_in(user)
-  fill_in "dropdown_session_email", with: user.email
-  fill_in "dropdown_session_password", with: user.password
-  click_button "dropdown_session_submit"
+  visit login_path
+  fill_in "E-Mail", with: user.email
+  fill_in "Passwort", with: user.password
+  click_button "Anmelden"
 end
 
 def search_for_performance_with_code(tracing_code)

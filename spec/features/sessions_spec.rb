@@ -14,15 +14,6 @@ describe "Sessions" do
     it { should have_button "Anmelden" }
   end
 
-  describe "signin dropdown on home page" do
-    before { visit root_path }
-
-    it { should have_selector 'a.dropdown-toggle', text: "Interne Seiten" }
-    it { should have_field "E-Mail", type: "email", text: "" }
-    it { should have_field "Passwort", type: "password", text: "" }
-    it { should have_button "Anmelden" }
-  end
-
   describe "signin via the home page" do
     before { visit root_path }
 
@@ -94,15 +85,6 @@ describe "Sessions" do
       fill_in "session_email", with: user.email
       fill_in "session_password", with: user.password
       click_button "session_submit"
-
-      current_path.should eq jmd_performances_path
-      page.should have_info_message
-      page.should have_content "Willkommen, #{user.full_name}! Du bist jetzt angemeldet."
-    end
-
-    it "should redirect to the requested page after signing in through the dropdown" do
-      user = FactoryGirl.create(:user)
-      sign_in(user)
 
       current_path.should eq jmd_performances_path
       page.should have_info_message

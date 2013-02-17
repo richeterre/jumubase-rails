@@ -39,7 +39,7 @@ GEM
       rake
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.2.1.1)
+    bootstrap-sass (2.3.0.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
@@ -193,7 +193,7 @@ DEPENDENCIES
   amoeba
   annotate
   bcrypt-ruby (~> 3.0.0)
-  bootstrap-sass (~> 2.2.1.1)
+  bootstrap-sass (~> 2.3.0.0)
   bootstrap-will_paginate
   bullet
   cancan

@@ -7,3 +7,7 @@ $('#<%= @old_day ? @old_day.to_s : "unscheduled" %> .draggable-performances').ht
   "<%= escape_javascript(render partial: 'draggable_performance',
        collection: @performances.on_date(@old_day).browsing_order, as: :performance) %>"
 )
+
+# Reset client-side performance filter to show all categories, unless unscheduled column was untouched
+unless "<%= @new_day && @old_day %>"
+  $("#performance_category_id").val("")

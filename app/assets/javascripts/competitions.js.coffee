@@ -40,6 +40,12 @@ $ ->
       $('#unschedule-text').fadeOut()
     )
 
+  # Filtering performances client-side
+  layoutUnscheduledPerformances = (performances) ->
+    $('#unscheduled .draggable-performance').hide()
+    performances.each (index) ->
+      $(this).css("top", index * 60 + 120).show()
+
   # Browsing through days
   sliceDays = () ->
     $('.day-column').hide()
@@ -56,3 +62,14 @@ $ ->
     if (dayOffset < ($('.day-column').length - 2))
       dayOffset++
     sliceDays()
+
+  $('#performance_category_id').change ->
+    categoryId = $(this).val()
+    if categoryId
+      layoutUnscheduledPerformances(
+        $('#unscheduled .draggable-performance').filter(() ->
+          return $(this).attr("data-category-id") == categoryId
+        )
+      )
+    else
+      layoutUnscheduledPerformances $('#unscheduled .draggable-performance')

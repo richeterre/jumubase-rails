@@ -59,6 +59,9 @@
   <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition),
               class: "btn" %>
 
+  <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
+              class: "btn" %>
+
   <%= if @competition.can_be_advanced_from?
       link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
               class: "btn"

@@ -28,6 +28,7 @@
     <%= performance.category.slug %>
     <%= performance.age_group %>
   </span>
+  <%= flag_tag performance.associated_country.try(:country_code) %>
   <span class="muted draggable-performance-duration">
     <%= format_duration(performance.duration) %>
   </span>

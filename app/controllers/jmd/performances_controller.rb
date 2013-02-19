@@ -123,7 +123,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Store old date for view update
     @old_day = (@performance.stage_time) ? @performance.stage_time.to_date : nil
 
-    # Pass all entries for current view
+    # Pass all performances for current view
     @performances = (@performance.category.popular?) ?
                      @performance.competition.performances.popular.browsing_order
                      : @performance.competition.performances.classical.browsing_order

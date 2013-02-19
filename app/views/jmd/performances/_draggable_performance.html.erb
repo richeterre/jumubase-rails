@@ -5,7 +5,7 @@
   if performance.stage_time
     top = (performance.stage_time.hour - 9) * 180 + performance.stage_time.min * 3
   else
-    # List unscheduled entries in 20 min distance
+    # List unscheduled performances in 20 min distance
     top = performance_counter * 60 + 120
   end
 

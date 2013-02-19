@@ -57,6 +57,10 @@ $baseLineHeight: 22px;
 
 /* Performance scheduling */
 
+#draggable-container {
+  margin-bottom: 11px;
+}
+
 .draggable-performance {
   background-color: $draggable-background;
   cursor: move;

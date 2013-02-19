@@ -13,7 +13,7 @@
   <div class="day-column span2">
     <h4><%= l day, :format => :long %></h4>
     <div id="<%= day.to_s %>" class="droppable-timetable">
-      <div class="draggable-entries">
+      <div class="draggable-performances">
         <%= render partial: 'jmd/performances/draggable_performance',
                    collection: @performances.on_date(day).browsing_order, as: :performance %>
       </div>
@@ -27,7 +27,7 @@
       <span id="unschedule-text" style="display:none;">
         <%= icon_tag 'time_delete' %> Zeit entfernen
       </span>
-      <div class="draggable-entries">
+      <div class="draggable-performances">
         <%= render partial: 'jmd/performances/draggable_performance',
                    collection: @performances.on_date(nil).browsing_order, as: :performance %>
       </div>

@@ -25,7 +25,7 @@ $ ->
         dataType: 'script',
         context: $(this).closest('div'),
         complete: (request) ->
-          $('.draggable-performance').draggable('destroy').draggable(draggable_attributes)
+          $('.draggable-performance').draggable(draggable_attributes)
         ,
         url: '/jmd/performances/' + ui.draggable.attr('id') + '/retime'
       })

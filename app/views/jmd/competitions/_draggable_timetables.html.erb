@@ -1,41 +1,36 @@
 <div class="well">
-  <%= select "performance", "category_id", Category.current.collect {|p| [p.name, p.id]},
-             { include_blank: "Alle Kategorien" } %>
+  <form class="form-horizontal">
+    <% if @competition.days.count > 2 %>
+      <a href="#" id="earlier-button" class="btn">&larr; früher</a>
+      <a href="#" id="later-button" class="btn">später &rarr;</a>
+    <% end %>
+
+    <%= select "performance", "category_id", Category.current.collect {|p| [p.name, p.id]},
+               { include_blank: "Alle Kategorien" } %>
+  </form>
 </div>
 
-<div id="draggable-container" class="span8">
-  <% if @competition.days.count > 2 %>
-    <div>
-      <p>
-        <a href="#" id="earlier-button">&larr; Früher</a>
-        &middot;
-        <a href="#" id="later-button">Später &rarr;</a>
-      </p>
-    </div>
-  <% end %>
-
-  <% @competition.days.each do |day| %>
-  <div class="day-column span2">
-    <h4><%= l day, :format => :long %></h4>
-    <div id="<%= day.to_s %>" class="droppable-timetable">
-      <div class="draggable-performances">
-        <%= render partial: 'jmd/performances/draggable_performance',
-                   collection: @performances.on_date(day).browsing_order, as: :performance %>
-      </div>
+<% @competition.days.each do |day| %>
+<div class="day-column span3">
+  <h4><%= l day, :format => :long %></h4>
+  <div id="<%= day.to_s %>" class="droppable-timetable">
+    <div class="draggable-performances">
+      <%= render partial: 'jmd/performances/draggable_performance',
+                 collection: @performances.on_date(day).browsing_order, as: :performance %>
     </div>
   </div>
-  <% end %>
+</div>
+<% end %>
 
-  <div class="span2">
-    <h4 class="quiet">noch ohne Zeit</h4>
-    <div id="unscheduled" class="droppable-timetable">
-      <span id="unschedule-text" style="display:none;">
-        <%= icon_tag 'time_delete' %> Zeit entfernen
-      </span>
-      <div class="draggable-performances">
-        <%= render partial: 'jmd/performances/draggable_performance',
-                   collection: @performances.on_date(nil).browsing_order, as: :performance %>
-      </div>
+<div class="span2">
+  <h4 class="quiet">noch ohne Zeit</h4>
+  <div id="unscheduled" class="droppable-timetable">
+    <span id="unschedule-text" style="display:none;">
+      <%= icon_tag 'time_delete' %> Zeit entfernen
+    </span>
+    <div class="draggable-performances">
+      <%= render partial: 'jmd/performances/draggable_performance',
+                 collection: @performances.on_date(nil).browsing_order, as: :performance %>
     </div>
   </div>
 </div>

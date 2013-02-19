@@ -57,52 +57,44 @@ $baseLineHeight: 22px;
 
 /* Performance scheduling */
 
-#draggable-container {
-  margin-bottom: 11px;
-}
-
 .draggable-performance {
   background-color: $draggable-background;
   cursor: move;
+  font-size: 85%;
   min-height: 3px;
   opacity: 0.9;
   position: absolute;
   width: 100%;
   z-index: 1000;
-}
 
-.draggable-performance span {
-  margin: 0 3px;
-}
+  span {
+    margin: 0 3px;
+  }
 
-.draggable-performance-duration {
-  float: right;
+  .draggable-performance-duration {
+    float: right;
+  }
 }
 
 .droppable-timetable {
   background-color: $droppable-background;
   height: 1800px;
+  margin-bottom: 11px;
   position: relative;
-}
 
-#unscheduled-container {
-  background-color: #fff;
-  position: absolute;
-  right: 10px;
+  .drophover {
+    background-color: #ddd;
+  }
 }
 
 #unscheduled {
   height: 60px;
-}
 
-#unschedule-text {
-  color: #666;
-  display: block;
-  padding: 0.75em 0 0 0.75em;
-}
-
-.droppable-timetable.drophover {
-  background-color: #ddd;
+  #unschedule-text {
+    color: #666;
+    display: block;
+    padding: 0.75em 0 0 0.75em;
+  }
 }
 
 // Byline in footer

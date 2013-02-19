@@ -2,13 +2,11 @@ $ ->
   dayOffset = 0
 
   draggable_attributes = {
-    containment: '#draggable-container',
     grid: [1, 15],
     opacity: 0.7,
     revert: 'invalid',
     snap: '.droppable-timetable',
     snapMode: 'inner',
-    snapTolerance: 10,
     stack: '.draggable-performance'
   }
 
@@ -17,7 +15,10 @@ $ ->
   $('.droppable-timetable').droppable({
     accept: '.draggable-performance',
     hoverClass: 'drophover',
-    tolerance: 'fit',
+    tolerance: 'pointer',
+    over: (event, ui) ->
+      ui.draggable.width($(this).width())
+    ,
     drop: (event, ui) ->
       $.ajax({
         type: 'put',
@@ -25,7 +26,7 @@ $ ->
         dataType: 'script',
         context: $(this).closest('div'),
         complete: (request) ->
-          $('.draggable-performance').draggable(draggable_attributes)
+          $('.draggable-performance').draggable(draggable_attributes) # Re-enable dragging of performances
         ,
         url: '/jmd/performances/' + ui.draggable.attr('id') + '/retime'
       })

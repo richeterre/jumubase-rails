@@ -7,6 +7,7 @@ $ ->
     revert: 'invalid',
     snap: '.droppable-timetable',
     snapMode: 'inner',
+    snapTolerance: 10,
     stack: '.draggable-performance'
   }
 

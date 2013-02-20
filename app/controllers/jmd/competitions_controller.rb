@@ -43,12 +43,16 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
   # Schedule classical performance stage times
   def schedule_classical
-    @performances = @competition.performances.includes(:participants).classical.browsing_order
+    @performances = @competition.performances
+                                .includes(:predecessor, :participants)
+                                .classical.browsing_order
   end
 
   # Schedule popular performance stage times
   def schedule_popular
-    @performances = @competition.performances.includes(:participants).popular.browsing_order
+    @performances = @competition.performances
+                                .includes(:predecessor, :participants)
+                                .popular.browsing_order
   end
 
   # List performances that advance to the next round

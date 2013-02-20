@@ -130,7 +130,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     # Update entry time and date
     @performance.stage_time = time
-    @performance.save
+    @performance.save_without_timestamping # Consider retiming an admin operation
 
     # Respond only to Ajax requests
     respond_to do |format|

@@ -16,12 +16,14 @@
             (l @competition.certificate_date, format: :long) : "unbekannt" %></dd>
 </dl>
 
-<%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
-<%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
-<%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition),
-            class: "btn" %>
-<%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
-            class: "btn" %>
+<p>
+  <%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
+  <%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
+  <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition),
+              class: "btn" %>
+  <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
+              class: "btn" %>
+</p>
 
 <h3>Statistik</h3>
 
@@ -56,18 +58,20 @@
 <% if can? :manage, Competition %>
   <h3>Admin</h3>
 
-  <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition),
-              class: "btn" %>
+  <p>
+    <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition),
+                class: "btn" %>
 
-  <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
-              class: "btn" %>
+    <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
+                class: "btn" %>
 
-  <%= if @competition.can_be_advanced_from?
-      link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
-              class: "btn"
-      end %>
-  <%= if @competition.can_be_advanced_to?
-      link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
-              class: "btn btn-warning", confirm: "Soll(en) wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
-      end %>
+    <%= if @competition.can_be_advanced_from?
+        link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
+                class: "btn"
+        end %>
+    <%= if @competition.can_be_advanced_to?
+        link_to "Willkommensmails senden", welcome_advanced_jmd_competition_path,
+                class: "btn btn-warning", confirm: "Soll(en) wirklich #{@competition.participants.size} Teilnehmer benachrichtigt werden?"
+        end %>
+  </p>
 <% end %>

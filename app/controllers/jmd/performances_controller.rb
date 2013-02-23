@@ -17,14 +17,6 @@ class Jmd::PerformancesController < Jmd::BaseController
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
 
-  # List performances in the given competition
-  def index
-    @performances = apply_scopes(Performance).where(competition_id: @competition)
-                                             .accessible_by(current_ability)
-                                             .order("created_at DESC")
-                                             .paginate(page: params[:page], per_page: 15)
-  end
-
   # List current performances the user has access to
   def list_current
     @performances = apply_scopes(Performance).current
@@ -141,6 +133,15 @@ class Jmd::PerformancesController < Jmd::BaseController
   ####
   # The following actions are nested under competitions/{id}
 
+  # List performances in the given competition
+  def index
+    @performances = apply_scopes(Performance).where(competition_id: @competition)
+                                             .accessible_by(current_ability)
+                                             .order("created_at DESC")
+                                             .paginate(page: params[:page], per_page: 15)
+  end
+
+  # List performances for certificate printing
   def make_certificates
     # @competition is fetched by CanCan
 
@@ -152,6 +153,7 @@ class Jmd::PerformancesController < Jmd::BaseController
                                              .paginate(page: params[:page], per_page: 15)
   end
 
+  # List performances for jury sheet printing
   def make_jury_sheets
     # @competition is fetched by CanCan
 

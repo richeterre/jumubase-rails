@@ -189,7 +189,7 @@ Category.create([
     solo: false,
     ensemble: true,
     popular: false,
-    slug: "Duo Blä&Str",
+    slug: "AlteMusik",
     active: true
   },
   {
@@ -197,7 +197,7 @@ Category.create([
     solo: true,
     ensemble: false,
     popular: true,
-    slug: "PopGes",
+    slug: "PopGesang",
     active: true
   },
   {
@@ -205,7 +205,7 @@ Category.create([
     solo: true,
     ensemble: false,
     popular: true,
-    slug: "PopGit",
+    slug: "PopGitarre",
     active: true
   },
   {

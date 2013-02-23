@@ -23,6 +23,14 @@ class Category < ActiveRecord::Base
   # Show only categories currently marked as active (temporary workaround)
   scope :current, where('active' => true)
 
+  def self.classical
+    where(popular: false)
+  end
+
+  def self.popular
+    where(popular: true)
+  end
+
   has_and_belongs_to_many :competitions
 
   validates :name, :presence => true

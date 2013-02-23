@@ -5,7 +5,7 @@
       <a href="#" id="later-button" class="btn">später &rarr;</a>
     <% end %>
 
-    <%= select "performance", "category_id", Category.current.collect {|p| [p.name, p.id]},
+    <%= select "performance", "category_id", @categories.collect {|p| [p.name, p.id]},
                { include_blank: "Alle Kategorien" } %>
   </form>
 </div>

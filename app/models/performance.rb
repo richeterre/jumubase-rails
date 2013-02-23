@@ -95,13 +95,13 @@ class Performance < ActiveRecord::Base
 
   # Returns all performances in classical categories
   def self.classical
-    joins(:category).where('categories.popular = FALSE')
+    joins(:category).merge(Category.classical)
   end
 
   # Returns all performances in pop categories
   # (using "popular" here to steer clear of Ruby #pop method)
   def self.popular
-    joins(:category).where('categories.popular = TRUE')
+    joins(:category).merge(Category.popular)
   end
 
   # Returns all performances on a given date, or unschedule if not date given

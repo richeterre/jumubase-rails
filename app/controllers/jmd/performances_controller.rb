@@ -16,6 +16,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   has_scope :advanced_from_competition, only: filterable_actions
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
+  has_scope :on_date, only: filterable_actions
 
   # List current performances the user has access to
   def list_current
@@ -137,7 +138,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   def index
     @performances = apply_scopes(Performance).where(competition_id: @competition)
                                              .accessible_by(current_ability)
-                                             .order("created_at DESC")
+                                             .order(:stage_time)
                                              .paginate(page: params[:page], per_page: 15)
   end
 

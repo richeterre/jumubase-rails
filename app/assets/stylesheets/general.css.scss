@@ -55,6 +55,11 @@ $baseLineHeight: 22px;
   margin-bottom: 0; // If form encloses footer, remove margin that would appear below it
 }
 
+// Filter form
+.filter-form select {
+  margin-bottom: 1em;
+}
+
 /* Performance scheduling */
 
 .draggable-performance {

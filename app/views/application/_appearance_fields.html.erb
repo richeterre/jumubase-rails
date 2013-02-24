@@ -21,7 +21,8 @@
 
     <%= p.input :city %>
 
-    <%= p.input :country_id, collection: Country.all(:order => "name"), prompt: "Bitte wählen" %>
+    <%= p.input :country_id, collection: Country.all(:order => "name"), prompt: "Bitte wählen",
+                hint: "Gemeint ist das Land des Wohnorts, nicht die Staatsbürgerschaft." %>
 
     <%= p.input :phone %>
 

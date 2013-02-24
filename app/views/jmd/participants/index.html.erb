@@ -1,0 +1,31 @@
+<% provide(:title, "Teilnehmerliste") %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nachname</th>
+      <th>Vorname</th>
+      <th>Land</th>
+      <th>Auftritte</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @participants.each do |participant| %>
+      <tr>
+        <td><%= participant.last_name %></td>
+        <td><%= participant.first_name %></td>
+        <td><%= flag_tag participant.country.country_code %></td>
+        <td>
+          <%= participant.appearances.joins(:performance).where(performances: { competition_id: @competition }).size %>
+        </td>
+        <td>
+          <%= link_to_modal icon_tag("eye-open", title: "Teilnehmerdetails anzeigen"), :participant, participant.id %>
+        </td>
+      </tr>
+
+      <!-- Modal view for participant details (render here so no second loop is needed) -->
+      <%= render partial: "participant_modal", locals: { participant: participant } %>
+    <% end %>
+  </tbody>
+</table>

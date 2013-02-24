@@ -1,4 +1,4 @@
-<% provide(:title, "Teilnehmerliste") %>
+<% provide(:title, "Teilnehmer für #{@competition.name}") %>
 
 <p>
   <%= link_to "Wettbewerbsdetails anzeigen", jmd_competition_path(@competition), class: "btn" %>
@@ -13,7 +13,7 @@
       <th>Vorname</th>
       <th>Geburtsdatum</th>
       <th>Land</th>
-      <th>Auftritte</th>
+      <th>Kategorien</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -25,7 +25,11 @@
         <td><%= l participant.birthdate %></td>
         <td><%= flag_tag participant.country.country_code %></td>
         <td>
-          <%= participant.appearances.joins(:performance).where(performances: { competition_id: @competition }).size %>
+          <% participant.performances.in_competition(@competition).includes(:category).each do |performance| %>
+            <%= link_to performance.category.name, jmd_performance_path(performance) %><br>
+          <% end %>
+        </td>
+    </p>
         </td>
         <td>
           <%= link_to_modal icon_tag("eye-open", title: "Teilnehmerdetails anzeigen"), :participant, participant.id %>

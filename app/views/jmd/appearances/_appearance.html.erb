@@ -4,28 +4,5 @@
     <%= appearance.instrument.name %>
     <%= age_group_badge_tag(appearance) %> (* <%= l appearance.participant.birthdate %>)
 
-    <%= render layout: "modal", locals: { item_type: "participant", item_id: appearance.participant.id, title: appearance.participant.full_name } do %>
-      <div class="modal-body">
-        <p>
-          * <%= l appearance.participant.birthdate %>
-          <%= gender_symbol(appearance.participant.gender) %>
-        </p>
-        <p>
-          <% unless appearance.participant.street.blank? %>
-          <%= appearance.participant.street %><br />
-          <% end %>
-          <% unless appearance.participant.city.blank? %>
-          <%= appearance.participant.postal_code %>
-          <%= appearance.participant.city %>
-          <br />
-          <% end %>
-          <%= flag_tag(appearance.participant.country.country_code) %>
-        </p>
-        <p>Telefon: <%= appearance.participant.phone %></p>
-        <p><%= mail_to appearance.participant.email %></p>
-      </div>
-      <div class="modal-footer">
-        <%= link_to_close_modal "Schließen", class: "btn" %>
-      </div>
-    <% end %>
+    <%= render partial: "jmd/participants/participant_modal", locals: { participant: appearance.participant } %>
   <% end %>

@@ -6,7 +6,7 @@ class Jmd::ParticipantsController < Jmd::BaseController
 
   def index
     # @competition and @participants are fetched by CanCan
-    @participants = @participants.includes(:country)
+    @participants = @participants.includes(:country).order(:last_name)
   end
 
 end

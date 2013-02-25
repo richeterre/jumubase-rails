@@ -3,14 +3,14 @@
   <% if can? :manage, Performance %>
 
     <li class="nav-header">Verwalten</li>
-    <%= nav_link_to "Benutzer", jmd_users_path if can? :manage, User %>
-    <%= nav_link_to "Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
-    <%= nav_link_to "Aktuelle Vorspiele", list_current_jmd_performances_path %>
+    <%= nav_link_to icon_tag("user") + " Benutzer", jmd_users_path if can? :manage, User %>
+    <%= nav_link_to icon_tag("globe") + " Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
+    <%= nav_link_to icon_tag("time") + " Aktuelle Vorspiele", list_current_jmd_performances_path %>
 
   <% elsif can? :list_current, Performance %>
 
     <li class="nav-header">Einsehen</li>
-    <%= nav_link_to "Aktuelle Vorspiele", list_current_jmd_performances_path %>
+    <%= nav_link_to icon_tag("time") + " Aktuelle Vorspiele", list_current_jmd_performances_path %>
 
   <% end %>
 </ul>

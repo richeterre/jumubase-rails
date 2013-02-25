@@ -24,29 +24,33 @@
     <% @performances.each do |performance| %>
       <% appearances = performance.appearances.role_order %>
       <% appearances.each do |appearance| %>
-      <tr>
-        <% if appearance == appearances.first %>
-        <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
-        <% end %>
-        <td>
-          <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
-            <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+        <tr>
+          <% if appearance == appearances.first %>
+          <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
           <% end %>
-        </td>
-        <td><%= age_group_badge_tag(appearance) %></td>
-        <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
-        <td>
-          <%= appearance.prize %>
-          <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
-        </td>
-        <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id %></td>
-      </tr>
-
-      <!-- Render (invisible) point form modals here, so no second loop is needed -->
-      <%= render partial: "appearance_points_modal", locals: { appearance: appearance } %>
+          <td>
+            <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
+              <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+            <% end %>
+          </td>
+          <td><%= age_group_badge_tag(appearance) %></td>
+          <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
+          <td>
+            <%= appearance.prize %>
+            <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
+          </td>
+          <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id %></td>
+        </tr>
       <% end %>
     <% end %>
   </tbody>
 </table>
 
 <%= will_paginate @performances %>
+
+<!-- Render invisible point form modals (form breaks if rendered within table) -->
+<% @performances.each do |p| %>
+  <% p.appearances.each do |a| %>
+    <%= render partial: "appearance_points_modal", locals: { appearance: a } %>
+  <% end %>
+<% end %>

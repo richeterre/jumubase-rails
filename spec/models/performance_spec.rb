@@ -191,6 +191,10 @@ describe Performance do
     Performance.should respond_to(:popular)
   end
 
+  it "should respond_to :on_date" do
+    Performance.should respond_to(:on_date)
+  end
+
   it "should respond_to :stage_order" do
     Performance.should respond_to(:stage_order)
   end
@@ -217,6 +221,8 @@ describe Performance do
 
   it "should return all popular categories' performances"
 
+  it "should return all performances on a given date"
+
   it "should correctly construct a chain of conditions"
 
   it "should order performances by stage time"
@@ -229,6 +235,8 @@ describe Performance do
 
   # Convenience methods
 
+  it { should respond_to(:associated_host) }
+  it { should respond_to(:associated_country) }
   it { should respond_to(:soloist) }
   it { should respond_to(:accompanists) }
   it { should respond_to(:age_group) }
@@ -236,6 +244,12 @@ describe Performance do
   it { should respond_to(:rounded_duration) }
   it { should respond_to(:rounded_end_time) }
   it { should respond_to(:advances_to_next_round?) }
+
+  it "should return the associated host" do
+    # This should be its own competition host or that of its predecessor, depending on round
+  end
+
+  it "should return the associated country"
 
   it "should return the soloist participant, if any"
 

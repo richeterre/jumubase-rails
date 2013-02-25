@@ -37,8 +37,8 @@ end
       stage_time = l performance.stage_time, :format => :short
     end
     # Display host of performance's first competition round, if applicable
-    if performance.competition.round.level == 2
-      pdf.text_box performance.first_competition.host.name + "\n#{stage_time}", :at => [250, pdf.bounds.bottom + 2 * pdf.font.height], :align => :right
+    if performance.predecessor
+      pdf.text_box performance.predecessor.associated_host.name + "\n#{stage_time}", :at => [250, pdf.bounds.bottom + 2 * pdf.font.height], :align => :right
     end
 
     pdf.stroke do

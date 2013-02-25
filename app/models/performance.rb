@@ -117,24 +117,6 @@ class Performance < ActiveRecord::Base
     end
   end
 
-  # Returns all performances with at least one participant from a listed country
-  scope :from_countries, lambda { |countries|
-    joins(:participants).
-    where(participants: { country_id: countries }).
-    group("performances.id")
-  }
-
-  # Returns all performances sent on from a given host
-  scope :from_host, lambda { |host_id|
-    joins(:first_competition).
-    where(competitions: { host_id: host_id })
-  }
-
-  # Returns all performances with given venue as either warmup or stage
-  scope :at_venue, lambda { |venue|
-    where("warmup_venue_id = ? OR stage_venue_id = ?", venue, venue)
-  }
-
   # Orders performances chronologically by stage date
   def self.stage_order
     order(:stage_time)
@@ -146,16 +128,21 @@ class Performance < ActiveRecord::Base
     .order('categories.popular, categories.solo DESC, categories.name, performances.age_group')
   end
 
-  # Return the country the performance is associated with
-  def associated_country
+  # Return the host the performance is associated with
+  def associated_host
     case self.competition.round.level
     when 1
-      self.competition.host.country
+      self.competition.host
     when 2
       if self.predecessor
-        self.predecessor.competition.host.country
+        self.predecessor.competition.host
       end
     end
+  end
+
+  # Return the country the performance is associated with
+  def associated_country
+    self.associated_host.country
   end
 
   # Return participant of performance that has a soloist role

@@ -1,35 +1,3 @@
 <% provide(:title, "Vorspielplan Klassik") %>
 
-<h3><%= l @date, format: :full %></h3>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Zeit</th>
-      <th>Kategorie</th>
-      <th>Altersgruppe</th>
-      <th>Teilnehmer</th>
-      <th>Land</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @performances.each do |performance| %>
-      <tr>
-        <td><%= l performance.stage_time, format: :time %></td>
-        <td><%= performance.category.name %></td>
-        <td><%= info_badge_tag(performance.age_group, :info) %></td>
-        <td>
-          <% performance.appearances.role_order.each do |appearance| %>
-            <span class="<%= "muted" if appearance.accompaniment? %>">
-              <%= appearance.participant.full_name %>,
-              <%= appearance.instrument.name %>
-              <%= age_group_badge_tag(appearance) if appearance.age_group != performance.age_group %>
-            </span>
-            <br />
-          <% end %>
-        </td>
-        <td><%= flag_tag(performance.associated_country.try(:country_code)) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'timetable' %>

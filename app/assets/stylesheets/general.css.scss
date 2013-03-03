@@ -56,7 +56,9 @@ $baseLineHeight: 22px;
 }
 
 // Filter form
-.filter-form select {
+.filter-form select,
+.filter-form input,
+.filter-form .btn {
   margin-bottom: 1em;
 }
 

@@ -90,7 +90,7 @@ class Performance < ActiveRecord::Base
 
   # Returns all performances in given genre
   def self.in_genre(popular)
-    popular == 1 ? popular : classical
+    popular == "1" ? self.popular : self.classical
   end
 
   # Returns all performances in classical categories

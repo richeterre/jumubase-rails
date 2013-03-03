@@ -5,6 +5,9 @@
           { selected: params[:on_date], include_blank: "Alle Tage" }, class: "span2" %>
   <% end %>
 
+  <%= select nil, :in_genre, [["Klassik", 0], ["Pop", 1]],
+      { selected: params[:in_genre], include_blank: "Klassik & Pop" } %>
+
   <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
 
@@ -16,18 +19,18 @@
     <% else %>
       <%= select nil, :advanced_from_competition,
             Competition.accessible_by(current_ability).preceding.collect { |c| [c.name, c.id] },
-            { selected: params[:advanced_from_competition], include_blank: "Alle RW" } %>
+            { selected: params[:advanced_from_competition], include_blank: "Alle Regionalwettbewerbe" },
+            class: "span3" %>
     <% end %>
   <% elsif @competition.round.level == 2 %>
     <%= select nil, :advanced_from_competition,
           Competition.accessible_by(current_ability).seasonal_with_level(1).collect { |c| [c.name, c.id] },
-          { selected: params[:advanced_from_competition], include_blank: "Alle RW" } %>
+          { selected: params[:advanced_from_competition], include_blank: "Alle Regionalwettbewerbe" },
+          class: "span3" %>
   <% end %>
 
   <%= select nil, :in_age_group, JUMU_AGE_GROUPS,
-      { selected: params[:in_age_group], include_blank: "Alle AG" }, class: "span2" %>
-
-  <br />
+      { selected: params[:in_age_group], include_blank: "Alle Altersgruppen" }, class: "span2" %>
 
   <%= submit_tag "Filtern", class: (filter_active? ? "btn btn-warning" : "btn") %>
   <%= link_to "Alle anzeigen", path, class: "btn" %>

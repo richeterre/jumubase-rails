@@ -13,4 +13,11 @@
     <%= nav_link_to icon_tag("time") + " Aktuelle Vorspiele", list_current_jmd_performances_path %>
 
   <% end %>
+
+  <% if can? :manage, Competition %>
+    <li class="nav-header">Aktuelle Wettbewerbe</li>
+    <% Competition.current.each do |competition| %>
+      <%= nav_link_to competition.name, jmd_competition_path(competition) %>
+     <% end %>
+  <% end %>
 </ul>

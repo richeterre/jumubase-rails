@@ -22,11 +22,11 @@ class CompetitionsController < ApplicationController
       end
 
 
-      lw_competition = Competition.seasonal_with_level(2).first
-      @performances = lw_competition.performances
-                                    .where("performances.stage_time IS NOT NULL")
-                                    .includes(:category, :competition, :predecessor)
-                                    .stage_order
-                                    .on_date(@date)
+      @lw_competition = Competition.seasonal_with_level(2).first
+      @performances = @lw_competition.performances
+                                     .where("performances.stage_time IS NOT NULL")
+                                     .includes(:category, :competition, :predecessor)
+                                     .stage_order
+                                     .on_date(@date)
     end
 end

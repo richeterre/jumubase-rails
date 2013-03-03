@@ -1,3 +1,11 @@
+<div class="well">
+  <% @lw_competition.days.each do |competition_day| %>
+    <%= link_to l(competition_day, format: :full),
+                params.merge(year: competition_day.year, month: competition_day.month, day: competition_day.mday),
+                class: "btn" %>
+  <% end %>
+</div>
+
 <h3><%= l @date, format: :full %></h3>
 
 <table class="table table-striped">

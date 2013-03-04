@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="icon" type="image/x-icon" sizes="16x16" href="/favicon.ico" />
+  <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon_32x32.ico" />
+
+  <%= render 'analytics' %>
+</head>
+<body>
+  <div id="wrap">
+    <header class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">
+            <%= image_tag "jumuball_header.png", id: "header-logo" %> JuMu Nordost: Zeitplan
+            <% if Rails.env.development? %>(Dev)<% end %>
+          </a>
+        </div>
+      </div>
+    </header>
+    <div class="container bare">
+      <div class="row">
+        <div class="span12">
+          <%= render 'layouts/flash_messages' %>
+          <h2><%= yield :title %></h2>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <div id="push"></div>
+  </div>
+  <%= debug(params) if Rails.env.development? %>
+</body>
+</html>
+

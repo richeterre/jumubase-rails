@@ -2,6 +2,7 @@
 class CompetitionsController < ApplicationController
 
   before_filter :get_performances_for_current_lw
+  layout :set_layout
 
   def classical_schedule
     @performances = @performances.classical
@@ -28,5 +29,9 @@ class CompetitionsController < ApplicationController
                                      .includes(:category, :competition, :predecessor)
                                      .stage_order
                                      .on_date(@date)
+    end
+
+    def set_layout
+       (params[:bare] == "yes") ? "bare_timetable" : "application"
     end
 end

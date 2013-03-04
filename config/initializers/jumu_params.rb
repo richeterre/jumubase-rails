@@ -33,7 +33,7 @@ JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 JUMU_SIGNUP_OPEN = true
 
 # Whether timetables for the above round are public
-JUMU_TIMETABLES_PUBLIC = false
+JUMU_TIMETABLES_PUBLIC = true
 
 # The 2nd round host
 JUMU_HOST = "DS Moskau"

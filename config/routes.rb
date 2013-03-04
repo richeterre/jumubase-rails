@@ -31,7 +31,8 @@ Jmd::Application.routes.draw do
 
   # Routes for venue timetables
   if JUMU_TIMETABLES_PUBLIC
-    match 'venues/:venue_id/timetable(/:year-:month-:day)', to: 'venues#timetable', as: :timetable
+    match 'zeitplan/klassik/:year-:month-:day', to: 'competitions#classical_schedule', as: :classical_schedule
+    match 'zeitplan/pop/:year-:month-:day', to: 'competitions#popular_schedule', as: :popular_schedule
   end
 
   # Routes for signup and performance editing, if currently possible

@@ -1,16 +1,8 @@
 <% provide(:title, "Landeswettbewerb #{JUMU_YEAR} an der #{JUMU_HOST}") %>
 
-<p class="alert alert-info">Diese Seite enthält unvollständige Informationen und wird laufend nach Möglichkeit aktualisiert.</p>
-
-<%= link_to image_tag("logo_lw2013.png", id: "lw-logo", class: "pull-right"), "http://www.jumu-moskau.com" %>
-
-<h3>Tip: Infoseite der DS Moskau</h3>
-
-Unter der Adresse <%= link_to "www.jumu-moskau.com", "http://www.jumu-moskau.com" %> hat das JuMu-Team von der DS Moskau Wissenswertes zum Rahmenprogramm, den Konzerten und natürlich der Stadt Moskau zusammengestellt. Alles, was mit dem eigentlichen Wettbewerb zu tun hat, findet ihr auch weiterhin hier bei JuMu Nordost.
+<p class="alert alert-info">Diese Seite enthält aktuelle Informationen und wird laufend nach Möglichkeit aktualisiert.</p>
 
 <h3>Zeitplan</h3>
-
-<p><span class="label label-important">Wichtig</span> Der genaue Vorspielplan wird erst kurz vor dem Wettbewerb erstellt und kann sich auch danach noch ändern. Außerdem ist das Anhören anderer Wertungsspiele und die Teilnahme an Workshops und Konzerten ein zentraler Gedanke von “Jugend musiziert”. Daher bitten wir alle Teilnehmer, zumindest <strong>während der gesamten Wettbewerbstage, also vom 7. bis 9.&nbsp;März</strong> in Moskau zu sein!</p>
 
 <table class="table table-bordered">
   <thead>
@@ -26,9 +18,27 @@ Unter der Adresse <%= link_to "www.jumu-moskau.com", "http://www.jumu-moskau.com
   <tbody>
     <tr>
       <td>Anreise</td>
-      <td>Wertungsspiele</td>
-      <td>Wertungsspiele</td>
-      <td>Wertungsspiele</td>
+      <td>
+        Wertungsspiele:
+        <br>
+        <%= link_to "Klassik", "/zeitplan/klassik/2013-03-07" %>
+        /
+        <%= link_to "Pop", "/zeitplan/pop/2013-03-07" %>
+      </td>
+      <td>
+        Wertungsspiele:
+        <br>
+        <%= link_to "Klassik", "/zeitplan/klassik/2013-03-08" %>
+        /
+        <%= link_to "Pop", "/zeitplan/pop/2013-03-08" %>
+      </td>
+      <td>
+        Wertungsspiele:
+        <br>
+        <%= link_to "Klassik", "/zeitplan/klassik/2013-03-09" %>
+        /
+        <%= link_to "Pop", "/zeitplan/pop/2013-03-09" %>
+      </td>
       <td>Abschlusskonzert</td>
       <td class="muted" rowspan="4">Abreise</td>
     </tr>
@@ -49,3 +59,8 @@ Unter der Adresse <%= link_to "www.jumu-moskau.com", "http://www.jumu-moskau.com
   </tbody>
 </table>
 
+<%= link_to image_tag("logo_lw2013.png", id: "lw-logo", class: "pull-right"), "http://www.jumu-moskau.com" %>
+
+<h3>Tip: Infoseite der DS Moskau</h3>
+
+Unter der Adresse <%= link_to "www.jumu-moskau.com", "http://www.jumu-moskau.com" %> hat das JuMu-Team von der DS Moskau Wissenswertes zum Rahmenprogramm, den Konzerten und natürlich der Stadt Moskau zusammengestellt. Alles, was mit dem eigentlichen Wettbewerb zu tun hat, findet ihr auch weiterhin hier bei JuMu Nordost.

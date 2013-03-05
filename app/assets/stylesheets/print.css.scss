@@ -5,4 +5,8 @@
   .inline-flag {
     display: none;
   }
+
+  a[href]:after {
+    content: none !important;
+  }
 }

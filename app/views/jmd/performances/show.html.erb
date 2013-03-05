@@ -1,11 +1,15 @@
 <% provide(:title, "Vorspieldetails") %>
 
-<%= flag_tag @performance.competition.host.country.country_code %>
-<%= @performance.competition.name %>
-<br />
-<%= @performance.category.name %>
-<br />
-Änderungscode: <code><%= @performance.tracing_code %></code>
+<p>
+  <%= flag_tag @performance.competition.host.country.country_code %>
+  <%= @performance.competition.name %>
+  <br />
+  Kategorie: <%= @performance.category.name %>
+  <br />
+  Änderungscode: <code><%= @performance.tracing_code %></code>
+</p>
+
+<p><%= l @performance.stage_time if @performance.stage_time %></p>
 
 <h3>Teilnehmer</h3>
 
@@ -28,5 +32,7 @@
 
 <p><i>Gesamtdauer: <%= format_duration(@performance.duration) %></i></p>
 
-<%= link_to "Vorspiel bearbeiten", edit_jmd_performance_path(@performance), class: "btn" %>
-<%= link_to "Alle Vorspiele des Wettbewerbs", jmd_competition_performances_path(@performance.competition), class: "btn" %>
+<p>
+  <%= link_to "Vorspiel bearbeiten", edit_jmd_performance_path(@performance), class: "btn" %>
+  <%= link_to "Alle Vorspiele des Wettbewerbs", jmd_competition_performances_path(@performance.competition), class: "btn" %>
+</p>

@@ -1,4 +1,4 @@
-<p class="muted">Stand: <%= l Time.now, format: :short %></p>
+<p class="muted">Stand: <%= l Time.now.in_time_zone(@lw_competition.host.time_zone), format: :short %></p>
 
 <div class="well timetable-controls">
   <% @lw_competition.days.each do |competition_day| %>
@@ -38,7 +38,7 @@
       <% end %>
 
       <!-- Insert performance row -->
-      <tr>
+      <tr data-stage-time="<%= performance.stage_time.utc.iso8601 %>">
         <td><%= l performance.stage_time, format: :time %></td>
         <td><%= performance.category.name %></td>
         <td><%= info_badge_tag(performance.age_group, :info) %></td>

@@ -9,6 +9,8 @@
     <dd><%= @competition.round.name %></dd>
   <dt>Schule</dt>
     <dd><%= @competition.host.name %> <%= flag_tag(@competition.host.country.country_code) %></dd>
+  <dt>Zeitzone</dt>
+    <dd><%= @competition.host.time_zone %></dd>
   <dt>Dauer</dt>
     <dd><%= "#{l @competition.begins, format: :long} – #{l @competition.ends, format: :long}" %></dd>
   <dt>Urkundenvergabe</dt>

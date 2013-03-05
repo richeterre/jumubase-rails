@@ -1,4 +1,6 @@
-<div class="well">
+<p class="muted">Stand: <%= l Time.now, format: :short %></p>
+
+<div class="well timetable-controls">
   <% @lw_competition.days.each do |competition_day| %>
     <%= link_to l(competition_day, format: :full),
                 params.merge(year: competition_day.year, month: competition_day.month, day: competition_day.mday),

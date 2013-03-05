@@ -1,0 +1,8 @@
+// Styles that apply only when printing
+
+@media print {
+  .timetable-controls,
+  .inline-flag {
+    display: none;
+  }
+}

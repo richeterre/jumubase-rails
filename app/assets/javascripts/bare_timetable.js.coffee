@@ -5,20 +5,21 @@ jumpToCurrent = ->
     $(this).attr("data-stage-time") < timestamp
   ).last()
 
-  lastOfThePast.scrollTo() if lastOfThePast.length > 0
+  if lastOfThePast.length > 0
+    scrollAmount = lastOfThePast.offset().top - $(".navbar-fixed-top").height() - 5
+  else
+    scrollAmount = 0
+
+  console.log "Scroll amount: " + scrollAmount
+
+  $('html, body').scrollTop(scrollAmount)
 
 $ ->
-  $.fn.scrollTo = ->
-    $('html, body').animate({
-      scrollTop: $(this).offset().top - $(".navbar-fixed-top").height() - 5 + 'px'
-    }, 'slow')
-    return this
-
   if (window.location.hash == "#autoreload")
-    # window.setInterval ->
-    #   document.location.reload(true)
-    # , 10000
+    window.setInterval ->
+      document.location.reload(true)
+    , 3000000 # every 5 minutes
 
     window.setInterval ->
       jumpToCurrent()
-    , 1000
+    , 2000 # every 2 seconds

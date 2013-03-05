@@ -9,9 +9,9 @@
 
   <%=
     if (params[:bare] != "yes")
-      link_to "Vollbild an", params.merge(bare: :yes), class: "btn btn-info pull-right"
+      link_to icon_tag("resize-full"), params.merge(bare: :yes), class: "btn pull-right"
     else
-      link_to "Vollbild aus", params.merge(bare: nil), class: "btn btn-info pull-right"
+      link_to icon_tag("resize-small"), params.merge(bare: nil), class: "btn pull-right"
     end
   %>
 </div>

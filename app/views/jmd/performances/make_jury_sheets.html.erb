@@ -17,6 +17,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th>Zeit</th>
       <th>Kategorie</th>
       <th>Teilnehmer</th>
       <th>AG</th>
@@ -28,6 +29,9 @@
       <% appearances.each do |appearance| %>
       <tr>
         <% if appearance == appearances.first %>
+        <td rowspan="<%= performance.appearances.length %>">
+          <%= l performance.stage_time, format: :short if performance.stage_time %>
+        </td>
         <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
         <% end %>
         <td>

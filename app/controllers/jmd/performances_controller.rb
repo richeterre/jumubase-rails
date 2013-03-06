@@ -151,7 +151,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     @performances = apply_scopes(Performance).where(competition_id: @competition)
                                              .accessible_by(current_ability)
-                                             .browsing_order
+                                             .order(:stage_time)
                                              .paginate(page: params[:page], per_page: 15)
   end
 
@@ -163,7 +163,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
     @performances = apply_scopes(Performance).where(competition_id: @competition)
                                              .accessible_by(current_ability)
-                                             .browsing_order
+                                             .order(:stage_time)
                                              .paginate(page: params[:page], per_page: 15)
   end
 end

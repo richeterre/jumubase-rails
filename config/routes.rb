@@ -10,6 +10,7 @@ Jmd::Application.routes.draw do
       resources :performances, only: :index do
         get 'make_certificates', on: :collection
         get 'make_jury_sheets', on: :collection
+        get 'make_result_sheets', on: :collection
       end
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member

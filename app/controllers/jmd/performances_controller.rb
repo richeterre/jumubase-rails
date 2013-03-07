@@ -2,8 +2,10 @@
 class Jmd::PerformancesController < Jmd::BaseController
   include PerformancesHelper
 
-  filterable_actions = [:index, :list_current, :make_certificates, :make_jury_sheets]
-  nested_actions = [:index, :make_certificates, :make_jury_sheets] # Routes are nested under Competition
+  filterable_actions = [:index, :list_current, :make_certificates, :make_jury_sheets, :make_result_sheets]
+
+  # Actions that are routed as nested under Competition
+  nested_actions = [:index, :make_certificates, :make_jury_sheets, :make_result_sheets]
 
   load_and_authorize_resource :competition, only: nested_actions
   load_and_authorize_resource :performance, except: nested_actions
@@ -165,5 +167,16 @@ class Jmd::PerformancesController < Jmd::BaseController
                                              .accessible_by(current_ability)
                                              .order(:stage_time)
                                              .paginate(page: params[:page], per_page: 15)
+  end
+
+  # List performances for result sheet printing
+  def make_result_sheets
+    # @competition is fetched by CanCan
+
+    # Define params for PDF output
+    prawnto filename: "ergebnisliste#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
+    @performances = apply_scopes(Performance).where(competition_id: @competition)
+                                             .accessible_by(current_ability)
+                                             .order(:stage_time)
   end
 end

@@ -1,17 +1,25 @@
 <% provide(:title, "Ergebnislisten erstellen") %>
 
-<%= render 'filter_form', path: make_result_sheets_jmd_competition_performances_path(@competition) %>
+<%= form_tag make_result_sheets_jmd_competition_performances_path(@competition),
+             method: :get, class: "filter-form form-search well" do %>
 
-<%= @performances %>
+  <%= select nil, :category_id, Category.current.collect { |c| [c.name, c.id] },
+      { selected: params[:category_id], include_blank: "Kategorie" } %>
+
+  <%= select nil, :age_group, JUMU_AGE_GROUPS,
+      { selected: params[:age_group], include_blank: "Altersgruppe" }, class: "span2" %>
+
+  <%= submit_tag "Filtern", class: "btn btn-warning" %>
+<% end %>
 
 <p>
   <% size = @performances.size %>
   <strong><%= size %></strong> <%= t('activerecord.models.performance', count: size) %>
-  <%= info_label_tag("Filter aktiv", :warning) if filter_active? %>
+  <%= info_label_tag("Filter aktiv", :warning) %>
 </p>
 
 <p>
-  <%= link_to "Ergebnislisten ausgeben", params.merge(format: :pdf),
+  <%= link_to "Ergebnisliste ausgeben", params.merge(format: :pdf),
               class: "btn btn-primary" unless @performances.empty? %>
 </p>
 

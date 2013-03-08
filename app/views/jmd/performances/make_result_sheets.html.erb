@@ -1,3 +1,59 @@
-<h2>Ergebnislisten erstellen</h2>
+<% provide(:title, "Ergebnislisten erstellen") %>
 
-<p><%= link_to "Ergebnislisten ausgeben", params.merge(:format => :pdf) %></p>
+<%= form_tag make_result_sheets_jmd_competition_performances_path(@competition),
+             method: :get, class: "filter-form form-search well" do %>
+
+  <%= select nil, :category_id, Category.current.collect { |c| [c.name, c.id] },
+      { selected: params[:category_id], include_blank: "Kategorie" } %>
+
+  <%= select nil, :age_group, JUMU_AGE_GROUPS,
+      { selected: params[:age_group], include_blank: "Altersgruppe" }, class: "span2" %>
+
+  <%= submit_tag "Filtern", class: "btn btn-warning" %>
+<% end %>
+
+<p>
+  <% size = @performances.size %>
+  <strong><%= size %></strong> <%= t('activerecord.models.performance', count: size) %>
+  <%= info_label_tag("Filter aktiv", :warning) %>
+</p>
+
+<p>
+  <%= link_to "Ergebnisliste ausgeben", params.merge(format: :pdf),
+              class: "btn btn-primary" unless @performances.empty? %>
+</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Kategorie</th>
+      <th>Teilnehmer</th>
+      <th>AG</th>
+      <th>Punkte</th>
+      <th>Preis</th>
+    </tr>
+  </thead>
+  <tbody id="appearance-rows">
+    <% @performances.each do |performance| %>
+      <% appearances = performance.appearances.role_order %>
+      <% appearances.each do |appearance| %>
+      <tr>
+        <% if appearance == appearances.first %>
+        <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
+        <% end %>
+        <td>
+          <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
+            <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+          <% end %>
+        </td>
+        <td><%= age_group_badge_tag(appearance) %></td>
+        <td><%= info_badge_tag(appearance.points.to_s, :important) if appearance.points %></td>
+        <td>
+          <%= appearance.prize %>
+          <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

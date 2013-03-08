@@ -8,6 +8,8 @@ class Jmd::AppearancesController < Jmd::BaseController
   has_scope :advanced_from_competition, only: :index
   has_scope :in_category, only: :index
   has_scope :in_age_group, only: :index
+  has_scope :on_date, only: :index
+  has_scope :in_genre, only: :index
 
   def index
     authorize! :update, Performance # Users can see points only if authorized to change them

@@ -51,10 +51,10 @@ pdf.font_families.update(
           pdf.text "teilgenommen"
         end
 
-        if appearance.ensemble?
+        if appearance.points && appearance.ensemble?
           pdf.text "und erreichten <i>#{appearance.points || '___'} Punkte</i>.",
               :inline_format => true
-        else
+        elsif appearance.points
           pdf.text "und erreichte <i>#{appearance.points || '___'} Punkte</i>.",
               :inline_format => true
         end

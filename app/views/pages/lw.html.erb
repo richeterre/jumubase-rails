@@ -1,6 +1,20 @@
 <% provide(:title, "Landeswettbewerb #{JUMU_YEAR} an der #{JUMU_HOST}") %>
 
-<p class="alert alert-info">Diese Seite enthält aktuelle Informationen und wird laufend nach Möglichkeit aktualisiert.</p>
+<h3>Ergebnisse</h3>
+
+<p>Die Ergebnislisten (nach Kategorie und Altersgruppe geordnet) können hier heruntergeladen werden:</p>
+
+<p>
+  <%= icon_tag "file" %>
+  <%= link_to "Ergebnisliste Klassik (238 KB, PDF)", asset_path('LW2013_Ergebnisse_Klassik.pdf') %>
+</p>
+
+<p>
+  <%= icon_tag "file" %>
+  <%= link_to "Ergebnisliste Pop (98 KB, PDF)", asset_path('LW2013_Ergebnisse_Pop.pdf') %>
+</p>
+
+</ul>
 
 <h3>Zeitplan</h3>
 

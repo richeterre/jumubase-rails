@@ -48,18 +48,12 @@ class Jmd::PerformancesController < Jmd::BaseController
     end
   end
 
-  # Creates a new performance upon signup form submission
   def create
     # @performance is built and populated from attributes by CanCan
 
     if @performance.save
-      # Send out confirmation emails with edit code
-      @performance.participants.each do |participant|
-        ParticipantMailer.signup_confirmation(participant, @performance).deliver
-      end
-
       flash[:success] = "Das Vorspiel wurde erstellt."
-      redirect_to jmd_competition_performances_path(@performance.competition)
+      redirect_to jmd_performance_path(@performance)
     else
       # Here, too, set available competitions to choose from
       @competitions = Competition.accessible_by(current_ability)
@@ -80,7 +74,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
-      redirect_to jmd_competition_performances_path(@performance.competition)
+      redirect_to jmd_performance_path(@performance)
     else
       # Here, too, set available competitions to choose from
       @competitions = Competition.accessible_by(current_ability)

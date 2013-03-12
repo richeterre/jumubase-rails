@@ -26,6 +26,22 @@ JUMU_PRIZE_POINT_RANGES = [
   }
 ]
 
+# The point ranges for the different predicates
+JUMU_PREDICATE_POINT_RANGES = [
+  # First round:
+  {
+    "mit gutem Erfolg teilgenommen" => 9..12,
+    "mit Erfolg teilgenommen" => 5..8,
+    "teilgenommen" => 0..4
+  },
+  # Second round:
+  {
+    "mit gutem Erfolg teilgenommen" => 14..16,
+    "mit Erfolg teilgenommen" => 11..13,
+    "teilgenommen" => 0..10
+  }
+]
+
 # Possible age group values
 JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 

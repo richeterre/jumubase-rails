@@ -114,18 +114,37 @@ class Appearance < ActiveRecord::Base
     end
   end
 
-  # Returns the achieved prize's name
+  # Returns the achieved prize's name, or nil if none
   def prize
-    # Get prize point ranges for the appearance's competition round
-    prize_point_ranges = JUMU_PRIZE_POINT_RANGES[self.performance.competition.round.level - 1]
-    # Try to match points to a prize range
-    prize_point_ranges.each do |prize, point_range|
+    # Try to match points to a prize range for the competition round
+    JUMU_PRIZE_POINT_RANGES[self.performance.competition.round.level - 1].each do |prize, point_range|
       if point_range.include?(self.points)
         return prize
       end
     end
     # Points not found in any prize range
     return nil
+  end
+
+  # Return the achieved predicate's name, or nil if none
+  def predicate
+    # Try to match points to a predicate range for the competition round
+    JUMU_PREDICATE_POINT_RANGES[self.performance.competition.round.level - 1].each do |predicate, point_range|
+      if point_range.include?(self.points)
+        return predicate
+      end
+    end
+    # Points not found in any predicate range
+    return nil
+  end
+
+  # Returns the prize or predicate name, if any
+  def prize_or_predicate
+    if self.points.nil?
+      return nil
+    else
+      return self.prize || self.predicate
+    end
   end
 
   # Return whether the participant fulfills the necessary conditions for advancing

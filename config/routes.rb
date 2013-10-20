@@ -59,9 +59,6 @@ Jmd::Application.routes.draw do
 
   root to: 'pages#home'
 
-  # Legacy paths
-  match '/ausschreibung', to: redirect('/regeln')
-
   # Handling 404s
   match '*a', to: 'pages#not_found'
 end

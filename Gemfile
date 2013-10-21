@@ -46,7 +46,7 @@ group :test do
 end
 
 group :production do
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', '3.5.5.38'
 end
 
 # To use ActiveModel has_secure_password

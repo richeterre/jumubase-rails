@@ -33,6 +33,7 @@ class Category < ActiveRecord::Base
 
   has_and_belongs_to_many :competitions
 
-  validates :name, :presence => true
+  validates :name, presence: true
+  validates :slug, presence: true
   # Check that either solo, ensemble or both are true – how?
 end

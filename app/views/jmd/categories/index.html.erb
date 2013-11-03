@@ -1,10 +1,13 @@
 <% provide(:title, "Kategorien verwalten") %>
 
+<%= link_to "Neue Kategorie erstellen", new_jmd_category_path, class: "btn" %>
+
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
       <th>Kürzel</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +15,10 @@
       <%= content_tag("tr", class: category.active? ? nil : "muted") do %>
         <td><%= category.name %></td>
         <td><%= category.slug %></td>
+        <td>
+          <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category) %>
+          <%= link_to icon_tag("remove", title: "Diese Kategorie löschen"), jmd_category_path(category), method: :delete, :confirm => "Soll die Kategorie #{category.name} wirklich gelöscht werden?" %>
+        </td>
       <% end %>
     <% end %>
   </tbody>

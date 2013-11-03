@@ -1,0 +1,18 @@
+<% provide(:title, "Kategorien verwalten") %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Kürzel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <%= content_tag("tr", class: category.active? ? nil : "muted") do %>
+        <td><%= category.name %></td>
+        <td><%= category.slug %></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

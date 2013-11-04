@@ -18,7 +18,7 @@ class Category < ActiveRecord::Base
   attr_accessible :name, :solo, :ensemble, :popular, :slug, :active
 
   # By default, show classical before pop, solo before ensemble
-  default_scope :order => 'popular, solo DESC, name'
+  default_scope order: 'popular, solo DESC, ensemble DESC, name'
 
   # Show only categories currently marked as active (temporary workaround)
   scope :current, where('active' => true)

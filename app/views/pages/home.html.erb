@@ -17,16 +17,22 @@
 <p class="lead">Herzlich willkommen! Auf diesen Seiten findest du Infos zu folgenden Themen:</p>
 
 <div class="row">
-  <div class="span3">
+  <div class="span4">
     <h3>Teilnahme</h3>
     <p>Die Regeln zur Teilnahme an “Jugend musiziert” stehen in der <%= link_to "Ausschreibung", asset_path('Ausschreibung_2014.pdf') %>. Außerdem gibt es die <%= link_to "Sonderkategorien", rules_path %> Pop und KiMu.</p>
   </div>
-  <div class="span3">
+  <div class="span4 offset1">
+    <h3>Anmeldung</h3>
+    <p>Das <%= link_to "Anmeldeformular", new_performance_path %> für den Wettbewerb 2014 ist jetzt freigeschaltet. Anmeldeschluss ist der <strong>15.&nbsp;Dezember</strong> (an den Schulen in Dublin, Oslo und Stockholm bereits am <strong>1.&nbsp;Dezember</strong>).</p>
+  </div>
+</div>
+<div class="row">
+  <div class="span4">
+    <h3>Hintergründe</h3>
+    <p>Hier findest du eine kurze <%= link_to "Vorstellung", competition_path %> des Wettbewerb “Jugend musiziert” sowie der einzelnen <%= link_to "Gremien", organisation_path %>.</p>
+  </div>
+  <div class="span4 offset1">
     <h3>Kopenhagen 2014</h3>
     <p>Der Landeswettbewerb 2014 findet vom 19. bis 24. März an der <a href="http://sanktpetriskole.dk/">Deutschen Schule Kopenhagen</a> statt.</p>
-  </div>
-  <div class="span3">
-    <h3>Allgemeines</h3>
-    <p>Hier findest du eine kurze <%= link_to "Vorstellung", competition_path %> des Wettbewerb “Jugend musiziert” sowie der einzelnen <%= link_to "Gremien", organisation_path %>. Für Fragen gibt es das <%= link_to "Kontaktformular", contact_path %>.</p>
   </div>
 </div>

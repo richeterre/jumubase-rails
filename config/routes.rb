@@ -3,7 +3,7 @@ Jmd::Application.routes.draw do
   # Routes for internal (JMD) pages
 
   namespace :jmd do
-    resources :users, :venues
+    resources :categories, :users, :venues
     resources :competitions do
       resources :appearances, only: [:index, :update]
       resources :participants, only: :index

@@ -1,8 +1,22 @@
 <% provide(:title, "Anmeldung zum #{current_contest_title}") %>
 
-<p class="alert alert-info">Für den <strong>Landeswettbewerb</strong> braucht übrigens keine erneute Anmeldung ausgefüllt werden. Alle weitergeleiteten Teilnehmer erhalten rechtzeitig eine E-Mail mit weiteren Informationen.</p>
+<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Es gilt folgender Anmeldeschluss:
+<ul>
+  <li>Dublin, Oslo, Stockholm: <strong>1. Dezember</strong></li>
+  <li>Alle anderen Schulen: <strong>15. Dezember</strong></li>
+</ul>
+</p>
 
-<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Bei Fragen oder Problemen erreichst du uns am einfachsten über das <%= link_to "Kontaktformular", contact_path %>.</p>
+<p>
+  Bevor es losgeht, noch ein paar Hinweise:
+  <ul>
+    <li>Trage bitte nur jugendliche Begleitpartner ein. Erwachsene Begleiter müssen nicht angemeldet werden!</li>
+    <li>Überprüfe, dass alle Geburtsdaten und E-Mailadressen stimmen, da wir diese zur Berechnung der Altersgruppe und der Zusendung des Änderungscodes brauchen.</li>
+    <li>Bitte gib, wenn möglich, eine mobile Telefonnummer an. So erreichen wir dich auch während des Wettbewerbs.</li>
+  </ul>
+</p>
+
+<p>Bei Fragen oder Problemen erreichst du uns am einfachsten über das <%= link_to "Kontaktformular", contact_path %>.</p>
 
 <%= render 'noscript' %>
 

@@ -1,0 +1,32 @@
+<% provide(:title, "Kategorien verwalten") %>
+
+<%= link_to "Neue Kategorie erstellen", new_jmd_category_path, class: "btn" %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Kürzel</th>
+      <th>Genre</th>
+      <th>Solo/Ensemble</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <%= content_tag("tr", class: category.active? ? nil : "muted") do %>
+        <td><%= category.name %></td>
+        <td><%= category.slug %></td>
+        <td><%= category.popular? ? "Pop" : "Klassik" %></td>
+        <td>
+          <%= info_label_tag("Solo", :info) if category.solo? %>
+          <%= info_label_tag("Ensemble", :info) if category.ensemble? %>
+        </td>
+        <td>
+          <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category) %>
+          <%= link_to icon_tag("remove", title: "Diese Kategorie löschen"), jmd_category_path(category), method: :delete, :confirm => "Soll die Kategorie #{category.name} wirklich gelöscht werden?" %>
+        </td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

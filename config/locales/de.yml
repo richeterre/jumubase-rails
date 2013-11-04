@@ -246,6 +246,13 @@ de:
         role_id: Rolle
         instrument_id: Instrument
         points: Punktzahl
+      category:
+        name: "Name"
+        slug: "Kürzel"
+        solo: "Solo"
+        ensemble: "Ensemble"
+        popular: "Pop"
+        active: "Aktiv"
       competition:
         season: Saison
         round_id: Runde

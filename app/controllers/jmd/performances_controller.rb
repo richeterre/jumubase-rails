@@ -35,7 +35,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # @performance is built by CanCan
 
     # Populate competition selector
-    @competitions = Competition.accessible_by(current_ability)
+    @competitions = Competition.accessible_by(current_ability).order("begins DESC")
 
     # Build initial resources for form
     1.times do

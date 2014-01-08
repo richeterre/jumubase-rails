@@ -1,23 +1,22 @@
 <ul class="nav nav-list">
 
-  <% if can? :manage, Performance %>
+  <% if can? :manage, Competition %>
 
     <li class="nav-header">Verwalten</li>
     <%= nav_link_to icon_tag("user") + " Benutzer", jmd_users_path if can? :manage, User %>
     <%= nav_link_to icon_tag("list") + " Kategorien", jmd_categories_path if can? :manage, Category %>
     <%= nav_link_to icon_tag("globe") + " Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
-    <%= nav_link_to icon_tag("time") + " Aktuelle Vorspiele", list_current_jmd_performances_path %>
 
-  <% elsif can? :list_current, Performance %>
+  <% elsif JUMU_ROUND > 1 and can? :list_current, Performance %>
 
     <li class="nav-header">Einsehen</li>
     <%= nav_link_to icon_tag("time") + " Aktuelle Vorspiele", list_current_jmd_performances_path %>
 
   <% end %>
 
-  <% if can? :manage, Competition %>
+  <% if can? :read, Competition %>
     <li class="nav-header">Aktuelle Wettbewerbe</li>
-    <% Competition.current.each do |competition| %>
+    <% Competition.current.accessible_by(current_ability).each do |competition| %>
       <%= nav_link_to competition.name, jmd_competition_path(competition) %>
      <% end %>
   <% end %>

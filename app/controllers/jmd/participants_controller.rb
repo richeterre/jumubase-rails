@@ -6,6 +6,7 @@ class Jmd::ParticipantsController < Jmd::BaseController
 
   def index
     # @competition and @participants are fetched by CanCan
+    # TODO: Why doesn't authorization work although competition can be accessed by user?
     @participants = @participants.includes(:country).order(:last_name)
   end
 

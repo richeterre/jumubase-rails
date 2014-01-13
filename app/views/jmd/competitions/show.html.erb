@@ -18,19 +18,26 @@
             (l @competition.certificate_date, format: :long) : "unbekannt" %></dd>
 </dl>
 
+<h3>Werkzeuge</h3>
+
+<h4>Vor der Wertung</h4>
 <p>
   <%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
   <%= link_to "Teilnehmer anzeigen", jmd_competition_participants_path(@competition), class: "btn" %>
 </p>
+<p>
+  <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition), class: "btn" %>
 
+    <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
+                class: "btn" %>
+  <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
+</p>
+
+<h4>Nach der Wertung</h4>
 <p>
   <%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
-  <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition),
-              class: "btn" %>
-  <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition),
-              class: "btn" %>
-  <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_competition_performances_path(@competition),
-              class: "btn" %>
+  <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition), class: "btn" %>
+  <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
 </p>
 
 <h3>Statistik</h3>
@@ -67,12 +74,6 @@
   <h3>Admin</h3>
 
   <p>
-    <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition),
-                class: "btn" %>
-
-    <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
-                class: "btn" %>
-
     <%= if @competition.can_be_advanced_from?
         link_to "Weiterleitungen migrieren…", list_advancing_jmd_competition_path(@competition),
                 class: "btn"

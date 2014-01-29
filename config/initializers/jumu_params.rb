@@ -55,5 +55,4 @@ JUMU_TIMETABLES_PUBLIC = false
 JUMU_HOST = "DS Kopenhagen"
 
 # The core organization team's mail addresses
-JUMU_ORGMAILS = ["me@martinrichter.net",
-                 "hery-christian.henry@deloitte.fi"]
+JUMU_ORGMAILS = ["me@martinrichter.net"]

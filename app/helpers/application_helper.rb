@@ -40,7 +40,12 @@ module ApplicationHelper
 
   # Return a link to a modal as defined in _modal partial
   def link_to_modal(body, item_type, item_id, html_options = {})
-    html_options = html_options.merge(class: "modal-link", role: "button", "data-toggle" => "modal")
+    if html_options[:class]
+      html_options[:class] += " modal-link"
+    else
+      html_options[:class] = "modal-link"
+    end
+    html_options = html_options.merge(role: "button", "data-toggle" => "modal")
     link_to body, "##{item_type}#{item_id}Modal", html_options
   end
 

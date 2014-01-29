@@ -5,7 +5,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
   def index
     # @competitions are fetched by CanCan
-    @competitions = @competitions.includes(:host, :round).order(:begins)
+    @competitions = @competitions.includes(:host, :round).order("begins DESC")
   end
 
   # new: @competition is built by CanCan
@@ -117,7 +117,8 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
       @competition.performances.includes(:participants).each do |performance|
         performance.participants.each do |participant|
-          ParticipantMailer.welcome_advanced(participant, performance).deliver
+          # Send mail to participant asynchronously
+          ParticipantMailer.delay.welcome_advanced(participant, performance)
           welcome_mail_count += 1
         end
       end

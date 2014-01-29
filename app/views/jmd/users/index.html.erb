@@ -15,15 +15,14 @@
     <% @users.each do |user| %>
     <tr>
       <td>
-        <%= user.full_name %>
+        <%= link_to user.full_name, jmd_user_path(user) %>
         <%= info_label_tag("Admin", :important) if user.admin? %>
       </td>
       <td><%= user.email %></td>
       <td><%= user.last_login? ? (l user.last_login, :format => :short) : "?" %></td>
       <td>
-        <%= link_to icon_tag("eye-open", :title => "Benutzerdetails anzeigen"), jmd_user_path(user) %>
-        <%= link_to icon_tag("edit", :title => "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user) %>
-        <%= link_to icon_tag("remove", :title => "Diesen Benutzer löschen"), jmd_user_path(user), :method => :delete, :confirm => "Soll der Benutzer #{user.email} wirklich gelöscht werden?" %>
+        <%= link_to icon_tag("edit", title: "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user), class: "btn btn-mini" %>
+        <%= link_to icon_tag("remove", title: "Diesen Benutzer löschen"), jmd_user_path(user), method: :delete, confirm: "Soll der Benutzer #{user.email} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
       </td>
     </tr>
     <% end %>

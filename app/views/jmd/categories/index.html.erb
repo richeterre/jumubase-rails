@@ -23,8 +23,8 @@
           <%= info_label_tag("Ensemble", :info) if category.ensemble? %>
         </td>
         <td>
-          <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category) %>
-          <%= link_to icon_tag("remove", title: "Diese Kategorie löschen"), jmd_category_path(category), method: :delete, :confirm => "Soll die Kategorie #{category.name} wirklich gelöscht werden?" %>
+          <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category), class: "btn btn-mini" %>
+          <%= link_to icon_tag("remove", title: "Diese Kategorie löschen"), jmd_category_path(category), method: :delete, :confirm => "Soll die Kategorie #{category.name} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
         </td>
       <% end %>
     <% end %>

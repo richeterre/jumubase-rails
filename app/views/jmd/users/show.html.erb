@@ -1,8 +1,8 @@
-<% provide(:title, "Benutzerdetails") %>
+<% provide(:title, @user.full_name) %>
+
+<%= link_to "Alle Benutzer anzeigen", jmd_users_path, class: "btn" %>
 
 <dl>
-  <dt>Name</dt>
-    <dd><%= @user.full_name %></dd>
   <dt>E-Mail</dt>
     <dd><%= @user.email %></dd>
   <dt>Admininistrator</dt>
@@ -17,5 +17,3 @@
       <% end %>
     </dd>
 </dl>
-
-<%= link_to "Zurück zur Benutzerliste", jmd_users_path, class: "btn" %>

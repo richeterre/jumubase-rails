@@ -8,7 +8,7 @@ JUMU_SEASON = 51
 JUMU_YEAR = 1963 + JUMU_SEASON
 
 # The upcoming/ongoing round for signup, timetables, etc.
-JUMU_ROUND = 1
+JUMU_ROUND = 2
 
 # The point ranges for the different prizes
 JUMU_PRIZE_POINT_RANGES = [
@@ -46,7 +46,7 @@ JUMU_PREDICATE_POINT_RANGES = [
 JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 
 # Whether signup is possible for the above round
-JUMU_SIGNUP_OPEN = true
+JUMU_SIGNUP_OPEN = false
 
 # Whether timetables for the above round are public
 JUMU_TIMETABLES_PUBLIC = false

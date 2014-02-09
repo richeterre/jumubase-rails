@@ -22,4 +22,8 @@ class Host < ActiveRecord::Base
   validates :name,        presence: true
   validates :city,        presence: true
   validates :country_id,  presence: true
+
+  def time_zone
+    ActiveSupport::TimeZone.new(super()) if super()
+  end
 end

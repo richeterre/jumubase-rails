@@ -30,15 +30,18 @@ end
 
   # Info
   pdf.bounding_box [50, 775], width: 400, height: 80 do
-    pdf.text_box "Kategorie: " + performance.category.name + "\nAltersgruppe " + performance.age_group, :at => [0, pdf.bounds.bottom + 2 * pdf.font.height]
+     pdf.text_box "Kategorie: " + performance.category.name + "\nAltersgruppe " + performance.age_group, at: [0, pdf.bounds.bottom + 2 * pdf.font.height]
+
     if performance.stage_time.nil?
       stage_time = ""
     else
-      stage_time = l performance.stage_time, :format => :short
+      stage_time = l performance.stage_time, format: :short
     end
-    # Display host of performance's first competition round, if applicable
+    # Add host of performance's first competition round if applicable
     if performance.predecessor
-      pdf.text_box performance.predecessor.associated_host.name + "\n#{stage_time}", :at => [250, pdf.bounds.bottom + 2 * pdf.font.height], :align => :right
+      pdf.text_box performance.predecessor.associated_host.name + "\n#{stage_time}", at: [250, pdf.bounds.bottom + 2 * pdf.font.height], align: :right
+    else
+      pdf.text_box "#{stage_time}", at: [250, pdf.bounds.bottom + pdf.font.height], align: :right
     end
 
     pdf.stroke do

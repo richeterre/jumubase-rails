@@ -24,13 +24,11 @@
       </td>
       <td><%= l competition.signup_deadline, format: :tiny %></td>
       <td>
-        <%= link_to icon_tag("eye-open", :title => "Wettbewerbsdetails anzeigen"),
-            jmd_competition_path(competition) %>
-        <%= link_to icon_tag("edit", :title => "Diesen Wettbewerb bearbeiten"),
-            edit_jmd_competition_path(competition) %>
-        <%= link_to icon_tag("remove", :title => "Diesen Wettbewerb löschen"),
-            jmd_competition_path(competition), :method => :delete,
-            :confirm => "Soll der Wettbewerb #{competition.name} wirklich gelöscht werden?" %>
+        <%= link_to icon_tag("edit", title: "Diesen Wettbewerb bearbeiten"),
+            edit_jmd_competition_path(competition), class: "btn btn-mini" %>
+        <%= link_to icon_tag("remove", title: "Diesen Wettbewerb löschen"),
+            jmd_competition_path(competition), method: :delete,
+            confirm: "Soll der Wettbewerb #{competition.name} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
       </td>
     </tr>
     <% end %>

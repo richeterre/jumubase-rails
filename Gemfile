@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "1.9.3"
 
 gem 'rails', '3.2.11'
 
@@ -23,6 +24,8 @@ gem 'prawn' # PDF output
 gem 'prawnto_2', require: 'prawnto'
 
 gem 'coffee-rails',   '~> 3.2.1'
+
+gem 'delayed_job_active_record'
 
 # Gems used only for assets and not required
 # in production environments by default.

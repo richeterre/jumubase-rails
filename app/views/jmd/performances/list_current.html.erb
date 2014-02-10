@@ -16,6 +16,7 @@
       <th>Kategorie</th>
       <th>Land</th>
       <th>Teilnehmer</th>
+      <th>Code</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -40,6 +41,7 @@
           <br />
         <% end %>
       </td>
+      <td><code><%= performance.tracing_code %></code></td>
       <td>
         <%= link_to icon_tag("eye-open", title: "Vorspieldetails anzeigen"),
               jmd_performance_path(performance) %>

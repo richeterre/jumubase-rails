@@ -14,9 +14,10 @@
 
   <% end %>
 
-  <% if can? :read, Competition %>
-    <li class="nav-header">Aktuelle Wettbewerbe</li>
-    <% Competition.current.accessible_by(current_ability).each do |competition| %>
+  <% current_competitions = Competition.current.accessible_by(current_ability)
+    if current_competitions.any? %>
+      <li class="nav-header">Aktuelle Wettbewerbe</li>
+      <% current_competitions.each do |competition| %>
       <%= nav_link_to competition.name, jmd_competition_path(competition) %>
      <% end %>
   <% end %>

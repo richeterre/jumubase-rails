@@ -45,8 +45,8 @@ JUMU_PREDICATE_POINT_RANGES = [
 # Possible age group values
 JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 
-# Whether signup is possible for the above round
-JUMU_SIGNUP_OPEN = false
+# Whether signup and tracing-code editing are possible
+JUMU_SIGNUP_OPEN = true
 
 # Whether timetables for the above round are public
 JUMU_TIMETABLES_PUBLIC = false

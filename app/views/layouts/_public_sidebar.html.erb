@@ -2,6 +2,7 @@
   <li class="nav-header">Aktuell</li>
   <%= nav_link_to "Teilnahmeregeln", rules_path %>
   <%= nav_link_to "Anmeldeformular", new_performance_path if JUMU_SIGNUP_OPEN && JUMU_ROUND == 1 %>
+  <%= nav_link_to "Anmeldung bearbeiten", signup_search_path if JUMU_SIGNUP_OPEN %>
 
   <li class="nav-header">Links</li>
   <li><%= link_to "\"Jugend musiziert\" beim Deutschen Musikrat", "http://www.jugend-musiziert.org", title: "Offizielle JuMu-Seiten des Deutschen Musikrates mit vielen Informationen, besonders zum Bundeswettbewerb. Unter \"Werkzeuge\" gibt es u.a. eine Excel-Datei, mit der Altersgruppen berechnet werden können." %></li>

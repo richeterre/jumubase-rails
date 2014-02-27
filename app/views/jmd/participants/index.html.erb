@@ -9,6 +9,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th class="muted">ID</th>
       <th>Nachname</th>
       <th>Vorname</th>
       <th>Geburtsdatum</th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @participants.each do |participant| %>
       <tr>
+        <td class="muted"><%= participant.id %></td>
         <td><%= participant.last_name %></td>
         <td><%= participant.first_name %></td>
         <td><%= l participant.birthdate %></td>

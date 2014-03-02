@@ -6,7 +6,7 @@ Jmd::Application.routes.draw do
     resources :categories, :users, :venues
     resources :competitions do
       resources :appearances, only: [:index, :update]
-      resources :participants, only: :index
+      resources :participants, only: [:index, :show]
       resources :performances, only: :index do
         get 'make_certificates', on: :collection
         get 'make_jury_sheets', on: :collection

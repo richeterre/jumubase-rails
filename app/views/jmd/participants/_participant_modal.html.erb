@@ -1,22 +1,6 @@
 <%= render layout: "modal", locals: { item_type: "participant", item_id: participant.id, title: participant.full_name } do %>
   <div class="modal-body">
-    <p>
-      * <%= l participant.birthdate %>
-      <%= gender_symbol(participant.gender) %>
-    </p>
-    <p>
-      <% unless participant.street.blank? %>
-      <%= participant.street %><br />
-      <% end %>
-      <% unless participant.city.blank? %>
-      <%= participant.postal_code %>
-      <%= participant.city %>
-      <br />
-      <% end %>
-      <%= flag_tag(participant.country.country_code) %>
-    </p>
-    <p>Telefon: <%= participant.phone %></p>
-    <p><%= mail_to participant.email %></p>
+    <%= render 'jmd/participants/participant_details', participant: participant %>
   </div>
   <div class="modal-footer">
     <%= link_to_close_modal "Schließen", class: "btn" %>

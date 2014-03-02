@@ -93,6 +93,11 @@ class Competition < ActiveRecord::Base
     "#{self.round.name} #{self.year}"
   end
 
+  # Short round name and year
+  def round_slug_and_year
+    "#{self.round.slug} #{self.year}"
+  end
+
   # Whether participants can advance to this competition
   def can_be_advanced_to?
     self.round.level > 1

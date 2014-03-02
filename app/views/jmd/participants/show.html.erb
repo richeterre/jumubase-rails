@@ -2,7 +2,7 @@
 
 <%= render 'participant_details', participant: @participant %>
 
-<h3>Auftritte beim <%= @competition.round_slug_and_year %></h3>
+<h3>Auftritte beim <%= link_to @competition.round_slug_and_year, jmd_competition_path(@competition) %></h3>
 
 <% @participant.performances.in_competition(@competition).includes(:category).each do |performance| %>
   <%= link_to performance.category.name, jmd_performance_path(performance) %><br>

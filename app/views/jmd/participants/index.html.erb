@@ -22,8 +22,14 @@
     <% @participants.each do |participant| %>
       <tr>
         <td class="muted"><%= participant.id %></td>
-        <td><%= participant.last_name %></td>
-        <td><%= participant.first_name %></td>
+        <td>
+          <%= link_to participant.last_name,
+          jmd_competition_participant_path(@competition, participant) %>
+        </td>
+        <td>
+          <%= link_to participant.first_name,
+          jmd_competition_participant_path(@competition, participant) %>
+        </td>
         <td><%= l participant.birthdate %></td>
         <td><%= flag_tag participant.country.country_code %></td>
         <td>

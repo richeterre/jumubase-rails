@@ -10,4 +10,7 @@ class Jmd::ParticipantsController < Jmd::BaseController
     @participants = @participants.includes(:country).order(:last_name)
   end
 
+  def show
+    # @participant is fetched by CanCan
+  end
 end

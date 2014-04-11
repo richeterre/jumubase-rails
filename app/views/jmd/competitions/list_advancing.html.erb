@@ -1,16 +1,18 @@
-<% provide(:title, "Weiterleitungen migrieren") %>
+<% provide(:title, @competition.can_be_advanced_from? ? "Weiterleitungen migrieren" : "Weiterleitungen aus #{@competition.round_slug_and_year}") %>
 
-<%= form_tag migrate_advancing_jmd_competition_path, method: :post, class: "form-search well" do %>
-  <%= "#{@performances.size} #{Performance.model_name.human(count: @performances.size)}" %>
-  von <strong><%= @competition.name %></strong> nach
-  <%= select nil, :target_competition_id,
-                  @possible_target_competitions.collect { |c| [c.name, c.id] } %>
-  <%= submit_tag "migrieren", class: "btn btn-primary" %>
-  <br />
-  <span class="muted">
-    <%= "#{@already_migrated.size} #{Performance.model_name.human(count: @already_migrated.size)}" %>
-    bereits migriert
-  </span>
+<% if @competition.can_be_advanced_from? %>
+  <%= form_tag migrate_advancing_jmd_competition_path, method: :post, class: "form-search well" do %>
+    <%= "#{@performances.size} #{Performance.model_name.human(count: @performances.size)}" %>
+    von <strong><%= @competition.name %></strong> nach
+    <%= select nil, :target_competition_id,
+                    @possible_target_competitions.collect { |c| [c.name, c.id] } %>
+    <%= submit_tag "migrieren", class: "btn btn-primary" %>
+    <br />
+    <span class="muted">
+      <%= "#{@already_migrated.size} #{Performance.model_name.human(count: @already_migrated.size)}" %>
+      bereits migriert
+    </span>
+  <% end %>
 <% end %>
 
 <table class="table table-bordered">
@@ -33,7 +35,8 @@
         <% end %>
         <td>
           <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
-            <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+            <%= link_to appearance.participant.full_name, jmd_competition_participant_path(@competition, appearance.participant) %>,
+            <%= appearance.instrument.name %>
           <% end %>
         </td>
         <td><%= age_group_badge_tag(appearance) %></td>

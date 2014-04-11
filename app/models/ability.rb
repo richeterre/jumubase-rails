@@ -10,6 +10,7 @@ class Ability
     else
       can :read, Competition, host_id: user.host_ids
       can :read, Participant # TODO: Should allow only "own" participants
+
       if JUMU_ROUND == 1
         can :create, Performance # TODO: Check that user has access to selected competition
         can :manage, Performance, competition: { host_id: user.host_ids }
@@ -19,6 +20,8 @@ class Ability
         can [:read, :list_current], Performance, Performance.advanced_from_competition(user.competitions) do |p|
           user.competitions.include? p.predecessor.competition
         end
+        # Authorize to see list of advancing performances from own competitions
+        can [:list_advancing], Competition, host_id: user.host_ids
       end
     end
 

@@ -62,13 +62,7 @@ class Jmd::CompetitionsController < Jmd::BaseController
   # List performances that advance to the next round
   def list_advancing
     # @competition is fetched by CanCan
-
-    if @competition.can_be_advanced_from?
-      load_migration_resources # Loads possible target competitions, migratable performances and already migrated
-    else
-      flash[:error] = "Aus diesem Wettbewerb können leider keine Vorspiele weitergeleitet werden."
-      redirect_to jmd_competition_path(@competition)
-    end
+    load_migration_resources # Loads possible target competitions, migratable performances and already migrated
   end
 
   # Migrate advancing performances to a selected competition

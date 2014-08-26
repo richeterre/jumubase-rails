@@ -1,6 +1,5 @@
 <ul class="nav nav-list">
   <li class="nav-header">Aktuell</li>
-  <%= nav_link_to "Ergebnisse LW 2014", lw_path %>
   <% if JUMU_TIMETABLES_PUBLIC %>
   <%= nav_link_to "Zeitplan Klassik", classical_schedule_path(year: 2014, month: 3, day: 20) %>
   <%= nav_link_to "Zeitplan Pop", popular_schedule_path(year: 2014, month: 3, day: 20) %>

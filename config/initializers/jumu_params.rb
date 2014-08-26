@@ -2,13 +2,13 @@
 # Be sure to restart the server after changing any of these.
 
 # The running number of the current competition season
-JUMU_SEASON = 51
+JUMU_SEASON = 52
 
 # The current competition (ending) year
 JUMU_YEAR = 1963 + JUMU_SEASON
 
 # The upcoming/ongoing round for signup, timetables, etc.
-JUMU_ROUND = 2
+JUMU_ROUND = 1
 
 # The point ranges for the different prizes
 JUMU_PRIZE_POINT_RANGES = [
@@ -49,10 +49,10 @@ JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 JUMU_SIGNUP_OPEN = false
 
 # Whether timetables for the above round are public
-JUMU_TIMETABLES_PUBLIC = true
+JUMU_TIMETABLES_PUBLIC = false
 
 # The 2nd round host
-JUMU_HOST = "DS Kopenhagen"
+JUMU_HOST = "DS Paris"
 
 # The core organization team's mail addresses
 JUMU_ORGMAILS = ["me@martinrichter.net"]

@@ -30,7 +30,7 @@ class PerformancesController < ApplicationController
     if @performance.save
       # Send out confirmation emails with edit code
       @performance.participants.each do |participant|
-        ParticipantMailer.signup_confirmation(participant, @performance).deliver
+        ParticipantMailer.delay.signup_confirmation(participant, @performance)
       end
 
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."

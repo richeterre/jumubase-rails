@@ -13,9 +13,6 @@ class PagesController < ApplicationController
   def rules
   end
 
-  def organisation
-  end
-
   def not_found
     render "not_found", status: 404
   end

@@ -54,7 +54,6 @@ Jmd::Application.routes.draw do
   match "lw#{JUMU_YEAR}", to: 'pages#lw', as: :lw
   match '/wettbewerb',    to: 'pages#competition', as: :competition
   match '/regeln',        to: 'pages#rules', as: :rules
-  match '/organisation',  to: 'pages#organisation', as: :organisation
   match '/kontakt',       to: 'contacts#new', as: :contact
 
   root to: 'pages#home'

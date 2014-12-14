@@ -239,11 +239,11 @@ class Performance < ActiveRecord::Base
           errors.add(:base, :cannot_have_single_ensemblist)
         end
 
-        # Check if one or more, but not all participants are ensemblists
-        appearances_with_roles_count = appearances.map(&:role).compact.size
-        ensemblists_count = appearances.select {|a| a.ensemble? }.size
-        if (1...appearances_with_roles_count).include? ensemblists_count
-          errors.add(:base, :cannot_have_ensemblists_and_others)
+        # Check if there are both soloists and ensemblists
+        has_soloists = appearances.select {|a| a.solo? }.size > 0
+        has_ensemblists = appearances.select {|a| a.ensemble? }.size > 0
+        if has_soloists && has_ensemblists
+          errors.add(:base, :cannot_have_soloists_and_ensemblists)
         end
       end
     end

@@ -238,7 +238,7 @@ de:
               cannot_have_many_soloists: "Vorspiel kann nicht mehrere Solisten haben"
               cannot_have_mere_accompanists: "Vorspiel kann nicht nur Begleiter haben"
               cannot_have_single_ensemblist: "Vorspiel kann nicht nur einen Ensembleteilnehmer haben"
-              cannot_have_ensemblists_and_others: "Vorspiel kann nicht sowohl Ensemble- als auch andere Teilnehmer haben"
+              cannot_have_soloists_and_ensemblists: "Vorspiel kann nicht sowohl Solisten als auch Ensembleteilnehmer haben"
     attributes:
       appearance:
         performance_id: "Vorspiel"

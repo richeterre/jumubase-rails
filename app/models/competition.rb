@@ -108,6 +108,13 @@ class Competition < ActiveRecord::Base
     self.round.level < 2 # Currently no LW > BW migration is possible
   end
 
+  # Find competitions of the same season that are one round lower
+  def possible_predecessors
+    Competition.joins(:round, :host)
+               .where({ rounds: { level: self.round.level - 1 }, season: self.season })
+               .order("hosts.name")
+  end
+
   # Find competitions of the same season that are one round higher
   def possible_successors
     Competition.joins(:round, :host)

@@ -11,7 +11,7 @@
   <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
 
-  <% if @competition.nil? %>
+  <% if @competition.nil? # Looking at performances across competitions %>
     <% if JUMU_ROUND == 1 %>
       <%= select nil, :in_competition,
             Competition.accessible_by(current_ability).current.collect { |c| [c.name, c.id] },
@@ -24,7 +24,7 @@
     <% end %>
   <% elsif @competition.round.level == 2 %>
     <%= select nil, :advanced_from_competition,
-          Competition.accessible_by(current_ability).seasonal_with_level(1).collect { |c| [c.name, c.id] },
+          @competition.possible_predecessors.collect { |c| [c.name, c.id] },
           { selected: params[:advanced_from_competition], include_blank: "Alle Regionalwettbewerbe" },
           class: "span3" %>
   <% end %>

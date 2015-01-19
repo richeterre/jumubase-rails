@@ -19,9 +19,9 @@
 
 <% @performance.pieces.each do |piece| %>
   <%= content_tag :p do %>
-    <%= content_tag :strong, piece.composer.name %>
-    <% unless piece.composer.born.blank? %>
-      (<%= piece.composer.born %>&ndash;<%= piece.composer.died %>)
+    <%= content_tag :strong, piece.composer_name %>
+    <% unless piece.composer_born.blank? %>
+      (<%= piece.composer_born %>&ndash;<%= piece.composer_died %>)
     <% end %>
     <br />
     <%= piece.title %>

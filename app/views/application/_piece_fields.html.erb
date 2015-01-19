@@ -3,9 +3,11 @@
 
   <%= f.input :title %>
 
-  <%= f.fields_for :composer do |composer_form| %>
-    <%= render 'composer_fields', :f => composer_form %>
-  <% end %>
+  <%= f.input :composer_name %>
+
+  <%= f.input :composer_born %>
+
+  <%= f.input :composer_died %>
 
   <%= f.input :epoch_id, collection: Epoch.all, label_method: :slug_with_name, prompt: "Bitte wählen" %>
 

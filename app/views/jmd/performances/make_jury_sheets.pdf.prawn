@@ -69,10 +69,10 @@ end
     pdf.move_down 100
     performance.pieces.each do |piece|
       pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans-Bold.ttf"
-      if piece.composer.born.blank?
-        pdf.text piece.composer.name
+      if piece.composer_born.blank?
+        pdf.text piece.composer_name
       else
-        pdf.text "#{piece.composer.name} (#{piece.composer.born}–#{piece.composer.died})"
+        pdf.text "#{piece.composer_name} (#{piece.composer_born}–#{piece.composer_died})"
       end
       pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
       pdf.text piece.title

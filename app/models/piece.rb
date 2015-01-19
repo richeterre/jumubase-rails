@@ -10,25 +10,23 @@
 #  updated_at     :datetime         not null
 #  minutes        :integer
 #  seconds        :integer
+#  composer_name  :string(255)
+#  composer_born  :string(255)
+#  composer_died  :string(255)
 #
 
 # -*- encoding : utf-8 -*-
 class Piece < ActiveRecord::Base
-  attr_accessible :title, :performance_id, :epoch_id, :minutes, :seconds,
-      :composer_attributes
+  attr_accessible :title, :performance_id, :epoch_id, :minutes, :seconds, :composer_name, :composer_born, :composer_died
 
   amoeba do
     enable # Allow deep duplication
   end
 
-  has_one :composer, dependent: :destroy # since every piece has its own composer
   belongs_to :performance, touch: true
   belongs_to :epoch
 
-  accepts_nested_attributes_for :composer
-
-  # These do not currently play nicely with accept_nested_attributes
-  # validates :composer_id,  presence: true
+  # This does not currently play nicely with accept_nested_attributes
   # validates :performance_id,  presence: true
 
   validates :title,           presence: true
@@ -45,6 +43,7 @@ class Piece < ActiveRecord::Base
                                 greater_than_or_equal_to: 0,
                                 less_than: 60
                               }
+  validates :composer_name,   presence: true
 
   def duration
     minutes*60 + seconds

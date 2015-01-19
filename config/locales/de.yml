@@ -262,10 +262,6 @@ de:
         signup_deadline: "Anmeldeschluss"
         certificate_date: Urkundenvergabe
         category_ids: Kategorien
-      composer:
-        name: Komponist
-        born: Geburtsjahr
-        died: (Todesjahr)
       performance:
         category_id: Kategorie
         competition_id: Wettbewerb
@@ -286,13 +282,12 @@ de:
         email: E-Mail des Teilnehmers
       performance/pieces:
         title: Titel des Stücks
+        composer_name: Name des Komponisten
+        composer_born: Geburtsjahr des Komponisten
+        composer_died: Todesjahr des Komponisten
         epoch_id: Epoche des Stücks
         minutes: Dauer (Minuten) des Stücks
         seconds: Dauer (Sekunden) des Stücks
-      performance/pieces/composer:
-        name: Name des Komponisten
-        born: Geburtsjahr des Komponisten
-        died: Todesjahr des Komponisten
       participant:
         first_name: Vorname
         last_name: Nachname
@@ -306,6 +301,9 @@ de:
         email: E-Mail
       piece:
         title: Titel
+        composer_name: Komponist
+        composer_born: Geburtsjahr
+        composer_died: (Todesjahr)
         epoch_id: Epoche
         duration: Dauer
       user:

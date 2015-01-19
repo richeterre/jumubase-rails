@@ -14,8 +14,7 @@ class PerformancesController < ApplicationController
       appearance.build_participant
     end
     1.times do
-      piece = @performance.pieces.build
-      piece.build_composer
+      @performance.pieces.build
     end
   end
 

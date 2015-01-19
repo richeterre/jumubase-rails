@@ -10,6 +10,9 @@
 #  updated_at     :datetime         not null
 #  minutes        :integer
 #  seconds        :integer
+#  composer_name  :string(255)
+#  composer_born  :string(255)
+#  composer_died  :string(255)
 #
 
 # -*- encoding : utf-8 -*-

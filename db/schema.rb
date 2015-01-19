@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140128203827) do
+ActiveRecord::Schema.define(:version => 20150118174832) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -54,17 +54,6 @@ ActiveRecord::Schema.define(:version => 20140128203827) do
     t.integer  "season"
     t.datetime "signup_deadline"
   end
-
-  create_table "composers", :force => true do |t|
-    t.string   "name"
-    t.string   "born"
-    t.string   "died"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.integer  "piece_id"
-  end
-
-  add_index "composers", ["piece_id"], :name => "index_composers_on_piece_id"
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -156,6 +145,9 @@ ActiveRecord::Schema.define(:version => 20140128203827) do
     t.datetime "updated_at",     :null => false
     t.integer  "minutes"
     t.integer  "seconds"
+    t.string   "composer_name"
+    t.string   "composer_born"
+    t.string   "composer_died"
   end
 
   create_table "roles", :force => true do |t|

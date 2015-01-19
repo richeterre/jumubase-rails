@@ -42,10 +42,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       appearance = @performance.appearances.build
       appearance.build_participant
     end
-    1.times do
-      piece = @performance.pieces.build
-      piece.build_composer
-    end
+    @performance.pieces.build
   end
 
   def create

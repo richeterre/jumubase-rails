@@ -129,7 +129,6 @@ module ApplicationHelper
   # Create a link that adds a new piece
   def link_to_add_piece(name, f)
     new_piece = Piece.new
-    new_piece.build_composer
     fields = f.fields_for(:pieces, new_piece, :child_index => "new_pieces") do |builder|
       render("piece_fields", :f => builder)
     end

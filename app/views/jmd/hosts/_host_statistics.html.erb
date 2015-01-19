@@ -1,0 +1,27 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th colspan="1" rowspan="2">Wettbewerb</th>
+      <th colspan="1" rowspan="2">Teilnehmer</th>
+      <th colspan="3">Vorspiele</th>
+      <th colspan="2" rowspan="2">Auftritte</th>
+    </tr>
+    <tr>
+      <th>Gesamt</th>
+      <th>Klassik</th>
+      <th>Pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% competitions.each do |competition| %>
+    <tr>
+      <td><%= link_to competition.round_slug_and_year, jmd_competition_path(competition) %></td>
+      <td><%= competition.participants.size %></td>
+      <td><%= competition.performances.size %></td>
+      <td><%= competition.performances.classical.size %></td>
+      <td><%= competition.performances.popular.size %></td>
+      <td><%= competition.appearances.size %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

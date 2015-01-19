@@ -1,0 +1,16 @@
+<% provide(:title, @host.name) %>
+
+<%= link_to "Alle Schulen anzeigen", jmd_hosts_path, class: "btn" %>
+
+<h3>Regionalwettbewerbe</h3>
+
+<%= render 'host_statistics', competitions: @rw_competitions %>
+
+
+<% if @lw_competitions.size > 0 %>
+
+<h3>Landeswettbewerbe</h3>
+
+<%= render 'host_statistics', competitions: @lw_competitions %>
+
+<% end %>

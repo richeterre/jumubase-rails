@@ -37,6 +37,12 @@ class Competition < ActiveRecord::Base
   validate :require_beginning_before_end
   validate :require_signup_deadline_before_beginning
 
+  # Find competitions with given round level
+  def self.with_level(level)
+    joins(:round)
+    .where(rounds: { level: level })
+  end
+
   # Find competitions of this season with given round level
   def self.seasonal_with_level(level)
     joins(:round)

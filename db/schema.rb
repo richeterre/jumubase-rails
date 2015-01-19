@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150118174832) do
+ActiveRecord::Schema.define(:version => 20150119233537) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -124,13 +124,11 @@ ActiveRecord::Schema.define(:version => 20150118174832) do
   create_table "performances", :force => true do |t|
     t.integer  "category_id"
     t.integer  "competition_id"
-    t.integer  "stage_venue_id"
     t.datetime "warmup_time"
     t.datetime "stage_time"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "tracing_code"
-    t.integer  "warmup_venue_id"
     t.string   "age_group"
     t.integer  "predecessor_id"
   end
@@ -182,15 +180,5 @@ ActiveRecord::Schema.define(:version => 20150118174832) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
-
-  create_table "venues", :force => true do |t|
-    t.string   "name"
-    t.integer  "host_id"
-    t.string   "address"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "slug"
-    t.string   "usage"
-  end
 
 end

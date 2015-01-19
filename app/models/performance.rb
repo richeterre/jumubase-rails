@@ -2,18 +2,16 @@
 #
 # Table name: performances
 #
-#  id              :integer          not null, primary key
-#  category_id     :integer
-#  competition_id  :integer
-#  stage_venue_id  :integer
-#  warmup_time     :datetime
-#  stage_time      :datetime
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  tracing_code    :string(255)
-#  warmup_venue_id :integer
-#  age_group       :string(255)
-#  predecessor_id  :integer
+#  id             :integer          not null, primary key
+#  category_id    :integer
+#  competition_id :integer
+#  warmup_time    :datetime
+#  stage_time     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  tracing_code   :string(255)
+#  age_group      :string(255)
+#  predecessor_id :integer
 #
 
 # -*- encoding : utf-8 -*-
@@ -28,8 +26,6 @@ class Performance < ActiveRecord::Base
 
   belongs_to  :category
   belongs_to  :competition
-  belongs_to  :warmup_venue,  class_name: "Venue"
-  belongs_to  :stage_venue,   class_name: "Venue"
   belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
                               include: { competition: { host: :country }}
   has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",

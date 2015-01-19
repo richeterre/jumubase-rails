@@ -3,7 +3,7 @@ Jmd::Application.routes.draw do
   # Routes for internal (JMD) pages
 
   namespace :jmd do
-    resources :categories, :users, :venues
+    resources :categories, :users
     resources :competitions do
       resources :appearances, only: [:index, :update]
       resources :participants, only: [:index, :show]
@@ -18,6 +18,7 @@ Jmd::Application.routes.draw do
       get 'schedule_classical', on: :member
       get 'schedule_popular', on: :member
     end
+    resources :hosts, only: [:index, :show]
     resources :performances, except: :index do
       get 'list_current', on: :collection
       put 'retime', on: :member
@@ -30,7 +31,7 @@ Jmd::Application.routes.draw do
   resources :contacts, only: [:new, :create]
   resources :sessions, only: [:create, :destroy]
 
-  # Routes for venue timetables
+  # Routes for performance timetables
   if JUMU_TIMETABLES_PUBLIC
     match 'zeitplan/klassik/:year-:month-:day', to: 'competitions#classical_schedule', as: :classical_schedule
     match 'zeitplan/pop/:year-:month-:day', to: 'competitions#popular_schedule', as: :popular_schedule

@@ -315,12 +315,6 @@ de:
         password_confirmation: Passwort erneut
         admin: Administrator
         host_ids: Schulen
-      venue:
-        slug: Code
-        name: Bezeichnung
-        address: Anschrift
-        usage: Verwendung
-        host_id: Schule
   messages:
     deadline_passed: "Der Anmeldeschluss für deinen Wettbewerb war bereits am %{deadline}. Bitte nimm Kontakt zu einem JuMu-Ansprechpartner an deiner Schule auf."
   unauthorized:

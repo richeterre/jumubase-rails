@@ -23,6 +23,8 @@ gem 'bootstrap-sass', '~> 2.3.0.0'
 gem 'prawn' # PDF output
 gem 'prawnto_2', require: 'prawnto'
 
+gem 'comma' # CSV output
+
 gem 'coffee-rails',   '~> 3.2.1'
 
 gem 'delayed_job_active_record'

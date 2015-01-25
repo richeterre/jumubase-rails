@@ -26,6 +26,22 @@ class Participant < ActiveRecord::Base
   has_many :appearances,  dependent: :destroy
   has_many :performances, through: :appearances
 
+  comma do
+    first_name
+    last_name
+    gender
+    birthdate
+    street
+    postal_code
+    city
+    country :name
+    phone
+    email
+    appearances do |appearances|
+      appearances.map(&:instrument).map(&:name).uniq.join(", ")
+    end
+  end
+
   after_save :resave_performances # since their age group might have changed
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

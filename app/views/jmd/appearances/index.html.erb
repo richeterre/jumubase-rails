@@ -26,11 +26,13 @@
       <% appearances.each do |appearance| %>
         <tr>
           <% if appearance == appearances.first %>
-          <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
+          <td rowspan="<%= performance.appearances.length %>"><%= link_to performance.category.name, jmd_performance_path(performance) %></td>
           <% end %>
           <td>
             <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
-              <%= appearance.participant.full_name %>, <%= appearance.instrument.name %>
+              <% participant = appearance.participant %>
+              <%= link_to participant.full_name, jmd_competition_participant_path(@competition, participant) %>,
+              <%= appearance.instrument.name %>
             <% end %>
           </td>
           <td><%= age_group_badge_tag(appearance) %></td>

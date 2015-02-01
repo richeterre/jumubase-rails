@@ -2,7 +2,7 @@
 
 <p>
   <%= flag_tag @performance.competition.host.country.country_code %>
-  <%= @performance.competition.name %>
+  <%= link_to @performance.competition.name, jmd_competition_path(@performance.competition) %>
   <br />
   Kategorie: <%= @performance.category.name %>
   <br />

@@ -33,7 +33,7 @@
         <%= l performance.stage_time, format: :short if performance.stage_time %>
       </td>
       <td>
-        <%= performance.category.name %>
+        <%= link_to performance.category.name, jmd_performance_path(performance), title: "Vorspieldetails anzeigen" %>
         <% if (performance.updated_at - performance.created_at) > 1.second %>
           <br /><%= info_label_tag("Editiert #{time_ago_in_words(performance.updated_at)}", :info)  %>
         <% end %>
@@ -41,8 +41,10 @@
       <td><%= flag_tag(performance.associated_country.try(:country_code)) %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
+          <% participant = appearance.participant %>
           <span class="<%= "muted" if appearance.accompaniment? %>">
-            <%= appearance.participant.full_name %>,
+            <%= link_to participant.full_name,
+             jmd_competition_participant_path(@competition, participant) %>,
             <%= appearance.instrument.name %>
             <%= age_group_badge_tag(appearance) %>
           </span>

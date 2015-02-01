@@ -1,6 +1,7 @@
 <% provide(:title, "Teilnehmer für #{@competition.name}") %>
 
 <p>
+  <%= link_to "Als CSV exportieren", params.merge(format: :csv), class: "btn" unless @participants.empty? %>
   <%= link_to "Wettbewerbsdetails anzeigen", jmd_competition_path(@competition), class: "btn" %>
 </p>
 

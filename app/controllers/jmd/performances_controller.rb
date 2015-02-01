@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Jmd::PerformancesController < Jmd::BaseController
-  include PerformancesHelper
+  include ApplicationHelper
 
   filterable_actions = [:index, :list_current, :make_certificates, :make_jury_sheets]
 

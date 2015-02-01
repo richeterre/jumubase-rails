@@ -38,6 +38,11 @@ module ApplicationHelper
     end
   end
 
+  # Return a random number for naming generated files
+  def random_number
+    code = (0..9).to_a.shuffle[0..6].join
+  end
+
   # Return a link to a modal as defined in _modal partial
   def link_to_modal(body, item_type, item_id, html_options = {})
     if html_options[:class]

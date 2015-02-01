@@ -151,6 +151,11 @@ class Performance < ActiveRecord::Base
     self.appearances.with_role('B').map(&:participant)
   end
 
+  # Return all ensemble appearances of performance
+  def ensemble_appearances
+    self.appearances.with_role('E')
+  end
+
   def duration
     if self.pieces.empty?
       0 # Pretty short show

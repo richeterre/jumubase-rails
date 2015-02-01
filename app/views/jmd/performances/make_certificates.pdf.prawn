@@ -16,8 +16,8 @@ pdf.font_families.update(
     pdf.bounding_box [50, 600], width: 400, height: 200 do
       participants_text = ""
       if appearance.ensemble?
-        # For ensembles, print all players
-        performance.appearances.role_order.each do |a|
+        # For ensembles, print all ensemblists together
+        performance.ensemble_appearances.role_order.each do |a|
           participants_text << "#{a.participant.full_name}, #{a.instrument.name}\n"
         end
       else

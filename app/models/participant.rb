@@ -27,6 +27,7 @@ class Participant < ActiveRecord::Base
   has_many :performances, through: :appearances
 
   comma do
+    id
     first_name
     last_name
     gender

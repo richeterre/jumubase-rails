@@ -1,6 +1,5 @@
 class ContactMailer < ActionMailer::Base
-  # By default, send message to whole core orgteam
-  default :to => JUMU_ORGMAILS
+  default :to => JUMU_CONTACT_EMAIL
 
   def contact_message(contact)
     @contact = contact

@@ -6,4 +6,6 @@ log/*.log
 tmp/
 doc/
 .sass-cache/
-.DS_Store
+
+# Heroku local config
+.env

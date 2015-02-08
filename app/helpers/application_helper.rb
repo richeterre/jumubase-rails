@@ -85,16 +85,6 @@ module ApplicationHelper
     "#{JUMU_SEASON}. Wettbewerb \"Jugend musiziert\""
   end
 
-  # Return the full title of the current round (e.g. "Landeswettbewerb 2006")
-  def current_round_title
-    "#{Round.find_by_level(JUMU_ROUND).name} #{JUMU_YEAR}"
-  end
-
-  # Return the name of the current round's host – or all of them for the 1st round
-  def current_host_name
-    JUMU_ROUND == 2 ? "an der #{JUMU_HOST}" : "an einer Schule der Wettbewerbsregion Nord- und Osteuropa"
-  end
-
   # Converts seconds into min'sec format
   def format_duration(seconds)
     min = seconds / 60

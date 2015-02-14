@@ -65,6 +65,7 @@ GEM
     coffee-script-source (1.4.0)
     comma (3.2.2)
       activesupport (>= 3.0.0)
+    daemons (1.1.9)
     database_cleaner (0.9.1)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
@@ -319,6 +320,7 @@ DEPENDENCIES
   capybara (~> 2.0)
   coffee-rails (~> 3.2.1)
   comma
+  daemons
   database_cleaner
   delayed_job_active_record
   email_spec

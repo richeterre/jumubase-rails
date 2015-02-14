@@ -28,6 +28,7 @@ gem 'comma' # CSV output
 gem 'coffee-rails',   '~> 3.2.1'
 
 gem 'delayed_job_active_record'
+gem 'workless' # Auto-scale Heroku workers
 
 # Gems used only for assets and not required
 # in production environments by default.

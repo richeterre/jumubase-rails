@@ -177,13 +177,8 @@ class Performance < ActiveRecord::Base
 
   # Return whether the performance as a whole can migrate to next round
   def advances_to_next_round?
-    # KiMu participants don't advance
-    return false if self.category.name == "\"Kinder musizieren\""
-
-    if self.competition.round.level == 2
-      # Most pop categories don't advance from 2nd round
-      return false if ["E-Bass (Pop) solo", "Gesang (Pop) solo"].include?(self.category.name)
-      # TODO: Generalize pop category restrictions
+    if self.competition.round.level >= self.category.max_round.level
+      return false # Don't advance if category's maximum round is reached
     end
 
     if self.soloist

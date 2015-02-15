@@ -253,6 +253,7 @@ de:
         ensemble: "Ensemble"
         popular: "Pop"
         active: "Aktiv"
+        max_round: "Endrunde"
       competition:
         season: Saison
         round_id: Runde

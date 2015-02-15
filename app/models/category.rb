@@ -15,7 +15,7 @@
 
 # -*- encoding : utf-8 -*-
 class Category < ActiveRecord::Base
-  attr_accessible :name, :solo, :ensemble, :popular, :slug, :active
+  attr_accessible :name, :solo, :ensemble, :popular, :slug, :active, :max_round_id
 
   # By default, show classical before pop, solo before ensemble
   default_scope order: 'popular, solo DESC, ensemble DESC, name'
@@ -32,8 +32,10 @@ class Category < ActiveRecord::Base
   end
 
   has_and_belongs_to_many :competitions
+  belongs_to :max_round, class_name: "Round"
 
   validates :name, presence: true
   validates :slug, presence: true
+  validates :max_round, presence: true
   # Check that either solo, ensemble or both are true – how?
 end

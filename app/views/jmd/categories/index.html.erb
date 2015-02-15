@@ -9,6 +9,7 @@
       <th>Kürzel</th>
       <th>Genre</th>
       <th>Solo/Ensemble</th>
+      <th>bis Runde</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -21,6 +22,10 @@
         <td>
           <%= info_label_tag("Solo", :info) if category.solo? %>
           <%= info_label_tag("Ensemble", :info) if category.ensemble? %>
+        </td>
+        <td>
+          <% type = category.max_round.level < 3 ? :warning : :info %>
+          <%= info_label_tag(category.max_round.slug, type) %>
         </td>
         <td>
           <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category), class: "btn btn-mini" %>

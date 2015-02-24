@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150119233537) do
+ActiveRecord::Schema.define(:version => 20150215105933) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -31,12 +31,15 @@ ActiveRecord::Schema.define(:version => 20150119233537) do
     t.string   "name"
     t.boolean  "solo"
     t.boolean  "ensemble"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.boolean  "popular"
     t.string   "slug"
     t.boolean  "active"
+    t.integer  "max_round_id"
   end
+
+  add_index "categories", ["max_round_id"], :name => "index_categories_on_max_round_id"
 
   create_table "categories_competitions", :id => false, :force => true do |t|
     t.integer "category_id"

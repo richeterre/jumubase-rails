@@ -2,15 +2,16 @@
 #
 # Table name: categories
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  solo       :boolean
-#  ensemble   :boolean
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  popular    :boolean
-#  slug       :string(255)
-#  active     :boolean
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  solo         :boolean
+#  ensemble     :boolean
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  popular      :boolean
+#  slug         :string(255)
+#  active       :boolean
+#  max_round_id :integer
 #
 
 # -*- encoding : utf-8 -*-

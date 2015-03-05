@@ -12,6 +12,7 @@
 #  tracing_code   :string(255)
 #  age_group      :string(255)
 #  predecessor_id :integer
+#  stage_venue_id :integer
 #
 
 # -*- encoding : utf-8 -*-

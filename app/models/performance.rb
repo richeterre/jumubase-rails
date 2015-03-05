@@ -28,6 +28,7 @@ class Performance < ActiveRecord::Base
   belongs_to  :competition
   belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
                               include: { competition: { host: :country }}
+  belongs_to  :stage_venue,   class_name: "Venue"
   has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",
                               inverse_of: :predecessor, dependent: :nullify
   has_many    :appearances,   inverse_of: :performance, dependent: :destroy
@@ -40,6 +41,8 @@ class Performance < ActiveRecord::Base
 
   validates :category_id,     presence: true
   validates :competition_id,  presence: true
+
+  validate :competition_and_venue_hosts_match
 
   validate :require_one_appearance
   validate :require_one_piece
@@ -208,6 +211,12 @@ class Performance < ActiveRecord::Base
       end
       # Else use that of first appearance, as they all have the same
       self.age_group = self.appearances.first.age_group
+    end
+
+    def competition_and_venue_hosts_match
+      if !stage_venue.nil? and competition.host != stage_venue.host
+        errors.add(:base, :competition_and_venue_hosts_must_match)
+      end
     end
 
     def require_one_appearance

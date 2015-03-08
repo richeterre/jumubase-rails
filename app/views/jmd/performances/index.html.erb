@@ -31,6 +31,8 @@
     <tr>
       <td>
         <%= l performance.stage_time, format: :short if performance.stage_time %>
+        <br>
+        <%= performance.stage_venue.name if performance.stage_venue %>
       </td>
       <td>
         <%= link_to performance.category.name, jmd_performance_path(performance), title: "Vorspieldetails anzeigen" %>

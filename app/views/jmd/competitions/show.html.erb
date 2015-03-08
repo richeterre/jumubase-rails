@@ -21,19 +21,31 @@
 <h3>Werkzeuge</h3>
 
 <h4>Vor der Wertung</h4>
+
 <p>
   <%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
   <%= link_to "Teilnehmer anzeigen", jmd_competition_participants_path(@competition), class: "btn" %>
 </p>
-<p>
-  <%= link_to "Klassikvorspiele planen", schedule_classical_jmd_competition_path(@competition), class: "btn" %>
 
-    <%= link_to "Popvorspiele planen", schedule_popular_jmd_competition_path(@competition),
-                class: "btn" %>
+<%
+  venues = @competition.host.venues
+  if !venues.empty?
+  %>
+<p>
+  <div class="btn-group">
+  <% venues.each do |venue| %>
+    <%= link_to "Vorspiele planen: #{venue.name}", schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
+  <% end %>
+  </div>
+</p>
+<% end %>
+
+<p>
   <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
 </p>
 
 <h4>Nach der Wertung</h4>
+
 <p>
   <%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
   <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition), class: "btn" %>

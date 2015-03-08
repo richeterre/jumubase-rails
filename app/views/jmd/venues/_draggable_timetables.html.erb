@@ -13,10 +13,10 @@
 <% @competition.days.each do |day| %>
 <div class="day-column span3">
   <h4><%= l day, :format => :long %></h4>
-  <div id="<%= day.to_s %>" class="droppable-timetable">
+  <div id="<%= day.to_s %>" data-stage-venue-id="<%= @venue.id %>" class="droppable-timetable">
     <div class="draggable-performances">
       <%= render partial: 'jmd/performances/draggable_performance',
-                 collection: @performances.on_date(day).browsing_order, as: :performance %>
+                 collection: @performances.on_date(day).at_stage_venue(@venue).browsing_order, as: :performance %>
     </div>
   </div>
 </div>

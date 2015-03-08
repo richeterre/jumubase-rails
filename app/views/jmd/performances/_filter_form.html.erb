@@ -5,11 +5,11 @@
           { selected: params[:on_date], include_blank: "Alle Tage" }, class: "span2" %>
   <% end %>
 
+  <%= select nil, :at_stage_venue, @competition.host.venues.collect { |v| [v.name, v.id] },
+      { selected: params[:at_stage_venue], include_blank: "Alle Vorspielräume" } %>
+
   <%= select nil, :in_genre, [["Klassik", 0], ["Pop", 1]],
       { selected: params[:in_genre], include_blank: "Klassik & Pop" } %>
-
-  <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
-      { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
 
   <% if @competition.nil? # Looking at performances across competitions %>
     <% if JUMU_ROUND == 1 %>
@@ -29,9 +29,12 @@
           class: "span3" %>
   <% end %>
 
-  <%= select nil, :in_age_group, JUMU_AGE_GROUPS,
-      { selected: params[:in_age_group], include_blank: "Alle Altersgruppen" }, class: "span2" %>
+  <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
+      { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
 
+  <%= select nil, :in_age_group, JUMU_AGE_GROUPS,
+      { selected: params[:in_age_group], include_blank: "Alle AG" }, class: "span2" %>
+  <br>
   <%= submit_tag "Filtern", class: (filter_active? ? "btn btn-warning" : "btn") %>
   <%= link_to "Alle anzeigen", path, class: "btn" %>
 <% end %>

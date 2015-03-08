@@ -12,6 +12,9 @@ Jmd::Application.routes.draw do
         get 'make_jury_sheets', on: :collection
         get 'make_result_sheets', on: :collection
       end
+      resources :venues, only: [] do
+        get 'schedule', on: :member
+      end
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member
       get 'welcome_advanced', on: :member
@@ -21,7 +24,7 @@ Jmd::Application.routes.draw do
     resources :hosts, only: [:index, :show]
     resources :performances, except: :index do
       get 'list_current', on: :collection
-      put 'retime', on: :member
+      put 'reschedule', on: :member
     end
   end
 

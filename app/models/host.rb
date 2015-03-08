@@ -17,6 +17,7 @@ class Host < ActiveRecord::Base
 
   belongs_to :country
   has_many :competitions
+  has_many :venues
 
   validates :name,        presence: true
   validates :city,        presence: true

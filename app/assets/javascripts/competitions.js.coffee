@@ -23,13 +23,13 @@ $ ->
     drop: (event, ui) ->
       $.ajax({
         type: 'put',
-        data: 'date=' + $(this).attr('id') + '&offset=' + Math.round(ui.position.top / 15) * 300,
+        data: 'date=' + $(this).attr('id') + '&offset=' + Math.round(ui.position.top / 15) * 300 + '&stage_venue_id=' + $(this).attr("data-stage-venue-id"),
         dataType: 'script',
         context: $(this).closest('div'),
         complete: (request) ->
           $('.draggable-performance').draggable(draggable_attributes) # Re-enable dragging of performances
         ,
-        url: '/jmd/performances/' + ui.draggable.attr('id') + '/retime'
+        url: '/jmd/performances/' + ui.draggable.attr('id') + '/reschedule'
       })
   })
 

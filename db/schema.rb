@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150215105933) do
+ActiveRecord::Schema.define(:version => 20150305194545) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -134,8 +134,10 @@ ActiveRecord::Schema.define(:version => 20150215105933) do
     t.string   "tracing_code"
     t.string   "age_group"
     t.integer  "predecessor_id"
+    t.integer  "stage_venue_id"
   end
 
+  add_index "performances", ["stage_venue_id"], :name => "index_performances_on_stage_venue_id"
   add_index "performances", ["tracing_code"], :name => "index_performances_on_tracing_code", :unique => true
 
   create_table "pieces", :force => true do |t|
@@ -183,5 +185,12 @@ ActiveRecord::Schema.define(:version => 20150215105933) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+
+  create_table "venues", :force => true do |t|
+    t.string   "name"
+    t.integer  "host_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

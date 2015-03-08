@@ -31,6 +31,10 @@
     <tr>
       <td>
         <%= l performance.stage_time, format: :short if performance.stage_time %>
+        <br>
+        <%= if venue = performance.stage_venue
+          link_to venue.name, schedule_jmd_competition_venue_path(@competition, venue)
+        end %>
       </td>
       <td>
         <%= link_to performance.category.name, jmd_performance_path(performance), title: "Vorspieldetails anzeigen" %>
@@ -52,8 +56,6 @@
         <% end %>
       </td>
       <td>
-        <%= link_to icon_tag("eye-open", title: "Vorspieldetails anzeigen"),
-              jmd_performance_path(performance), class: "btn btn-mini" %>
         <% if can? :update, Performance %>
           <%= link_to icon_tag("edit", title: "Dieses Vorspiel bearbeiten"),
                 edit_jmd_performance_path(performance), class: "btn btn-mini" %>

@@ -2,4 +2,13 @@
 
 <h3><%= @competition.name %></h3>
 
+<% other_venues = @competition.host.venues.select { |v| v != @venue } %>
+<% if !other_venues.empty? %>
+  <p>
+  <% other_venues.each do |venue| %>
+    <%= link_to "Zu Vorspielraum \"#{venue.name}\" wechseln", schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
+  <% end %>
+  </p>
+<% end %>
+
 <%= render 'draggable_timetables' %>

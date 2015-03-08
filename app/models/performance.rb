@@ -118,13 +118,13 @@ class Performance < ActiveRecord::Base
   end
 
   # Returns all performances whose stage venue is the given venue
-  def self.at_stage_venue(venue)
-    where(stage_venue_id: venue.try(:id))
+  def self.at_stage_venue(venue_id)
+    where(stage_venue_id: venue_id)
   end
 
   # Returns all performances whose stage venue is empty or the given venue
-  def self.venueless_or_at_stage_venue(venue)
-    where("performances.stage_venue_id IS NULL OR performances.stage_venue_id = ?", venue.id)
+  def self.venueless_or_at_stage_venue(venue_id)
+    where("performances.stage_venue_id IS NULL OR performances.stage_venue_id = ?", venue_id)
   end
 
   # Orders performances chronologically by stage date

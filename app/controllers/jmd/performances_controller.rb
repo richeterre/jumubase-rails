@@ -19,6 +19,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
   has_scope :on_date, only: filterable_actions
+  has_scope :at_stage_venue, only: filterable_actions
   has_scope :in_genre, only: filterable_actions
 
   # List current performances the user has access to

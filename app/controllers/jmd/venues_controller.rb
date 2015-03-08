@@ -10,7 +10,7 @@ class Jmd::VenuesController < Jmd::BaseController
     @categories = Category.current
     @performances = @competition.performances
                                 .includes(:predecessor, :participants)
-                                .venueless_or_at_stage_venue(@venue)
+                                .venueless_or_at_stage_venue(@venue.id)
                                 .browsing_order
   end
 end

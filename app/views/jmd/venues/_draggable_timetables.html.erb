@@ -16,7 +16,7 @@
   <div id="<%= day.to_s %>" data-stage-venue-id="<%= @venue.id %>" class="droppable-timetable">
     <div class="draggable-performances">
       <%= render partial: 'jmd/performances/draggable_performance',
-                 collection: @performances.on_date(day).at_stage_venue(@venue).browsing_order, as: :performance %>
+                 collection: @performances.on_date(day).at_stage_venue(@venue.id).browsing_order, as: :performance %>
     </div>
   </div>
 </div>

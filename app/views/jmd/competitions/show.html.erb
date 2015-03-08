@@ -32,11 +32,9 @@
   if !venues.empty?
   %>
 <p>
-  <div class="btn-group">
   <% venues.each do |venue| %>
-    <%= link_to "Vorspiele planen: #{venue.name}", schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
+    <%= link_to "Vorspiele für Raum \"#{venue.name}\" planen", schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
   <% end %>
-  </div>
 </p>
 <% end %>
 

@@ -4,8 +4,10 @@ class CompetitionsController < ApplicationController
   before_filter :get_performances_for_current_lw
   layout :set_layout
 
-  def classical_schedule
-    @performances = @performances.classical
+  def lw_schedule
+    venue_id = params[:venue]
+    @venue = Venue.find(venue_id)
+    @performances = @performances.at_stage_venue(venue_id)
   end
 
   def popular_schedule

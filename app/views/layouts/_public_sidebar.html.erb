@@ -1,9 +1,14 @@
 <ul class="nav nav-list">
   <li class="nav-header">Aktuell</li>
-  <% if JUMU_TIMETABLES_PUBLIC %>
-  <%= nav_link_to "Zeitplan Klassik", classical_schedule_path(year: 2014, month: 3, day: 20) %>
-  <%= nav_link_to "Zeitplan Pop", popular_schedule_path(year: 2014, month: 3, day: 20) %>
+
+  <% if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC %>
+    <% lw_competition = Competition.seasonal_with_level(JUMU_ROUND).first %>
+    <% date = lw_competition.begins %>
+    <% lw_competition.venues.each do |venue| %>
+      <%= nav_link_to "Zeitplan #{venue.name}", lw_schedule_path(venue: venue.id, year: date.year, month: date.month, day: date.day) %>
+    <% end %>
   <% end %>
+
   <%= nav_link_to "Teilnahmeregeln", rules_path %>
   <%= nav_link_to "Anmeldeformular", new_performance_path if JUMU_SIGNUP_OPEN && JUMU_ROUND == 1 %>
   <%= nav_link_to "Anmeldung bearbeiten", signup_search_path if JUMU_SIGNUP_OPEN %>

@@ -3,10 +3,9 @@
   <% unless @competition.nil? %>
     <%= select nil, :on_date, @competition.days.collect { |day| [l(day, format: :long), day.to_s] },
           { selected: params[:on_date], include_blank: "Alle Tage" }, class: "span2" %>
+    <%= select nil, :at_stage_venue, @competition.host.venues.collect { |v| [v.name, v.id] },
+          { selected: params[:at_stage_venue], include_blank: "Alle Vorspielräume" } %>
   <% end %>
-
-  <%= select nil, :at_stage_venue, @competition.host.venues.collect { |v| [v.name, v.id] },
-      { selected: params[:at_stage_venue], include_blank: "Alle Vorspielräume" } %>
 
   <%= select nil, :in_genre, [["Klassik", 0], ["Pop", 1]],
       { selected: params[:in_genre], include_blank: "Klassik & Pop" } %>

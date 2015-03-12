@@ -18,8 +18,6 @@ Jmd::Application.routes.draw do
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member
       get 'welcome_advanced', on: :member
-      get 'schedule_classical', on: :member
-      get 'schedule_popular', on: :member
     end
     resources :hosts, only: [:index, :show]
     resources :performances, except: :index do

@@ -49,7 +49,7 @@ JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 JUMU_SIGNUP_OPEN = ENV['JUMU_SIGNUP_OPEN'].to_bool
 
 # Whether timetables for the above round are public
-JUMU_TIMETABLES_PUBLIC = false
+JUMU_TIMETABLES_PUBLIC = ENV['JUMU_TIMETABLES_PUBLIC'].to_bool
 
 # The 2nd round host
 JUMU_HOST = ENV['JUMU_CURRENT_LW_HOST']

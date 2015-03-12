@@ -5,7 +5,7 @@
     <% lw_competition = Competition.seasonal_with_level(JUMU_ROUND).first %>
     <% date = lw_competition.begins %>
     <% lw_competition.venues.each do |venue| %>
-      <%= nav_link_to "Zeitplan #{venue.name}", lw_schedule_path(venue: venue.id, year: date.year, month: date.month, day: date.day) %>
+      <%= nav_link_to "Vorspielplan #{venue.name}", lw_schedule_path(venue: venue.id, year: date.year, month: date.month, day: date.day) %>
     <% end %>
   <% end %>
 

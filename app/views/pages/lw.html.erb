@@ -1,3 +1,91 @@
 <% provide(:title, "Landeswettbewerb #{JUMU_YEAR} an der #{JUMU_HOST}") %>
 
-<p>Diese Seite wird in den Monaten vor dem Landeswettbewerb vervollständigt.</p>
+<!--
+<h3>Ergebnisse</h3>
+
+<ul>
+  <p>
+    <%= icon_tag "file" %>
+    <%= link_to "Ergebnisliste Klassik (156 KB, PDF)", asset_path('LW2014_Ergebnisse_Klassik.pdf') %>
+  </p>
+
+  <p>
+    <%= icon_tag "file" %>
+    <%= link_to "Ergebnisliste Pop (139 KB, PDF)", asset_path('LW2014_Ergebnisse_Pop.pdf') %>
+  </p>
+
+</ul>
+-->
+
+<h3>Programmübersicht</h3>
+
+<p>Die genauen Zeiten stehen im Infozentrum vor Ort sowie auf der <%= link_to "örtlichen Jumu-Infoseite", "http://jumu.idsp.fr/programm.html" %> (siehe unten).</p>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Mi 18.3.</th>
+      <th>Do 19.3.</th>
+      <th>Fr 20.3.</th>
+      <th>Sa 21.3.</th>
+      <th>So 22.3.</th>
+      <th class="muted">Mo 23.3.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% venues = Competition.seasonal_with_level(2).first.venues %>
+      <td>Anreise</td>
+      <td>
+        Wertungsspiele:
+        <% venues.each do |venue| %>
+          <br>
+          <%= link_to venue.name, lw_schedule_path(venue: venue.id, year: 2015, month: 3, day: 19) %>
+        <% end %>
+      </td>
+      <td>
+        Wertungsspiele:
+        <% venues.each do |venue| %>
+          <br>
+          <%= link_to venue.name, lw_schedule_path(venue: venue.id, year: 2015, month: 3, day: 20) %>
+        <% end %>
+      </td>
+      <td>
+        Wertungsspiele:
+        <% venues.each do |venue| %>
+          <br>
+          <%= link_to venue.name, lw_schedule_path(venue: venue.id, year: 2015, month: 3, day: 21) %>
+        <% end %>
+      </td>
+      <td>Stadtrundfahrt</td>
+      <td class="muted" rowspan="4">Abreise</td>
+    </tr>
+    <tr>
+      <td>Eröffnungskonzert</td>
+      <td>Workshops</td>
+      <td>Workshops</td>
+      <td>Workshops</td>
+      <td>Urkundenvergabe</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Preisträgerkonzert</td>
+      <td>Preisträgerkonzert</td>
+      <td>Abschlusskonzert</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Teilnehmerfest</td>
+      <td>"Paris by night"</td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to image_tag("logo_lw2015.jpg", id: "lw-logo", class: "pull-right"), "http://www.jumu-moskau.com" %>
+
+<h3>Tip: Infoseite der DS Paris</h3>
+
+Unter der Adresse <%= link_to nil, "http://jumu.idsp.fr/" %> hat das JuMu-Team von der DS Paris Wissenswertes zum Rahmenprogramm, den Konzerten und natürlich der Stadt Paris zusammengestellt. Alles, was mit dem eigentlichen Wettbewerb zu tun hat, findet ihr auch weiterhin hier bei JuMu Nordost.

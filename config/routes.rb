@@ -18,8 +18,6 @@ Jmd::Application.routes.draw do
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member
       get 'welcome_advanced', on: :member
-      get 'schedule_classical', on: :member
-      get 'schedule_popular', on: :member
     end
     resources :hosts, only: [:index, :show]
     resources :performances, except: :index do
@@ -35,9 +33,8 @@ Jmd::Application.routes.draw do
   resources :sessions, only: [:create, :destroy]
 
   # Routes for performance timetables
-  if JUMU_TIMETABLES_PUBLIC
-    match 'zeitplan/klassik/:year-:month-:day', to: 'competitions#classical_schedule', as: :classical_schedule
-    match 'zeitplan/pop/:year-:month-:day', to: 'competitions#popular_schedule', as: :popular_schedule
+  if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC
+    match 'vorspielplan/:venue/:year-:month-:day', to: 'competitions#lw_schedule', as: :lw_schedule
   end
 
   # Routes for signup and performance editing, if currently possible

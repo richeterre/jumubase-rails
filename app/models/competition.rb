@@ -23,6 +23,7 @@ class Competition < ActiveRecord::Base
   has_many :performances, dependent: :destroy
   has_many :appearances, through: :performances, readonly: true
   has_many :participants, through: :appearances, uniq: true, readonly: true
+  has_many :venues, through: :host, readonly: true
   has_and_belongs_to_many :categories
 
   validates :season,          presence: true,

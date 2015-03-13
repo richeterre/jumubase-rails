@@ -14,7 +14,7 @@ class Ability
       if JUMU_ROUND == 1
         can :create, Performance # TODO: Check that user has access to selected competition
         can :manage, Performance, competition: { host_id: user.host_ids }
-        can [:schedule_classical, :schedule_popular], Competition, host_id: user.host_ids
+        can :schedule, Venue, host_id: user.host_ids
       else
         # Authorize to read and list performances that advanced from own competition
         can [:read, :list_current], Performance, Performance.advanced_from_competition(user.competitions) do |p|

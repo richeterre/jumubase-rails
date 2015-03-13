@@ -2,7 +2,7 @@
 
 <h3><%= @competition.name %></h3>
 
-<% other_venues = @competition.host.venues.select { |v| v != @venue } %>
+<% other_venues = @competition.venues.select { |v| v != @venue } %>
 <% if !other_venues.empty? %>
   <p>
   <% other_venues.each do |venue| %>

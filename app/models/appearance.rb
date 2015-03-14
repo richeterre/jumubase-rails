@@ -50,9 +50,10 @@ class Appearance < ActiveRecord::Base
     where(points: nil)
   end
 
-  # Order by role: soloists -> accompanists -> ensemblists
+  # Order by role: soloists -> ensemblists -> accompanists
   def self.role_order
-    order(:role_id)
+    joins(:role)
+    .order("roles.slug DESC")
   end
 
   # Perform participant existence check upon saving

@@ -20,7 +20,7 @@ performance_rows = @performances.map do |p|
   ]
 end
 pdf.table performance_rows do |table|
-  table.columns(0).width = 100
+  table.columns(0).width = 130
   table.columns(1).width = 25
   table.columns(2).width = 200
   table.columns(3..7).width = 75

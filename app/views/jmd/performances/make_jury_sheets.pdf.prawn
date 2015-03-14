@@ -1,6 +1,11 @@
+# Constants
+default_color = "000000"
+muted_color = "999999"
+
 # Grading table
 pdf.start_new_page(layout: :landscape)
 pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
+pdf.fill_color default_color
 
 performance_rows = @performances.map do |p|
   [
@@ -15,7 +20,7 @@ performance_rows = @performances.map do |p|
   ]
 end
 pdf.table performance_rows do |table|
-  table.columns(0).width = 100
+  table.columns(0).width = 130
   table.columns(1).width = 25
   table.columns(2).width = 200
   table.columns(3..7).width = 75
@@ -54,18 +59,19 @@ end
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans-Bold.ttf"
     performance.appearances.role_order.each do |appearance|
       if appearance.accompaniment?
-        pdf.indent(10) do
-          if appearance.age_group != performance.age_group
-            pdf.text appearance.participant.full_name + ", " + appearance.instrument.name + " (AG #{appearance.age_group})"
-          else
-            pdf.text appearance.participant.full_name + ", " + appearance.instrument.name
-          end
+        pdf.fill_color muted_color
+        if appearance.age_group != performance.age_group
+          pdf.text appearance.participant.full_name + ", " + appearance.instrument.name + " (AG #{appearance.age_group})"
+        else
+          pdf.text appearance.participant.full_name + ", " + appearance.instrument.name
         end
       else
+        pdf.fill_color default_color
         pdf.text appearance.participant.full_name + ", " + appearance.instrument.name
       end
     end
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
+    pdf.fill_color default_color
     pdf.move_down 100
     performance.pieces.each do |piece|
       pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans-Bold.ttf"

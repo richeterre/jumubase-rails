@@ -215,13 +215,14 @@ class Performance < ActiveRecord::Base
 
     def update_age_group
       self.appearances.each do |appearance|
-        if appearance.solo?
-          self.age_group = appearance.age_group # Use age group of soloist
+        if appearance.solo? || appearance.ensemble?
+          # Use age group of soloist or first ensemblist
+          self.age_group = appearance.age_group
           return
         end
       end
-      # Else use that of first appearance, as they all have the same
-      self.age_group = self.appearances.first.age_group
+      # Else empty the age group
+      self.age_group = nil
     end
 
     def competition_and_venue_hosts_match

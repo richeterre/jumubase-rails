@@ -109,7 +109,8 @@ class Appearance < ActiveRecord::Base
       calculate_age_group(self.participant.birthdate, season)
     elsif self.ensemble?
       # Ensemble players share an age group
-      calculate_age_group(self.performance.appearances.map { |a| a.participant.birthdate }, season)
+      ensemble_appearances = self.performance.appearances.select(&:ensemble?)
+      calculate_age_group(ensemble_appearances.map { |a| a.participant.birthdate }, season)
     else
       # Pop accompanists share an age group (excluding the soloist)
       accompanist_appearances = self.performance.appearances.select(&:accompaniment?)

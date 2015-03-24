@@ -9,6 +9,15 @@
     <% end %>
   <% end %>
 
+  <% if JUMU_ROUND == 2 && JUMU_RESULTS_AVAILABLE %>
+    <li>
+      <%= nav_link_to icon_tag("file") + " Ergebnislisten Klassik", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Klassik.pdf") %>
+    </li>
+    <li>
+      <%= nav_link_to icon_tag("file") + " Ergebnislisten Pop", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Pop.pdf") %>
+    </li>
+  <% end %>
+
   <% if JUMU_SIGNUP_OPEN %>
     <%= nav_link_to "Teilnahmeregeln", rules_path %>
     <%= nav_link_to "Anmeldeformular", new_performance_path if JUMU_ROUND == 1 %>

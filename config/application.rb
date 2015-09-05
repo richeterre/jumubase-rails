@@ -23,8 +23,8 @@ module Jmd
     config.action_mailer.smtp_settings = {
       :address              => "smtp.jumu-nordost.eu",
       :port                 => 25,
-      :user_name            => "kontakt@jumu-nordost.eu",
-      :password             => "musikverbindet",
+      :user_name            => ENV['JUMU_MAILER_USERNAME'],
+      :password             => ENV['JUMU_MAILER_PASSWORD'],
       :authentication       => "login",
       :enable_starttls_auto => true,
       :openssl_verify_mode  => "none"

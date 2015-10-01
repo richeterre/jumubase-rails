@@ -7,6 +7,10 @@ $baseLineHeight: 22px;
 @import "colors";
 @import "sticky_footer"; /* Make footer stay on bottom */
 
+dt {
+  margin-top: 1em; // Add spacing between definition list items
+}
+
 /* Note: top-padding for navbar is handled in sticky footer styles */
 
 // Jumu logos on header and home page

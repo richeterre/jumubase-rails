@@ -10,7 +10,7 @@ describe "Contacts" do
   describe "message form" do
     it "should have all the required form fields" do
       page.should have_selector "h2", text: "Kontakt"
-      page.should have_selector "h3", text: "Mitteilung an das JuMu-Team"
+      page.should have_selector "h3", text: "Mitteilung an das Jumu-Team"
       page.should have_field "Name", text: ""
       page.should have_field "E-Mail", type: "email", text: ""
       page.should have_field "Betreff", text: ""

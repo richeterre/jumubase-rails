@@ -318,7 +318,7 @@ de:
         admin: Administrator
         host_ids: Schulen
   messages:
-    deadline_passed: "Der Anmeldeschluss für deinen Wettbewerb war bereits am %{deadline}. Bitte nimm Kontakt zu einem JuMu-Ansprechpartner an deiner Schule auf."
+    deadline_passed: "Der Anmeldeschluss für deinen Wettbewerb war bereits am %{deadline}. Bitte nimm Kontakt zu einem Jumu-Ansprechpartner an deiner Schule auf."
   unauthorized:
     manage:
       all: "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."

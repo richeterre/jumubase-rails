@@ -172,7 +172,7 @@ describe "Performances" do
 
       open_last_email.should be_delivered_from "anmeldung@jumu-nordost.eu"
       open_last_email.should be_delivered_to "John Doe <john.doe@example.org>"
-      open_last_email.should have_subject "JuMu-Anmeldung in der Kategorie \"#{@active_categories.first.name}\""
+      open_last_email.should have_subject "Jumu-Anmeldung in der Kategorie \"#{@active_categories.first.name}\""
       open_last_email.should have_body_text "Anmeldeschluss am #{I18n.l(Date.today, format: :long)}"
       open_last_email.should have_body_text Performance.last.tracing_code
       open_last_email.should have_body_text signup_search_url(host: "www.jumu-nordost.eu")
@@ -293,7 +293,7 @@ describe "Performances" do
       page.should have_error_message
       page.should have_content "Der Anmeldeschluss für deinen Wettbewerb war bereits am "\
                                "#{I18n.l(deadlined_competition.last_signup_date, format: :long)}. "\
-                               "Bitte nimm Kontakt zu einem JuMu-Ansprechpartner an deiner Schule auf."
+                               "Bitte nimm Kontakt zu einem Jumu-Ansprechpartner an deiner Schule auf."
     end
 
     # Use this in controller: unless admin? || @performance[:tracing_code] == params[:tracing_code]

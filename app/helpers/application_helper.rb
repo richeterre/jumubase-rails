@@ -80,7 +80,7 @@ module ApplicationHelper
     # end
   end
 
-  # Return the full title of the ongoing JuMu contest (e.g. "50. Wettbewerb 'Jugend musiziert'")
+  # Return the full title of the ongoing contest (e.g. "50. Wettbewerb 'Jugend musiziert'")
   def current_contest_title
     "#{JUMU_SEASON}. Wettbewerb \"Jugend musiziert\""
   end

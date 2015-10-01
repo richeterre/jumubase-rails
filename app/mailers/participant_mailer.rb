@@ -5,7 +5,7 @@ class ParticipantMailer < ActionMailer::Base
     @participant = participant
     @performance = performance
     mail(to: named_email_adress(participant),
-         subject: "JuMu-Anmeldung in der Kategorie \"#{performance.category.name}\"")
+         subject: "Jumu-Anmeldung in der Kategorie \"#{performance.category.name}\"")
   end
 
   def welcome_advanced(participant, performance)

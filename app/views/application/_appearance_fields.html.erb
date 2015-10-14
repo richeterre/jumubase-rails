@@ -10,7 +10,7 @@
     <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen", hint: "Bei Gesangskategorien bitte als Instrument \"Gesang\" angeben." %>
 
     <%= p.input :birthdate, as: :date, order: [:day,:month,:year],
-          start_year: Time.now.year - 5, end_year: Time.now.year - 27,
+          start_year: JUMU_YEAR - 5, end_year: JUMU_YEAR - 27,
           prompt: { day: "Tag", month: "Monat", year: "Jahr" }, input_html: { class: "span2" }, hint: "Bitte unbedingt das richtige Geburtsdatum angeben!" %>
 
     <%= p.input :gender, collection: [:m, :f], as: :radio_buttons %>

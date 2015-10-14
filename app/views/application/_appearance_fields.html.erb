@@ -7,7 +7,7 @@
 
     <%= f.input :role_id, collection: Role.all, prompt: "Bitte wählen" %>
 
-    <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen" %>
+    <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen", hint: "Bei Gesangskategorien bitte als Instrument \"Gesang\" angeben." %>
 
     <%= p.input :birthdate, as: :date, order: [:day,:month,:year],
           start_year: Time.now.year - 5, end_year: Time.now.year - 27,

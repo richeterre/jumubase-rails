@@ -10,6 +10,7 @@
       <th>Genre</th>
       <th>Solo/Ensemble</th>
       <th>bis Runde</th>
+      <th>AGs offiziell</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -26,6 +27,9 @@
         <td>
           <% type = category.max_round.level < 3 ? :warning : :info %>
           <%= info_label_tag(category.max_round.slug, type) %>
+        </td>
+        <td>
+          <%= "#{category.official_min_age_group} – #{category.official_max_age_group}" %>
         </td>
         <td>
           <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category), class: "btn btn-mini" %>

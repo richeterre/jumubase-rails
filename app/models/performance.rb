@@ -191,9 +191,15 @@ class Performance < ActiveRecord::Base
 
   # Return whether the performance as a whole can migrate to next round
   def advances_to_next_round?
+    # Don't advance if category's maximum round is reached
     if self.competition.round.level >= self.category.max_round.level
-      return false # Don't advance if category's maximum round is reached
+      return false
     end
+
+    # Prevent from advancing if the age group is not officially allowed in this category
+    age_group_index = JUMU_AGE_GROUPS.index(self.age_group)
+    return false if age_group_index < JUMU_AGE_GROUPS.index(self.category.official_min_age_group)
+    return false if age_group_index > JUMU_AGE_GROUPS.index(self.category.official_max_age_group)
 
     if self.soloist
       self.soloist.may_advance_to_next_round? # Soloist determines

@@ -20,38 +20,72 @@
 
 <h3>Werkzeuge</h3>
 
-<h4>Vor der Wertung</h4>
+<div class="row">
+  <div class="span4">
 
-<p>
-  <%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
-  <%= link_to "Teilnehmer anzeigen", jmd_competition_participants_path(@competition), class: "btn" %>
-</p>
+  <h4>Vor der Wertung</h4>
 
-<%
-  venues = @competition.venues
-  if !venues.empty?
-  %>
-<p>
-  <% venues.each do |venue| %>
-    <%= link_to "Vorspiele für Raum \"#{venue.name}\" planen", schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
+  <h5>Anmeldungen</h5>
+
+  <p>
+    <%= link_to "Vorspiele anzeigen", jmd_competition_performances_path(@competition), class: "btn" %>
+    <%= link_to "Teilnehmer anzeigen", jmd_competition_participants_path(@competition), class: "btn" %>
+  </p>
+
+  <%
+    venues = @competition.venues
+    if !venues.empty?
+    %>
+    <h5>Vorspiele planen:</h5>
+    <p>
+      <% venues.each do |venue| %>
+        <%= link_to venue.name, schedule_jmd_competition_venue_path(@competition, venue), class: "btn" %>
+      <% end %>
+    </p>
+    <h5>Vorspielpläne anzeigen:</h5>
+    <p>
+      <% venues.each do |venue| %>
+        <% start_date = @competition.begins %>
+        <%= link_to venue.name, show_timetable_jmd_competition_venue_path(
+            @competition,
+            venue,
+            start_date.year,
+            start_date.month,
+            start_date.day
+          ), class: "btn" %>
+      <% end %>
+    </p>
   <% end %>
-</p>
-<% end %>
 
-<p>
-  <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
-</p>
+  <h5>Jurymaterial</h5>
 
-<h4>Nach der Wertung</h4>
+  <p>
+    <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
+  </p>
 
-<p>
-  <%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
-  <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition), class: "btn" %>
-  <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
-</p>
-<p>
-  <%= link_to "Weiterleitungen anzeigen", list_advancing_jmd_competition_path(@competition), class: "btn" %>
-</p>
+  </div>
+  <div class="span4">
+    <h4>Nach der Wertung</h4>
+
+    <h5>Ergebnisse</h5>
+
+    <p>
+      <%= link_to "Ergebnisse eintragen", jmd_competition_appearances_path(@competition), class: "btn" %>
+      <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_competition_performances_path(@competition), class: "btn" %>
+    </p>
+
+    <h5>Urkunden</h5>
+
+    <%= link_to "Urkunden drucken", make_certificates_jmd_competition_performances_path(@competition), class: "btn" %>
+
+    <h5>Weiterleitungen</h5>
+
+    <p>
+      <%= link_to "Weiterleitungen anzeigen", list_advancing_jmd_competition_path(@competition), class: "btn" %>
+    </p>
+  </div>
+</div>
+
 
 <h3>Statistik</h3>
 

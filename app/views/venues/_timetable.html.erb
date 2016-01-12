@@ -1,7 +1,7 @@
-<p class="muted">Stand: <%= l Time.now.in_time_zone(@lw_competition.host.time_zone), format: :short %></p>
+<p class="muted">Stand: <%= l Time.now.in_time_zone(competition.host.time_zone), format: :short %></p>
 
 <div class="well timetable-controls">
-  <% @lw_competition.days.each do |competition_day| %>
+  <% competition.days.each do |competition_day| %>
     <%= link_to l(competition_day, format: :full),
                 params.merge(year: competition_day.year, month: competition_day.month, day: competition_day.mday),
                 class: "btn" %>
@@ -16,7 +16,7 @@
   %>
 </div>
 
-<h3><%= l @date, format: :full %></h3>
+<h3><%= l date, format: :full %></h3>
 
 <table class="table table-striped">
   <thead>
@@ -25,13 +25,15 @@
       <th width="30%">Kategorie</th>
       <th>AG</th>
       <th>Teilnehmer</th>
+      <% if competition.round.level > 1 %>
       <th>Schule</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
-    <% @performances.each_with_index do |performance, index| %>
+    <% performances.each_with_index do |performance, index| %>
       <!-- Insert break if distance to previous participant is large enough -->
-      <% if performance.stage_time - @performances[index-1].rounded_end_time > 5.minutes %>
+      <% if performance.stage_time - performances[index-1].rounded_end_time > 5.minutes %>
         <tr>
           <td colspan="5"><strong>Pause</strong></td>
         </tr>
@@ -52,10 +54,12 @@
             <br />
           <% end %>
         </td>
+        <% if competition.round.level > 1 %>
         <td>
           <%= performance.associated_host.name %>
           <%= flag_tag(performance.associated_country.try(:country_code)) %>
         </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

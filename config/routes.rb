@@ -14,6 +14,7 @@ Jmd::Application.routes.draw do
       end
       resources :venues, only: [] do
         get 'schedule', on: :member
+        match 'timetable/:year-:month-:day', to: 'venues#show_timetable', on: :member, as: :show_timetable
       end
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member

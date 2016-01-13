@@ -4,8 +4,7 @@ class CompetitionsController < ApplicationController
   layout :desired_layout
 
   def lw_schedule
-    venue_id = params[:venue]
-    @venue = Venue.find(venue_id)
+    @venue = Venue.find(params[:venue])
 
     date_array = params.slice(:year, :month, :day).values.map(&:to_i)
 
@@ -16,12 +15,8 @@ class CompetitionsController < ApplicationController
     end
 
     @competition = Competition.seasonal_with_level(2).first
-    @performances = @competition.performances
-                                .where("performances.stage_time IS NOT NULL")
+    @performances = @competition.staged_performances(@venue, @date)
                                 .includes(:category, :competition, :predecessor)
-                                .stage_order
-                                .on_date(@date)
-                                .at_stage_venue(venue_id)
   end
 
   private

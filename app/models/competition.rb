@@ -70,6 +70,14 @@ class Competition < ActiveRecord::Base
     .order("hosts.name")
   end
 
+  # Find performances for a given venue and date
+  def staged_performances(venue, date)
+    performances.where("performances.stage_time IS NOT NULL")
+                .stage_order
+                .on_date(date)
+                .at_stage_venue(venue.id)
+  end
+
   # Virtual name that identifies the competition
   def name
     "#{self.host.name}, #{self.round.slug} #{self.year}"

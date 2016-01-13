@@ -27,12 +27,8 @@ class Jmd::VenuesController < Jmd::BaseController
         render 'pages/not_found'
       end
 
-      @performances = @competition.performances
-                                  .where("performances.stage_time IS NOT NULL")
+      @performances = @competition.staged_performances(@venue, @date)
                                   .includes(:category, :competition)
-                                  .stage_order
-                                  .on_date(@date)
-                                  .at_stage_venue(@venue.id)
   end
 
   private

@@ -61,7 +61,10 @@ class Jmd::CompetitionsController < Jmd::BaseController
 
       # Remove appearances that don't advance
       # This is buggy when not deleting all at once, probably due to coupling during age group calculation
-      not_advancing = new_performance.appearances.select { |a| !a.may_advance_to_next_round? }
+      not_advancing = new_performance.appearances.select { |a|
+        !a.may_advance_to_next_round? && !a.accompaniment?
+        # TODO: Currently non-qualified pop accompanist groups must be removed by hand after migration
+      }
       new_performance.appearances.delete(not_advancing)
 
       new_performance.warmup_time = new_performance.stage_time = nil # Clear scheduled times

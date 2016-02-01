@@ -67,7 +67,11 @@ class Jmd::CompetitionsController < Jmd::BaseController
       }
       new_performance.appearances.delete(not_advancing)
 
-      new_performance.warmup_time = new_performance.stage_time = nil # Clear scheduled times
+      # Clear attributes that become invalid after advancing
+      new_performance.warmup_time = nil
+      new_performance.stage_time = nil
+      new_performance.stage_venue = nil
+
       new_performance.appearances.each { |appearance| appearance.points = nil } # Clear points
       new_performance.predecessor = performance # Link to predecessor
       new_performances << new_performance # Add to list of performances that will be migrated

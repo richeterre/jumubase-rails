@@ -48,7 +48,7 @@ class PerformancesController < ApplicationController
       if params[:tracing_code].empty?
         flash.now[:error] = "Bitte gib den Änderungscode für die gesuchte Anmeldung an."
       else
-        existing = Performance.current.find_by_tracing_code(params[:tracing_code])
+        existing = Performance.find_by_tracing_code(params[:tracing_code])
         if existing.nil?
           flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
         elsif existing.competition.signup_deadline <= Time.now
@@ -63,10 +63,7 @@ class PerformancesController < ApplicationController
 
   # Presents an existing signup form for editing
   def edit
-    @performance = Performance.current.find(params[:id])
-
-    # Populate competition selector, showing only open
-    @competitions = Competition.current_and_open
+    @performance = Performance.in_open_competition.find(params[:id])
 
     unless @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
@@ -76,7 +73,7 @@ class PerformancesController < ApplicationController
 
   # Stores changes made to an existing signup form
   def update
-    @performance = Performance.current.find(params[:id])
+    @performance = Performance.in_open_competition.find(params[:id])
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
       redirect_to signup_search_path

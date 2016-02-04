@@ -1,5 +1,13 @@
 Jmd::Application.routes.draw do
 
+  # Routes for public API
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :competitions, only: [:index]
+    end
+  end
+
   # Routes for internal (JMD) pages
 
   namespace :jmd do

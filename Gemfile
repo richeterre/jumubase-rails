@@ -24,6 +24,7 @@ gem 'prawn' # PDF output
 gem 'prawnto_2', require: 'prawnto'
 
 gem 'comma' # CSV output
+gem 'jbuilder' # JSON output
 
 gem 'coffee-rails',   '~> 3.2.1'
 

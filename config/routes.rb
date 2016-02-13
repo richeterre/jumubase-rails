@@ -4,7 +4,9 @@ Jmd::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :competitions, only: [:index]
+      resources :competitions, only: :index, path: 'contests' do
+        resources :performances, only: [:index, :show], shallow: true
+      end
     end
   end
 

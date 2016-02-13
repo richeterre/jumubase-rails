@@ -21,14 +21,15 @@ class Jmd::VenuesController < Jmd::BaseController
     # @venue is fetched by CanCan
 
     date_array = params.slice(:year, :month, :day).values.map(&:to_i)
-      if Date.valid_date?(*date_array)
-        @date = Date.new(*date_array)
-      else
-        render 'pages/not_found'
-      end
 
-      @performances = @competition.staged_performances(@venue, @date)
-                                  .includes(:category, :competition)
+    if Date.valid_date?(*date_array)
+      @date = Date.new(*date_array)
+    else
+      render 'pages/not_found'
+    end
+
+    @performances = @competition.staged_performances(@venue, @date)
+                                .includes(:category, :competition)
   end
 
   private

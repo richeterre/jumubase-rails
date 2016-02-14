@@ -1,4 +1,4 @@
-json.performances @performances do |performance|
+json.array! @performances do |performance|
   json.id performance.id
   json.stage_time performance.stage_time
   json.category_name performance.category.name

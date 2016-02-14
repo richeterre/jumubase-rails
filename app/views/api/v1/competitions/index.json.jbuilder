@@ -1,4 +1,4 @@
-json.contests @competitions do |competition|
+json.array! @competitions do |competition|
   json.id competition.id
   json.name competition.name
 

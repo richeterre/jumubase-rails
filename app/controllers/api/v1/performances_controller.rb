@@ -1,5 +1,5 @@
 module Api::V1
-  class PerformancesController < ApiController
+  class PerformancesController < Api::ApiController
     def index
       competition = Competition.find(params[:competition_id])
       @venue = Venue.find(params[:venue_id])

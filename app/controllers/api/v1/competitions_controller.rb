@@ -1,5 +1,5 @@
 module Api::V1
-  class CompetitionsController < ApiController
+  class CompetitionsController < Api::ApiController
     def index
       @competitions = Competition.current
     end

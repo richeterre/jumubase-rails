@@ -63,6 +63,12 @@ class Competition < ActiveRecord::Base
     current.where("competitions.signup_deadline > ?", now)
   end
 
+  # Find competitions whose signup is open
+  def self.open
+    now = Time.now
+    where("competitions.signup_deadline > ?", now)
+  end
+
   # Find competitions one round earlier than the current
   def self.preceding
     joins(:round, :host)

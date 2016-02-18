@@ -2,9 +2,11 @@
 
 <p>Hier kannst du den <strong>Änderungscode</strong> eingeben, den du bei der Anmeldung per E-Mail erhalten hast, um eine bereits versendete Anmeldung zu bearbeiten.</p>
 
+<p><strong>Zum Landeswettbewerb weitergeleitete Teilnehmer</strong> erhalten Anfang Februar eine zweite E-Mail mit einem neuen Änderungscode, mit dem sie ihr Programm für den Landeswettbewerb ändern können.</p>
+
 <%= form_tag signup_search_path, class: "form-search" do %>
   <%= text_field_tag :tracing_code, nil, :class => "search-query", autofocus: true %>
   <%= submit_tag "Suchen", class: "btn" %>
 <% end %>
 
-<p>Bitte beachte, dass Änderungen <strong>nur bis zum Anmeldeschluss deines Wettbewerbs</strong> möglich sind. Bis dahin muss dein Vorspielprogramm vollständig angemeldet sein!</p>
+<p>Bitte beachte, dass Änderungen <strong>nur bis zum Anmeldeschluss des jeweiligen Wettbewerbs</strong> möglich sind. Bis dahin muss dein Vorspielprogramm vollständig angemeldet sein!</p>

@@ -67,6 +67,11 @@ class Performance < ActiveRecord::Base
     where(competition_id: Competition.current)
   end
 
+  # Returns all performances in competitions that are currently open (for signup/edits)
+  def self.in_open_competition
+    where(competition_id: Competition.open)
+  end
+
   # Returns all performances in given competition
   def self.in_competition(competition_id)
     where(competition_id: competition_id)

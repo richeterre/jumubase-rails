@@ -12,7 +12,8 @@ module Api::V1
         .includes(
           { appearances: [:instrument, :participant, :role] },
           :category,
-          competition: { host: :country }
+          competition: { host: :country },
+          predecessor: { competition: { host: :country } }
         )
     end
 

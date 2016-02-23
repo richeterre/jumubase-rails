@@ -31,7 +31,7 @@ describe Competition do
   it { should respond_to(:ends) }
   it { should respond_to(:signup_deadline) }
   it { should respond_to(:certificate_date) }
-  it { should respond_to(:category_ids) }
+  it { should respond_to(:timetables_public) }
 
   # Relationships
   it { should respond_to(:round) }

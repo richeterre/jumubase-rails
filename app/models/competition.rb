@@ -17,7 +17,7 @@
 
 class Competition < ActiveRecord::Base
   attr_accessible :season, :round_id, :host_id, :begins, :ends, :signup_deadline,
-                  :certificate_date, :category_ids
+                  :certificate_date, :timetables_public
 
   belongs_to :round
   belongs_to :host

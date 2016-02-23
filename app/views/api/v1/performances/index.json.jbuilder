@@ -13,4 +13,13 @@ json.array! @performances do |performance|
     json.participant_role JUMU_PARTICIPANT_ROLE_MAPPING[appearance.role.slug]
     json.instrument_name appearance.instrument.name
   end
+
+  json.pieces performance.pieces do |piece|
+    json.title piece.title
+    json.composer_name piece.composer_name
+    json.composer_born piece.composer_born
+    json.composer_died piece.composer_died
+    json.duration piece.duration
+    json.epoch piece.epoch.slug
+  end
 end

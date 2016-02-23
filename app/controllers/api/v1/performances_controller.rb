@@ -11,6 +11,7 @@ module Api::V1
       @performances = competition.staged_performances(@venue, @date)
         .includes(
           { appearances: [:instrument, :participant, :role] },
+          { pieces: :epoch },
           :category,
           competition: { host: :country },
           predecessor: { competition: { host: :country } }

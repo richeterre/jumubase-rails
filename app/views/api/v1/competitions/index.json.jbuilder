@@ -5,7 +5,7 @@ json.array! @competitions do |c|
   json.start_date c.begins.to_time(:utc) - c.host.time_zone.utc_offset
   json.end_date c.ends.to_time(:utc) - c.host.time_zone.utc_offset
 
-  json.venues c.venues do |venue|
+  json.venues c.used_venues do |venue|
     json.id venue.id.to_s
     json.name venue.name
   end

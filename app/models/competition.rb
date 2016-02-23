@@ -2,16 +2,17 @@
 #
 # Table name: competitions
 #
-#  id               :integer          not null, primary key
-#  round_id         :integer
-#  host_id          :integer
-#  begins           :date
-#  ends             :date
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  certificate_date :date
-#  season           :integer
-#  signup_deadline  :datetime
+#  id                :integer          not null, primary key
+#  round_id          :integer
+#  host_id           :integer
+#  begins            :date
+#  ends              :date
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  certificate_date  :date
+#  season            :integer
+#  signup_deadline   :datetime
+#  timetables_public :boolean          default(FALSE)
 #
 
 class Competition < ActiveRecord::Base

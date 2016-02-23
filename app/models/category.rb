@@ -13,7 +13,7 @@
 #  active                 :boolean
 #  max_round_id           :integer
 #  official_min_age_group :string(255)      default("Ia")
-#  official_max_age_group :string(255)      default("VI")
+#  official_max_age_group :string(255)      default("VII")
 #
 
 # -*- encoding : utf-8 -*-

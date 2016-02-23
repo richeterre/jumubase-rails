@@ -18,11 +18,12 @@ module Api::V1
     end
 
     def show
-      @performance = Performance.find(params[:id])
+      @performance = Performance
         .includes(
           { appearances: [:instrument, :participant, :role] },
           { pieces: :epoch }
         )
+        .find(params[:id])
     end
   end
 end

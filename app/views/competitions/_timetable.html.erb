@@ -1,12 +1,6 @@
 <p class="muted">Stand: <%= l Time.now.in_time_zone(competition.host.time_zone), format: :short %></p>
 
-<div class="well timetable-controls">
-  <% competition.days.each do |competition_day| %>
-    <%= link_to l(competition_day, format: :full),
-                params.merge(year: competition_day.year, month: competition_day.month, day: competition_day.mday),
-                class: "btn" %>
-  <% end %>
-
+<div class="timetable-controls">
   <%=
     if (params[:bare] != "yes")
       link_to icon_tag("resize-full"), params.merge(bare: :yes), class: "btn pull-right"
@@ -14,6 +8,22 @@
       link_to icon_tag("resize-small"), params.merge(bare: nil), class: "btn pull-right"
     end
   %>
+
+  <p>
+    <% competition.used_venues.each do |venue| %>
+      <%= link_to venue.name,
+        params.merge(venue_id: venue.id),
+        class: "btn" %>
+    <% end %>
+  </p>
+
+  <p>
+    <% competition.days.each do |competition_day| %>
+      <%= link_to l(competition_day, format: :full),
+        params.merge(date: competition_day.to_s),
+        class: "btn" %>
+    <% end %>
+  </p>
 </div>
 
 <h3><%= l date, format: :full %></h3>

@@ -2,21 +2,22 @@
 #
 # Table name: competitions
 #
-#  id               :integer          not null, primary key
-#  round_id         :integer
-#  host_id          :integer
-#  begins           :date
-#  ends             :date
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  certificate_date :date
-#  season           :integer
-#  signup_deadline  :datetime
+#  id                :integer          not null, primary key
+#  round_id          :integer
+#  host_id           :integer
+#  begins            :date
+#  ends              :date
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  certificate_date  :date
+#  season            :integer
+#  signup_deadline   :datetime
+#  timetables_public :boolean          default(FALSE)
 #
 
 class Competition < ActiveRecord::Base
   attr_accessible :season, :round_id, :host_id, :begins, :ends, :signup_deadline,
-                  :certificate_date, :category_ids
+                  :certificate_date, :timetables_public
 
   belongs_to :round
   belongs_to :host
@@ -63,11 +64,24 @@ class Competition < ActiveRecord::Base
     current.where("competitions.signup_deadline > ?", now)
   end
 
+  # Find competitions whose signup is open
+  def self.open
+    now = Time.now
+    where("competitions.signup_deadline > ?", now)
+  end
+
   # Find competitions one round earlier than the current
   def self.preceding
     joins(:round, :host)
     .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND - 1 })
     .order("hosts.name")
+  end
+
+  # Find venues that are used in this competition
+  def used_venues
+    venues.joins(:performances)
+      .where("performances.stage_time IS NOT NULL AND performances.competition_id = ?", self.id)
+      .uniq
   end
 
   # Find performances for a given venue and date

@@ -44,15 +44,13 @@
     </p>
     <h5>Vorspielpläne anzeigen:</h5>
     <p>
-      <% venues.each do |venue| %>
+      <% @competition.used_venues.each do |venue| %>
         <% start_date = @competition.begins %>
-        <%= link_to venue.name, show_timetable_jmd_competition_venue_path(
-            @competition,
-            venue,
-            start_date.year,
-            start_date.month,
-            start_date.day
-          ), class: "btn" %>
+        <%= link_to venue.name,
+          show_timetables_jmd_competition_path(@competition,
+            { venue_id: venue, date: @competition.begins.to_s }
+          ),
+          class: "btn" %>
       <% end %>
     </p>
   <% end %>

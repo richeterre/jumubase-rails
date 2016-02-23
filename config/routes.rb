@@ -24,8 +24,8 @@ Jmd::Application.routes.draw do
       end
       resources :venues, only: [] do
         get 'schedule', on: :member
-        match 'timetable/:year-:month-:day', to: 'venues#show_timetable', on: :member, as: :show_timetable
       end
+      get 'show_timetables', on: :member
       get 'list_advancing', on: :member
       post 'migrate_advancing', on: :member
       get 'welcome_advanced', on: :member
@@ -37,15 +37,13 @@ Jmd::Application.routes.draw do
     end
   end
 
-
   # Routes for public pages
 
   resources :contacts, only: [:new, :create]
   resources :sessions, only: [:create, :destroy]
 
-  # Routes for performance timetables
-  if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC
-    match 'vorspielplan/:venue/:year-:month-:day', to: 'competitions#lw_schedule', as: :lw_schedule
+  resources :competitions, only: [] do
+    get 'performances', on: :member
   end
 
   # Routes for signup and performance editing, if currently possible

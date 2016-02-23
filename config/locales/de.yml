@@ -265,7 +265,7 @@ de:
         ends: Ende
         signup_deadline: "Anmeldeschluss"
         certificate_date: Urkundenvergabe
-        category_ids: Kategorien
+        timetables_public: Zeitpläne öffentlich
       performance:
         category_id: Kategorie
         competition_id: Wettbewerb

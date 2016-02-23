@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Jmd::CompetitionsController < Jmd::BaseController
 
+  layout :desired_layout
+
   load_and_authorize_resource # CanCan
 
   def index
@@ -39,6 +41,20 @@ class Jmd::CompetitionsController < Jmd::BaseController
     @competition.destroy
     flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde gelöscht."
     redirect_to jmd_competitions_path
+  end
+
+  # Show performance timetables
+  def show_timetables
+    # @competition is fetched by CanCan
+    @venue = Venue.find(params[:venue_id])
+    @date = Date.parse(params[:date]) rescue nil
+
+    if !@competition.days.include?(@date)
+      render 'pages/not_found'
+    else
+      @performances = @competition.staged_performances(@venue, @date)
+        .includes(:category, :competition, :predecessor)
+    end
   end
 
   # List performances that advance to the next round
@@ -125,5 +141,9 @@ class Jmd::CompetitionsController < Jmd::BaseController
                                   .select { |p| p.advances_to_next_round? }
       # Split up based on whether the performance already has a successor
       @performances, @already_migrated = @performances.partition { |p| p.successor == nil }
+    end
+
+    def desired_layout
+       (params[:bare] == "yes") ? "bare_timetable" : "application"
     end
 end

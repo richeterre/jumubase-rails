@@ -2,16 +2,17 @@
 #
 # Table name: competitions
 #
-#  id               :integer          not null, primary key
-#  round_id         :integer
-#  host_id          :integer
-#  begins           :date
-#  ends             :date
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  certificate_date :date
-#  season           :integer
-#  signup_deadline  :datetime
+#  id                :integer          not null, primary key
+#  round_id          :integer
+#  host_id           :integer
+#  begins            :date
+#  ends              :date
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  certificate_date  :date
+#  season            :integer
+#  signup_deadline   :datetime
+#  timetables_public :boolean          default(FALSE)
 #
 
 require 'spec_helper'
@@ -30,7 +31,7 @@ describe Competition do
   it { should respond_to(:ends) }
   it { should respond_to(:signup_deadline) }
   it { should respond_to(:certificate_date) }
-  it { should respond_to(:category_ids) }
+  it { should respond_to(:timetables_public) }
 
   # Relationships
   it { should respond_to(:round) }

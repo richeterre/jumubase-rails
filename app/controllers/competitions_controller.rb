@@ -3,20 +3,17 @@ class CompetitionsController < ApplicationController
 
   layout :desired_layout
 
-  def lw_schedule
-    @venue = Venue.find(params[:venue])
+  def performances
+    @competition = Competition.find(params[:id])
+    @venue = Venue.find(params[:venue_id])
+    @date = Date.parse(params[:date]) rescue nil
 
-    date_array = params.slice(:year, :month, :day).values.map(&:to_i)
-
-    if Date.valid_date?(*date_array)
-      @date = Date.new(*date_array)
-    else
+    if !@competition.timetables_public || !@competition.days.include?(@date)
       render 'pages/not_found'
+    else
+      @performances = @competition.staged_performances(@venue, @date)
+        .includes(:category, :competition, :predecessor)
     end
-
-    @competition = Competition.seasonal_with_level(2).first
-    @performances = @competition.staged_performances(@venue, @date)
-                                .includes(:category, :competition, :predecessor)
   end
 
   private

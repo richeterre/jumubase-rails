@@ -13,6 +13,7 @@ class Venue < ActiveRecord::Base
   attr_accessible :host_id, :name
 
   belongs_to :host
+  has_many :performances, foreign_key: "stage_venue_id"
 
   validates :name, presence: true
   validates :host_id, presence: true

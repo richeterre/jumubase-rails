@@ -10,7 +10,7 @@ json.array! @performances do |performance|
 
   json.appearances performance.appearances.role_order do |appearance|
     json.participant_name appearance.participant.full_name
+    json.participant_role JUMU_PARTICIPANT_ROLE_MAPPING[appearance.role.slug]
     json.instrument_name appearance.instrument.name
-    json.role appearance.role.slug
   end
 end

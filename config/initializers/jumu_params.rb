@@ -42,6 +42,13 @@ JUMU_PREDICATE_POINT_RANGES = [
   }
 ]
 
+# Mapping from old role slugs to identifiers used in mobile API
+JUMU_PARTICIPANT_ROLE_MAPPING = {
+  "S" => 'soloist',
+  "E" => 'ensemblist',
+  "B" => 'accompanist'
+}
+
 # Possible age group values
 JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 

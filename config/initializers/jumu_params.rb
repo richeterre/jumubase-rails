@@ -51,9 +51,6 @@ JUMU_SIGNUP_OPEN = ENV['JUMU_SIGNUP_OPEN'].to_bool
 # Whether results for the above round are available
 JUMU_RESULTS_AVAILABLE = ENV['JUMU_RESULTS_AVAILABLE'].to_bool
 
-# Whether timetables for the above round are public
-JUMU_TIMETABLES_PUBLIC = ENV['JUMU_TIMETABLES_PUBLIC'].to_bool
-
 # The 2nd round host
 JUMU_HOST = ENV['JUMU_CURRENT_LW_HOST']
 

@@ -1,27 +1,27 @@
 <ul class="nav nav-list">
   <li class="nav-header">Aktuell</li>
 
-  <% if JUMU_ROUND == 2 && JUMU_TIMETABLES_PUBLIC %>
-    <% lw_competition = Competition.seasonal_with_level(JUMU_ROUND).first %>
-    <% date = lw_competition.begins %>
-    <% lw_competition.venues.each do |venue| %>
-      <%= nav_link_to "Vorspielplan #{venue.name}", lw_schedule_path(venue: venue.id, year: date.year, month: date.month, day: date.day) %>
-    <% end %>
-  <% end %>
-
   <% if JUMU_ROUND == 2 && JUMU_RESULTS_AVAILABLE %>
-    <li>
-      <%= nav_link_to icon_tag("file") + " Ergebnislisten Klassik", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Klassik.pdf") %>
-    </li>
-    <li>
-      <%= nav_link_to icon_tag("file") + " Ergebnislisten Pop", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Pop.pdf") %>
-    </li>
+    <%= nav_link_to icon_tag("file") + " Ergebnislisten Klassik", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Klassik.pdf") %>
+    <%= nav_link_to icon_tag("file") + " Ergebnislisten Pop", asset_path("LW#{JUMU_YEAR}_Ergebnisse_Pop.pdf") %>
   <% end %>
 
   <% if JUMU_SIGNUP_OPEN %>
     <%= nav_link_to "Teilnahmeregeln", rules_path %>
     <%= nav_link_to "Anmeldeformular", new_performance_path if JUMU_ROUND == 1 %>
     <%= nav_link_to "Anmeldung bearbeiten", signup_search_path%>
+  <% end %>
+
+  <% timetabled_competitions = Competition.current.where(timetables_public: true) %>
+
+  <% if timetabled_competitions.size > 0 %>
+    <li class="nav-header">Vorspielpläne</li>
+
+    <% timetabled_competitions.each do |competition| %>
+      <%= nav_link_to competition.name, performances_competition_path(competition,
+        { venue_id: competition.used_venues.first, date: competition.begins.to_s }
+      ) %>
+    <% end %>
   <% end %>
 
   <li class="nav-header">Links</li>

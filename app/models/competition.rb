@@ -77,6 +77,13 @@ class Competition < ActiveRecord::Base
     .order("hosts.name")
   end
 
+  # Find venues that are used in this competition
+  def used_venues
+    venues.joins(:performances)
+      .where("performances.stage_time IS NOT NULL AND performances.competition_id = ?", self.id)
+      .uniq
+  end
+
   # Find performances for a given venue and date
   def staged_performances(venue, date)
     performances.where("performances.stage_time IS NOT NULL")

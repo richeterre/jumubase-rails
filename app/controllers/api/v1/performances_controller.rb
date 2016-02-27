@@ -17,14 +17,5 @@ module Api::V1
           predecessor: { competition: { host: :country } }
         )
     end
-
-    def show
-      @performance = Performance
-        .includes(
-          { appearances: [:instrument, :participant, :role] },
-          { pieces: :epoch }
-        )
-        .find(params[:id])
-    end
   end
 end

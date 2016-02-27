@@ -2,6 +2,10 @@ module Api::V1
   class PerformancesController < Api::ApiController
     def index
       competition = Competition.find(params[:competition_id])
+      if !competition.timetables_public
+        return render nothing: true, status: :not_found
+      end
+
       @venue = Venue.find(params[:venue_id])
 
       # Parse given date assuming competition's local time zone

@@ -6,7 +6,7 @@ module Api::V1
 
       # Parse given date assuming competition's local time zone
       local_tz = competition.host.time_zone
-      @date = local_tz.parse(params[:local_date])
+      @date = local_tz.parse(params[:date])
 
       @performances = competition.staged_performances(@venue, @date)
         .includes(

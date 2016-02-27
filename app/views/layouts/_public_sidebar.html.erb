@@ -12,15 +12,17 @@
     <%= nav_link_to "Anmeldung bearbeiten", signup_search_path%>
   <% end %>
 
-  <% timetabled_competitions = Competition.current.with_timetables_public(true) %>
+  <% if JUMU_TIMETABLES_VISIBLE %>
+    <% timetabled_competitions = Competition.current.with_timetables_public(true) %>
 
-  <% if timetabled_competitions.size > 0 %>
-    <li class="nav-header">Vorspielpläne</li>
+    <% if timetabled_competitions.size > 0 %>
+      <li class="nav-header">Vorspielpläne</li>
 
-    <% timetabled_competitions.each do |competition| %>
-      <%= nav_link_to competition.name, performances_competition_path(competition,
-        { venue_id: competition.used_venues.first, date: competition.begins.to_s }
-      ) %>
+      <% timetabled_competitions.each do |competition| %>
+        <%= nav_link_to competition.name, performances_competition_path(competition,
+          { venue_id: competition.used_venues.first, date: competition.begins.to_s }
+        ) %>
+      <% end %>
     <% end %>
   <% end %>
 

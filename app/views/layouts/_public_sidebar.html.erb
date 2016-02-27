@@ -12,7 +12,7 @@
     <%= nav_link_to "Anmeldung bearbeiten", signup_search_path%>
   <% end %>
 
-  <% timetabled_competitions = Competition.current.where(timetables_public: true) %>
+  <% timetabled_competitions = Competition.current.with_timetables_public(true) %>
 
   <% if timetabled_competitions.size > 0 %>
     <li class="nav-header">Vorspielpläne</li>

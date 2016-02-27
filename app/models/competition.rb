@@ -58,6 +58,11 @@ class Competition < ActiveRecord::Base
     .order("hosts.name")
   end
 
+  # Find competitions with timetables public or not, depending on value
+  def self.with_timetables_public(value)
+    where(timetables_public: value)
+  end
+
   # Find current competitions whose signup is open
   def self.current_and_open
     now = Time.now

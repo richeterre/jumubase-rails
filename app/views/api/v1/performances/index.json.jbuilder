@@ -12,6 +12,7 @@ json.array! @performances do |performance|
     json.participant_name appearance.participant.full_name
     json.participant_role JUMU_PARTICIPANT_ROLE_MAPPING[appearance.role.slug]
     json.instrument_name appearance.instrument.name
+    json.age_group appearance.age_group
   end
 
   json.pieces performance.pieces do |piece|

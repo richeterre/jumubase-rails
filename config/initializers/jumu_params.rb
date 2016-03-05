@@ -65,3 +65,6 @@ JUMU_HOST = ENV['JUMU_CURRENT_LW_HOST']
 
 # The core organization team's mail addresses
 JUMU_CONTACT_EMAIL = ENV['JUMU_CONTACT_EMAIL']
+
+# The API key needed to access data from mobile apps
+JUMU_MOBILE_API_KEY = ENV['JUMU_MOBILE_API_KEY']

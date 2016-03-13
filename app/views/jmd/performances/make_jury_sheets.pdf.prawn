@@ -1,8 +1,10 @@
 # Constants
+
 default_color = "000000"
 muted_color = "999999"
 
 # Grading table
+
 pdf.start_new_page(layout: :landscape)
 pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
 pdf.fill_color default_color
@@ -27,6 +29,7 @@ pdf.table performance_rows do |table|
 end
 
 # Performance sheets
+
 @performances.each do |performance|
   pdf.start_new_page(layout: :portrait)
   pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
@@ -34,6 +37,7 @@ end
   pdf.default_leading = 2
 
   # Info
+
   pdf.bounding_box [50, 775], width: 400, height: 80 do
      pdf.text_box "Kategorie: " + performance.category.name + "\nAltersgruppe " + performance.age_group, at: [0, pdf.bounds.bottom + 2 * pdf.font.height]
 
@@ -54,7 +58,8 @@ end
     end
   end
 
-  # Participants
+  # Participants and pieces
+
   pdf.bounding_box [50, 650], width: 400, height: 550 do
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans-Bold.ttf"
     performance.appearances.role_order.each do |appearance|
@@ -85,5 +90,26 @@ end
       pdf.text "#{format_duration(piece.duration)}, Epoche #{piece.epoch.slug}"
       pdf.move_down pdf.font.height
     end
+  end
+
+  # Point ranges for prizes and predicates
+
+  pdf.bounding_box [50, 50], width: 400, height: 40 do
+    pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
+    pdf.font_size = 9
+    pdf.fill_color default_color
+    index = @competition.round.level - 1
+    pdf.text_box JUMU_PRIZE_POINT_RANGES[index]
+      .map { |prize, point_range|
+        "#{point_range.first}–#{point_range.last} Punkte: #{prize}"
+      }
+      .join("\n")
+
+    pdf.text_box JUMU_PREDICATE_POINT_RANGES[index]
+      .map { |predicate, point_range|
+        "#{point_range.first}–#{point_range.last} Punkte: #{predicate}"
+      }
+      .join("\n"),
+      at: [150, pdf.bounds.top]
   end
 end

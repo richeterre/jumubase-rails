@@ -1,13 +1,13 @@
-<% provide(:title, "Vorspiele für #{@competition.name}") %>
+<% provide(:title, "Vorspiele für #{@contest.name}") %>
 
 <p>
   <%= link_to "Neues Vorspiel erstellen", new_jmd_performance_path, class: "btn" %>
-  <%= link_to "Wettbewerbsdetails anzeigen", jmd_competition_path(@competition), class: "btn" %>
+  <%= link_to "Wettbewerbsdetails anzeigen", jmd_contest_path(@contest), class: "btn" %>
 </p>
 
 <hr />
 
-<%= render 'filter_form', path: jmd_competition_performances_path(@competition) %>
+<%= render 'filter_form', path: jmd_contest_performances_path(@contest) %>
 
 <p>
   <%= page_entries_info @performances, model: Performance %>
@@ -33,7 +33,7 @@
         <%= l performance.stage_time, format: :short if performance.stage_time %>
         <br>
         <%= if venue = performance.stage_venue
-          link_to venue.name, schedule_jmd_competition_venue_path(@competition, venue)
+          link_to venue.name, schedule_jmd_contest_venue_path(@contest, venue)
         end %>
       </td>
       <td>
@@ -48,7 +48,7 @@
           <% participant = appearance.participant %>
           <span class="<%= "muted" if appearance.accompaniment? %>">
             <%= link_to participant.full_name,
-             jmd_competition_participant_path(@competition, participant) %>,
+             jmd_contest_participant_path(@contest, participant) %>,
             <%= appearance.instrument.name %>
             <%= age_group_badge_tag(appearance) %>
           </span>

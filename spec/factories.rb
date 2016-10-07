@@ -26,7 +26,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :competition do
+  factory :contest do
     season JUMU_SEASON + 3
     round
     host
@@ -34,25 +34,25 @@ FactoryGirl.define do
     ends { Date.today + 3.years }
     signup_deadline { begins - 1.month }
 
-    factory :past_competition do
+    factory :past_contest do
       season JUMU_SEASON - 1
       ends { Date.today - 1.year }
     end
 
-    factory :current_competition do
+    factory :current_contest do
       season JUMU_SEASON
       association :round, factory: :current_round
       ends { Date.today + 1.month }
       signup_deadline { Date.tomorrow }
     end
 
-    factory :future_competition do
+    factory :future_contest do
       season JUMU_SEASON + 1
       ends { Date.today + 1.year }
     end
 
-    # Create an upcoming competition whose deadline has passed
-    factory :deadlined_competition do
+    # Create an upcoming contest whose deadline has passed
+    factory :deadlined_contest do
       season JUMU_SEASON
       association :round, factory: :current_round
       ends { Date.today + 1.month }
@@ -97,7 +97,7 @@ FactoryGirl.define do
 
   factory :performance do
     category
-    competition
+    contest
 
     after(:build) do |performance|
       performance.appearances << FactoryGirl.build(:appearance, performance: performance)
@@ -106,7 +106,7 @@ FactoryGirl.define do
 
     factory :current_performance do
       association :category, factory: :active_category
-      association :competition, factory: :current_competition
+      association :contest, factory: :current_contest
 
       factory :current_solo_acc_performance do
         after(:build) do |performance|
@@ -124,7 +124,7 @@ FactoryGirl.define do
     end
 
     factory :old_performance do
-      association :competition, factory: :past_competition
+      association :contest, factory: :past_contest
     end
   end
 

@@ -27,7 +27,7 @@ class Category < ActiveRecord::Base
   # Show only categories currently marked as active (temporary workaround)
   scope :current, where('active' => true)
 
-  has_and_belongs_to_many :competitions
+  has_and_belongs_to_many :contests
   belongs_to :max_round, class_name: "Round"
 
   validates :name, presence: true

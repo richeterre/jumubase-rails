@@ -1,10 +1,10 @@
 <p>Hallo <%= @participant.first_name %>,</p>
 
-<p>Herzlichen Glückwunsch zur Weiterleitung zum <%= @performance.competition.round_name_and_year %>
+<p>Herzlichen Glückwunsch zur Weiterleitung zum <%= @performance.contest.round_name_and_year %>
   in der Kategorie <em><%= @performance.category.name %></em>!
 </p>
 
-<p>Bis zum <strong><%= l(@performance.competition.last_signup_date, format: :long) %></strong> kannst du das Vorspielprogramm noch ändern. Dazu brauchst du den folgenden Änderungscode:</p>
+<p>Bis zum <strong><%= l(@performance.contest.last_signup_date, format: :long) %></strong> kannst du das Vorspielprogramm noch ändern. Dazu brauchst du den folgenden Änderungscode:</p>
 
 <p><strong><%= @performance.tracing_code %></strong></p>
 
@@ -12,6 +12,6 @@
 
 <p><%= link_to nil, signup_search_url %></p>
 
-<p>Viel Erfolg bei der Teilnahme am <%= @performance.competition.round_name_and_year %> wünscht dir</p>
+<p>Viel Erfolg bei der Teilnahme am <%= @performance.contest.round_name_and_year %> wünscht dir</p>
 
 <p>Dein Jumu-Orgteam</p>

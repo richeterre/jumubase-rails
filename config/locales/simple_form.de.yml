@@ -11,7 +11,7 @@ de:
     error_notification:
       default_message: "Bitte behebe die folgenden Probleme:"
     labels:
-      competition:
+      contest:
         round: Runde
         host: Schule
       session:
@@ -40,5 +40,5 @@ de:
     #       email: 'E-mail.'
     hints:
       performance:
-        competition_id: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
+        contest_id: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
     #     password: 'No special characters, please.'

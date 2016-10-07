@@ -1,6 +1,6 @@
-<% provide(:title, "Ergebnisse für #{@competition.name}") %>
+<% provide(:title, "Ergebnisse für #{@contest.name}") %>
 
-<%= render 'jmd/performances/filter_form', path: jmd_competition_appearances_path(@competition) %>
+<%= render 'jmd/performances/filter_form', path: jmd_contest_appearances_path(@contest) %>
 
 <p>
   <%= page_entries_info @performances, model: Performance %>
@@ -31,7 +31,7 @@
           <td>
             <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
               <% participant = appearance.participant %>
-              <%= link_to participant.full_name, jmd_competition_participant_path(@competition, participant) %>,
+              <%= link_to participant.full_name, jmd_contest_participant_path(@contest, participant) %>,
               <%= appearance.instrument.name %>
             <% end %>
           </td>

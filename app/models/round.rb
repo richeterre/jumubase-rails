@@ -14,14 +14,14 @@
 # -*- encoding : utf-8 -*-
 class Round < ActiveRecord::Base
   attr_accessible :level, :name, :slug
-  
-  has_many :competitions
-  
+
+  has_many :contests
+
   validates :level, :numericality => true,
                     :inclusion => { :in => 1..3 }
   validates :name,  :presence => true
   validates :slug,  :presence => true
-  
+
   def next_round_name
     next_round = Round.find_by_level(self.level + 1)
     # Return round's name if it exists

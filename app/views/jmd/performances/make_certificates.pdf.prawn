@@ -29,9 +29,9 @@ pdf.font_families.update(
     pdf.bounding_box [50, 350], width: 400, height: 200 do
       pdf.indent(30) do
         if appearance.ensemble?
-          pdf.text "haben am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.year}"
+          pdf.text "haben am #{performance.contest.round.name} in #{performance.contest.host.city} #{performance.contest.year}"
         else
-          pdf.text "hat am #{performance.competition.round.name} in #{performance.competition.host.city} #{performance.competition.year}"
+          pdf.text "hat am #{performance.contest.round.name} in #{performance.contest.host.city} #{performance.contest.year}"
         end
 
         pdf.text "für das instrumentale und vokale Musizieren der Jugend"
@@ -60,18 +60,18 @@ pdf.font_families.update(
 
       pdf.text "Zuerkannt wurde ein #{appearance.prize}", style: :bold if appearance.prize
       if appearance.advances_to_next_round?
-        pdf.text "mit der Berechtigung zur Teilnahme am #{performance.competition.round.next_round_name}."
+        pdf.text "mit der Berechtigung zur Teilnahme am #{performance.contest.round.next_round_name}."
       end
     end
 
     pdf.bounding_box [50, 100], width: 400 do
 
-      pdf.text "#{performance.competition.host.city}, den #{l (performance.competition.certificate_date ?
-          performance.competition.certificate_date : performance.competition.ends)}"
+      pdf.text "#{performance.contest.host.city}, den #{l (performance.contest.certificate_date ?
+          performance.contest.certificate_date : performance.contest.ends)}"
 
       pdf.move_down(60)
 
-      pdf.text_box "Für den #{performance.competition.round.board_name}", at: [0, pdf.bounds.bottom + pdf.font.height]
+      pdf.text_box "Für den #{performance.contest.round.board_name}", at: [0, pdf.bounds.bottom + pdf.font.height]
       pdf.text_box "Für die Jury", at: [300, pdf.bounds.bottom + pdf.font.height]
     end
   end

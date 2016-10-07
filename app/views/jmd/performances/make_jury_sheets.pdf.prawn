@@ -46,7 +46,7 @@ end
     else
       stage_time = l performance.stage_time, format: :short
     end
-    # Add host of performance's first competition round if applicable
+    # Add host of performance's preceding contest if applicable
     if performance.predecessor
       pdf.text_box performance.predecessor.associated_host.name + "\n#{stage_time}", at: [250, pdf.bounds.bottom + 2 * pdf.font.height], align: :right
     else
@@ -98,7 +98,7 @@ end
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
     pdf.font_size = 9
     pdf.fill_color default_color
-    index = @competition.round.level - 1
+    index = @contest.round.level - 1
     pdf.text_box JUMU_PRIZE_POINT_RANGES[index]
       .map { |prize, point_range|
         "#{point_range.first}–#{point_range.last} Punkte: #{prize}"

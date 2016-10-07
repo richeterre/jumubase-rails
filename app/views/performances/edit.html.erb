@@ -3,7 +3,7 @@
 <%= render 'noscript' %>
 
 <%= simple_form_for(@performance, html: { class: "form-horizontal" }) do |form| %>
-  <%= render 'performance_fields', { f: form, allow_competition_selection: false, show_hints: true } %>
+  <%= render 'performance_fields', { f: form, allow_contest_selection: false, show_hints: true } %>
   <div class="form-actions">
     <%= form.button :submit, "Änderungen speichern", class: "btn-primary" %>
   </div>

@@ -4,7 +4,7 @@ Jmd::Application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :competitions, only: :index, path: 'contests' do
+      resources :contests, only: :index do
         resources :performances, only: :index
       end
     end
@@ -14,7 +14,7 @@ Jmd::Application.routes.draw do
 
   namespace :jmd do
     resources :categories, :users
-    resources :competitions do
+    resources :contests do
       resources :appearances, only: [:index, :update]
       resources :participants, only: [:index, :show]
       resources :performances, only: :index do
@@ -42,7 +42,7 @@ Jmd::Application.routes.draw do
   resources :contacts, only: [:new, :create]
   resources :sessions, only: [:create, :destroy]
 
-  resources :competitions, only: [] do
+  resources :contests, only: [] do
     get 'performances', on: :member
   end
 

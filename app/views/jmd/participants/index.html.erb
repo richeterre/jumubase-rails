@@ -1,8 +1,8 @@
-<% provide(:title, "Teilnehmer für #{@competition.name}") %>
+<% provide(:title, "Teilnehmer für #{@contest.name}") %>
 
 <p>
   <%= link_to "Als CSV exportieren", params.merge(format: :csv), class: "btn" unless @participants.empty? %>
-  <%= link_to "Wettbewerbsdetails anzeigen", jmd_competition_path(@competition), class: "btn" %>
+  <%= link_to "Wettbewerbsdetails anzeigen", jmd_contest_path(@contest), class: "btn" %>
 </p>
 
 <hr>
@@ -25,16 +25,16 @@
         <td class="muted"><%= participant.id %></td>
         <td>
           <%= link_to participant.last_name,
-          jmd_competition_participant_path(@competition, participant) %>
+          jmd_contest_participant_path(@contest, participant) %>
         </td>
         <td>
           <%= link_to participant.first_name,
-          jmd_competition_participant_path(@competition, participant) %>
+          jmd_contest_participant_path(@contest, participant) %>
         </td>
         <td><%= l participant.birthdate %></td>
         <td><%= flag_tag participant.country.country_code %></td>
         <td>
-          <% participant.performances.in_competition(@competition).includes(:category).each do |performance| %>
+          <% participant.performances.in_contest(@contest).includes(:category).each do |performance| %>
             <%= link_to performance.category.name, jmd_performance_path(performance) %><br>
           <% end %>
         </td>

@@ -4,7 +4,7 @@
 #
 #  id             :integer          not null, primary key
 #  category_id    :integer
-#  competition_id :integer
+#  contest_id     :integer
 #  warmup_time    :datetime
 #  stage_time     :datetime
 #  created_at     :datetime         not null
@@ -18,7 +18,7 @@
 # -*- encoding : utf-8 -*-
 class Performance < ActiveRecord::Base
   # Attributes that are accessible to everyone (needed for signup)
-  attr_accessible :category_id, :competition_id,
+  attr_accessible :category_id, :contest_id,
       :pieces_attributes, :appearances_attributes
 
   amoeba do
@@ -26,9 +26,9 @@ class Performance < ActiveRecord::Base
   end
 
   belongs_to  :category
-  belongs_to  :competition
+  belongs_to  :contest
   belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
-                              include: { competition: { host: :country }}
+                              include: { contest: { host: :country }}
   belongs_to  :stage_venue,   class_name: "Venue"
   has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",
                               inverse_of: :predecessor, dependent: :nullify
@@ -41,9 +41,9 @@ class Performance < ActiveRecord::Base
   accepts_nested_attributes_for :appearances, allow_destroy: true
 
   validates :category_id,     presence: true
-  validates :competition_id,  presence: true
+  validates :contest_id,  presence: true
 
-  validate :competition_and_venue_hosts_match
+  validate :contest_and_venue_hosts_match
 
   validate :require_one_appearance
   validate :require_one_piece
@@ -53,34 +53,34 @@ class Performance < ActiveRecord::Base
   before_create :add_unique_tracing_code
   before_save :update_age_group
 
-  # Override getters to always get times in competition time zone
+  # Override getters to always get times in contest time zone
   def warmup_time
-    super().in_time_zone(self.competition.host.time_zone) if super()
+    super().in_time_zone(self.contest.host.time_zone) if super()
   end
 
   def stage_time
-    super().in_time_zone(self.competition.host.time_zone) if super()
+    super().in_time_zone(self.contest.host.time_zone) if super()
   end
 
   # Returns all performances in current round and year
   def self.current
-    where(competition_id: Competition.current)
+    where(contest_id: Contest.current)
   end
 
-  # Returns all performances in competitions that are currently open (for signup/edits)
-  def self.in_open_competition
-    where(competition_id: Competition.open)
+  # Returns all performances in contests that are currently open (for signup/edits)
+  def self.in_open_contest
+    where(contest_id: Contest.open)
   end
 
-  # Returns all performances in given competition
-  def self.in_competition(competition_id)
-    where(competition_id: competition_id)
+  # Returns all performances in given contest
+  def self.in_contest(contest_id)
+    where(contest_id: contest_id)
   end
 
-  # Returns all performances that advanced from given competition
-  def self.advanced_from_competition(competition_id)
+  # Returns all performances that advanced from given contest
+  def self.advanced_from_contest(contest_id)
     joins("INNER JOIN performances AS predecessors ON predecessors.id = performances.predecessor_id")
-    .where(predecessors: { competition_id: competition_id })
+    .where(predecessors: { contest_id: contest_id })
   end
 
   # Returns all performances in given category
@@ -145,12 +145,12 @@ class Performance < ActiveRecord::Base
 
   # Return the host the performance is associated with
   def associated_host
-    case self.competition.round.level
+    case self.contest.round.level
     when 1
-      self.competition.host
+      self.contest.host
     when 2
       if self.predecessor
-        self.predecessor.competition.host
+        self.predecessor.contest.host
       end
     end
   end
@@ -197,7 +197,7 @@ class Performance < ActiveRecord::Base
   # Return whether the performance as a whole can migrate to next round
   def advances_to_next_round?
     # Don't advance if category's maximum round is reached
-    if self.competition.round.level >= self.category.max_round.level
+    if self.contest.round.level >= self.category.max_round.level
       return false
     end
 
@@ -236,9 +236,9 @@ class Performance < ActiveRecord::Base
       self.age_group = nil
     end
 
-    def competition_and_venue_hosts_match
-      if !stage_venue.nil? and competition.host != stage_venue.host
-        errors.add(:base, :competition_and_venue_hosts_must_match)
+    def contest_and_venue_hosts_match
+      if !stage_venue.nil? and contest.host != stage_venue.host
+        errors.add(:base, :contest_and_venue_hosts_must_match)
       end
     end
 

@@ -1,11 +1,11 @@
 <ul class="nav nav-list">
 
-  <% if can? :manage, Competition %>
+  <% if can? :manage, Contest %>
 
     <li class="nav-header">Verwalten</li>
     <%= nav_link_to icon_tag("user") + " Benutzer", jmd_users_path if can? :manage, User %>
     <%= nav_link_to icon_tag("list") + " Kategorien", jmd_categories_path if can? :manage, Category %>
-    <%= nav_link_to icon_tag("globe") + " Wettbewerbe", jmd_competitions_path if can? :manage, Competition %>
+    <%= nav_link_to icon_tag("globe") + " Wettbewerbe", jmd_contests_path if can? :manage, Contest %>
     <%= nav_link_to icon_tag("home") + " Schulen", jmd_hosts_path if can? :manage, Host %>
 
   <% elsif JUMU_ROUND > 1 and can? :list_current, Performance %>
@@ -15,11 +15,11 @@
 
   <% end %>
 
-  <% current_competitions = Competition.current.accessible_by(current_ability)
-    if current_competitions.any? %>
+  <% current_contests = Contest.current.accessible_by(current_ability)
+    if current_contests.any? %>
       <li class="nav-header">Aktuelle Wettbewerbe</li>
-      <% current_competitions.each do |competition| %>
-      <%= nav_link_to competition.name, jmd_competition_path(competition) %>
+      <% current_contests.each do |contest| %>
+      <%= nav_link_to contest.name, jmd_contest_path(contest) %>
      <% end %>
   <% end %>
 </ul>

@@ -1,0 +1,3 @@
+<% provide(:title, "Vorspielplan #{@venue.name}") %>
+
+<%= render 'contests/timetable', contest: @contest, date: @date, performances: @performances %>

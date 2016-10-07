@@ -12,7 +12,7 @@ class ParticipantMailer < ActionMailer::Base
     @participant = participant
     @performance = performance
     mail(to: named_email_adress(participant),
-         subject: "Weiterleitung zum #{performance.competition.round_name_and_year} in #{performance.competition.host.city}")
+         subject: "Weiterleitung zum #{performance.contest.round_name_and_year} in #{performance.contest.host.city}")
   end
 
   private

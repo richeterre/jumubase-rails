@@ -16,7 +16,7 @@ class Host < ActiveRecord::Base
   attr_accessible :name, :city, :country_id, :time_zone
 
   belongs_to :country
-  has_many :competitions
+  has_many :contests
   has_many :venues
 
   validates :name,        presence: true

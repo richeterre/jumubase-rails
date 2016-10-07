@@ -1,11 +1,11 @@
-<% provide(:title, @competition.can_be_advanced_from? ? "Weiterleitungen migrieren" : "Weiterleitungen aus #{@competition.round_slug_and_year}") %>
+<% provide(:title, @contest.can_be_advanced_from? ? "Weiterleitungen migrieren" : "Weiterleitungen aus #{@contest.round_slug_and_year}") %>
 
-<% if @competition.can_be_advanced_from? %>
-  <%= form_tag migrate_advancing_jmd_competition_path, method: :post, class: "form-search well" do %>
+<% if @contest.can_be_advanced_from? %>
+  <%= form_tag migrate_advancing_jmd_contest_path, method: :post, class: "form-search well" do %>
     <%= "#{@performances.size} #{Performance.model_name.human(count: @performances.size)}" %>
-    von <strong><%= @competition.name %></strong> nach
-    <%= select nil, :target_competition_id,
-                    @possible_target_competitions.collect { |c| [c.name, c.id] } %>
+    von <strong><%= @contest.name %></strong> nach
+    <%= select nil, :target_contest_id,
+                    @possible_target_contests.collect { |c| [c.name, c.id] } %>
     <%= submit_tag "migrieren", class: "btn btn-primary" %>
     <br />
     <span class="muted">
@@ -37,7 +37,7 @@
         <% end %>
         <td>
           <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
-            <%= link_to appearance.participant.full_name, jmd_competition_participant_path(@competition, appearance.participant) %>,
+            <%= link_to appearance.participant.full_name, jmd_contest_participant_path(@contest, appearance.participant) %>,
             <%= appearance.instrument.name %>
           <% end %>
         </td>

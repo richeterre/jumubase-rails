@@ -212,7 +212,7 @@ de:
         content: "Nachricht"
   activerecord:
     models:
-      competition:
+      contest:
         one: "Wettbewerb"
         other: "Wettbewerbe"
       participant:
@@ -225,7 +225,7 @@ de:
     errors:
       <<: *errors
       models:
-        competition:
+        contest:
           attributes:
             base:
               beginning_not_before_end: "Der Beginn muss zeitlich vor dem Ende liegen"
@@ -233,7 +233,7 @@ de:
         performance:
           attributes:
             base:
-              competition_and_venue_hosts_must_match: "Die Schule des Vorspielorts muss mit der des Wettbewerbs übereinstimmen"
+              contest_and_venue_hosts_must_match: "Die Schule des Vorspielorts muss mit der des Wettbewerbs übereinstimmen"
               needs_one_appearance: "Es muss mindestens ein Teilnehmer angegeben werden"
               needs_one_piece: "Es muss mindestens ein Stück angegeben werden"
               cannot_have_many_soloists: "Vorspiel kann nicht mehrere Solisten haben"
@@ -257,7 +257,7 @@ de:
         max_round: "Endrunde"
         official_min_age_group: "min. AG (offiziell)"
         official_max_age_group: "max. AG (offiziell)"
-      competition:
+      contest:
         season: Saison
         round_id: Runde
         host_id: Schule
@@ -268,7 +268,7 @@ de:
         timetables_public: Zeitpläne öffentlich
       performance:
         category_id: Kategorie
-        competition_id: Wettbewerb
+        contest_id: Wettbewerb
       performance/appearances:
         participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers

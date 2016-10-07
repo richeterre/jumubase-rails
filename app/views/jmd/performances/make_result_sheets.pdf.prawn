@@ -12,7 +12,7 @@ pdf.start_new_page(layout: :portrait)
 pdf.font "DejaVuSans"
 pdf.text "#{@category.name}, Altersgruppe #{@age_group}", size: 20
 pdf.pad 20 do
-  pdf.text "(* = mit Weiterleitung zum #{@competition.round.next_round_name})"
+  pdf.text "(* = mit Weiterleitung zum #{@contest.round.next_round_name})"
 end
 performances_rows = @performances.map do |e|
   [

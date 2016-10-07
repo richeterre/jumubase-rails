@@ -1,30 +1,30 @@
 <%= form_tag path, method: :get, class: "filter-form form-search well" do %>
 
-  <% unless @competition.nil? %>
-    <%= select nil, :on_date, @competition.days.collect { |day| [l(day, format: :long), day.to_s] },
+  <% unless @contest.nil? %>
+    <%= select nil, :on_date, @contest.days.collect { |day| [l(day, format: :long), day.to_s] },
           { selected: params[:on_date], include_blank: "Alle Tage" }, class: "span2" %>
-    <%= select nil, :at_stage_venue, @competition.venues.collect { |v| [v.name, v.id] },
+    <%= select nil, :at_stage_venue, @contest.venues.collect { |v| [v.name, v.id] },
           { selected: params[:at_stage_venue], include_blank: "Alle Vorspielräume" } %>
   <% end %>
 
   <%= select nil, :in_genre, [["Klassik", 0], ["Pop", 1]],
       { selected: params[:in_genre], include_blank: "Klassik & Pop" } %>
 
-  <% if @competition.nil? # Looking at performances across competitions %>
+  <% if @contest.nil? # Looking at performances across contests %>
     <% if JUMU_ROUND == 1 %>
-      <%= select nil, :in_competition,
-            Competition.accessible_by(current_ability).current.collect { |c| [c.name, c.id] },
-            { selected: params[:in_competition], include_blank: "Alle Wettbewerbe" } %>
+      <%= select nil, :in_contest,
+            Contest.accessible_by(current_ability).current.collect { |c| [c.name, c.id] },
+            { selected: params[:in_contest], include_blank: "Alle Wettbewerbe" } %>
     <% else %>
-      <%= select nil, :advanced_from_competition,
-            Competition.accessible_by(current_ability).preceding.collect { |c| [c.name, c.id] },
-            { selected: params[:advanced_from_competition], include_blank: "Alle Regionalwettbewerbe" },
+      <%= select nil, :advanced_from_contest,
+            Contest.accessible_by(current_ability).preceding.collect { |c| [c.name, c.id] },
+            { selected: params[:advanced_from_contest], include_blank: "Alle Regionalwettbewerbe" },
             class: "span3" %>
     <% end %>
-  <% elsif @competition.round.level == 2 %>
-    <%= select nil, :advanced_from_competition,
-          @competition.possible_predecessors.collect { |c| [c.name, c.id] },
-          { selected: params[:advanced_from_competition], include_blank: "Alle Regionalwettbewerbe" },
+  <% elsif @contest.round.level == 2 %>
+    <%= select nil, :advanced_from_contest,
+          @contest.possible_predecessors.collect { |c| [c.name, c.id] },
+          { selected: params[:advanced_from_contest], include_blank: "Alle Regionalwettbewerbe" },
           class: "span3" %>
   <% end %>
 

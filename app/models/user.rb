@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_secure_password # Enable authentication
 
   has_and_belongs_to_many :hosts
-  has_many :competitions, through: :hosts
+  has_many :contests, through: :hosts
 
   before_save { |user| user.email = user.email.downcase }
   before_create :create_remember_token
@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
-  def competitions
-    # Admins can access all competitions
-    self.admin? ? Competition.scoped : super()
+  def contests
+    # Admins can access all contests
+    self.admin? ? Contest.scoped : super()
   end
 
   private

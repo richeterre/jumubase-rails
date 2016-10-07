@@ -1,6 +1,6 @@
 <% provide(:title, "Ergebnislisten erstellen") %>
 
-<%= form_tag make_result_sheets_jmd_competition_performances_path(@competition),
+<%= form_tag make_result_sheets_jmd_contest_performances_path(@contest),
              method: :get, class: "filter-form form-search well" do %>
 
   <%= select nil, :category_id, Category.current.collect { |c| [c.name, c.id] },

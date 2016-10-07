@@ -13,14 +13,14 @@
     </tr>
   </thead>
   <tbody>
-    <% competitions.each do |competition| %>
+    <% contests.each do |contest| %>
     <tr>
-      <td><%= link_to competition.round_slug_and_year, jmd_competition_path(competition) %></td>
-      <td><%= competition.participants.size %></td>
-      <td><%= competition.performances.size %></td>
-      <td><%= competition.performances.classical.size %></td>
-      <td><%= competition.performances.popular.size %></td>
-      <td><%= competition.appearances.size %></td>
+      <td><%= link_to contest.round_slug_and_year, jmd_contest_path(contest) %></td>
+      <td><%= contest.participants.size %></td>
+      <td><%= contest.performances.size %></td>
+      <td><%= contest.performances.classical.size %></td>
+      <td><%= contest.performances.popular.size %></td>
+      <td><%= contest.appearances.size %></td>
     </tr>
     <% end %>
   </tbody>

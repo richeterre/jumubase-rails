@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: competitions
+# Table name: contests
 #
 #  id                :integer          not null, primary key
 #  round_id          :integer
@@ -15,7 +15,7 @@
 #  timetables_public :boolean          default(FALSE)
 #
 
-class Competition < ActiveRecord::Base
+class Contest < ActiveRecord::Base
   attr_accessible :season, :round_id, :host_id, :begins, :ends, :signup_deadline,
                   :certificate_date, :timetables_public
 
@@ -39,53 +39,53 @@ class Competition < ActiveRecord::Base
   validate :require_beginning_before_end
   validate :require_signup_deadline_before_beginning
 
-  # Find competitions with given round level
+  # Find contests with given round level
   def self.with_level(level)
     joins(:round)
     .where(rounds: { level: level })
   end
 
-  # Find competitions of this season with given round level
+  # Find contests of this season with given round level
   def self.seasonal_with_level(level)
     joins(:round)
     .where(season: JUMU_SEASON, rounds: { level: level })
   end
 
-  # Find competitions with season and round currently set in JUMU_PARAMS
+  # Find contests with season and round currently set in JUMU_PARAMS
   def self.current
     seasonal_with_level(JUMU_ROUND)
     .joins(:host)
     .order("hosts.name")
   end
 
-  # Find competitions with timetables public or not, depending on value
+  # Find contests with timetables public or not, depending on value
   def self.with_timetables_public(value)
     where(timetables_public: value)
   end
 
-  # Find current competitions whose signup is open
+  # Find current contests whose signup is open
   def self.current_and_open
     now = Time.now
-    current.where("competitions.signup_deadline > ?", now)
+    current.where("contests.signup_deadline > ?", now)
   end
 
-  # Find competitions whose signup is open
+  # Find contests whose signup is open
   def self.open
     now = Time.now
-    where("competitions.signup_deadline > ?", now)
+    where("contests.signup_deadline > ?", now)
   end
 
-  # Find competitions one round earlier than the current
+  # Find contests one round earlier than the current
   def self.preceding
     joins(:round, :host)
     .where(season: JUMU_SEASON, rounds: { level: JUMU_ROUND - 1 })
     .order("hosts.name")
   end
 
-  # Find venues that are used in this competition
+  # Find venues that are used in this contest
   def used_venues
     venues.joins(:performances)
-      .where("performances.stage_time IS NOT NULL AND performances.competition_id = ?", self.id)
+      .where("performances.stage_time IS NOT NULL AND performances.contest_id = ?", self.id)
       .uniq
   end
 
@@ -97,12 +97,12 @@ class Competition < ActiveRecord::Base
                 .at_stage_venue(venue.id)
   end
 
-  # Virtual name that identifies the competition
+  # Virtual name that identifies the contest
   def name
     "#{self.host.name}, #{self.round.slug} #{self.year}"
   end
 
-  # Name of school hosting the competition
+  # Name of school hosting the contest
   def host_name
     "#{self.host.name}"
   end
@@ -112,12 +112,12 @@ class Competition < ActiveRecord::Base
     self.signup_deadline.to_date - 1.day
   end
 
-  # Day range during which the competition takes place
+  # Day range during which the contest takes place
   def days
     self.begins..self.ends
   end
 
-  # Season (not necessarily calendar) year of this competition
+  # Season (not necessarily calendar) year of this contest
   def year
     JUMU_YEAR + self.season - JUMU_SEASON
   end
@@ -132,26 +132,26 @@ class Competition < ActiveRecord::Base
     "#{self.round.slug} #{self.year}"
   end
 
-  # Whether participants can advance to this competition
+  # Whether participants can advance to this contest
   def can_be_advanced_to?
     self.round.level > 1
   end
 
-  # Whether participants can advance onwards from this competition
+  # Whether participants can advance onwards from this contest
   def can_be_advanced_from?
     self.round.level < 2 # Currently no LW > BW migration is possible
   end
 
-  # Find competitions of the same season that are one round lower
+  # Find contests of the same season that are one round lower
   def possible_predecessors
-    Competition.joins(:round, :host)
+    Contest.joins(:round, :host)
                .where({ rounds: { level: self.round.level - 1 }, season: self.season })
                .order("hosts.name")
   end
 
-  # Find competitions of the same season that are one round higher
+  # Find contests of the same season that are one round higher
   def possible_successors
-    Competition.joins(:round, :host)
+    Contest.joins(:round, :host)
                .where({ rounds: { level: self.round.level + 1 }, season: self.season })
                .order("hosts.name")
   end

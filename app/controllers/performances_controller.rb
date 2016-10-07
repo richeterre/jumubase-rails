@@ -5,8 +5,8 @@ class PerformancesController < ApplicationController
   def new
     @performance = Performance.new
 
-    # Set competitions that the person can sign up for
-    @competitions = Competition.current_and_open
+    # Set contests that the person can sign up for
+    @contests = Contest.current_and_open
 
     # Build initial resources for form
     1.times do
@@ -35,8 +35,8 @@ class PerformancesController < ApplicationController
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."
       redirect_to root_path
     else
-      # Here, too, set competitions that the person can sign up for
-      @competitions = Competition.current_and_open
+      # Here, too, set contests that the person can sign up for
+      @contests = Contest.current_and_open
 
       render 'new'
     end
@@ -51,9 +51,9 @@ class PerformancesController < ApplicationController
         existing = Performance.find_by_tracing_code(params[:tracing_code])
         if existing.nil?
           flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
-        elsif existing.competition.signup_deadline <= Time.now
+        elsif existing.contest.signup_deadline <= Time.now
           flash.now[:error] = t('messages.deadline_passed',
-                                deadline: l(existing.competition.last_signup_date, format: :long))
+                                deadline: l(existing.contest.last_signup_date, format: :long))
         else
           redirect_to edit_performance_path(existing, tracing_code: params[:tracing_code])
         end
@@ -63,7 +63,7 @@ class PerformancesController < ApplicationController
 
   # Presents an existing signup form for editing
   def edit
-    @performance = Performance.in_open_competition.find(params[:id])
+    @performance = Performance.in_open_contest.find(params[:id])
 
     unless @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
@@ -73,14 +73,14 @@ class PerformancesController < ApplicationController
 
   # Stores changes made to an existing signup form
   def update
-    @performance = Performance.in_open_competition.find(params[:id])
+    @performance = Performance.in_open_contest.find(params[:id])
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Die Anmeldung wurde erfolgreich aktualisiert."
       redirect_to signup_search_path
       # redirect_to performances_path
     else
-      # Here, too, set competitions that the person can sign up for
-      @competitions = Competition.current_and_open
+      # Here, too, set contests that the person can sign up for
+      @contests = Contest.current_and_open
 
       render 'edit'
     end

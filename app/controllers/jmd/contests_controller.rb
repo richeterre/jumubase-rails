@@ -1,74 +1,74 @@
 # -*- encoding : utf-8 -*-
-class Jmd::CompetitionsController < Jmd::BaseController
+class Jmd::ContestsController < Jmd::BaseController
 
   layout :desired_layout
 
   load_and_authorize_resource # CanCan
 
   def index
-    # @competitions are fetched by CanCan
-    @competitions = @competitions.includes(:host, :round).order("begins DESC")
+    # @contests are fetched by CanCan
+    @contests = @contests.includes(:host, :round).order("begins DESC")
   end
 
-  # new: @competition is built by CanCan
+  # new: @contest is built by CanCan
 
   def create
-    # @competition is built by CanCan
-    if @competition.save
-      flash[:success] = "Der Wettbewerb #{@competition.name} wurde erstellt."
-      redirect_to jmd_competitions_path
+    # @contest is built by CanCan
+    if @contest.save
+      flash[:success] = "Der Wettbewerb #{@contest.name} wurde erstellt."
+      redirect_to jmd_contests_path
     else
       render 'new'
     end
   end
 
-  # show: @competition is fetched by CanCan
+  # show: @contest is fetched by CanCan
 
-  # edit: @competition is fetched by CanCan
+  # edit: @contest is fetched by CanCan
 
   def update
-    # @competition is fetched by CanCan
-    if @competition.update_attributes(params[:competition])
-      flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde erfolgreich geändert."
-      redirect_to jmd_competitions_path
+    # @contest is fetched by CanCan
+    if @contest.update_attributes(params[:contest])
+      flash[:success] = "Der Wettbewerb \"#{@contest.name}\" wurde erfolgreich geändert."
+      redirect_to jmd_contests_path
     else
       render 'edit'
     end
   end
 
   def destroy
-    # @competition is fetched by CanCan
-    @competition.destroy
-    flash[:success] = "Der Wettbewerb \"#{@competition.name}\" wurde gelöscht."
-    redirect_to jmd_competitions_path
+    # @contest is fetched by CanCan
+    @contest.destroy
+    flash[:success] = "Der Wettbewerb \"#{@contest.name}\" wurde gelöscht."
+    redirect_to jmd_contests_path
   end
 
   # Show performance timetables
   def show_timetables
-    # @competition is fetched by CanCan
+    # @contest is fetched by CanCan
     @venue = Venue.find(params[:venue_id])
     @date = Date.parse(params[:date]) rescue nil
 
-    if !@competition.days.include?(@date)
+    if !@contest.days.include?(@date)
       render 'pages/not_found'
     else
-      @performances = @competition.staged_performances(@venue, @date)
-        .includes(:category, :competition, :predecessor)
+      @performances = @contest.staged_performances(@venue, @date)
+        .includes(:category, :contest, :predecessor)
     end
   end
 
   # List performances that advance to the next round
   def list_advancing
-    # @competition is fetched by CanCan
-    load_migration_resources # Loads possible target competitions, migratable performances and already migrated
+    # @contest is fetched by CanCan
+    load_migration_resources # Loads possible target contests, migratable performances and already migrated
   end
 
-  # Migrate advancing performances to a selected competition
+  # Migrate advancing performances to a selected contest
   def migrate_advancing
-    # @competition is fetched by CanCan
+    # @contest is fetched by CanCan
 
-    load_migration_resources # Loads possible target competitions, migratable performances and already migrated
-    target_competition = @possible_target_competitions.find(params[:target_competition_id]) # Load selected target
+    load_migration_resources # Loads possible target contests, migratable performances and already migrated
+    target_contest = @possible_target_contests.find(params[:target_contest_id]) # Load selected target
 
     # Collect performances for migration
     new_performances = []
@@ -94,26 +94,26 @@ class Jmd::CompetitionsController < Jmd::BaseController
     end
 
     # Perform migration
-    if target_competition && target_competition.performances << new_performances
+    if target_contest && target_contest.performances << new_performances
       flash[:success] = "#{new_performances.size} \
                          #{Performance.model_name.human(count: new_performances.size)} \
-                         wurde(n) erfolgreich nach #{target_competition.name} migriert."
-      redirect_to jmd_competition_path(target_competition)
+                         wurde(n) erfolgreich nach #{target_contest.name} migriert."
+      redirect_to jmd_contest_path(target_contest)
     else
       flash[:error] = "Es konnten nicht alle Vorspiele migriert werden."
       render 'list_advancing'
     end
   end
 
-  # Send an info email to all participants who advanced to this competition
+  # Send an info email to all participants who advanced to this contest
   def welcome_advanced
-    # @competition is fetched by CanCan
+    # @contest is fetched by CanCan
 
-    # Proceed if competition level is such that one can actually advance there
-    if @competition.can_be_advanced_to?
+    # Proceed if contest level is such that one can actually advance there
+    if @contest.can_be_advanced_to?
       welcome_mail_count = 0
 
-      @competition.performances.includes(:participants).each do |performance|
+      @contest.performances.includes(:participants).each do |performance|
         performance.participants.each do |participant|
           # Send mail to participant asynchronously
           ParticipantMailer.delay.welcome_advanced(participant, performance)
@@ -127,16 +127,16 @@ class Jmd::CompetitionsController < Jmd::BaseController
     else
       flash[:error] = "Zu diesem Wettbewerb gibt es keine Weiterleitungen."
     end
-    redirect_to jmd_competition_path(@competition)
+    redirect_to jmd_contest_path(@contest)
   end
 
   private
 
     def load_migration_resources
-      @possible_target_competitions = @competition.possible_successors.accessible_by(current_ability)
+      @possible_target_contests = @contest.possible_successors.accessible_by(current_ability)
 
       # Get advancing performances
-      @performances = @competition.performances.includes(:appearances, :pieces)
+      @performances = @contest.performances.includes(:appearances, :pieces)
                                   .browsing_order
                                   .select { |p| p.advances_to_next_round? }
       # Split up based on whether the performance already has a successor

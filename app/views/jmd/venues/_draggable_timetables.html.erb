@@ -1,6 +1,6 @@
 <div class="well">
   <form class="form-horizontal">
-    <% if @competition.days.count > 2 %>
+    <% if @contest.days.count > 2 %>
       <a href="#" id="earlier-button" class="btn">&larr; früher</a>
       <a href="#" id="later-button" class="btn">später &rarr;</a>
     <% end %>
@@ -10,7 +10,7 @@
   </form>
 </div>
 
-<% @competition.days.each do |day| %>
+<% @contest.days.each do |day| %>
 <div class="day-column span3">
   <h4><%= l day, :format => :long %></h4>
   <div id="<%= day.to_s %>" data-stage-venue-id="<%= @venue.id %>" class="droppable-timetable">

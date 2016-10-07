@@ -2,12 +2,12 @@
 class Jmd::ParticipantsController < Jmd::BaseController
   include ApplicationHelper
 
-  load_and_authorize_resource :competition
-  load_and_authorize_resource :participant, through: :competition
+  load_and_authorize_resource :contest
+  load_and_authorize_resource :participant, through: :contest
 
   def index
-    # @competition and @participants are fetched by CanCan
-    # TODO: Why doesn't authorization work although competition can be accessed by user?
+    # @contest and @participants are fetched by CanCan
+    # TODO: Why doesn't authorization work although contest can be accessed by user?
     @participants = @participants.includes(:country).order(:last_name)
 
     respond_to do |format|

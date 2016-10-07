@@ -1,4 +1,4 @@
-json.array! @competitions do |c|
+json.array! @contests do |c|
   json.id c.id.to_s
   json.name c.name
   json.time_zone c.host.time_zone.name

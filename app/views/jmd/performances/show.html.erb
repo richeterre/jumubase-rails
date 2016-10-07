@@ -1,8 +1,8 @@
 <% provide(:title, "Vorspieldetails") %>
 
 <p>
-  <%= flag_tag @performance.competition.host.country.country_code %>
-  <%= link_to @performance.competition.name, jmd_competition_path(@performance.competition) %>
+  <%= flag_tag @performance.contest.host.country.country_code %>
+  <%= link_to @performance.contest.name, jmd_contest_path(@performance.contest) %>
   <br />
   Kategorie: <%= @performance.category.name %>
   <br />
@@ -36,7 +36,7 @@
   <%= if can? :update, @performance
     link_to "Vorspiel bearbeiten", edit_jmd_performance_path(@performance), class: "btn"
     end %>
-  <%= if can? :read, @competition
-    link_to "Alle Vorspiele des Wettbewerbs", jmd_competition_performances_path(@performance.competition), class: "btn"
+  <%= if can? :read, @contest
+    link_to "Alle Vorspiele des Wettbewerbs", jmd_contest_performances_path(@performance.contest), class: "btn"
     end %>
 </p>

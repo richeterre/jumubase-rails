@@ -244,7 +244,7 @@ de:
       appearance:
         performance_id: "Vorspiel"
         participant_id: "Teilnehmer"
-        role_id: Rolle
+        participant_role: Rolle
         instrument_id: Instrument
         points: Punktzahl
       category:
@@ -270,7 +270,7 @@ de:
         category_id: Kategorie
         competition_id: Wettbewerb
       performance/appearances:
-        role_id: Rolle des Teilnehmers
+        participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers
         points: Punktzahl
       performance/appearances/participant:

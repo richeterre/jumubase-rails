@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160223125551) do
+ActiveRecord::Schema.define(:version => 20161006180613) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
     t.integer  "participant_id"
     t.integer  "instrument_id"
-    t.integer  "role_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "points"
+    t.string   "participant_role"
   end
 
   add_index "appearances", ["participant_id"], :name => "index_appearances_on_participant_id"
@@ -154,13 +154,6 @@ ActiveRecord::Schema.define(:version => 20160223125551) do
     t.string   "composer_name"
     t.string   "composer_born"
     t.string   "composer_died"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "rounds", :force => true do |t|

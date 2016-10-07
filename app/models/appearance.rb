@@ -2,14 +2,14 @@
 #
 # Table name: appearances
 #
-#  id             :integer          not null, primary key
-#  performance_id :integer
-#  participant_id :integer
-#  instrument_id  :integer
-#  role_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  points         :integer
+#  id               :integer          not null, primary key
+#  performance_id   :integer
+#  participant_id   :integer
+#  instrument_id    :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  points           :integer
+#  participant_role :string(255)
 #
 
 # -*- encoding : utf-8 -*-
@@ -17,12 +17,11 @@ class Appearance < ActiveRecord::Base
   include JumuHelper
 
   # Attributes that are accessible to everyone (needed for signup)
-  attr_accessible :performance_id, :participant_id, :instrument_id, :role_id, :participant_attributes
+  attr_accessible :performance_id, :participant_id, :instrument_id, :participant_role, :participant_attributes
 
   belongs_to :performance, touch: true
   belongs_to :participant
   belongs_to :instrument
-  belongs_to :role
 
   accepts_nested_attributes_for :participant
 
@@ -30,19 +29,21 @@ class Appearance < ActiveRecord::Base
   # validates :performance_id,  presence: true
   # validates :participant_id,  presence: true
 
-  validates :instrument_id,   presence: true
-  validates :role_id,         presence: true
-  validates :points,          numericality: {
-                                only_integer: true,
-                                greater_than_or_equal_to: 0,
-                                less_than_or_equal_to: 25
-                              },
-                              unless: lambda { |a| a.points.nil? } # Skip if none submitted
+  validates :instrument_id, presence: true
+  validates :participant_role,
+    presence: true,
+    inclusion: { in: JUMU_PARTICIPANT_ROLES }
+  validates :points,
+    numericality: {
+      only_integer: true,
+      greater_than_or_equal_to: 0,
+      less_than_or_equal_to: 25
+    },
+    unless: lambda { |a| a.points.nil? } # Skip if none submitted
 
   # Return appearances with given role
-  def self.with_role(role_slug)
-    joins(:role)
-    .where(roles: { slug: role_slug })
+  def self.with_role(role)
+    where(participant_role: role)
   end
 
   # Return appearances with no associated points
@@ -52,8 +53,7 @@ class Appearance < ActiveRecord::Base
 
   # Order by role: soloists -> ensemblists -> accompanists
   def self.role_order
-    joins(:role)
-    .order("roles.slug DESC")
+    order("participant_role DESC") # lucky us!
   end
 
   # Perform participant existence check upon saving
@@ -76,26 +76,25 @@ class Appearance < ActiveRecord::Base
   alias_method_chain 'participant_attributes=', :existence_check
 
   # Helper methods
-  # (Role helpers needed in performance validation, so role may be nil then)
 
   # Returns whether the appearance is a solo
   def solo?
-    self.role.try(:slug) == 'S'
+    self.participant_role == 'soloist'
   end
 
   # Returns whether the appearance is an accompaniment
   def accompaniment?
-    self.role.try(:slug) == 'B'
+    self.participant_role == 'accompanist'
   end
 
   # Returns whether the appearance is part of an ensemble
   def ensemble?
-    self.role.try(:slug) == 'E'
+    self.participant_role == 'ensemblist'
   end
 
   # Returns the solo appearance that is accompanied by this one
   def related_solo_appearance
-    self.performance.appearances.with_role('S').first
+    self.performance.appearances.with_role('soloist').first
   end
 
   # Returns the participant's age group

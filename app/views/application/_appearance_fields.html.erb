@@ -5,7 +5,9 @@
 
     <%= p.input :last_name %>
 
-    <%= f.input :role_id, collection: Role.all, prompt: "Bitte wählen" %>
+    <%= f.input :participant_role,
+      collection: JUMU_PARTICIPANT_ROLES.map(&:to_sym),
+      prompt: "Bitte wählen" %>
 
     <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen", hint: "Bei Gesangskategorien bitte als Instrument \"Gesang\" angeben." %>
 

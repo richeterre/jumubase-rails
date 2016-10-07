@@ -6,14 +6,14 @@ FactoryGirl.define do
     participant
     performance
     instrument
-    role
+    participant_role 'soloist'
 
     factory :acc_appearance do
-      association :role, factory: :accompanist_role
+      particiant_role 'accompanist'
     end
 
     factory :ensemble_appearance do
-      association :role, factory: :ensemblist_role
+      particiant_role 'ensemblist'
     end
   end
 
@@ -135,21 +135,6 @@ FactoryGirl.define do
     epoch
     minutes 4
     seconds 33
-  end
-
-  factory :role do
-    name "Soloist"
-    slug "S"
-
-    factory :accompanist_role do
-      name "Accompanist"
-      slug "B"
-    end
-
-    factory :ensemblist_role do
-      name "Ensemblist"
-      slug "E"
-    end
   end
 
   factory :round do

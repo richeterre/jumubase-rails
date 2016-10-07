@@ -2,14 +2,14 @@
 #
 # Table name: appearances
 #
-#  id             :integer          not null, primary key
-#  performance_id :integer
-#  participant_id :integer
-#  instrument_id  :integer
-#  role_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  points         :integer
+#  id               :integer          not null, primary key
+#  performance_id   :integer
+#  participant_id   :integer
+#  instrument_id    :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  points           :integer
+#  participant_role :string(255)
 #
 
 require 'spec_helper'
@@ -24,7 +24,7 @@ describe Appearance do
   it { should respond_to(:performance_id) }
   it { should respond_to(:participant_id) }
   it { should respond_to(:instrument_id) }
-  it { should respond_to(:role_id) }
+  it { should respond_to(:participant_role) }
 
   # Relationships
   it { should respond_to(:performance) }

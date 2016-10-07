@@ -167,12 +167,12 @@ class Performance < ActiveRecord::Base
 
   # Return all participants of performance that have an accompanist role
   def accompanists
-    self.appearances.with_role('B').map(&:participant)
+    self.appearances.with_role('accompanist').map(&:participant)
   end
 
   # Return all ensemble appearances of performance
   def ensemble_appearances
-    self.appearances.with_role('E')
+    self.appearances.with_role('ensemblist')
   end
 
   def duration

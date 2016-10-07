@@ -20,6 +20,11 @@ de:
       user:
         hosts: "Schulen"
     options:
+      appearances:
+        participant_role:
+          soloist: "Solist"
+          accompanist: "Begleiter"
+          ensemblist: "Teil eines Ensemble"
       participant:
         gender:
           m: "männlich"

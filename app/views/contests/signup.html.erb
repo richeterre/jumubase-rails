@@ -1,9 +1,18 @@
 <% provide(:title, "Anmeldung zum Wettbewerb #{JUMU_YEAR}") %>
 
-<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wähle zunächst deinen Regionalwettbewerb:</p>
+<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wir freuen uns auf dich!</p>
 
-<ul>
-<% @contests.each do |contest| %>
-  <li><%= link_to contest.name, new_contest_performance_path(contest) %></li>
+<hr />
+
+<% if @contests.empty? %>
+  <p class="alert alert-info">Leider stehen momentan keine Wettbewerbe zur Anmeldung offen.</p>
+<% else %>
+  <p>Wähle zunächst deinen Regionalwettbewerb:</p>
+  <% @contests.each do |contest| %>
+    <p>
+    <%= flag_tag(contest.host.country.country_code) %>
+    <%= link_to contest.name, new_contest_performance_path(contest) %></li>
+    (Anmeldeschluss: <%= l contest.signup_deadline, format: :date %>)
+    </p>
+  <% end %>
 <% end %>
-</ul>

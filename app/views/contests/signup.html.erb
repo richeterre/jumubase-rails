@@ -2,6 +2,8 @@
 
 <p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wir freuen uns auf dich!</p>
 
+<p>Anmeldeschluss ist der <strong>15. Dezember 2016</strong>, falls nicht anders angegeben.</p>
+
 <hr />
 
 <% if @contests.empty? %>
@@ -12,7 +14,6 @@
     <p>
     <%= flag_tag(contest.host.country.country_code) %>
     <%= link_to contest.name, new_contest_performance_path(contest) %></li>
-    (Anmeldeschluss: <%= l contest.signup_deadline, format: :date %>)
     </p>
   <% end %>
 <% end %>

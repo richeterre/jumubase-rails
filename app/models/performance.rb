@@ -224,8 +224,8 @@ class Performance < ActiveRecord::Base
 
     def add_unique_tracing_code
       begin
-        # Generates a random string of seven lowercase letters and numbers
-        code = [('A'..'Z'), (0..9)].map{ |i| i.to_a }.flatten.shuffle[0..6].join
+        # Generate a random 5-digit code, avoiding leading zero
+        code = rand(10000..99999).to_s
       end while Performance.where(tracing_code: code).exists?
 
       self.tracing_code = code

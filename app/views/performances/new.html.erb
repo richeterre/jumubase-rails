@@ -1,29 +1,11 @@
-<% provide(:title, "Anmeldung zum #{current_contest_title}") %>
-
-<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Es gilt folgender Anmeldeschluss:
-<ul>
-  <li>Oslo, Stockholm, Genf: <strong>1. Dezember</strong></li>
-  <li>Bratislava: <strong>20. Dezember</strong></li>
-  <li>Helsinki: <strong>15. Februar</strong></li>
-  <li>Alle anderen Schulen: <strong>15. Dezember</strong></li>
-</ul>
-</p>
-
-<p>
-  Bevor es losgeht, noch ein paar Hinweise:
-  <ul>
-    <li>Trage bitte <strong>nur jugendliche Begleitpartner</strong> ein. Erwachsene Begleiter müssen nicht angemeldet werden!</li>
-    <li>Gib unbedingt <strong>alle Geburtsdaten und E-Mailadressen</strong> korrekt ein, da wir diese zur Berechnung der Altersgruppe und der Zusendung des Änderungscodes brauchen.</li>
-    <li>Bitte gib, wenn möglich, <strong>eine mobile Telefonnummer</strong> an. So erreichen wir dich auch in dringenden Fällen (z.B. während des Wettbewerbs) schnell.</li>
-  </ul>
-</p>
+<% provide(:title, "Anmeldeformular #{@contest.host_name}") %>
 
 <p>Bei Fragen oder Problemen liest du dir am besten zunächst die <%= link_to "Fragen & Antworten", faq_path %> durch. Falls dir das nicht weiter hilft, kannst du uns <%= link_to "eine Nachricht schreiben", contact_path %>.</p>
 
 <%= render 'noscript' %>
 
-<%= simple_form_for(@performance, html: { class: "form-horizontal" }) do |form| %>
-  <%= render 'performance_fields', { f: form, allow_contest_selection: true, show_hints: true } %>
+<%= simple_form_for([@contest, @performance], html: { class: "form-horizontal" }) do |form| %>
+  <%= render 'performance_fields', { f: form, show_hints: true } %>
   <div class="form-actions">
     <%= form.button :submit, "Anmeldung absenden", class: "btn-primary" %>
   </div>

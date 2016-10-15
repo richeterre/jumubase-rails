@@ -6,7 +6,7 @@ class Jmd::AppearancesController < Jmd::BaseController
   # Set up filters
   has_scope :in_contest, only: :index
   has_scope :advanced_from_contest, only: :index
-  has_scope :in_category, only: :index
+  has_scope :in_contest_category, only: :index
   has_scope :in_age_group, only: :index
   has_scope :on_date, only: :index
   has_scope :in_genre, only: :index
@@ -14,10 +14,11 @@ class Jmd::AppearancesController < Jmd::BaseController
   def index
     authorize! :update, Performance # Users can see points only if authorized to change them
 
-    @performances = apply_scopes(Performance).in_contest(@contest)
-                                             .accessible_by(current_ability)
-                                             .stage_order
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance)
+      .in_contest(@contest)
+      .accessible_by(current_ability)
+      .stage_order
+      .paginate(page: params[:page], per_page: 15)
   end
 
   def update

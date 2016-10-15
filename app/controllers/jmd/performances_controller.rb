@@ -5,7 +5,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   filterable_actions = [:index, :list_current, :make_certificates, :make_jury_sheets]
 
   # Actions that are routed as nested under Contest
-  nested_actions = [:index, :make_certificates, :make_jury_sheets, :make_result_sheets]
+  nested_actions = [:index, :new, :create, :make_certificates, :make_jury_sheets, :make_result_sheets]
 
   load_and_authorize_resource :contest, only: nested_actions
   load_and_authorize_resource :performance, except: nested_actions
@@ -16,6 +16,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   # Set up filters
   has_scope :in_contest, only: filterable_actions
   has_scope :advanced_from_contest, only: filterable_actions
+  has_scope :in_contest_category, only: filterable_actions
   has_scope :in_category, only: filterable_actions
   has_scope :in_age_group, only: filterable_actions
   has_scope :on_date, only: filterable_actions
@@ -24,47 +25,18 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # List current performances the user has access to
   def list_current
-    @performances = apply_scopes(Performance).current
-                                             .accessible_by(current_ability, :list_current)
-                                             .order("created_at DESC")
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance)
+      .current
+      .accessible_by(current_ability, :list_current)
+      .order("created_at DESC")
+      .paginate(page: params[:page], per_page: 15)
   end
 
   # show: @performance is fetched by CanCan
 
-  def new
-    # @performance is built by CanCan
-
-    # Populate contest selector
-    @contests = Contest.accessible_by(current_ability).order("begins DESC")
-
-    # Build initial resources for form
-    1.times do
-      appearance = @performance.appearances.build
-      appearance.build_participant
-    end
-    @performance.pieces.build
-  end
-
-  def create
-    # @performance is built and populated from attributes by CanCan
-
-    if @performance.save
-      flash[:success] = "Das Vorspiel wurde erstellt."
-      redirect_to jmd_performance_path(@performance)
-    else
-      # Here, too, set available contests to choose from
-      @contests = Contest.accessible_by(current_ability)
-
-      render 'new'
-    end
-  end
-
   def edit
     # @performance is fetched by CanCan
-
-    # Populate contest selector
-    @contests = Contest.accessible_by(current_ability)
+    @contest = @performance.contest
   end
 
   def update
@@ -135,10 +107,36 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # List performances in the given contest
   def index
-    @performances = apply_scopes(Performance).where(contest_id: @contest)
-                                             .accessible_by(current_ability)
-                                             .order(:stage_time)
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance)
+      .joins(contest_category: [:contest, :category])
+      .where('contest_categories.contest_id = ?', @contest.id)
+      .accessible_by(current_ability)
+      .order(:stage_time)
+      .paginate(page: params[:page], per_page: 15)
+  end
+
+  def new
+    # @contest is fetched by CanCan
+    # @performance is built by CanCan
+
+    # Build initial resources for form
+    1.times do
+      appearance = @performance.appearances.build
+      appearance.build_participant
+    end
+    @performance.pieces.build
+  end
+
+  def create
+    # @contest is fetched by CanCan
+    # @performance is built and populated from attributes by CanCan
+
+    if @performance.save
+      flash[:success] = "Das Vorspiel wurde erstellt."
+      redirect_to jmd_performance_path(@performance)
+    else
+      render 'new'
+    end
   end
 
   # List performances for certificate printing
@@ -147,10 +145,12 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     # Define params for PDF output
     prawnto filename: "urkunden#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    @performances = apply_scopes(Performance).where(contest_id: @contest)
-                                             .accessible_by(current_ability)
-                                             .order(:stage_time)
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance)
+      .joins(:contest_category)
+      .where("contest_categories.contest_id = ?", @contest.id)
+      .accessible_by(current_ability)
+      .order(:stage_time)
+      .paginate(page: params[:page], per_page: 15)
   end
 
   # List performances for jury sheet printing
@@ -159,10 +159,12 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     # Define params for PDF output
     prawnto filename: "juryboegen#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    @performances = apply_scopes(Performance).where(contest_id: @contest)
-                                             .accessible_by(current_ability)
-                                             .order(:stage_time)
-                                             .paginate(page: params[:page], per_page: 15)
+    @performances = apply_scopes(Performance)
+      .joins(:contest_category)
+      .where("contest_categories.contest_id = ?", @contest.id)
+      .accessible_by(current_ability)
+      .order(:stage_time)
+      .paginate(page: params[:page], per_page: 15)
   end
 
   # List performances for result sheet printing
@@ -171,11 +173,11 @@ class Jmd::PerformancesController < Jmd::BaseController
 
     # Define params for PDF output
     prawnto filename: "ergebnisliste#{random_number}", prawn: { page_size: 'A4', skip_page_creation: true }
-    @category = Category.find(params[:category_id]) if params[:category_id]
+    @contest_category = ContestCategory.find(params[:contest_category_id]) if params[:contest_category_id]
     @age_group = params[:age_group] if params[:age_group]
     @performances = @contest.performances
-                                .where(category_id: @category, age_group: @age_group)
-                                .accessible_by(current_ability)
-                                .order(:stage_time)
+      .where(contest_category_id: @contest_category, age_group: @age_group)
+      .accessible_by(current_ability)
+      .order(:stage_time)
   end
 end

@@ -266,9 +266,13 @@ de:
         signup_deadline: "Anmeldeschluss"
         certificate_date: Urkundenvergabe
         timetables_public: Zeitpläne öffentlich
+      contest_category:
+        contest_id: Wettbewerb
+        category_id: Kategorie
       performance:
         category_id: Kategorie
         contest_id: Wettbewerb
+        contest_category_id: Kategorie
       performance/appearances:
         participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers

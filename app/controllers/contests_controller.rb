@@ -3,6 +3,10 @@ class ContestsController < ApplicationController
 
   layout :desired_layout
 
+  def signup
+    @contests = Contest.current_and_open
+  end
+
   def performances
     @contest = Contest.find(params[:id])
     @venue = Venue.find(params[:venue_id])
@@ -12,7 +16,7 @@ class ContestsController < ApplicationController
       render 'pages/not_found'
     else
       @performances = @contest.staged_performances(@venue, @date)
-        .includes(:category, :contest, :predecessor)
+        .includes({ contest_category: :category }, :predecessor, { appearances: :participant })
     end
   end
 

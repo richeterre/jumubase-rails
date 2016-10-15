@@ -53,7 +53,7 @@ class Jmd::ContestsController < Jmd::BaseController
       render 'pages/not_found'
     else
       @performances = @contest.staged_performances(@venue, @date)
-        .includes(:category, :contest, :predecessor)
+        .includes(:contest_category, :contest, :predecessor)
     end
   end
 
@@ -70,9 +70,21 @@ class Jmd::ContestsController < Jmd::BaseController
     load_migration_resources # Loads possible target contests, migratable performances and already migrated
     target_contest = @possible_target_contests.find(params[:target_contest_id]) # Load selected target
 
+    if target_contest.nil?
+      flash[:error] = "Der Zielwettbewerb wurde nicht gefunden."
+      render 'list_advancing'
+    end
+
     # Collect performances for migration
     new_performances = []
     @performances.each do |performance|
+      # Find corresponding contest category from target contest
+      new_contest_category = target_contest.contest_categories
+        .where(category_id: performance.contest_category.category_id)
+        .first
+
+      next if new_contest_category.nil?
+
       new_performance = performance.amoeba_dup # Deep duplicate
 
       # Remove appearances that don't advance
@@ -82,6 +94,9 @@ class Jmd::ContestsController < Jmd::BaseController
         # TODO: Currently non-qualified pop accompanist groups must be removed by hand after migration
       }
       new_performance.appearances.delete(not_advancing)
+
+      # Assign to contest category in new contest
+      new_performance.contest_category = new_contest_category
 
       # Clear attributes that become invalid after advancing
       new_performance.warmup_time = nil
@@ -94,13 +109,14 @@ class Jmd::ContestsController < Jmd::BaseController
     end
 
     # Perform migration
-    if target_contest && target_contest.performances << new_performances
+    begin
+      ActiveRecord::Base.transaction { new_performances.each(&:save!) }
       flash[:success] = "#{new_performances.size} \
                          #{Performance.model_name.human(count: new_performances.size)} \
                          wurde(n) erfolgreich nach #{target_contest.name} migriert."
       redirect_to jmd_contest_path(target_contest)
-    else
-      flash[:error] = "Es konnten nicht alle Vorspiele migriert werden."
+    rescue ActiveRecord::RecordInvalid
+      flash[:error] = "Die Vorspiele konnten nicht migriert werden."
       render 'list_advancing'
     end
   end

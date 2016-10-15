@@ -11,7 +11,7 @@ pdf.fill_color default_color
 
 performance_rows = @performances.map do |p|
   [
-        p.category.name,
+        p.contest_category.name,
         p.age_group,
         p.appearances.role_order.collect { |a| a.participant.full_name + ((a.age_group == p.age_group) ? "" : " (AG #{a.age_group})") + "\n" }.join,
         "",
@@ -39,7 +39,7 @@ end
   # Info
 
   pdf.bounding_box [50, 775], width: 400, height: 80 do
-     pdf.text_box "Kategorie: " + performance.category.name + "\nAltersgruppe " + performance.age_group, at: [0, pdf.bounds.bottom + 2 * pdf.font.height]
+     pdf.text_box "Kategorie: " + performance.contest_category.name + "\nAltersgruppe " + performance.age_group, at: [0, pdf.bounds.bottom + 2 * pdf.font.height]
 
     if performance.stage_time.nil?
       stage_time = ""

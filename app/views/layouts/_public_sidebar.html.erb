@@ -9,7 +9,7 @@
   <%= nav_link_to "Teilnahmeregeln", rules_path %>
 
   <% if JUMU_SIGNUP_OPEN %>
-    <%= nav_link_to "Anmeldeformular", new_performance_path if JUMU_ROUND == 1 %>
+    <%= nav_link_to "Anmeldeformulare", signup_path if JUMU_ROUND == 1 %>
     <%= nav_link_to "Anmeldung bearbeiten", signup_search_path%>
   <% end %>
 

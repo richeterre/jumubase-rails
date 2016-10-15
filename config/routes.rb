@@ -17,7 +17,7 @@ Jmd::Application.routes.draw do
     resources :contests do
       resources :appearances, only: [:index, :update]
       resources :participants, only: [:index, :show]
-      resources :performances, only: :index do
+      resources :performances, only: [:index, :new, :create] do
         get 'make_certificates', on: :collection
         get 'make_jury_sheets', on: :collection
         get 'make_result_sheets', on: :collection
@@ -31,7 +31,7 @@ Jmd::Application.routes.draw do
       get 'welcome_advanced', on: :member
     end
     resources :hosts, only: [:index, :show]
-    resources :performances, except: :index do
+    resources :performances, except: [:index, :new, :create] do
       get 'list_current', on: :collection
       put 'reschedule', on: :member
     end
@@ -49,10 +49,15 @@ Jmd::Application.routes.draw do
   # Routes for signup and performance editing, if currently possible
   if JUMU_SIGNUP_OPEN
     if JUMU_ROUND == 1
-      resources :performances, only: [:new, :create, :edit, :update]
-    else
-      resources :performances, only: [:edit, :update] # no signup after round 1
+      resources :contests, only: [] do
+        resources :performances, only: [:new, :create]
+      end
+
+      match '/anmeldung', to: 'contests#signup', as: :signup
     end
+
+    resources :performances, only: [:edit, :update] # no signup after round 1
+
     match '/vorspiel-bearbeiten', to: 'performances#search', as: :signup_search
   end
 

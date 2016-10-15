@@ -10,7 +10,7 @@ pdf.font_families.update(
 
 pdf.start_new_page(layout: :portrait)
 pdf.font "DejaVuSans"
-pdf.text "#{@category.name}, Altersgruppe #{@age_group}", size: 20
+pdf.text "#{@contest_category.name}, Altersgruppe #{@age_group}", size: 20
 pdf.pad 20 do
   pdf.text "(* = mit Weiterleitung zum #{@contest.round.next_round_name})"
 end

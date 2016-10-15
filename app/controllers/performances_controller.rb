@@ -3,10 +3,8 @@ class PerformancesController < ApplicationController
 
   # Presents the signup form for participants
   def new
+    @contest = Contest.find(params[:contest_id])
     @performance = Performance.new
-
-    # Set contests that the person can sign up for
-    @contests = Contest.current_and_open
 
     # Build initial resources for form
     1.times do
@@ -35,9 +33,7 @@ class PerformancesController < ApplicationController
       flash[:success] = "Die Anmeldung wurde erfolgreich gespeichert."
       redirect_to root_path
     else
-      # Here, too, set contests that the person can sign up for
-      @contests = Contest.current_and_open
-
+      @contest = Contest.find(params[:contest_id])
       render 'new'
     end
   end
@@ -64,6 +60,7 @@ class PerformancesController < ApplicationController
   # Presents an existing signup form for editing
   def edit
     @performance = Performance.in_open_contest.find(params[:id])
+    @contest = @performance.contest
 
     unless @performance[:tracing_code] == params[:tracing_code]
       flash[:error] = "Bitte gib einen gültigen Änderungscode ein."
@@ -79,9 +76,6 @@ class PerformancesController < ApplicationController
       redirect_to signup_search_path
       # redirect_to performances_path
     else
-      # Here, too, set contests that the person can sign up for
-      @contests = Contest.current_and_open
-
       render 'edit'
     end
   end

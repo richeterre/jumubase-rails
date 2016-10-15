@@ -1,10 +1,7 @@
 <%= render 'shared/error_messages', :object => f.object %>
 
-<%= field_set_tag "Teilnahmeort und Kategorie" do %>
-  <% if allow_contest_selection %>
-    <%= f.input :contest_id, collection: @contests, prompt: "Bitte wählen", hint: show_hints %>
-  <% end %>
-  <%= f.input :category_id, collection: Category.current, prompt: "Bitte wählen", input_html: { class: "span3" } %>
+<%= field_set_tag @contest.name do %>
+  <%= f.input :contest_category_id, collection: @contest.contest_categories, prompt: "Bitte wählen", input_html: { class: "span3" } %>
 <% end %>
 
 <%= field_set_tag "Wer nimmt an diesem Vorspiel teil…" do %>

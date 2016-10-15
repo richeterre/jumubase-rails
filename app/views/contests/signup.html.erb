@@ -1,0 +1,9 @@
+<% provide(:title, "Anmeldung zum Wettbewerb #{JUMU_YEAR}") %>
+
+<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wähle zunächst deinen Regionalwettbewerb:</p>
+
+<ul>
+<% @contests.each do |contest| %>
+  <li><%= link_to contest.name, new_contest_performance_path(contest) %></li>
+<% end %>
+</ul>

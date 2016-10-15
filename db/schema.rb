@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161007170911) do
+ActiveRecord::Schema.define(:version => 20161007170919) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(:version => 20161007170911) do
 
   add_index "categories", ["max_round_id"], :name => "index_categories_on_max_round_id"
 
-  create_table "categories_competitions", :id => false, :force => true do |t|
-    t.integer "category_id"
-    t.integer "competition_id"
+  create_table "contest_categories", :force => true do |t|
+    t.integer  "contest_id",  :null => false
+    t.integer  "category_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "contests", :force => true do |t|
@@ -128,16 +130,15 @@ ActiveRecord::Schema.define(:version => 20161007170911) do
   end
 
   create_table "performances", :force => true do |t|
-    t.integer  "category_id"
-    t.integer  "contest_id"
     t.datetime "warmup_time"
     t.datetime "stage_time"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "tracing_code"
     t.string   "age_group"
     t.integer  "predecessor_id"
     t.integer  "stage_venue_id"
+    t.integer  "contest_category_id"
   end
 
   add_index "performances", ["stage_venue_id"], :name => "index_performances_on_stage_venue_id"

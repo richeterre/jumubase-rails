@@ -21,11 +21,11 @@ class Contest < ActiveRecord::Base
 
   belongs_to :round
   belongs_to :host
-  has_many :performances, dependent: :destroy
+  has_many :contest_categories, dependent: :destroy
+  has_many :performances, through: :contest_categories
   has_many :appearances, through: :performances, readonly: true
   has_many :participants, through: :appearances, uniq: true, readonly: true
   has_many :venues, through: :host, readonly: true
-  has_and_belongs_to_many :categories
 
   validates :season,          presence: true,
                               numericality: { only_integer: true, greater_than: 0 }
@@ -84,8 +84,8 @@ class Contest < ActiveRecord::Base
 
   # Find venues that are used in this contest
   def used_venues
-    venues.joins(:performances)
-      .where("performances.stage_time IS NOT NULL AND performances.contest_id = ?", self.id)
+    venues.joins(performances: :contest_category)
+      .where("performances.stage_time IS NOT NULL AND contest_categories.contest_id = ?", self.id)
       .uniq
   end
 

@@ -65,12 +65,12 @@ $ ->
       dayOffset++
     sliceDays()
 
-  $('#performance_category_id').change ->
-    categoryId = $(this).val()
-    if categoryId
+  $('#performance_contest_category_id').change ->
+    contestCategoryId = $(this).val()
+    if contestCategoryId
       layoutUnscheduledPerformances(
         $('#unscheduled .draggable-performance').filter(() ->
-          return $(this).attr("data-category-id") == categoryId
+          return $(this).attr("data-contest-category-id") == contestCategoryId
         )
       )
     else

@@ -2,8 +2,8 @@
 
 <%= render 'noscript' %>
 
-<%= simple_form_for([:jmd, @performance], html: { class: "form-horizontal" }) do |form| %>
-  <%= render 'performance_fields', { f: form, allow_contest_selection: true, show_hints: false } %>
+<%= simple_form_for([:jmd, @contest, @performance], html: { class: "form-horizontal" }) do |form| %>
+  <%= render 'performance_fields', { f: form, show_hints: false } %>
   <div class="form-actions">
     <%= form.button :submit, "Vorspiel erstellen", class: "btn-primary" %>
     <%= link_to "Abbrechen", :back, class: "btn" %>

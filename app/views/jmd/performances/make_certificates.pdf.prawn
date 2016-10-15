@@ -38,9 +38,9 @@ pdf.font_families.update(
 
         if appearance.accompaniment?
           pdf.text "in der Wertung für <i>Instrumentalbegleitung<i>", inline_format: true
-          pdf.text "in der Kategorie #{performance.category.name} (AG #{performance.age_group})"
+          pdf.text "in der Kategorie #{performance.contest_category.name} (AG #{performance.age_group})"
         else
-          pdf.text "in der Wertung für <i>#{performance.category.name}</i>", inline_format: true
+          pdf.text "in der Wertung für <i>#{performance.contest_category.name}</i>", inline_format: true
           pdf.text "\n" # Empty row
         end
 

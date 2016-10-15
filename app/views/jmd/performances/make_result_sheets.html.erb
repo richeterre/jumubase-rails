@@ -3,8 +3,8 @@
 <%= form_tag make_result_sheets_jmd_contest_performances_path(@contest),
              method: :get, class: "filter-form form-search well" do %>
 
-  <%= select nil, :category_id, Category.current.collect { |c| [c.name, c.id] },
-      { selected: params[:category_id], include_blank: "Kategorie" } %>
+  <%= select nil, :contest_category_id, @contest.contest_categories.collect { |c| [c.category.name, c.id] },
+      { selected: params[:contest_category_id], include_blank: "Kategorie" } %>
 
   <%= select nil, :age_group, JUMU_AGE_GROUPS,
       { selected: params[:age_group], include_blank: "Altersgruppe" }, class: "span2" %>
@@ -39,7 +39,7 @@
       <% appearances.each do |appearance| %>
       <tr>
         <% if appearance == appearances.first %>
-        <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
+        <td rowspan="<%= performance.appearances.length %>"><%= performance.contest_category.name %></td>
         <% end %>
         <td>
           <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>

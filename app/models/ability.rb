@@ -13,7 +13,7 @@ class Ability
 
       if JUMU_ROUND == 1
         can :create, Performance # TODO: Check that user has access to selected contest
-        can :manage, Performance, contest: { host_id: user.host_ids }
+        can :manage, Performance, contest_category: { contest: { host_id: user.host_ids } }
         can :show_timetables, Contest, host_id: user.host_ids
         can :schedule, Venue, host_id: user.host_ids
       else

@@ -7,10 +7,10 @@ class Jmd::VenuesController < Jmd::BaseController
   def schedule
     # @contest is fetched by CanCan
     # @venue is fetched by CanCan
-    @categories = Category.current
+    @contest_categories = @contest.contest_categories.includes(:category)
     @performances = @contest.performances
-                                .includes(:predecessor, :participants)
-                                .venueless_or_at_stage_venue(@venue.id)
-                                .browsing_order
+      .includes(:predecessor, :participants, { contest_category: :category })
+      .venueless_or_at_stage_venue(@venue.id)
+      .browsing_order
   end
 end

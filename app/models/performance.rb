@@ -2,33 +2,30 @@
 #
 # Table name: performances
 #
-#  id             :integer          not null, primary key
-#  category_id    :integer
-#  contest_id     :integer
-#  warmup_time    :datetime
-#  stage_time     :datetime
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  tracing_code   :string(255)
-#  age_group      :string(255)
-#  predecessor_id :integer
-#  stage_venue_id :integer
+#  id                  :integer          not null, primary key
+#  warmup_time         :datetime
+#  stage_time          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  tracing_code        :string(255)
+#  age_group           :string(255)
+#  predecessor_id      :integer
+#  stage_venue_id      :integer
+#  contest_category_id :integer
 #
 
 # -*- encoding : utf-8 -*-
 class Performance < ActiveRecord::Base
   # Attributes that are accessible to everyone (needed for signup)
-  attr_accessible :category_id, :contest_id,
-      :pieces_attributes, :appearances_attributes
+  attr_accessible :contest_category_id, :pieces_attributes, :appearances_attributes
 
   amoeba do
     enable # Allow deep duplication
   end
 
-  belongs_to  :category
-  belongs_to  :contest
+  belongs_to  :contest_category
   belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
-                              include: { contest: { host: :country }}
+                              include: { contest_category: { contest: { host: :country }}}
   belongs_to  :stage_venue,   class_name: "Venue"
   has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",
                               inverse_of: :predecessor, dependent: :nullify
@@ -36,12 +33,13 @@ class Performance < ActiveRecord::Base
   has_many    :participants,  through: :appearances
   has_many    :pieces,        inverse_of: :performance, dependent: :destroy
 
+  delegate :contest, to: :contest_category
+  delegate :category, to: :contest_category
 
   accepts_nested_attributes_for :pieces,      allow_destroy: true
   accepts_nested_attributes_for :appearances, allow_destroy: true
 
-  validates :category_id,     presence: true
-  validates :contest_id,  presence: true
+  validates :contest_category_id, presence: true
 
   validate :contest_and_venue_hosts_match
 
@@ -64,28 +62,37 @@ class Performance < ActiveRecord::Base
 
   # Returns all performances in current round and year
   def self.current
-    where(contest_id: Contest.current)
+    self.in_contest(Contest.current)
   end
 
   # Returns all performances in contests that are currently open (for signup/edits)
   def self.in_open_contest
-    where(contest_id: Contest.open)
+    self.in_contest(Contest.open)
   end
 
   # Returns all performances in given contest
   def self.in_contest(contest_id)
-    where(contest_id: contest_id)
+    joins(:contest_category)
+    .select("performances.*, contest_categories.contest_id")
+    .where(contest_categories: { contest_id: contest_id })
   end
 
-  # Returns all performances that advanced from given contest
-  def self.advanced_from_contest(contest_id)
+  # Returns all performances that advanced from given contest(s)
+  def self.advanced_from_contest(contest_ids)
     joins("INNER JOIN performances AS predecessors ON predecessors.id = performances.predecessor_id")
-    .where(predecessors: { contest_id: contest_id })
+    .joins("INNER JOIN contest_categories AS predecessor_ccs ON predecessor_ccs.id = predecessors.contest_category_id")
+    .where("predecessor_ccs.contest_id IN (?)", contest_ids)
   end
 
   # Returns all performances in given category
   def self.in_category(category_id)
-    where(category_id: category_id)
+    joins(:contest_category)
+    .where(contest_categories: { category_id: category_id })
+  end
+
+  # Returns all performances in given contest category
+  def self.in_contest_category(contest_category_id)
+    where(contest_category_id: contest_category_id)
   end
 
   # Returns all performances in given age group
@@ -100,13 +107,13 @@ class Performance < ActiveRecord::Base
 
   # Returns all performances in classical categories
   def self.classical
-    joins(:category).where("categories.popular IS FALSE")
+    joins(contest_category: :category).where("categories.popular IS FALSE")
   end
 
   # Returns all performances in pop categories
   # (using "popular" here to steer clear of Ruby #pop method)
   def self.popular
-    joins(:category).where("categories.popular IS TRUE")
+    joins(contest_category: :category).where("categories.popular IS TRUE")
   end
 
   # Returns all performances on a given date, or unschedule if not date given
@@ -139,7 +146,7 @@ class Performance < ActiveRecord::Base
 
   # Orders performances by category, then age group (smallest first)
   def self.browsing_order
-    includes(:category)
+    includes(contest_category: :category)
     .order('categories.popular, categories.solo DESC, categories.name, performances.age_group')
   end
 

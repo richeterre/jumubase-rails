@@ -7,7 +7,7 @@
 
     <%= f.input :participant_role,
       collection: JUMU_PARTICIPANT_ROLES.map(&:to_sym),
-      prompt: "Bitte wählen" %>
+      prompt: "Bitte wählen", hint: "Erwachsene Begleitpartner müssen nicht angemeldet werden." %>
 
     <%= f.input :instrument_id, collection: Instrument.all(order: "name"), prompt: "Bitte wählen", hint: "Bei Gesangskategorien bitte als Instrument \"Gesang\" angeben." %>
 
@@ -26,7 +26,7 @@
     <%= p.input :country_id, collection: Country.all(:order => "name"), prompt: "Bitte wählen",
                 hint: "(gemeint ist das Land des Wohnorts, nicht die Staatsbürgerschaft)" %>
 
-    <%= p.input :phone %>
+    <%= p.input :phone, hint: "Gib hier eine Nummer an, unter der du während des Wettbewerbs erreichbar bist." %>
 
     <%= p.input :email, hint: "Bitte unbedingt eine gültige E-Mailadresse angeben!" %>
   <% end %>

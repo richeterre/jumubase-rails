@@ -5,7 +5,6 @@
 #  id          :integer          not null, primary key
 #  first_name  :string(255)
 #  last_name   :string(255)
-#  gender      :string(255)
 #  birthdate   :date
 #  street      :string(255)
 #  postal_code :string(255)
@@ -19,7 +18,7 @@
 
 # -*- encoding : utf-8 -*-
 class Participant < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :gender, :birthdate,
+  attr_accessible :first_name, :last_name, :birthdate,
       :street, :postal_code, :city, :country_id, :phone, :email
 
   belongs_to :country
@@ -30,7 +29,6 @@ class Participant < ActiveRecord::Base
     id
     first_name
     last_name
-    gender
     birthdate
     street
     postal_code
@@ -49,8 +47,6 @@ class Participant < ActiveRecord::Base
 
   validates :first_name,  presence: true
   validates :last_name,   presence: true
-  validates :gender,      presence: true,
-                          inclusion: { :in => ["m", "f"] }
   validates :birthdate,   presence: true
   validates :country_id,  presence: true
   validates :phone,       presence: true

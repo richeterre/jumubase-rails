@@ -29,15 +29,6 @@ module ApplicationHelper
     image_tag "flags/#{country_code}.png", alt: "Flag of #{country_code}", class: "inline-flag"
   end
 
-  # Return a male or female symbol based on given gender
-  def gender_symbol(gender)
-    if gender == "f"
-      "&#9792;".html_safe
-    elsif gender == "m"
-      "&#9794;".html_safe
-    end
-  end
-
   # Return a random number for naming generated files
   def random_number
     code = (0..9).to_a.shuffle[0..6].join

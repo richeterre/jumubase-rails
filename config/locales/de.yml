@@ -280,7 +280,6 @@ de:
       performance/appearances/participant:
         first_name: Vorname des Teilnehmers
         last_name: Nachname des Teilnehmers
-        gender: Geschlecht des Teilnehmers
         birthdate: Geburtsdatum des Teilnehmers
         street: Straße des Teilnehmers
         postal_code: Postleitzahl des Teilnehmers
@@ -299,7 +298,6 @@ de:
       participant:
         first_name: Vorname
         last_name: Nachname
-        gender: Geschlecht
         birthdate: Geburtsdatum
         street: Straße
         postal_code: Postleitzahl

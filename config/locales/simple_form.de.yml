@@ -25,10 +25,6 @@ de:
           soloist: "Solist"
           accompanist: "Begleiter"
           ensemblist: "Teil eines Ensemble"
-      participant:
-        gender:
-          m: "männlich"
-          f: "weiblich"
     # Labels and hints examples
     # labels:
     #   defaults:

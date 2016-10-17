@@ -88,7 +88,6 @@ FactoryGirl.define do
   factory :participant do
     sequence(:first_name) { |n| "Participant #{n}" }
     sequence(:last_name) { |n| "Last Name #{n}" }
-    gender "f"
     birthdate Date.new(JUMU_YEAR, 01, 01) - 14.years # makes AG III
     country
     phone "12345"

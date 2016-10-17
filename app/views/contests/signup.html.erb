@@ -1,15 +1,17 @@
 <% provide(:title, "Anmeldung zum Wettbewerb #{JUMU_YEAR}") %>
 
-<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wir freuen uns auf dich!</p>
+<p>Hier kannst du dein Vorspiel für "Jugend musiziert" <%= JUMU_YEAR %> anmelden. Wir freuen uns auf dich!
+<br />
+Anmeldeschluss ist, sofern nicht anders angegeben, der <strong>15. Dezember 2016</strong>.</p>
 
-<p>Anmeldeschluss ist der <strong>15. Dezember 2016</strong>, falls nicht anders angegeben.</p>
+<p><em>Zum Vormerken: Der Landeswettbewerb 2017 findet vom 15. (Anreise) bis 21. März (Abreise) an der DS Brüssel statt.</em></p>
 
 <hr />
 
 <% if @contests.empty? %>
   <p class="alert alert-info">Leider stehen momentan keine Wettbewerbe zur Anmeldung offen.</p>
 <% else %>
-  <p>Wähle zunächst deinen Regionalwettbewerb:</p>
+  <p>Wähle deinen Regionalwettbewerb:</p>
   <% @contests.each do |contest| %>
     <p>
     <%= flag_tag(contest.host.country.country_code) %>

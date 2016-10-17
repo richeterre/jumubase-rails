@@ -18,10 +18,8 @@
 
 # -*- encoding : utf-8 -*-
 class Participant < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :birthdate,
-      :street, :postal_code, :city, :country_id, :phone, :email
+  attr_accessible :first_name, :last_name, :birthdate, :phone, :email
 
-  belongs_to :country
   has_many :appearances,  dependent: :destroy
   has_many :performances, through: :appearances
 
@@ -30,10 +28,6 @@ class Participant < ActiveRecord::Base
     first_name
     last_name
     birthdate
-    street
-    postal_code
-    city
-    country :name
     phone
     email
     appearances do |appearances|
@@ -48,17 +42,12 @@ class Participant < ActiveRecord::Base
   validates :first_name,  presence: true
   validates :last_name,   presence: true
   validates :birthdate,   presence: true
-  validates :country_id,  presence: true
   validates :phone,       presence: true
   validates :email,       presence: true,
                           format: { with: email_regex }
 
   def full_name
     "#{self.first_name} #{self.last_name}"
-  end
-
-  def address
-    "#{self.street}, #{self.postal_code} #{self.city}"
   end
 
   private

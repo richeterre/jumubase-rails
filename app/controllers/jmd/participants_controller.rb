@@ -8,7 +8,7 @@ class Jmd::ParticipantsController < Jmd::BaseController
   def index
     # @contest and @participants are fetched by CanCan
     # TODO: Why doesn't authorization work although contest can be accessed by user?
-    @participants = @participants.includes(:country).order(:last_name)
+    @participants = @participants.order(:last_name)
 
     respond_to do |format|
        format.csv { render csv: @participants, filename: "teilnehmer#{random_number}" }

@@ -14,7 +14,6 @@
       <th>Nachname</th>
       <th>Vorname</th>
       <th>Geburtsdatum</th>
-      <th>Land</th>
       <th>Kategorien</th>
       <th>&nbsp;</th>
     </tr>
@@ -32,7 +31,6 @@
           jmd_contest_participant_path(@contest, participant) %>
         </td>
         <td><%= l participant.birthdate %></td>
-        <td><%= flag_tag participant.country.country_code %></td>
         <td>
           <% participant.performances.in_contest(@contest).includes(contest_category: :category).each do |performance| %>
             <%= link_to performance.category.name, jmd_performance_path(performance) %><br>

@@ -281,10 +281,6 @@ de:
         first_name: Vorname des Teilnehmers
         last_name: Nachname des Teilnehmers
         birthdate: Geburtsdatum des Teilnehmers
-        street: Straße des Teilnehmers
-        postal_code: Postleitzahl des Teilnehmers
-        city: Ort des Teilnehmers
-        country_id: Land des Teilnehmers
         phone: Telefonnummer des Teilnehmers
         email: E-Mail des Teilnehmers
       performance/pieces:
@@ -299,10 +295,6 @@ de:
         first_name: Vorname
         last_name: Nachname
         birthdate: Geburtsdatum
-        street: Straße
-        postal_code: Postleitzahl
-        city: Ort
-        country_id: Land
         phone: Telefon
         email: E-Mail
       piece:

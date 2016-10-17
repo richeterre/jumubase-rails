@@ -2,15 +2,7 @@
   * <%= l participant.birthdate %>
 </p>
 <p>
-  <% unless participant.street.blank? %>
-  <%= participant.street %><br />
-  <% end %>
-  <% unless participant.city.blank? %>
-  <%= participant.postal_code %>
-  <%= participant.city %>
-  <br />
-  <% end %>
-  <%= flag_tag(participant.country.country_code) %>
+  Telefon: <%= participant.phone %>
+  <br>
+  E-Mail: <%= mail_to participant.email %>
 </p>
-<p>Telefon: <%= participant.phone %></p>
-<p><%= mail_to participant.email %></p>

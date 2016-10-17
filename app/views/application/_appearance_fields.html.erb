@@ -15,15 +15,6 @@
           start_year: JUMU_YEAR - 5, end_year: JUMU_YEAR - 27,
           prompt: { day: "Tag", month: "Monat", year: "Jahr" }, input_html: { class: "span2" }, hint: "Bitte unbedingt das richtige Geburtsdatum angeben!" %>
 
-    <%= p.input :street %>
-
-    <%= p.input :postal_code %>
-
-    <%= p.input :city %>
-
-    <%= p.input :country_id, collection: Country.all(:order => "name"), prompt: "Bitte wählen",
-                hint: "(gemeint ist das Land des Wohnorts, nicht die Staatsbürgerschaft)" %>
-
     <%= p.input :phone, hint: "Gib hier eine Nummer an, unter der du während des Wettbewerbs erreichbar bist." %>
 
     <%= p.input :email, hint: "Bitte unbedingt eine gültige E-Mailadresse angeben!" %>

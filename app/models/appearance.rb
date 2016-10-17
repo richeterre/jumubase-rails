@@ -59,13 +59,27 @@ class Appearance < ActiveRecord::Base
   # Perform participant existence check upon saving
   def participant_attributes_with_existence_check=(attributes)
     if self.id == nil
+      # This is a new appearance
       attributes[:id] = nil
     end
 
     if attributes[:id].nil?
-      # Birthdate check impossible because it's in three attributes, but country should be enough
-      self.participant = Participant.find_by_first_name_and_last_name_and_country_id(
-          attributes[:first_name], attributes[:last_name], attributes[:country_id])
+      # This is a new participant
+
+      begin
+        given_birthdate = Date.new(
+          attributes['birthdate(1i)'].to_i,
+          attributes['birthdate(2i)'].to_i,
+          attributes['birthdate(3i)'].to_i
+        )
+      rescue
+        given_birthdate = nil
+      end
+
+      participant = Participant.find_by_first_name_and_last_name_and_birthdate(
+          attributes[:first_name], attributes[:last_name], given_birthdate)
+
+      self.participant = participant
       # TODO: Maybe update that participant's other data here with current values?
       self.participant_attributes_without_existence_check=(attributes) if participant.nil?
     else

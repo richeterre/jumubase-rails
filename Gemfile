@@ -45,6 +45,7 @@ group :test, :development do
   gem 'email_spec'
   gem 'action_mailer_cache_delivery'
   gem 'bullet'
+  gem 'debugger'
 end
 
 group :test do

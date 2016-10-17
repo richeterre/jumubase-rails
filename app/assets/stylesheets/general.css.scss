@@ -39,6 +39,10 @@ dt {
   vertical-align: baseline;
 }
 
+label.required {
+  font-weight: bold;
+}
+
 // Hints in signup form
 .help-block {
   color: #999;

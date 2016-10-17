@@ -4,6 +4,6 @@
 
 <h3>Auftritte beim <%= link_to @contest.round_slug_and_year, jmd_contest_path(@contest) %></h3>
 
-<% @participant.performances.in_contest(@contest).includes(:category).each do |performance| %>
-  <%= link_to performance.category.name, jmd_performance_path(performance) %><br>
+<% @participant.performances.in_contest(@contest).includes(contest_category: :category).each do |performance| %>
+  <%= link_to performance.contest_category.name, jmd_performance_path(performance) %><br>
 <% end %>

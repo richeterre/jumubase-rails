@@ -3,7 +3,7 @@
   <%= f.fields_for :participant do |p| %>
     <%= p.input :first_name %>
 
-    <%= p.input :last_name %>
+    <%= p.input :last_name, hint: "Der Name erscheint so auf der Urkunde. Sonderzeichen (å, š, ő, …) sind kein Problem!" %>
 
     <%= f.input :participant_role,
       collection: JUMU_PARTICIPANT_ROLES.map(&:to_sym),

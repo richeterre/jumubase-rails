@@ -39,6 +39,12 @@ dt {
   vertical-align: baseline;
 }
 
+// Hints in signup form
+.help-block {
+  color: #999;
+  font-style: italic;
+}
+
 // "Add more" buttons in signup form
 #appearances > input.btn, #pieces > input.btn {
   margin-bottom: 20px;

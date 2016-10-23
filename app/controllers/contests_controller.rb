@@ -4,7 +4,7 @@ class ContestsController < ApplicationController
   layout :desired_layout
 
   def signup
-    @contests = Contest.current_and_open
+    @contests = Contest.current.open
   end
 
   def performances

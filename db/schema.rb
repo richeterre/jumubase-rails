@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161017142904) do
+ActiveRecord::Schema.define(:version => 20161023191948) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20161017142904) do
     t.datetime "updated_at",                           :null => false
     t.date     "certificate_date"
     t.integer  "season"
-    t.datetime "signup_deadline"
+    t.date     "signup_deadline"
     t.boolean  "timetables_public", :default => false
   end
 

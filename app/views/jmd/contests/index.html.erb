@@ -22,7 +22,7 @@
       <td>
         <%= "#{l contest.begins} – #{l contest.ends}" %>
       </td>
-      <td><%= l contest.signup_deadline, format: :tiny %></td>
+      <td><%= l contest.signup_deadline %></td>
       <td>
         <%= link_to icon_tag("edit", title: "Diesen Wettbewerb bearbeiten"),
             edit_jmd_contest_path(contest), class: "btn btn-mini" %>

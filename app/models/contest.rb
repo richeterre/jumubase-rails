@@ -11,7 +11,7 @@
 #  updated_at        :datetime         not null
 #  certificate_date  :date
 #  season            :integer
-#  signup_deadline   :datetime
+#  signup_deadline   :date
 #  timetables_public :boolean          default(FALSE)
 #
 
@@ -63,16 +63,9 @@ class Contest < ActiveRecord::Base
     where(timetables_public: value)
   end
 
-  # Find current contests whose signup is open
-  def self.current_and_open
-    now = Time.now
-    current.where("contests.signup_deadline > ?", now)
-  end
-
   # Find contests whose signup is open
   def self.open
-    now = Time.now
-    where("contests.signup_deadline > ?", now)
+    where("contests.signup_deadline >= ?", today_for_signup)
   end
 
   # Find contests one round earlier than the current
@@ -107,11 +100,6 @@ class Contest < ActiveRecord::Base
     "#{self.host.name}"
   end
 
-  # Last full day of signup
-  def last_signup_date
-    self.signup_deadline.to_date - 1.day
-  end
-
   # Day range during which the contest takes place
   def days
     self.begins..self.ends
@@ -130,6 +118,11 @@ class Contest < ActiveRecord::Base
   # Short round name and year
   def round_slug_and_year
     "#{self.round.slug} #{self.year}"
+  end
+
+  # Whether the signup deadline has passed
+  def signup_deadline_passed?
+    return self.signup_deadline < self.class.today_for_signup
   end
 
   # Whether participants can advance to this contest
@@ -158,6 +151,13 @@ class Contest < ActiveRecord::Base
 
   private
 
+    # Returns a "today" date used for signup deadline comparisons
+    def self.today_for_signup
+      # Assume that all hosts are either on or ahead of UTC time.
+      # This prevents contests from closing prematurely in their countries.
+      return Time.now.utc.to_date
+    end
+
     def require_beginning_before_end
       unless begins.nil? || ends.nil?
         errors.add(:base, :beginning_not_before_end) if ends < begins
@@ -166,7 +166,7 @@ class Contest < ActiveRecord::Base
 
     def require_signup_deadline_before_beginning
       unless begins.nil? || signup_deadline.nil?
-        errors.add(:base, :signup_deadline_not_before_beginning) unless signup_deadline < begins.to_time
+        errors.add(:base, :signup_deadline_not_before_beginning) unless signup_deadline < begins
       end
     end
 end

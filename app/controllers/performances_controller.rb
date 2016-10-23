@@ -47,9 +47,9 @@ class PerformancesController < ApplicationController
         existing = Performance.find_by_tracing_code(params[:tracing_code])
         if existing.nil?
           flash.now[:error] = "Keine Anmeldung unter diesem Änderungscode gefunden."
-        elsif existing.contest.signup_deadline <= Time.now
+        elsif existing.contest.signup_deadline_passed?
           flash.now[:error] = t('messages.deadline_passed',
-                                deadline: l(existing.contest.last_signup_date, format: :long))
+                                deadline: l(existing.contest.signup_deadline, format: :long))
         else
           redirect_to edit_performance_path(existing, tracing_code: params[:tracing_code])
         end

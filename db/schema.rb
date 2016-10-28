@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161023191948) do
+ActiveRecord::Schema.define(:version => 20161027164131) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -63,14 +63,6 @@ ActiveRecord::Schema.define(:version => 20161023191948) do
     t.boolean  "timetables_public", :default => false
   end
 
-  create_table "countries", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "country_code"
-  end
-
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0, :null => false
     t.integer  "attempts",   :default => 0, :null => false
@@ -96,11 +88,11 @@ ActiveRecord::Schema.define(:version => 20161023191948) do
 
   create_table "hosts", :force => true do |t|
     t.string   "name"
-    t.integer  "country_id"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "city"
-    t.string   "time_zone",  :default => "Europe/Berlin"
+    t.string   "time_zone",    :default => "Europe/Berlin"
+    t.string   "country_code"
   end
 
   create_table "hosts_users", :id => false, :force => true do |t|

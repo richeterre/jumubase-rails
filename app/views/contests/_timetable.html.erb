@@ -67,7 +67,7 @@
         <% if contest.round.level > 1 %>
         <td>
           <%= performance.associated_host.name %>
-          <%= flag_tag(performance.associated_country.try(:country_code)) %>
+          <%= flag_tag(performance.associated_country_code) %>
         </td>
         <% end %>
       </tr>

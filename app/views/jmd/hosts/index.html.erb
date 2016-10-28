@@ -14,7 +14,7 @@
     <tr>
       <td><%= link_to host.name, jmd_host_path(host) %></td>
       <td><%= host.city %></td>
-      <td><%= flag_tag(host.country.country_code) %></td>
+      <td><%= flag_tag(host.country_code) %></td>
       <td><%= host.time_zone %></td>
     </tr>
     <% end %>

@@ -1,7 +1,7 @@
 <% provide(:title, "Vorspieldetails") %>
 
 <p>
-  <%= flag_tag @performance.contest.host.country.country_code %>
+  <%= flag_tag @performance.contest.host.country_code %>
   <%= link_to @performance.contest.name, jmd_contest_path(@performance.contest) %>
   <br />
   Kategorie: <%= @performance.category.name %>

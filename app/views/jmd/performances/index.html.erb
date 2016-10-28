@@ -42,7 +42,7 @@
           <br /><%= info_label_tag("Editiert #{time_ago_in_words(performance.updated_at)}", :info)  %>
         <% end %>
       </td>
-      <td><%= flag_tag(performance.associated_country.try(:country_code)) %></td>
+      <td><%= flag_tag performance.associated_country_code %></td>
       <td>
         <% performance.appearances.role_order.each do |appearance| %>
           <% participant = appearance.participant %>

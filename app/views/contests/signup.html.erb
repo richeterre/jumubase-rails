@@ -16,7 +16,7 @@ Anmeldeschluss ist, sofern nicht anders angegeben, der <strong><%= l general_sig
   <p>Wähle deinen Regionalwettbewerb:</p>
   <% @contests.each do |contest| %>
     <p>
-    <%= flag_tag(contest.host.country.country_code) %>
+    <%= flag_tag(contest.host.country_code) %>
     <%= link_to contest.name, new_contest_performance_path(contest) %></li>
     <% if contest.signup_deadline != general_signup_deadline %>
       (Anmeldeschluss: <%= l contest.signup_deadline, format: :long %>)

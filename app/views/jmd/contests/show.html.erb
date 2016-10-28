@@ -8,7 +8,7 @@
   <dt>Runde</dt>
     <dd><%= @contest.round.name %></dd>
   <dt>Schule</dt>
-    <dd><%= @contest.host.name %> <%= flag_tag(@contest.host.country.country_code) %></dd>
+    <dd><%= @contest.host.name %> <%= flag_tag(@contest.host.country_code) %></dd>
   <dt>Zeitzone</dt>
     <dd><%= @contest.host.time_zone.formatted_offset %></dd>
   <dt>Dauer</dt>

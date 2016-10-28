@@ -2,13 +2,13 @@
 #
 # Table name: hosts
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  country_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  city       :string(255)
-#  time_zone  :string(255)      default("Europe/Berlin")
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  city         :string(255)
+#  time_zone    :string(255)      default("Europe/Berlin")
+#  country_code :string(255)
 #
 
 require 'spec_helper'

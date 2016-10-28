@@ -25,7 +25,7 @@ class Performance < ActiveRecord::Base
 
   belongs_to  :contest_category
   belongs_to  :predecessor,   class_name: "Performance", inverse_of: :successor,
-                              include: { contest_category: { contest: { host: :country }}}
+                              include: { contest_category: { contest: :host } }
   belongs_to  :stage_venue,   class_name: "Venue"
   has_one     :successor,     class_name: "Performance", foreign_key: "predecessor_id",
                               inverse_of: :predecessor, dependent: :nullify
@@ -163,8 +163,8 @@ class Performance < ActiveRecord::Base
   end
 
   # Return the country the performance is associated with
-  def associated_country
-    self.associated_host.country
+  def associated_country_code
+    self.associated_host.try(:country_code)
   end
 
   # Return participant of performance that has a soloist role

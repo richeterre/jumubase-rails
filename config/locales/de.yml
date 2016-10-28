@@ -268,6 +268,10 @@ de:
       contest_category:
         contest_id: Wettbewerb
         category_id: Kategorie
+      host:
+        name: "Name"
+        city: "Stadt"
+        country_code: "Ländercode"
       performance:
         category_id: Kategorie
         contest_id: Wettbewerb

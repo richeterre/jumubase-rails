@@ -16,9 +16,8 @@ module Api::V1
         .includes(
           { appearances: [:instrument, :participant] },
           { pieces: :epoch },
-          :category,
-          contest: { host: :country },
-          predecessor: { contest: { host: :country } }
+          contest_category: { contest: :host },
+          predecessor: { contest_category: { contest: :host } }
         )
     end
   end

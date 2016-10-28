@@ -5,7 +5,7 @@ json.array! @performances do |performance|
   json.age_group performance.age_group
   if predecessor = performance.predecessor
     json.predecessor_host_name predecessor.associated_host.name
-    json.predecessor_host_country predecessor.associated_host.country.country_code.upcase
+    json.predecessor_host_country predecessor.associated_host.country_code.upcase
   end
 
   json.appearances performance.appearances.role_order do |appearance|

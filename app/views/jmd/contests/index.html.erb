@@ -17,7 +17,7 @@
     <% @contests.each do |contest| %>
     <tr>
       <td><%= link_to contest.name, jmd_contest_path(contest) %></td>
-      <td><%= flag_tag(contest.host.country.country_code) %></td>
+      <td><%= flag_tag(contest.host.country_code) %></td>
       <td><%= contest.season %></td>
       <td>
         <%= "#{l contest.begins} – #{l contest.ends}" %>

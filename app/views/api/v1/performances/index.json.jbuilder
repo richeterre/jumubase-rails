@@ -21,6 +21,6 @@ json.array! @performances do |performance|
     json.composer_born piece.composer_born
     json.composer_died piece.composer_died
     json.duration piece.duration
-    json.epoch piece.epoch.slug
+    json.epoch piece.epoch
   end
 end

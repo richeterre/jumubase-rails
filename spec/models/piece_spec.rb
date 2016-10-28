@@ -5,7 +5,6 @@
 #  id             :integer          not null, primary key
 #  title          :string(255)
 #  performance_id :integer
-#  epoch_id       :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  minutes        :integer
@@ -13,6 +12,7 @@
 #  composer_name  :string(255)
 #  composer_born  :string(255)
 #  composer_died  :string(255)
+#  epoch          :string(255)
 #
 
 require 'spec_helper'

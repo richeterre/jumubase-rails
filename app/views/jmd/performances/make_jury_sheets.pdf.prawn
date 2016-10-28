@@ -87,7 +87,7 @@ end
       end
       pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
       pdf.text piece.title
-      pdf.text "#{format_duration(piece.duration)}, Epoche #{piece.epoch.slug}"
+      pdf.text "#{format_duration(piece.duration)}, Epoche #{piece.epoch}"
       pdf.move_down pdf.font.height
     end
   end

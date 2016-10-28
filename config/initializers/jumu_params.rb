@@ -45,6 +45,9 @@ JUMU_PREDICATE_POINT_RANGES = [
 # Possible participant role values for the database
 JUMU_PARTICIPANT_ROLES = %w(soloist accompanist ensemblist)
 
+# Possible piece epochs
+JUMU_EPOCHS = %w(a b c d e f)
+
 # Possible age group values
 JUMU_AGE_GROUPS = %w(Ia Ib II III IV V VI VII)
 

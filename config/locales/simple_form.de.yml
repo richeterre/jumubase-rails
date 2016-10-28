@@ -25,6 +25,14 @@ de:
           soloist: "Solist"
           accompanist: "Begleiter"
           ensemblist: "Teil eines Ensemble"
+      pieces:
+        epoch:
+          a: "Renaissance, Frühbarock"
+          b: "Barock"
+          c: "Frühklassik, Klassik"
+          d: "Romantik, Impressionismus"
+          e: "Klassische Moderne, Jazz, Pop"
+          f: "Neue Musik"
     # Labels and hints examples
     # labels:
     #   defaults:

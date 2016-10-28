@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161027164131) do
+ActiveRecord::Schema.define(:version => 20161028151432) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -79,13 +79,6 @@ ActiveRecord::Schema.define(:version => 20161027164131) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
-  create_table "epoches", :force => true do |t|
-    t.string   "name"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "hosts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",                                :null => false
@@ -134,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20161027164131) do
   create_table "pieces", :force => true do |t|
     t.string   "title"
     t.integer  "performance_id"
-    t.integer  "epoch_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "minutes"
@@ -142,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20161027164131) do
     t.string   "composer_name"
     t.string   "composer_born"
     t.string   "composer_died"
+    t.string   "epoch"
   end
 
   create_table "rounds", :force => true do |t|

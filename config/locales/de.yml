@@ -291,7 +291,7 @@ de:
         composer_name: Name des Komponisten
         composer_born: Geburtsjahr des Komponisten
         composer_died: Todesjahr des Komponisten
-        epoch_id: Epoche des Stücks
+        epoch: Epoche des Stücks
         minutes: Dauer (Minuten) des Stücks
         seconds: Dauer (Sekunden) des Stücks
       participant:
@@ -305,7 +305,7 @@ de:
         composer_name: Komponist
         composer_born: Geburtsjahr
         composer_died: (Todesjahr)
-        epoch_id: Epoche
+        epoch: Epoche
         duration: Dauer
       user:
         first_name: Vorname

@@ -152,7 +152,7 @@ class Performance < ActiveRecord::Base
 
   # Return the host the performance is associated with
   def associated_host
-    case self.contest.round.level
+    case self.contest.round
     when 1
       self.contest.host
     when 2
@@ -204,7 +204,7 @@ class Performance < ActiveRecord::Base
   # Return whether the performance as a whole can migrate to next round
   def advances_to_next_round?
     # Don't advance if category's maximum round is reached
-    if self.contest.round.level >= self.category.max_round.level
+    if self.contest.round >= self.category.max_round
       return false
     end
 

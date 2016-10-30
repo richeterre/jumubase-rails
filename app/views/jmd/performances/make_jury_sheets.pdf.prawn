@@ -98,7 +98,7 @@ end
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
     pdf.font_size = 9
     pdf.fill_color default_color
-    index = @contest.round.level - 1
+    index = @contest.round - 1
     pdf.text_box JUMU_PRIZE_POINT_RANGES[index]
       .map { |prize, point_range|
         "#{point_range.first}–#{point_range.last} Punkte: #{prize}"

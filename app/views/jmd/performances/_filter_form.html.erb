@@ -27,7 +27,7 @@
 
   <% else # Looking at a contest's performances %>
 
-    <% if @contest.round.level == 2 %>
+    <% if @contest.round == 2 %>
       <%= select nil, :advanced_from_contest,
             @contest.possible_predecessors.collect { |c| [c.name, c.id] },
             { selected: params[:advanced_from_contest], include_blank: "Alle Regionalwettbewerbe" },

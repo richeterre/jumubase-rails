@@ -7,10 +7,13 @@ class Jmd::ContestsController < Jmd::BaseController
 
   def index
     # @contests are fetched by CanCan
-    @contests = @contests.includes(:host, :round).order("begins DESC")
+    @contests = @contests.includes(:host).order("begins DESC")
   end
 
-  # new: @contest is built by CanCan
+  def new
+    # @contest is built by CanCan
+    @rounds = allowed_rounds
+  end
 
   def create
     # @contest is built by CanCan
@@ -18,13 +21,17 @@ class Jmd::ContestsController < Jmd::BaseController
       flash[:success] = "Der Wettbewerb #{@contest.name} wurde erstellt."
       redirect_to jmd_contests_path
     else
+      @rounds = allowed_rounds
       render 'new'
     end
   end
 
   # show: @contest is fetched by CanCan
 
-  # edit: @contest is fetched by CanCan
+  def edit
+    # @contest is fetched by CanCan
+    @rounds = allowed_rounds
+  end
 
   def update
     # @contest is fetched by CanCan
@@ -32,6 +39,7 @@ class Jmd::ContestsController < Jmd::BaseController
       flash[:success] = "Der Wettbewerb \"#{@contest.name}\" wurde erfolgreich geändert."
       redirect_to jmd_contests_path
     else
+      @rounds = allowed_rounds
       render 'edit'
     end
   end
@@ -161,5 +169,9 @@ class Jmd::ContestsController < Jmd::BaseController
 
     def desired_layout
        (params[:bare] == "yes") ? "bare_timetable" : "application"
+    end
+
+    def allowed_rounds
+      [1, 2] # Only allow adding contests for these rounds
     end
 end

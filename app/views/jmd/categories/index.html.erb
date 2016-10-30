@@ -25,8 +25,8 @@
           <%= info_label_tag("Ensemble", :info) if category.ensemble? %>
         </td>
         <td>
-          <% type = category.max_round.level < 3 ? :warning : :info %>
-          <%= info_label_tag(category.max_round.slug, type) %>
+          <% type = category.max_round < 3 ? :warning : :info %>
+          <%= info_label_tag(short_name_for_round(category.max_round), type) %>
         </td>
         <td>
           <%= "#{category.official_min_age_group} – #{category.official_max_age_group}" %>

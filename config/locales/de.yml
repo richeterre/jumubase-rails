@@ -258,7 +258,7 @@ de:
         official_max_age_group: "max. AG (offiziell)"
       contest:
         season: Saison
-        round_id: Runde
+        round: Runde
         host_id: Schule
         begins: Beginn
         ends: Ende

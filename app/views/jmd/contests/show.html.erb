@@ -6,7 +6,7 @@
   <dt>Saison</dt>
     <dd><%= @contest.season %></dd>
   <dt>Runde</dt>
-    <dd><%= @contest.round.name %></dd>
+    <dd><%= name_for_round(@contest.round) %></dd>
   <dt>Schule</dt>
     <dd><%= @contest.host.name %> <%= flag_tag(@contest.host.country_code) %></dd>
   <dt>Zeitzone</dt>

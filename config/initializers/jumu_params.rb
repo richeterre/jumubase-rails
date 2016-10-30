@@ -10,6 +10,26 @@ JUMU_YEAR = 1963 + JUMU_SEASON
 # The upcoming/ongoing round for signup, timetables, etc.
 JUMU_ROUND = Integer(ENV['JUMU_CURRENT_ROUND'])
 
+# The names of the different rounds
+JUMU_ROUND_NAMES = {
+  1 => "Regionalwettbewerb",
+  2 => "Landeswettbewerb",
+  3 => "Bundeswettbewerb"
+}
+
+# The short names of the different rounds
+JUMU_ROUND_SHORT_NAMES = {
+  1 => "RW",
+  2 => "LW",
+  3 => "BW"
+}
+
+# The names of the different rounds' boards
+JUMU_ROUND_BOARD_NAMES = {
+  1 => "Regionalausschuss",
+  2 => "Landesausschuss"
+}
+
 # The point ranges for the different prizes
 JUMU_PRIZE_POINT_RANGES = [
   # First round:

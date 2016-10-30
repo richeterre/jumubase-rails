@@ -35,7 +35,7 @@
       <th width="30%">Kategorie</th>
       <th>AG</th>
       <th>Teilnehmer</th>
-      <% if contest.round.level > 1 %>
+      <% if contest.round > 1 %>
       <th>Schule</th>
       <% end %>
     </tr>
@@ -64,7 +64,7 @@
             <br />
           <% end %>
         </td>
-        <% if contest.round.level > 1 %>
+        <% if contest.round > 1 %>
         <td>
           <%= performance.associated_host.name %>
           <%= flag_tag(performance.associated_country_code) %>

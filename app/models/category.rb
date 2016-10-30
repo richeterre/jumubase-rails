@@ -11,15 +11,15 @@
 #  popular                :boolean
 #  slug                   :string(255)
 #  active                 :boolean
-#  max_round_id           :integer
 #  official_min_age_group :string(255)      default("Ia")
 #  official_max_age_group :string(255)      default("VII")
+#  max_round              :integer
 #
 
 # -*- encoding : utf-8 -*-
 class Category < ActiveRecord::Base
   attr_accessible :name, :solo, :ensemble, :popular, :slug, :active,
-    :max_round_id, :official_min_age_group, :official_max_age_group
+    :max_round, :official_min_age_group, :official_max_age_group
 
   # By default, show classical before pop, solo before ensemble
   default_scope order: 'popular, solo DESC, ensemble DESC, name'
@@ -27,12 +27,13 @@ class Category < ActiveRecord::Base
   # Show only categories currently marked as active (temporary workaround)
   scope :current, where('active' => true)
 
-  belongs_to :max_round, class_name: "Round"
   has_many :contest_categories, dependent: :destroy
 
   validates :name, presence: true
   validates :slug, presence: true
-  validates :max_round, presence: true
+  validates :max_round,
+    presence: true,
+    inclusion: { in: 1..3 }
   validates :official_min_age_group, presence: true,
                                      inclusion: { :in => JUMU_AGE_GROUPS }
   validates :official_max_age_group, presence: true,

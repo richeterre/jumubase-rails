@@ -5,7 +5,10 @@ class Jmd::CategoriesController < Jmd::BaseController
 
   # index: @categories are fetched by CanCan
 
-  # new: @category is built by CanCan
+  def new
+    # @category is built by CanCan
+    @max_rounds = allowed_max_rounds
+  end
 
   def create
     # @category is built by CanCan
@@ -13,6 +16,7 @@ class Jmd::CategoriesController < Jmd::BaseController
       flash[:success] = "Die Kategorie #{@category.name} wurde erstellt."
       redirect_to jmd_categories_path
     else
+      @max_rounds = allowed_max_rounds
       render 'new'
     end
   end
@@ -23,6 +27,7 @@ class Jmd::CategoriesController < Jmd::BaseController
 
   def edit
     # @category is fetched by CanCan
+    @max_rounds = allowed_max_rounds
   end
 
   def update
@@ -31,6 +36,7 @@ class Jmd::CategoriesController < Jmd::BaseController
       flash[:success] = "Die Kategorie #{@category.name} wurde erfolgreich geändert."
       redirect_to jmd_categories_path
     else
+      @max_rounds = allowed_max_rounds
       render 'edit'
     end
   end
@@ -41,4 +47,10 @@ class Jmd::CategoriesController < Jmd::BaseController
     flash[:success] = "Die Kategorie #{@category.name} wurde gelöscht."
     redirect_to jmd_categories_path
   end
+
+  private
+
+    def allowed_max_rounds
+      return [1, 2, 3] # Each round is a potential max round for some category
+    end
 end

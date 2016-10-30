@@ -15,7 +15,7 @@
   <tbody>
     <% contests.each do |contest| %>
     <tr>
-      <td><%= link_to contest.round_slug_and_year, jmd_contest_path(contest) %></td>
+      <td><%= link_to contest.round_short_name_and_year, jmd_contest_path(contest) %></td>
       <td><%= contest.participants.size %></td>
       <td><%= contest.performances.size %></td>
       <td><%= contest.performances.classical.size %></td>

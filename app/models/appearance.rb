@@ -134,7 +134,7 @@ class Appearance < ActiveRecord::Base
   # Returns the achieved prize's name, or nil if none
   def prize
     # Try to match points to a prize range for the contest round
-    JUMU_PRIZE_POINT_RANGES[self.performance.contest.round.level - 1].each do |prize, point_range|
+    JUMU_PRIZE_POINT_RANGES[self.performance.contest.round - 1].each do |prize, point_range|
       if point_range.include?(self.points)
         return prize
       end
@@ -146,7 +146,7 @@ class Appearance < ActiveRecord::Base
   # Return the achieved predicate's name, or nil if none
   def predicate
     # Try to match points to a predicate range for the contest round
-    JUMU_PREDICATE_POINT_RANGES[self.performance.contest.round.level - 1].each do |predicate, point_range|
+    JUMU_PREDICATE_POINT_RANGES[self.performance.contest.round - 1].each do |predicate, point_range|
       if point_range.include?(self.points)
         return predicate
       end
@@ -166,7 +166,7 @@ class Appearance < ActiveRecord::Base
 
   # Return whether the participant fulfills the necessary conditions for advancing
   def may_advance_to_next_round?
-    case self.performance.contest.round.level
+    case self.performance.contest.round
     when 1
       # Check for sufficient age
       return false if ["Ia", "Ib"].include?(self.age_group)

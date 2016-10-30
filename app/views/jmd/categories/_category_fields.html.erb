@@ -6,6 +6,6 @@
 <%= f.input :ensemble %>
 <%= f.input :popular %>
 <%= f.input :active %>
-<%= f.association :max_round %>
+<%= f.input :max_round, collection: @max_rounds, label_method: lambda { |round| name_for_round(round) }, prompt: "Bitte wählen" %>
 <%= f.input :official_min_age_group, collection: JUMU_AGE_GROUPS, include_blank: false %>
 <%= f.input :official_max_age_group, collection: JUMU_AGE_GROUPS, include_blank: false %>

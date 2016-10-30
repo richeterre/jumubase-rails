@@ -1,4 +1,4 @@
-<% provide(:title, @contest.can_be_advanced_from? ? "Weiterleitungen migrieren" : "Weiterleitungen aus #{@contest.round_slug_and_year}") %>
+<% provide(:title, @contest.can_be_advanced_from? ? "Weiterleitungen migrieren" : "Weiterleitungen aus #{@contest.round_short_name_and_year}") %>
 
 <% if @contest.can_be_advanced_from? %>
   <%= form_tag migrate_advancing_jmd_contest_path, method: :post, class: "form-search well" do %>

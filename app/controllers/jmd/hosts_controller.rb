@@ -11,7 +11,7 @@ class Jmd::HostsController < Jmd::BaseController
 
   def show
     # @host is fetched by CanCan
-    @rw_contests = @host.contests.with_level(1).order("begins ASC")
-    @lw_contests = @host.contests.with_level(2).order("begins ASC")
+    @rw_contests = @host.contests.in_round(1).order("begins ASC")
+    @lw_contests = @host.contests.in_round(2).order("begins ASC")
   end
 end

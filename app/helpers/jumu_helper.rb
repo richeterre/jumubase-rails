@@ -1,5 +1,17 @@
 module JumuHelper
 
+  def short_name_for_round(round)
+    return JUMU_ROUND_SHORT_NAMES[round]
+  end
+
+  def name_for_round(round)
+    return JUMU_ROUND_NAMES[round]
+  end
+
+  def board_name_for_round(round)
+    return JUMU_ROUND_BOARD_NAMES[round]
+  end
+
   def calculate_age_group(birthdates, season)
     if birthdates.instance_of? Date
       # Skip averaging step if only one date

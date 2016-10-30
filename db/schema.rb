@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161028151432) do
+ActiveRecord::Schema.define(:version => 20161028161447) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -36,12 +36,12 @@ ActiveRecord::Schema.define(:version => 20161028151432) do
     t.boolean  "popular"
     t.string   "slug"
     t.boolean  "active"
-    t.integer  "max_round_id"
     t.string   "official_min_age_group", :default => "Ia"
     t.string   "official_max_age_group", :default => "VII"
+    t.integer  "max_round"
   end
 
-  add_index "categories", ["max_round_id"], :name => "index_categories_on_max_round_id"
+  add_index "categories", ["max_round"], :name => "index_categories_on_max_round"
 
   create_table "contest_categories", :force => true do |t|
     t.integer  "contest_id",  :null => false
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(:version => 20161028151432) do
   end
 
   create_table "contests", :force => true do |t|
-    t.integer  "round_id"
     t.integer  "host_id"
     t.date     "begins"
     t.date     "ends"
@@ -61,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20161028151432) do
     t.integer  "season"
     t.date     "signup_deadline"
     t.boolean  "timetables_public", :default => false
+    t.integer  "round"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -135,15 +135,6 @@ ActiveRecord::Schema.define(:version => 20161028151432) do
     t.string   "composer_born"
     t.string   "composer_died"
     t.string   "epoch"
-  end
-
-  create_table "rounds", :force => true do |t|
-    t.integer  "level"
-    t.string   "name"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "board_name"
   end
 
   create_table "users", :force => true do |t|

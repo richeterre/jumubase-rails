@@ -28,10 +28,12 @@ pdf.font_families.update(
 
     pdf.bounding_box [50, 350], width: 400, height: 200 do
       pdf.indent(30) do
+        round_name = name_for_round(performance.contest.round)
+
         if appearance.ensemble?
-          pdf.text "haben am #{performance.contest.round.name} in #{performance.contest.host.city} #{performance.contest.year}"
+          pdf.text "haben am #{round_name} in #{performance.contest.host.city} #{performance.contest.year}"
         else
-          pdf.text "hat am #{performance.contest.round.name} in #{performance.contest.host.city} #{performance.contest.year}"
+          pdf.text "hat am #{round_name} in #{performance.contest.host.city} #{performance.contest.year}"
         end
 
         pdf.text "für das instrumentale und vokale Musizieren der Jugend"
@@ -60,7 +62,7 @@ pdf.font_families.update(
 
       pdf.text "Zuerkannt wurde ein #{appearance.prize}", style: :bold if appearance.prize
       if appearance.advances_to_next_round?
-        pdf.text "mit der Berechtigung zur Teilnahme am #{performance.contest.round.next_round_name}."
+        pdf.text "mit der Berechtigung zur Teilnahme am #{performance.contest.next_round_name}."
       end
     end
 
@@ -71,7 +73,7 @@ pdf.font_families.update(
 
       pdf.move_down(60)
 
-      pdf.text_box "Für den #{performance.contest.round.board_name}", at: [0, pdf.bounds.bottom + pdf.font.height]
+      pdf.text_box "Für den #{board_name_for_round(performance.contest.round)}", at: [0, pdf.bounds.bottom + pdf.font.height]
       pdf.text_box "Für die Jury", at: [300, pdf.bounds.bottom + pdf.font.height]
     end
   end

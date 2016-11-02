@@ -10,7 +10,6 @@
 #  updated_at             :datetime         not null
 #  popular                :boolean
 #  slug                   :string(255)
-#  active                 :boolean
 #  official_min_age_group :string(255)      default("Ia")
 #  official_max_age_group :string(255)      default("VII")
 #  max_round              :integer
@@ -18,14 +17,11 @@
 
 # -*- encoding : utf-8 -*-
 class Category < ActiveRecord::Base
-  attr_accessible :name, :solo, :ensemble, :popular, :slug, :active,
+  attr_accessible :name, :solo, :ensemble, :popular, :slug,
     :max_round, :official_min_age_group, :official_max_age_group
 
   # By default, show classical before pop, solo before ensemble
   default_scope order: 'popular, solo DESC, ensemble DESC, name'
-
-  # Show only categories currently marked as active (temporary workaround)
-  scope :current, where('active' => true)
 
   has_many :contest_categories, dependent: :destroy
 

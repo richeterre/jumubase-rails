@@ -22,7 +22,7 @@
             { selected: params[:advanced_from_contest], include_blank: "Alle Regionalwettbewerbe" },
             class: "span3" %>
     <% end %>
-    <%= select nil, :in_category, Category.current.collect { |c| [c.name, c.id] },
+    <%= select nil, :in_category, Category.all.collect { |c| [c.name, c.id] },
       { selected: params[:in_category], include_blank: "Alle Kategorien" } %>
 
   <% else # Looking at a contest's performances %>

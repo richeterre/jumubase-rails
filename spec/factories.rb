@@ -20,10 +20,6 @@ FactoryGirl.define do
   factory :category do
     sequence(:name) { |n| "Category #{n}" }
     sequence(:slug) { |n| "cat_#{n}" }
-
-    factory :active_category do
-      active true
-    end
   end
 
   factory :contest do

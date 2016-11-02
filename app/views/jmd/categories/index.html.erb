@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %>
-      <%= content_tag("tr", class: category.active? ? nil : "muted") do %>
+      <tr>
         <td><%= category.name %></td>
         <td><%= category.slug %></td>
         <td><%= category.popular? ? "Pop" : "Klassik" %></td>
@@ -35,7 +35,7 @@
           <%= link_to icon_tag("edit", title: "Diese Kategorie bearbeiten"), edit_jmd_category_path(category), class: "btn btn-mini" %>
           <%= link_to icon_tag("remove", title: "Diese Kategorie löschen"), jmd_category_path(category), method: :delete, :confirm => "Soll die Kategorie #{category.name} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
         </td>
-      <% end %>
+      <tr>
     <% end %>
   </tbody>
 </table>

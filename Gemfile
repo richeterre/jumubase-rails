@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
 
-gem 'rails', '3.2.19'
+gem 'rails', '3.2.22.5'
+
+# Get Ruby version from .ruby-version file
+ruby File.read(".ruby-version").strip
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,7 +13,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'amoeba' # Deep record duplication
-gem 'cancan' # Authorization
+gem 'cancancan' # Authorization
 gem 'has_scope' # Record filtering
 gem 'simple_form' # Form builder
 gem 'will_paginate' # Pagination
@@ -45,7 +47,7 @@ group :test, :development do
   gem 'email_spec'
   gem 'action_mailer_cache_delivery'
   gem 'bullet'
-  gem 'debugger'
+  gem 'byebug'
 end
 
 group :test do
@@ -55,7 +57,7 @@ group :test do
 end
 
 group :production do
-  gem 'newrelic_rpm', '3.5.5.38'
+  gem 'newrelic_rpm'
 end
 
 # To use ActiveModel has_secure_password

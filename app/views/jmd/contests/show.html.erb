@@ -2,21 +2,7 @@
 
 <%= link_to "Alle Wettbewerbe anzeigen", jmd_contests_path, class: "btn" %>
 
-<dl>
-  <dt>Saison</dt>
-    <dd><%= @contest.season %></dd>
-  <dt>Runde</dt>
-    <dd><%= name_for_round(@contest.round) %></dd>
-  <dt>Schule</dt>
-    <dd><%= @contest.host.name %> <%= flag_tag(@contest.host.country_code) %></dd>
-  <dt>Zeitzone</dt>
-    <dd><%= @contest.host.time_zone.formatted_offset %></dd>
-  <dt>Dauer</dt>
-    <dd><%= "#{l @contest.begins, format: :long} – #{l @contest.ends, format: :long}" %></dd>
-  <dt>Urkundenvergabe</dt>
-    <dd><%= @contest.certificate_date ?
-            (l @contest.certificate_date, format: :long) : "unbekannt" %></dd>
-</dl>
+<hr />
 
 <h3>Werkzeuge</h3>
 

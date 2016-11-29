@@ -1,8 +1,8 @@
 <p>Hallo <%= @participant.first_name %>,</p>
 
-<p>Deine Anmeldung für den <%= "#{name_for_round(@performance.contest.round)} #{@performance.contest.year}" %> in der Kategorie <em><%= @performance.category.name %></em> wurde erfolgreich gespeichert.</p>
+<p>Deine Anmeldung für den <%= @contest.round_name_and_year %> in der Kategorie <em><%= @performance.category.name %></em> wurde erfolgreich gespeichert.</p>
 
-<p>Bis zum <strong>Anmeldeschluss am <%= l(@performance.contest.last_signup_date, format: :long) %></strong> kannst du daran noch Änderungen vornehmen. Dazu brauchst du den folgenden Änderungscode:</p>
+<p>Bis zum <strong>Anmeldeschluss am <%= l(@contest.last_signup_date, format: :long) %></strong> kannst du daran noch Änderungen vornehmen. Dazu brauchst du den folgenden Änderungscode:</p>
 
 <p><strong><%= @performance.tracing_code %></strong></p>
 
@@ -10,6 +10,6 @@
 
 <p><%= link_to nil, signup_search_url %></p>
 
-<p>Viel Erfolg bei der Teilnahme am <%= "#{name_for_round(@performance.contest.round)} #{@performance.contest.year}" %> wünscht dir</p>
+<p>Viel Erfolg bei der Teilnahme am <%= <%= @contest.round_name_and_year %> %> wünscht dir</p>
 
 <p>Dein Jumu-Orgteam</p>

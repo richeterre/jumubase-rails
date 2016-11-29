@@ -4,7 +4,6 @@ class ParticipantMailer < ActionMailer::Base
   def signup_confirmation(participant, performance)
     @participant = participant
     @performance = performance
-    @contest = performance.contest
     mail(to: named_email_adress(participant),
          subject: "Jumu-Anmeldung in der Kategorie \"#{performance.category.name}\"")
   end

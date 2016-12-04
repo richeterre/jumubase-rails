@@ -141,7 +141,7 @@ class Performance < ActiveRecord::Base
 
   # Orders performances chronologically by stage date
   def self.stage_order
-    order("performances.stage_time")
+    order("performances.stage_time").browsing_order
   end
 
   # Orders performances by category, then age group (smallest first)

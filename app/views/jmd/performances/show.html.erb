@@ -4,12 +4,25 @@
   <%= flag_tag @performance.contest.host.country_code %>
   <%= link_to @performance.contest.name, jmd_contest_path(@performance.contest) %>
   <br />
-  Kategorie: <%= @performance.category.name %>
-  <br />
-  Änderungscode: <code><%= @performance.tracing_code %></code>
+  <strong>
+    <%= @performance.category.name %>
+    <br />
+    <%= l @performance.stage_time if @performance.stage_time %>
+  </strong>
 </p>
 
-<p><%= l @performance.stage_time if @performance.stage_time %></p>
+<p>
+  Änderungscode: <code><%= @performance.tracing_code %></code>
+  <br />
+  Angemeldet: <%= l @performance.created_at, format: :medium %>
+
+  <% if (@performance.updated_at - @performance.created_at) > 1.second %>
+    <br />
+    Zuletzt geändert: <%= l @performance.updated_at, format: :medium %>
+  <% end %>
+</p>
+
+<hr />
 
 <h3>Teilnehmer</h3>
 

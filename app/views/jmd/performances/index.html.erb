@@ -38,9 +38,6 @@
       </td>
       <td>
         <%= link_to performance.category.name, jmd_performance_path(performance), title: "Vorspieldetails anzeigen" %>
-        <% if (performance.updated_at - performance.created_at) > 1.second %>
-          <br /><%= info_label_tag("Editiert #{time_ago_in_words(performance.updated_at)}", :info)  %>
-        <% end %>
       </td>
       <td><%= flag_tag performance.associated_country_code %></td>
       <td>

@@ -115,10 +115,10 @@ class Appearance < ActiveRecord::Base
   def age_group
     # NOTE: This method may be called before saving, so database queries are a no-no!
 
-    season = self.performance.contest.season # needed for correct age group lookup
+    season = self.performance.contest.season
 
-    if self.solo? || (self.accompaniment? && !self.performance.category.popular)
-      # Soloists and classical accompanists have their own age group
+    if self.solo? || (self.accompaniment? && !self.performance.category.popular?)
+      # Soloists and non-popular accompanists have their own age group
       calculate_age_group(self.participant.birthdate, season)
     elsif self.ensemble?
       # Ensemble players share an age group

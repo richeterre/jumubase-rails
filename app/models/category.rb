@@ -8,11 +8,11 @@
 #  ensemble               :boolean
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  popular                :boolean
 #  slug                   :string(255)
 #  official_min_age_group :string(255)      default("Ia")
 #  official_max_age_group :string(255)      default("VII")
 #  max_round              :integer
+#  genre                  :string(255)
 #
 
 # -*- encoding : utf-8 -*-
@@ -20,8 +20,8 @@ class Category < ActiveRecord::Base
   attr_accessible :name, :solo, :ensemble, :popular, :slug,
     :max_round, :official_min_age_group, :official_max_age_group
 
-  # By default, show classical before pop, solo before ensemble
-  default_scope order: 'popular, solo DESC, ensemble DESC, name'
+  # Define default sorting order for categories
+  default_scope order: 'genre, solo DESC, ensemble DESC, name'
 
   has_many :contest_categories, dependent: :destroy
 
@@ -35,4 +35,8 @@ class Category < ActiveRecord::Base
   validates :official_max_age_group, presence: true,
                                      inclusion: { :in => JUMU_AGE_GROUPS }
   # Check that either solo, ensemble or both are true – how?
+
+  def popular?
+    self.genre == 'popular'
+  end
 end

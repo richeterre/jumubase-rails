@@ -3,11 +3,12 @@
     <tr>
       <th colspan="1" rowspan="2">Wettbewerb</th>
       <th colspan="1" rowspan="2">Teilnehmer</th>
-      <th colspan="3">Vorspiele</th>
+      <th colspan="4">Vorspiele</th>
       <th colspan="2" rowspan="2">Auftritte</th>
     </tr>
     <tr>
       <th>Gesamt</th>
+      <th>Kimu</th>
       <th>Klassik</th>
       <th>Pop</th>
     </tr>
@@ -18,6 +19,7 @@
       <td><%= link_to contest.round_short_name_and_year, jmd_contest_path(contest) %></td>
       <td><%= contest.participants.size %></td>
       <td><%= contest.performances.size %></td>
+      <td><%= contest.performances.kimu.size %></td>
       <td><%= contest.performances.classical.size %></td>
       <td><%= contest.performances.popular.size %></td>
       <td><%= contest.appearances.size %></td>

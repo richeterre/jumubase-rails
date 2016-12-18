@@ -11,31 +11,29 @@ class Jmd::PagesController < Jmd::BaseController
     seasons = Contest.select(:season).map(&:season).uniq.sort
 
     @season_stats = seasons.map do |season|
-      round_1_performances = Performance.in_contest(
-        Contest.where(season: season, round: 1)
-      )
-      # TODO: Replace this by own "kimu" genre
-      kimu = Category.find_by_name('"Kinder musizieren"')
+      rw_contests = Contest.where(season: season, round: 1)
+      rw_performances = Performance.in_contest(rw_contests)
 
-      round_1_kimu = round_1_performances.in_category(kimu).count
-      round_1_classical = round_1_performances.classical.count - round_1_kimu
-      round_1_popular = round_1_performances.popular.count
+      lw_contests = Contest.where(season: season, round: 2)
+      lw_performances = Performance.in_contest(lw_contests)
 
-      round_2_performances = Performance.in_contest(
-        Contest.where(season: season, round: 2)
-      )
-      round_2_classical = round_2_performances.classical.count
-      round_2_popular = round_2_performances.popular.count
+      rw_stats = {
+        classical: rw_performances.classical.count,
+        kimu: rw_performances.kimu.count,
+        popular: rw_performances.popular.count
+      }
+      rw_stats[:sum] = rw_stats[:classical] + rw_stats[:kimu] + rw_stats[:popular]
+
+      lw_stats = {
+        classical: lw_performances.classical.count,
+        popular: lw_performances.popular.count
+      }
+      lw_stats[:sum] = lw_stats[:classical] + lw_stats[:popular]
 
       {
         season: season,
-        round_1_sum: round_1_kimu + round_1_classical + round_1_popular,
-        round_1_kimu: round_1_kimu,
-        round_1_classical: round_1_classical,
-        round_1_popular: round_1_popular,
-        round_2_sum: round_2_classical + round_2_popular,
-        round_2_classical: round_2_classical,
-        round_2_popular: round_2_popular,
+        rw_stats: rw_stats,
+        lw_stats: lw_stats
       }
     end
   end

@@ -317,6 +317,10 @@ de:
         password_confirmation: Passwort erneut
         admin: Administrator
         host_ids: Schulen
+  genres:
+    classical: Klassik
+    kimu: Kimu
+    popular: Pop
   messages:
     deadline_passed: "Der Anmeldeschluss für deinen Wettbewerb war bereits am %{deadline}. Bitte nimm Kontakt zu einem Jumu-Ansprechpartner an deiner Schule auf."
   unauthorized:

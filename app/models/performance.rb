@@ -101,19 +101,24 @@ class Performance < ActiveRecord::Base
   end
 
   # Returns all performances in given genre
-  def self.in_genre(popular)
-    popular == "1" ? self.popular : self.classical
+  def self.in_genre(genre)
+    joins(contest_category: :category)
+    .where(categories: { genre: genre })
   end
 
-  # Returns all performances in classical categories
+  # Returns all classical performances
   def self.classical
-    joins(contest_category: :category).where("categories.popular IS FALSE")
+    self.in_genre('classical')
   end
 
-  # Returns all performances in pop categories
-  # (using "popular" here to steer clear of Ruby #pop method)
+  # Returns all Kimu performances
+  def self.kimu
+    self.in_genre('kimu')
+  end
+
+  # Returns all popular performances
   def self.popular
-    joins(contest_category: :category).where("categories.popular IS TRUE")
+    self.in_genre('popular')
   end
 
   # Returns all performances on a given date, or unschedule if not date given
@@ -147,7 +152,7 @@ class Performance < ActiveRecord::Base
   # Orders performances by category, then age group (smallest first)
   def self.browsing_order
     includes(contest_category: :category)
-    .order('categories.popular, categories.solo DESC, categories.name, performances.age_group')
+    .order('categories.genre, categories.solo DESC, categories.name, performances.age_group')
   end
 
   # Return the host the performance is associated with

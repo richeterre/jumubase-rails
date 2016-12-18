@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20161102211857) do
+ActiveRecord::Schema.define(:version => 20161218120239) do
 
   create_table "appearances", :force => true do |t|
     t.integer  "performance_id"
@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(:version => 20161102211857) do
     t.boolean  "ensemble"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.boolean  "popular"
     t.string   "slug"
     t.string   "official_min_age_group", :default => "Ia"
     t.string   "official_max_age_group", :default => "VII"
     t.integer  "max_round"
+    t.string   "genre"
   end
 
   add_index "categories", ["max_round"], :name => "index_categories_on_max_round"

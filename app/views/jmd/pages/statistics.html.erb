@@ -20,16 +20,20 @@
     </tr>
   </thead>
   <tbody>
-    <% @season_stats.each do |season_stat| %>
+    <%
+      @season_stats.each do |season_stat|
+      rw_stats = season_stat[:rw_stats]
+      lw_stats = season_stat[:lw_stats]
+    %>
     <tr>
       <td><%= lookup_jumu_year(season_stat[:season]) %></td>
-      <td><%= season_stat[:round_1_sum] %></td>
-      <td><%= season_stat[:round_1_kimu] %></td>
-      <td><%= season_stat[:round_1_classical] %></td>
-      <td><%= season_stat[:round_1_popular] %></td>
-      <td><%= season_stat[:round_2_sum] %></td>
-      <td><%= season_stat[:round_2_classical] %></td>
-      <td><%= season_stat[:round_2_popular] %></td>
+      <td><%= rw_stats[:sum] %></td>
+      <td><%= rw_stats[:kimu] %></td>
+      <td><%= rw_stats[:classical] %></td>
+      <td><%= rw_stats[:popular] %></td>
+      <td><%= lw_stats[:sum] %></td>
+      <td><%= lw_stats[:classical] %></td>
+      <td><%= lw_stats[:popular] %></td>
     </tr>
     <% end %>
   </tbody>

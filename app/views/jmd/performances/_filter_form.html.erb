@@ -7,8 +7,12 @@
           { selected: params[:at_stage_venue], include_blank: "Alle Vorspielräume" } %>
   <% end %>
 
-  <%= select nil, :in_genre, [["Klassik", 0], ["Pop", 1]],
-      { selected: params[:in_genre], include_blank: "Klassik & Pop" } %>
+  <%= select nil, :in_genre,
+    JUMU_GENRES.collect { |genre| [t("genres.#{genre}"), genre] }.sort,
+    {
+      selected: params[:in_genre],
+      include_blank: "Alle Genres"
+    } %>
 
   <% if @contest.nil? # Looking at performances across contests %>
 

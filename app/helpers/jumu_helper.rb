@@ -12,6 +12,10 @@ module JumuHelper
     return JUMU_ROUND_BOARD_NAMES[round]
   end
 
+  def name_for_genre(genre)
+    return t "genres.#{genre}"
+  end
+
   def calculate_age_group(birthdates, season)
     if birthdates.instance_of? Date
       # Skip averaging step if only one date

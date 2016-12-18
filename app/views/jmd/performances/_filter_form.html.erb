@@ -8,7 +8,7 @@
   <% end %>
 
   <%= select nil, :in_genre,
-    JUMU_GENRES.collect { |genre| [t("genres.#{genre}"), genre] }.sort,
+    JUMU_GENRES.collect { |genre| [name_for_genre(genre), genre] }.sort,
     {
       selected: params[:in_genre],
       include_blank: "Alle Genres"

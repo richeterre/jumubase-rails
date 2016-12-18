@@ -17,7 +17,7 @@
 
 # -*- encoding : utf-8 -*-
 class Category < ActiveRecord::Base
-  attr_accessible :name, :solo, :ensemble, :popular, :slug,
+  attr_accessible :name, :solo, :ensemble, :genre, :slug,
     :max_round, :official_min_age_group, :official_max_age_group
 
   # Define default sorting order for categories

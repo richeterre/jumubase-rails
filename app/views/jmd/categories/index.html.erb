@@ -19,7 +19,7 @@
       <tr>
         <td><%= category.name %></td>
         <td><%= category.slug %></td>
-        <td><%= t "genres.#{category.genre}" %></td>
+        <td><%= name_for_genre(category.genre) %></td>
         <td>
           <%= info_label_tag("Solo", :info) if category.solo? %>
           <%= info_label_tag("Ensemble", :info) if category.ensemble? %>

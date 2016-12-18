@@ -9,6 +9,3 @@ doc/
 
 # Heroku local config
 .env
-
-# Skylight.io secrets
-config/skylight.yml

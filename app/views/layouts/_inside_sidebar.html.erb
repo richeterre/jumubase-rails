@@ -1,12 +1,13 @@
 <ul class="nav nav-list">
 
-  <% if can? :manage, Contest %>
+  <% if admin? %>
 
-    <li class="nav-header">Verwalten</li>
+    <li class="nav-header">Admin</li>
     <%= nav_link_to icon_tag("user") + " Benutzer", jmd_users_path if can? :manage, User %>
     <%= nav_link_to icon_tag("list") + " Kategorien", jmd_categories_path if can? :manage, Category %>
     <%= nav_link_to icon_tag("globe") + " Wettbewerbe", jmd_contests_path if can? :manage, Contest %>
     <%= nav_link_to icon_tag("home") + " Schulen", jmd_hosts_path if can? :manage, Host %>
+    <%= nav_link_to icon_tag("align-left") + " Statistik", jmd_statistics_path if can? :read, :statistics? %>
 
   <% elsif JUMU_ROUND > 1 and can? :list_current, Performance %>
 

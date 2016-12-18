@@ -35,6 +35,9 @@ Jmd::Application.routes.draw do
       get 'list_current', on: :collection
       put 'reschedule', on: :member
     end
+
+    # Routes for internal static pages
+    match '/statistics', to: 'pages#statistics', as: :statistics
   end
 
   # Routes for public pages

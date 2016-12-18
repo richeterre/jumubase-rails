@@ -1,0 +1,36 @@
+<% provide(:title, "Statistik") %>
+
+<h3>Vorspielzahlen</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th rowspan="2">Wettbewerbsjahr</th>
+      <th colspan="4">Regionalwettbewerb</th>
+      <th colspan="3">Landeswettbewerb</th>
+    </tr>
+    <tr>
+      <th>Gesamt</th>
+      <th>Kimu</th>
+      <th>Klassik</th>
+      <th>Pop</th>
+      <th>Gesamt</th>
+      <th>Klassik</th>
+      <th>Pop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @season_stats.each do |season_stat| %>
+    <tr>
+      <td><%= lookup_jumu_year(season_stat[:season]) %></td>
+      <td><%= season_stat[:round_1_sum] %></td>
+      <td><%= season_stat[:round_1_kimu] %></td>
+      <td><%= season_stat[:round_1_classical] %></td>
+      <td><%= season_stat[:round_1_popular] %></td>
+      <td><%= season_stat[:round_2_sum] %></td>
+      <td><%= season_stat[:round_2_classical] %></td>
+      <td><%= season_stat[:round_2_popular] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

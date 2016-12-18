@@ -38,6 +38,7 @@ Jmd::Application.routes.draw do
 
     # Routes for internal static pages
     match '/statistics', to: 'pages#statistics', as: :statistics
+    root to: 'pages#welcome'
   end
 
   # Routes for public pages

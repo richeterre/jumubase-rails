@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Jmd::PagesController < Jmd::BaseController
 
+  def welcome
+    authorize! :read, :welcome
+  end
+
   def statistics
     authorize! :read, :statistics
 

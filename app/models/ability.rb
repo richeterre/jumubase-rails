@@ -10,6 +10,7 @@ class Ability
     else
       can :read, Contest, host_id: user.host_ids
       can :read, Participant # TODO: Should allow only "own" participants
+      can :read, :welcome
 
       if JUMU_ROUND == 1
         can :create, Performance # TODO: Check that user has access to selected contest

@@ -82,6 +82,10 @@ JUMU_TIMETABLES_VISIBLE = ENV['JUMU_TIMETABLES_VISIBLE'].to_bool
 # The 2nd round host
 JUMU_HOST = ENV['JUMU_CURRENT_LW_HOST']
 
+# The site's administrator info
+JUMU_ADMIN_NAME = ENV['JUMU_ADMIN_NAME']
+JUMU_ADMIN_EMAIL = ENV['JUMU_ADMIN_EMAIL']
+
 # The core organization team's mail addresses
 JUMU_CONTACT_EMAIL = ENV['JUMU_CONTACT_EMAIL']
 

@@ -8,7 +8,7 @@ json.array! @performances do |performance|
     json.predecessor_host_country predecessor.associated_host.country_code.upcase
   end
 
-  json.appearances performance.appearances.role_order do |appearance|
+  json.appearances Appearance.sort_by_role!(performance.appearances) do |appearance|
     json.participant_name appearance.participant.full_name
     json.participant_role appearance.participant_role
     json.instrument_name appearance.instrument.name

@@ -32,14 +32,18 @@ gem 'coffee-rails',   '~> 3.2.1'
 
 gem 'delayed_job_active_record'
 gem 'workless' # Auto-scale Heroku workers
-gem "daemons" # Required for workless to do its job
+gem 'daemons' # Required for workless to do its job
 
-gem "skylight" # Profile app using Skylight.io
+gem 'skylight' # Profile app using Skylight.io
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'uglifier',       '>= 1.0.3'
+end
+
+group :development do
+  gem 'rack-mini-profiler' # Measure app performance
 end
 
 group :test, :development do

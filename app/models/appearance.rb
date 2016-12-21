@@ -56,6 +56,11 @@ class Appearance < ActiveRecord::Base
     order("participant_role DESC") # lucky us!
   end
 
+  # Sort array (not query!) of appearances in place
+  def self.sort_by_role!(appearances)
+    appearances.sort_by(&:participant_role).reverse!
+  end
+
   # Perform participant existence check upon saving
   def participant_attributes_with_existence_check=(attributes)
     if self.id == nil

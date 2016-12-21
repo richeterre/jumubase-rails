@@ -9,7 +9,12 @@ class Jmd::VenuesController < Jmd::BaseController
     # @venue is fetched by CanCan
     @contest_categories = @contest.contest_categories.includes(:category)
     @performances = @contest.performances
-      .includes(:predecessor, :participants, :pieces, { contest_category: :category })
+      .includes(
+        { appearances: [:instrument, :participant] },
+        { contest_category: :category },
+        :participants,
+        :pieces,
+        :predecessor)
       .venueless_or_at_stage_venue(@venue.id)
       .browsing_order
   end

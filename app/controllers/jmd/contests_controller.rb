@@ -61,7 +61,12 @@ class Jmd::ContestsController < Jmd::BaseController
       render 'pages/not_found'
     else
       @performances = @contest.staged_performances(@venue, @date)
-        .includes(:contest_category, :contest, :predecessor)
+        .includes(
+          { appearances: [:instrument, :participant] },
+          { contest_category: :contest },
+          :pieces,
+          :predecessor
+        )
     end
   end
 

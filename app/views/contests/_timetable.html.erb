@@ -55,7 +55,7 @@
         <td><%= performance.category.name %></td>
         <td><%= info_badge_tag(performance.age_group, :info) %></td>
         <td>
-          <% performance.appearances.role_order.each do |appearance| %>
+          <% Appearance.sort_by_role!(performance.appearances).each do |appearance| %>
             <span class="<%= "muted" if appearance.accompaniment? %>">
               <%= appearance.participant.full_name %>,
               <%= appearance.instrument.name %>

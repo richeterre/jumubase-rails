@@ -16,7 +16,7 @@
 
   <% end %>
 
-  <% current_contests = Contest.current.accessible_by(current_ability)
+  <% current_contests = Contest.current.accessible_by(current_ability).includes(:host)
     if current_contests.any? %>
       <li class="nav-header">Aktuelle Wettbewerbe</li>
       <% current_contests.each do |contest| %>

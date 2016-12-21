@@ -32,7 +32,7 @@
         </td>
         <td><%= l participant.birthdate %></td>
         <td>
-          <% participant.performances.in_contest(@contest).includes(contest_category: :category).each do |performance| %>
+          <% @participant_performances[participant.id].each do |performance| %>
             <%= link_to performance.category.name, jmd_performance_path(performance) %><br>
           <% end %>
         </td>

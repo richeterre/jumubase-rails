@@ -26,7 +26,7 @@
 
 <h3>Teilnehmer</h3>
 
-<%= render @performance.appearances.role_order %>
+<%= render @performance.appearances.includes(:instrument, :participant).role_order %>
 
 <h3>Vorspielprogramm</h3>
 

@@ -28,7 +28,11 @@ class Jmd::PerformancesController < Jmd::BaseController
     @performances = apply_scopes(Performance)
       .current
       .accessible_by(current_ability, :list_current)
-      .order("created_at DESC")
+      .includes(
+        { appearances: [:instrument, :participant] },
+        { contest_category: [:category, { contest: :host }] },
+      )
+      .order("performances.created_at DESC")
       .paginate(page: params[:page], per_page: 15)
   end
 
@@ -111,6 +115,7 @@ class Jmd::PerformancesController < Jmd::BaseController
       .joins(contest_category: [:contest, :category])
       .where('contest_categories.contest_id = ?', @contest.id)
       .accessible_by(current_ability)
+      .includes(appearances: [:instrument, :participant])
       .order(:stage_time)
       .paginate(page: params[:page], per_page: 15)
   end

@@ -17,6 +17,7 @@ class Jmd::AppearancesController < Jmd::BaseController
     @performances = apply_scopes(Performance)
       .in_contest(@contest)
       .accessible_by(current_ability)
+      .includes(appearances: [:instrument, :participant])
       .stage_order
       .paginate(page: params[:page], per_page: 15)
   end

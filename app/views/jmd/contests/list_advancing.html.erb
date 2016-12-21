@@ -27,7 +27,7 @@
   </thead>
   <tbody id="appearance-rows">
     <% @performances.each do |performance| %>
-      <% appearances = performance.appearances.role_order %>
+      <% appearances = Appearance.sort_by_role!(performance.appearances) %>
       <% appearances.each do |appearance| %>
       <tr>
         <% if appearance == appearances.first %>

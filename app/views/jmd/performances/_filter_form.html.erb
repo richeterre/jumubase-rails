@@ -33,12 +33,14 @@
 
     <% if @contest.round == 2 %>
       <%= select nil, :advanced_from_contest,
-            @contest.possible_predecessors.collect { |c| [c.name, c.id] },
+            @contest.possible_predecessors.includes(:host).collect { |c| [c.name, c.id] },
             { selected: params[:advanced_from_contest], include_blank: "Alle Regionalwettbewerbe" },
             class: "span3" %>
     <% end %>
-    <%= select nil, :in_contest_category, @contest.contest_categories.collect { |c| [c.category.name, c.id] },
-      { selected: params[:in_contest_category], include_blank: "Alle Kategorien" } %>
+    <%= select nil, :in_contest_category,
+      @contest.contest_categories.includes(:category).collect { |c| [c.category.name, c.id] },
+      { selected: params[:in_contest_category], include_blank: "Alle Kategorien" }
+      %>
 
   <% end %>
 

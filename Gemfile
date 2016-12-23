@@ -12,10 +12,14 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'amoeba' # Deep record duplication
+gem 'devise' # Authentication
 gem 'cancancan' # Authorization
+
+gem 'amoeba' # Deep record duplication
 gem 'has_scope' # Record filtering
+
 gem 'simple_form' # Form builder
+
 gem 'will_paginate' # Pagination
 gem 'bootstrap-will_paginate'
 

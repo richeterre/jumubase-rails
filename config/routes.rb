@@ -12,6 +12,11 @@ Jmd::Application.routes.draw do
 
   # Routes for internal (JMD) pages
 
+  devise_for :users, path: '', path_names: {
+    sign_in: 'anmelden',
+    sign_out: 'abmelden'
+  }
+
   namespace :jmd do
     resources :categories, :users
     resources :contests do
@@ -44,7 +49,6 @@ Jmd::Application.routes.draw do
   # Routes for public pages
 
   resources :contacts, only: [:new, :create]
-  resources :sessions, only: [:create, :destroy]
 
   resources :contests, only: [] do
     get 'performances', on: :member
@@ -64,10 +68,6 @@ Jmd::Application.routes.draw do
 
     match '/vorspiel-bearbeiten', to: 'performances#search', as: :signup_search
   end
-
-  # User session routes
-  match '/anmelden',      to: 'sessions#new', as: :signin
-  match '/abmelden',      to: 'sessions#destroy', as: :signout
 
   # Public pages, mostly static
   match "lw#{JUMU_YEAR}", to: 'pages#lw', as: :lw

@@ -7,7 +7,8 @@
     <tr>
       <th>Name</th>
       <th>E-Mail</th>
-      <th>Letzter Login</th>
+      <th>Eingeloggt seit</th>
+      <th>Logins</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -19,7 +20,13 @@
         <%= info_label_tag("Admin", :important) if user.admin? %>
       </td>
       <td><%= user.email %></td>
-      <td><%= user.last_login? ? (l user.last_login, :format => :short) : "?" %></td>
+      <td>
+        <%= user.current_sign_in_at? ? (l user.current_sign_in_at, format: :short) : "?"
+        %>
+      </td>
+      <td>
+        <%= user.sign_in_count %>
+      </td>
       <td>
         <%= link_to icon_tag("edit", title: "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user), class: "btn btn-mini" %>
         <%= link_to icon_tag("remove", title: "Diesen Benutzer löschen"), jmd_user_path(user), method: :delete, confirm: "Soll der Benutzer #{user.email} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>

@@ -39,7 +39,6 @@ GEM
       rake
     arel (3.0.3)
     bcrypt (3.1.11)
-    bcrypt-ruby (3.0.1)
     bootstrap-sass (2.3.0.0)
       sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
@@ -236,7 +235,6 @@ DEPENDENCIES
   action_mailer_cache_delivery
   amoeba
   annotate
-  bcrypt-ruby (~> 3.0.0)
   bootstrap-sass (~> 2.3.0.0)
   bootstrap-will_paginate
   bullet

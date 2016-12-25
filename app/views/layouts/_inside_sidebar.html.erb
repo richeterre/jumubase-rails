@@ -1,6 +1,6 @@
 <ul class="nav nav-list">
 
-  <% if admin? %>
+  <% if current_user.admin? %>
 
     <li class="nav-header">Admin</li>
     <%= nav_link_to icon_tag("user") + " Benutzer", jmd_users_path if can? :manage, User %>

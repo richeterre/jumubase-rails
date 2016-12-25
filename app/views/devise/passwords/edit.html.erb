@@ -1,0 +1,24 @@
+<% provide(:title, "Passwort ändern") %>
+
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name),
+  html: { class: "form-horizontal", method: :put }) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.input :reset_password_token, as: :hidden %>
+  <p>
+    <%= f.full_error :reset_password_token %>
+  </p>
+
+  <%= f.input :password, label: "Neues Passwort", required: true, autofocus: true,
+    hint: ("mindestens #{@minimum_password_length} Zeichen" if @minimum_password_length)
+    %>
+  <%= f.input :password_confirmation, label: "Passwort bestätigen", required: true %>
+
+  <div class="controls">
+    <%= f.button :submit, "Passwort ändern", class: "btn-primary" %>
+  </div>
+<% end %>
+
+<hr>
+
+<%= render "devise/shared/links" %>

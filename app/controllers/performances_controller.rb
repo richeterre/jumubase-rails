@@ -20,7 +20,7 @@ class PerformancesController < ApplicationController
   def create
     # Create empty performance
     @performance = Performance.new
-    # Make all attributes accessible to admins
+    # TODO? Make all attributes accessible to admins
     # @performance.accessible = :all if admin?
     @performance.attributes = params[:performance]
 

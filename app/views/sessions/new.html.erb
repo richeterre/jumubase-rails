@@ -1,9 +1,0 @@
-<% provide(:title, "Zugang für Organisatoren") %>
-
-<%= simple_form_for :session, url: sessions_path, html: { class: "form-horizontal" } do |f| %>
-  <%= f.input :email, autofocus: true %>
-  <%= f.input :password %>
-  <div class="controls">
-    <%= f.button :submit, "Anmelden", id: "session_submit", class: "btn-primary" %>
-  </div>
-<% end %>

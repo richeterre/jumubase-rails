@@ -9,11 +9,11 @@ FactoryGirl.define do
     participant_role 'soloist'
 
     factory :acc_appearance do
-      particiant_role 'accompanist'
+      participant_role 'accompanist'
     end
 
     factory :ensemble_appearance do
-      particiant_role 'ensemblist'
+      participant_role 'ensemblist'
     end
   end
 

@@ -49,7 +49,7 @@ describe "Contacts" do
 
         it "should send the message correctly as an email" do
           open_last_email.should be_delivered_from "John Doe <john.doe@example.org>"
-          open_last_email.should be_delivered_to JUMU_ORGMAILS
+          open_last_email.should be_delivered_to JUMU_CONTACT_EMAIL
           open_last_email.should have_subject "My Subject"
           open_last_email.should have_body_text "Lörem ipsüm in adipißicing Duis voluptate et fugiät Excepteur."
         end

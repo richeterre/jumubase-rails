@@ -10,27 +10,22 @@ describe "Performances" do
     before do
       create_list(:past_contest, 3)
       create_list(:future_contest, 3)
-      @current_contests = create_list(:current_contest, 3)
+      @current_contest = create(:current_contest)
       @deadlined_contest = create(:deadlined_contest)
 
-      create_list(:category, 3)
-      @active_categories = create_list(:active_category, 3)
+      create_list(:contest_category, 3)
+      @contest_categories = create_list(:contest_category, 3, contest: @current_contest)
 
-      create(:role)
-      create(:accompanist_role)
-      create(:ensemblist_role)
       create_list(:instrument, 3)
-      create_list(:country, 3)
-      create_list(:epoch, 3)
 
-      visit new_performance_path
+      visit new_contest_performance_path(@current_contest)
     end
 
     it "should have all the required content and fields" do
       page.should have_selector "h2", text: "Anmeldung zum #{JUMU_SEASON}. Wettbewerb \"Jugend musiziert\""
       page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_contests.map(&:name)
       page.should have_selector ".help-block", text: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
-      page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
+      page.should have_select "Kategorie", options: ["Bitte wählen"] + @contest_categories.map(&:name)
       page.should have_field "Vorname", text: ""
       page.should have_field "Nachname", text: ""
       page.should have_select "Rolle", options: ["Bitte wählen"] + Role.all.map(&:name)
@@ -143,7 +138,7 @@ describe "Performances" do
     it "should perform the signup when given valid data" do
       expect {
         select @current_contests.first.name, from: "Wettbewerb"
-        select @active_categories.first.name, from: "Kategorie"
+        select @contest_categories.first.name, from: "Kategorie"
 
         fill_in "Vorname", with: "John"
         fill_in "Nachname", with: "Doe"
@@ -172,7 +167,7 @@ describe "Performances" do
 
       open_last_email.should be_delivered_from "anmeldung@jumu-nordost.eu"
       open_last_email.should be_delivered_to "John Doe <john.doe@example.org>"
-      open_last_email.should have_subject "Jumu-Anmeldung in der Kategorie \"#{@active_categories.first.name}\""
+      open_last_email.should have_subject "Jumu-Anmeldung in der Kategorie \"#{@contest_categories.first.name}\""
       open_last_email.should have_body_text "Anmeldeschluss am #{I18n.l(Date.today, format: :long)}"
       open_last_email.should have_body_text Performance.last.tracing_code
       open_last_email.should have_body_text signup_search_url(host: "www.jumu-nordost.eu")
@@ -308,11 +303,11 @@ describe "Performances" do
     before do
       @host = create(:host)
       @current_contest = create(:current_contest, host: @host)
-      @current_performance = create(:current_performance,
+      @current_performance = create(:performance,
         contest_category: create(:contest_category, contest: @current_contest)
       )
       past_contest = create(:past_contest, host: @host)
-      @past_performance = create(:past_performance,
+      @past_performance = create(:performance,
         contest_category: create(:contest_category, contest: past_contest)
       )
 
@@ -332,7 +327,7 @@ describe "Performances" do
         before do
           visit root_path
           sign_in(user)
-          visit jmd_performances_path
+          visit jmd_contest_performances_path(@current_contest)
         end
 
         it "should list current performances from own hosts' contests" do
@@ -359,15 +354,15 @@ describe "Performances" do
         it "should have a link to an internal performance creation form" do
           click_link "Neues Vorspiel erstellen"
 
-          current_path.should eq new_jmd_performance_path
+          current_path.should eq new_jmd_contest_performance_path(@current_contest)
         end
 
         describe "pagination" do
 
           before do
+            contest_category = create(:contest_category, contest: @current_contest)
             @current_performances = [@current_performance]
-            @current_performances += create_list(:current_performance, 15,
-                                                             contest: @current_contest)
+            @current_performances += create_list(:current_performance, 15, contest_category: contest_category)
             visit current_path
           end
 
@@ -378,8 +373,8 @@ describe "Performances" do
 
             it "should display the paginator" do
               page.should have_selector "div.pagination"
-              page.should have_link "2", href: jmd_performances_path(page: 2)
-              page.should have_link "→", href: jmd_performances_path(page: 2)
+              page.should have_link "2", href: jmd_contest_performances_path(@current_contest, page: 2)
+              page.should have_link "→", href: jmd_contest_performances_path(@current_contest, page: 2)
             end
 
             it "should allow paginating between performances" do
@@ -414,7 +409,7 @@ describe "Performances" do
         before do
           visit root_path
           sign_in(admin)
-          visit jmd_performances_path
+          visit jmd_contest_performances_path(@current_contest)
         end
 
         it "should have all current performances in the table" do
@@ -437,7 +432,7 @@ describe "Performances" do
         before do
           visit root_path
           sign_in(user)
-          visit new_jmd_performance_path
+          visit new_jmd_contest_performance_path(@current_contest)
         end
 
         it "should only offer own contests to add the performance to" do
@@ -453,11 +448,11 @@ describe "Performances" do
         before do
           visit root_path
           sign_in(admin)
-          visit new_jmd_performance_path
+          visit new_jmd_contest_performance_path(@current_contest)
         end
 
         it "should offer all current contests" do
-          page.should have_select "Wettbewerb", options: ["Bitte wählen"] + Competition.current.map(&:name)
+          page.should have_select "Wettbewerb", options: ["Bitte wählen"] + Contest.current.map(&:name)
         end
       end
     end
@@ -503,7 +498,9 @@ describe "Performances" do
       describe "category filter" do
 
         before do
-          @second_performance = create(:current_performance, contest: @current_contest)
+          @second_performance = create(:current_performance,
+            contest_category: create(:contest_category, contest: @current_contest)
+          )
           visit make_certificates_jmd_performances_path
 
           # Apply filter

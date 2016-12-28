@@ -211,7 +211,7 @@ describe "Contests" do
 
     context "for admins" do
       before do
-        next_round = create(:round, level: @contest.round.level + 1)
+        next_round = @contest.round + 1
         create(:contest, round: @contest.round) # to test for correct exclusion
         @next_contests = create_list(:contest, 3, round: next_round)
 

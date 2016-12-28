@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Jmd::Application.load_tasks
+Jumubase::Application.load_tasks

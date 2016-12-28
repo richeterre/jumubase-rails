@@ -1,4 +1,4 @@
-Jmd::Application.routes.draw do
+Jumubase::Application.routes.draw do
 
   # Routes for public API
 

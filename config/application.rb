@@ -15,7 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Jmd
+module Jumubase
   class Application < Rails::Application
 
     # Set up mail server

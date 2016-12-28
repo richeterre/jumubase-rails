@@ -4,5 +4,5 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Jmd::Application.config.secret_token =
+Jumubase::Application.config.secret_token =
   Rails.env.production? ? ENV['SECRET_TOKEN'] : 'x' * 30

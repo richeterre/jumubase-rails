@@ -8,27 +8,27 @@ describe "Performances" do
   describe "signup page" do
 
     before do
-      FactoryGirl.create_list(:past_competition, 3)
-      FactoryGirl.create_list(:future_competition, 3)
-      @current_competitions = FactoryGirl.create_list(:current_competition, 3)
-      @deadlined_competition = FactoryGirl.create(:deadlined_competition)
+      create_list(:past_contest, 3)
+      create_list(:future_contest, 3)
+      @current_contests = create_list(:current_contest, 3)
+      @deadlined_contest = create(:deadlined_contest)
 
-      FactoryGirl.create_list(:category, 3)
-      @active_categories = FactoryGirl.create_list(:active_category, 3)
+      create_list(:category, 3)
+      @active_categories = create_list(:active_category, 3)
 
-      FactoryGirl.create(:role)
-      FactoryGirl.create(:accompanist_role)
-      FactoryGirl.create(:ensemblist_role)
-      FactoryGirl.create_list(:instrument, 3)
-      FactoryGirl.create_list(:country, 3)
-      FactoryGirl.create_list(:epoch, 3)
+      create(:role)
+      create(:accompanist_role)
+      create(:ensemblist_role)
+      create_list(:instrument, 3)
+      create_list(:country, 3)
+      create_list(:epoch, 3)
 
       visit new_performance_path
     end
 
     it "should have all the required content and fields" do
       page.should have_selector "h2", text: "Anmeldung zum #{JUMU_SEASON}. Wettbewerb \"Jugend musiziert\""
-      page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
+      page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_contests.map(&:name)
       page.should have_selector ".help-block", text: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
       page.should have_select "Kategorie", options: ["Bitte wählen"] + @active_categories.map(&:name)
       page.should have_field "Vorname", text: ""
@@ -58,8 +58,8 @@ describe "Performances" do
       page.should have_button "Anmeldung absenden"
     end
 
-    it "should not have deadlined competitions in the select box" do
-      page.should_not have_select "Wettbewerb", with_options: [@deadlined_competition.name]
+    it "should not have deadlined contests in the select box" do
+      page.should_not have_select "Wettbewerb", with_options: [@deadlined_contest.name]
     end
 
     it "should complain about invalid field contents" do
@@ -88,9 +88,9 @@ describe "Performances" do
       page.should have_content "Wettbewerb muss ausgefüllt werden"
     end
 
-    it "should correctly populate the competition selector when there are errors" do
+    it "should correctly populate the contest selector when there are errors" do
       click_button "Anmeldung absenden"
-      page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_competitions.map(&:name)
+      page.should have_select "Wettbewerb", options: ["Bitte wählen"] + @current_contests.map(&:name)
     end
 
     it "should complain about disabled JavaScript", js: false do
@@ -142,7 +142,7 @@ describe "Performances" do
 
     it "should perform the signup when given valid data" do
       expect {
-        select @current_competitions.first.name, from: "Wettbewerb"
+        select @current_contests.first.name, from: "Wettbewerb"
         select @active_categories.first.name, from: "Kategorie"
 
         fill_in "Vorname", with: "John"
@@ -183,13 +183,13 @@ describe "Performances" do
 
   describe "edit page" do
 
-    before { @performance = FactoryGirl.create(:current_performance) }
+    before { @performance = create(:current_performance) }
 
     it "should find and display an existing performance based on its tracing code" do
       search_for_performance_with_code(@performance.tracing_code)
 
       page.should have_selector "h2", text: "Anmeldung bearbeiten"
-      page.should have_select 'Wettbewerb', selected: @performance.competition.name
+      page.should have_select 'Wettbewerb', selected: @performance.contest.name
       page.should have_selector ".help-block", text: "Dein Wettbewerb steht hier bis zum Anmeldeschluss (siehe oben)."
       page.should have_select 'Kategorie', selected: @performance.category.name
 
@@ -277,22 +277,24 @@ describe "Performances" do
     end
 
     it "should not find a non-current performance" do
-      old_performance = FactoryGirl.create(:old_performance)
+      old_performance = create(:old_performance)
       search_for_performance_with_code(old_performance.tracing_code)
 
       page.should have_error_message
       page.should have_content "Keine Anmeldung unter diesem Änderungscode gefunden."
     end
 
-    it "should not allow editing a performance for a deadlined competition" do
-      deadlined_competition = FactoryGirl.create(:deadlined_competition)
-      deadlined_performance = FactoryGirl.create(:performance, competition: deadlined_competition)
+    it "should not allow editing a performance for a deadlined contest" do
+      deadlined_contest = create(:deadlined_contest)
+      deadlined_performance = create(:performance,
+        contest_category: create(:contest_category, contest: deadlined_contest)
+      )
 
       search_for_performance_with_code(deadlined_performance.tracing_code)
 
       page.should have_error_message
       page.should have_content "Der Anmeldeschluss für deinen Wettbewerb war bereits am "\
-                               "#{I18n.l(deadlined_competition.last_signup_date, format: :long)}. "\
+                               "#{I18n.l(deadlined_contest.last_signup_date, format: :long)}. "\
                                "Bitte nimm Kontakt zu einem Jumu-Ansprechpartner an deiner Schule auf."
     end
 
@@ -304,19 +306,25 @@ describe "Performances" do
   describe "JMD" do
 
     before do
-      @host = FactoryGirl.create(:host)
-      @current_competition = FactoryGirl.create(:current_competition, host: @host)
-      @current_performance = FactoryGirl.create(:current_performance, competition: @current_competition)
-      past_competition = FactoryGirl.create(:past_competition, host: @host)
-      @past_performance = FactoryGirl.create(:performance, competition: past_competition)
+      @host = create(:host)
+      @current_contest = create(:current_contest, host: @host)
+      @current_performance = create(:current_performance,
+        contest_category: create(:contest_category, contest: @current_contest)
+      )
+      past_contest = create(:past_contest, host: @host)
+      @past_performance = create(:past_performance,
+        contest_category: create(:contest_category, contest: past_contest)
+      )
 
-      other_host = FactoryGirl.create(:host)
-      other_current_competition = FactoryGirl.create(:current_competition, host: other_host)
-      @other_performance = FactoryGirl.create(:performance, competition: other_current_competition)
+      other_host = create(:host)
+      other_current_contest = create(:current_contest, host: other_host)
+      @other_performance = create(:performance,
+        contest_category: create(:contest_category, contest: other_current_contest)
+      )
     end
 
-    let(:user) { FactoryGirl.create(:user, hosts: [@host]) }
-    let(:admin) { FactoryGirl.create(:admin) }
+    let(:user) { create(:user, hosts: [@host]) }
+    let(:admin) { create(:admin) }
 
     describe "index page" do
 
@@ -327,15 +335,15 @@ describe "Performances" do
           visit jmd_performances_path
         end
 
-        it "should list current performances from own hosts' competitions" do
+        it "should list current performances from own hosts' contests" do
           page.should have_selector "tbody tr > td", text: @current_performance.participants.first.full_name
         end
 
-        it "should not list non-current performances from own hosts' competitions" do
+        it "should not list non-current performances from own hosts' contests" do
           page.should_not have_selector "tbody tr > td", text: @past_performance.participants.first.full_name
         end
 
-        it "should not list current performances from other hosts' competitions" do
+        it "should not list current performances from other hosts' contests" do
           page.should_not have_selector "tbody tr > td", text: @other_performance.participants.first.full_name
         end
 
@@ -358,8 +366,8 @@ describe "Performances" do
 
           before do
             @current_performances = [@current_performance]
-            @current_performances += FactoryGirl.create_list(:current_performance, 15,
-                                                             competition: @current_competition)
+            @current_performances += create_list(:current_performance, 15,
+                                                             contest: @current_contest)
             visit current_path
           end
 
@@ -422,7 +430,7 @@ describe "Performances" do
 
     describe "create page" do
       before do
-        # TODO: Create some competitions, current and other, here for different users
+        # TODO: Create some contests, current and other, here for different users
       end
 
       context "for non-admins" do
@@ -432,12 +440,12 @@ describe "Performances" do
           visit new_jmd_performance_path
         end
 
-        it "should only offer own competitions to add the performance to" do
-          page.should have_select "Wettbewerb", options: ["Bitte wählen", @current_competition.name]
+        it "should only offer own contests to add the performance to" do
+          page.should have_select "Wettbewerb", options: ["Bitte wählen", @current_contest.name]
         end
 
-        it "should not display a hint for the competition selector" do
-          page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.competition_id')
+        it "should not display a hint for the contest selector" do
+          page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.contest_id')
         end
       end
 
@@ -448,15 +456,15 @@ describe "Performances" do
           visit new_jmd_performance_path
         end
 
-        it "should offer all current competitions" do
+        it "should offer all current contests" do
           page.should have_select "Wettbewerb", options: ["Bitte wählen"] + Competition.current.map(&:name)
         end
       end
     end
 
     describe "edit page" do
-      it "should not display a hint for the competition selector" do
-        page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.competition_id')
+      it "should not display a hint for the contest selector" do
+        page.should_not have_selector ".help-block", text: I18n.t('simple_form.hints.performance.contest_id')
       end
 
       it "should allow returning to the index page without saving anything"
@@ -486,16 +494,16 @@ describe "Performances" do
 
       it "should list all performances with their appearances"
 
-      describe "competition filter" do
+      describe "contest filter" do
 
-        it "should display only performances from the selected competition"
+        it "should display only performances from the selected contest"
 
       end
 
       describe "category filter" do
 
         before do
-          @second_performance = FactoryGirl.create(:current_performance, competition: @current_competition)
+          @second_performance = create(:current_performance, contest: @current_contest)
           visit make_certificates_jmd_performances_path
 
           # Apply filter

@@ -19,13 +19,13 @@ require 'spec_helper'
 
 describe Contest do
 
-  let (:contest) { FactoryGirl.build(:contest) }
+  let (:contest) { build(:contest) }
 
   subject { contest }
 
   # Attributes
   it { should respond_to(:season) }
-  it { should respond_to(:round_id) }
+  it { should respond_to(:round) }
   it { should respond_to(:host_id) }
   it { should respond_to(:begins) }
   it { should respond_to(:ends) }
@@ -34,12 +34,11 @@ describe Contest do
   it { should respond_to(:timetables_public) }
 
   # Relationships
-  it { should respond_to(:round) }
   it { should respond_to(:host) }
   it { should respond_to(:performances) }
   it { should respond_to(:appearances) }
   it { should respond_to(:participants) }
-  it { should respond_to(:categories) }
+  it { should respond_to(:contest_categories) }
 
   # Validations
   it { should be_valid }
@@ -59,8 +58,8 @@ describe Contest do
     end
   end
 
-  describe "without an associated round" do
-    before { contest.round_id = nil }
+  describe "without a round" do
+    before { contest.round = nil }
     it { should_not be_valid }
   end
 
@@ -106,48 +105,48 @@ describe Contest do
 
   # Class methods
 
-  it "should respond_to :seasonal_with_level" do
-    Competition.should respond_to(:seasonal_with_level)
+  it "should respond_to :seasonal_in_round" do
+    Contest.should respond_to(:seasonal_in_round)
   end
 
   it "should respond_to :current" do
-    Competition.should respond_to(:current)
+    Contest.should respond_to(:current)
   end
 
-  it "should respond_to :current_and_open" do
-    Competition.should respond_to(:current_and_open)
+  it "should respond_to :open" do
+    Contest.should respond_to(:open)
   end
 
   it "should respond_to :preceding" do
-    Competition.should respond_to(:preceding)
+    Contest.should respond_to(:preceding)
   end
 
-  it "should be able to return all contests of the current season with given level" do
-    FactoryGirl.create(:past_contest)
-    FactoryGirl.create(:future_contest)
-    seasonal_rws = FactoryGirl.create_list(:current_contest, 2, round: FactoryGirl.create(:round))
-    seasonal_lws = FactoryGirl.create_list(:current_contest, 2, round: FactoryGirl.create(:second_round))
+  it "should be able to return all contests of the current season in given round" do
+    create(:past_contest)
+    create(:future_contest)
+    seasonal_rws = create_list(:current_contest, 2, round: 1)
+    seasonal_lws = create_list(:current_contest, 2, round: 2)
 
-    Competition.seasonal_with_level(1).should =~ seasonal_rws
-    Competition.seasonal_with_level(2).should =~ seasonal_lws
+    Contest.seasonal_in_round(1).should =~ seasonal_rws
+    Contest.seasonal_in_round(2).should =~ seasonal_lws
   end
 
   it "should be able to return all contests that are currently ongoing" do
-    FactoryGirl.create(:past_contest)
-    FactoryGirl.create(:future_contest)
-    current_contests = FactoryGirl.create_list(:current_contest, 2)
+    create(:past_contest)
+    create(:future_contest)
+    current_contests = create_list(:current_contest, 2)
 
-    Competition.current.should =~ current_contests
+    Contest.current.should =~ current_contests
   end
 
   it "should be able to return all current contests whose signup is open" do
-    FactoryGirl.create(:past_contest)
-    FactoryGirl.create(:future_contest)
-    FactoryGirl.create(:deadlined_contest)
+    create(:past_contest)
+    create(:future_contest)
+    create(:deadlined_contest)
     # TODO: Include contest whose deadline is exactly "now"
-    current_and_open_contests = FactoryGirl.create_list(:current_contest, 2)
+    current_and_open_contests = create_list(:current_contest, 2)
 
-    Competition.current_and_open.should =~ current_and_open_contests
+    Contest.current.open.should =~ current_and_open_contests
   end
 
   # Convenience methods
@@ -162,28 +161,21 @@ describe Contest do
 
   describe "should return a name to describe itself" do
     before do
-      contest.host = FactoryGirl.build(:host, name: "The Host")
-      contest.round = FactoryGirl.build(:round, slug: "Round Slug")
+      contest.host = build(:host, name: "The Host")
+      contest.round = 1
       contest.season = 100
     end
 
-    its(:name) { should eq "The Host, Round Slug 2063" }
+    its(:name) { should eq "The Host, RW 2063" }
   end
 
   describe "should return the correct host name" do
     before do
-      @host = FactoryGirl.build(:host, name: "The Host")
+      @host = build(:host, name: "The Host")
       contest.host = @host
     end
 
     its(:host_name) { should eq @host.name }
-  end
-
-  it "should return the last full day when signup is possible" do
-    [Date.today, Date.today + 1.hour].each do |deadline|
-      contest.signup_deadline = deadline
-      contest.last_signup_date.should eq Date.yesterday
-    end
   end
 
   describe "should return the days it takes place as a range" do
@@ -206,32 +198,32 @@ describe Contest do
   end
 
   it "should return whether performances can advance here" do
-    contest.round.level = 1
+    contest.round = 1
     contest.can_be_advanced_to?.should be_false
-    [2, 3].each do |level|
-      contest.round.level = level
+    [2, 3].each do |round|
+      contest.round = round
       contest.can_be_advanced_to?.should be_true
     end
   end
 
   it "should return whether performances can advance onwards from here" do
-    contest.round.level = 1
+    contest.round = 1
     contest.can_be_advanced_from?.should be_true
-    [2, 3].each do |level|
-      contest.round.level = level
+    [2, 3].each do |round|
+      contest.round = round
       contest.can_be_advanced_from?.should be_false
     end
   end
 
   it "should be able to return all contests of same season and next-higher round" do
-    next_round = FactoryGirl.create(:round, level: contest.round.level + 1)
-    possible_successors = FactoryGirl.create_list(:contest, 2, round: next_round)
+    next_round = contest.round + 1
+    possible_successors = create_list(:contest, 2, round: next_round)
 
     # We're not interested in these
-    FactoryGirl.create(:contest) # same round and season
-    FactoryGirl.create(:contest, round: next_round, season: contest.season + 1)
-    round_after_next = FactoryGirl.create(:round, level: contest.round.level + 2)
-    FactoryGirl.create(:contest, round: round_after_next)
+    create(:contest) # same round and season
+    create(:contest, round: next_round, season: contest.season + 1)
+    round_after_next = contest.round + 2
+    create(:contest, round: round_after_next)
 
     contest.possible_successors.should =~ possible_successors
   end

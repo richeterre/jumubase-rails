@@ -6,7 +6,7 @@ describe "Sessions" do
   subject { page }
 
   describe "signin page" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     it { should have_selector "h2", text: "Zugang für Organisatoren" }
     it { should have_field "E-Mail", type: "email", text: "" }
@@ -15,7 +15,7 @@ describe "Sessions" do
   end
 
   describe "signin via the signin page" do
-    before { visit signin_path }
+    before { visit new_user_session_path }
 
     describe "with incorrect credentials" do
       before { click_button "Anmelden" }
@@ -25,11 +25,11 @@ describe "Sessions" do
         page.should_not have_link "Vorspiele"
       end
 
-      it { should_not have_link "Abmelden", href: signout_path }
-      it { should have_link "Interne Seiten »", href: signin_path }
+      it { should_not have_link "Abmelden", href: destroy_user_session_path }
+      it { should have_link "Interne Seiten »", href: new_user_session_path }
 
       it "should redirect to the signin page" do
-        current_path.should eq signin_path
+        current_path.should eq new_user_session_path
       end
 
       it { should have_error_message }
@@ -43,7 +43,7 @@ describe "Sessions" do
     end
 
     describe "with valid credentials" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { create(:user) }
       before { sign_in user }
 
       it "should display some inside stuff" do
@@ -56,13 +56,13 @@ describe "Sessions" do
         page.should have_selector "header a", text: user.full_name
       end
 
-      it { should have_link "Abmelden", href: signout_path }
-      it { should_not have_link "Interne Seiten »", href: signin_path }
+      it { should have_link "Abmelden", href: destroy_user_session_path }
+      it { should_not have_link "Interne Seiten »", href: new_user_session_path }
 
       describe "followed by signout" do
         before { click_link "Abmelden" }
 
-        it { should have_link "Interne Seiten »", href: signin_path }
+        it { should have_link "Interne Seiten »", href: new_user_session_path }
       end
     end
   end
@@ -71,7 +71,7 @@ describe "Sessions" do
     before { visit list_current_jmd_performances_path }
 
     it "should ask the user to sign in first" do
-      current_path.should eq signin_path
+      current_path.should eq new_user_session_path
       page.should have_alert_message
       page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
     end
@@ -81,7 +81,7 @@ describe "Sessions" do
     end
 
     it "should redirect to the requested page after signing in through the form" do
-      user = FactoryGirl.create(:user)
+      user = create(:user)
       fill_in "session_email", with: user.email
       fill_in "session_password", with: user.password
       click_button "session_submit"
@@ -96,7 +96,7 @@ describe "Sessions" do
     before { visit jmd_users_path }
 
     it "should ask the user to sign in first" do
-      current_path.should eq signin_path
+      current_path.should eq new_user_session_path
       page.should have_alert_message
       page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
     end
@@ -104,10 +104,10 @@ describe "Sessions" do
     context "as a non-admin user" do
 
       it "should ask the user to sign in with sufficient rights" do
-        user = FactoryGirl.create(:user)
+        user = create(:user)
         sign_in(user)
 
-        current_path.should eq signin_path
+        current_path.should eq new_user_session_path
         page.should have_alert_message
         page.should have_content "Bitte melde dich mit ausreichenden Rechten an, um diese Seite zu besuchen."
       end
@@ -116,7 +116,7 @@ describe "Sessions" do
     context "as an admin user" do
 
       it "should give access to the page" do
-        admin = FactoryGirl.create(:admin)
+        admin = create(:admin)
         sign_in(admin)
 
         current_path.should eq jmd_users_path
@@ -130,7 +130,7 @@ describe "Sessions" do
     before { visit root_path }
 
     describe "for non-admins" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user) { create(:user) }
       before { sign_in user }
 
       it { should_not have_link "Benutzer", href: jmd_users_path }
@@ -139,7 +139,7 @@ describe "Sessions" do
     end
 
     describe "for admins" do
-      let(:admin) { FactoryGirl.create(:admin) }
+      let(:admin) { create(:admin) }
       before { sign_in admin }
 
       it { should have_link "Benutzer", href: jmd_users_path }

@@ -8,14 +8,15 @@ describe "Appearances" do
   describe "JMD" do
 
     before do
-      @host = FactoryGirl.create(:host)
-      competition = FactoryGirl.create(:current_competition, host: @host)
-      FactoryGirl.create_list(:performance, 3, competition: competition)
-      FactoryGirl.create_list(:current_solo_acc_performance, 3, competition: competition)
-      FactoryGirl.create_list(:current_ensemble_performance, 3, competition: competition)
+      @host = create(:host)
+      contest = create(:current_contest, host: @host)
+      contest_category = create(:contest_category, contest: contest)
+      create_list(:performance, 3, contest_category: contest_category)
+      create_list(:current_solo_acc_performance, 3, contest_category: contest_category)
+      create_list(:current_ensemble_performance, 3, contest_category: contest_category)
     end
 
-    let(:user) { FactoryGirl.create(:user, hosts: [@host]) }
+    let(:user) { create(:user, hosts: [@host]) }
 
     describe "points entry page" do
 
@@ -27,7 +28,7 @@ describe "Appearances" do
           visit jmd_appearances_path
         end
 
-        it "should list all appearances from own hosts' competitions" do
+        it "should list all appearances from own hosts' contests" do
           Performance.all.each do |performance|
             page.should have_selector "tbody tr > td[rowspan='#{performance.appearances.length}']",
                                       text: performance.category.name
@@ -62,7 +63,7 @@ describe "Appearances" do
       end
 
       context "when signed in as an admin" do
-        it "should list all appearances from current competitions"
+        it "should list all appearances from current contests"
       end
     end
   end

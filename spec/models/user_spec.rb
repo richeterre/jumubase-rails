@@ -24,7 +24,7 @@ require 'spec_helper'
 
 describe User do
 
-  let (:user) { FactoryGirl.build(:user) }
+  let (:user) { build(:user) }
 
   subject { user }
 
@@ -39,7 +39,7 @@ describe User do
 
   # Relationships
   it { should respond_to(:hosts) }
-  it { should respond_to(:competitions) }
+  it { should respond_to(:contests) }
 
   # Convenience methods
 
@@ -74,8 +74,8 @@ describe User do
 
   describe "with an email of invalid format" do
     it "should be invalid" do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.
-                     foo@bar_baz.com foo@bar+baz.com]
+      addresses = %w[user@foo,com user_at_foo.org example.user@foo.]
+
       addresses.each do |invalid_address|
         user.email = invalid_address
         user.should_not be_valid
@@ -111,22 +111,5 @@ describe User do
   describe "when password is too short" do
     before { user.password = user.password_confirmation = "a" * 4 }
     it { should_not be_valid }
-  end
-
-  # Authentication
-  describe "return value of authentication method" do
-    before { user.save }
-    let(:found_user) { User.find_by_email(user.email) }
-
-    describe "with valid password" do
-      it { should eq found_user.authenticate(user.password) }
-    end
-
-    describe "with invalid password" do
-      let(:user_for_invalid_password) { found_user.authenticate("invalid") }
-
-      it { should_not eq user_for_invalid_password }
-      specify { user_for_invalid_password.should be_false }
-    end
   end
 end

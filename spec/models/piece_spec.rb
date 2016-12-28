@@ -19,19 +19,18 @@ require 'spec_helper'
 
 describe Piece do
 
-  let (:piece) { FactoryGirl.build(:piece) }
+  let (:piece) { build(:piece) }
 
   subject { piece }
 
   # Attributes
   it { should respond_to(:title) }
-  it { should respond_to(:performance_id) }
-  it { should respond_to(:epoch_id) }
+  it { should respond_to(:composer_name) }
+  it { should respond_to(:epoch) }
   it { should respond_to(:minutes) }
   it { should respond_to(:seconds) }
 
   # Relationships
-  it { should respond_to(:composer) }
   it { should respond_to(:performance) }
   it { should respond_to(:epoch) }
 
@@ -47,8 +46,13 @@ describe Piece do
 
   it "should not be valid without an associated performance"
 
-  describe "without an associated epoch" do
-    before { piece.epoch_id = nil }
+  describe "without a composer name" do
+    before { piece.composer_name = nil }
+    it { should_not be_valid }
+  end
+
+  describe "without an epoch" do
+    before { piece.epoch = nil }
     it { should_not be_valid }
   end
 
@@ -112,35 +116,8 @@ describe Piece do
     end
   end
 
-  describe "when creating a piece with valid attributes and nested composers" do
-    before do
-      @composers = {}
-    end
-
-    it "should change the number of pieces by 1" do
-      pending "This should be tested using a Factory that makes composers"
-    end
-  end
-
-  describe "with an associated composer" do
-    before do
-      @composer = FactoryGirl.create(:composer)
-      @piece_with_composer = FactoryGirl.create(:piece, composer: @composer)
-    end
-
-    it "should return the right composer" do
-      @piece_with_composer.composer.should eq @composer
-    end
-
-    it "should destroy the composer together with the piece" do
-      composer = @piece_with_composer.composer
-      @piece_with_composer.destroy
-      Composer.find_by_id(composer.id).should be_nil
-    end
-  end
-
   describe "with 2 minutes and 45 seconds" do
-    subject { FactoryGirl.create(:piece, minutes: 2, seconds: 45) }
+    subject { create(:piece, minutes: 2, seconds: 45) }
     its(:duration) { should eq 165 }
   end
 end

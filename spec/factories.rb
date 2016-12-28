@@ -20,11 +20,14 @@ FactoryGirl.define do
   factory :category do
     sequence(:name) { |n| "Category #{n}" }
     sequence(:slug) { |n| "cat_#{n}" }
+    max_round 3
+    official_min_age_group 'Ia'
+    official_max_age_group 'VII'
   end
 
   factory :contest do
     season JUMU_SEASON + 3
-    round
+    round 1
     host
     begins { ends - 5.days }
     ends { Date.today + 3.years }
@@ -37,7 +40,7 @@ FactoryGirl.define do
 
     factory :current_contest do
       season JUMU_SEASON
-      association :round, factory: :current_round
+      round JUMU_ROUND
       ends { Date.today + 1.month }
       signup_deadline { Date.tomorrow }
     end
@@ -50,31 +53,29 @@ FactoryGirl.define do
     # Create an upcoming contest whose deadline has passed
     factory :deadlined_contest do
       season JUMU_SEASON
-      association :round, factory: :current_round
+      round JUMU_ROUND
       ends { Date.today + 1.month }
       signup_deadline { Date.yesterday }
     end
   end
 
-  factory :composer do
-    sequence(:name) { |n| "Composer #{n}" }
-  end
+  factory :contest_category do
+    category
+    contest
 
-  factory :country do
-    sequence(:name) { |n| "Country #{n}" }
-    sequence(:slug) { |n| "C#{n}" }
-    country_code "fam"
-  end
+    factory :current_contest_category do
+      association :contest, factory: :current_contest
+    end
 
-  factory :epoch do
-    sequence(:name) { |n| "Epoch #{n}" }
-    sequence(:slug) { |n| "E#{n}" }
+    factory :past_contest_category do
+      association :contest, factory: :past_contest
+    end
   end
 
   factory :host do
     sequence(:name) { |n| "Host #{n}" }
     sequence(:city) { |n| "City #{n}" }
-    country
+    country_code "xyz"
   end
 
   factory :instrument do
@@ -85,69 +86,48 @@ FactoryGirl.define do
     sequence(:first_name) { |n| "Participant #{n}" }
     sequence(:last_name) { |n| "Last Name #{n}" }
     birthdate Date.new(JUMU_YEAR, 01, 01) - 14.years # makes AG III
-    country
     phone "12345"
     sequence(:email) { |n| "participant_#{n}@example.org" }
   end
 
   factory :performance do
-    category
-    contest
+    contest_category
 
     after(:build) do |performance|
-      performance.appearances << FactoryGirl.build(:appearance, performance: performance)
-      performance.pieces << FactoryGirl.build(:piece, performance: performance)
+      performance.appearances << build(:appearance, performance: performance)
+      performance.pieces << build(:piece, performance: performance)
     end
 
     factory :current_performance do
-      association :category, factory: :active_category
-      association :contest, factory: :current_contest
+      association :contest_category, factory: :current_contest_category
 
       factory :current_solo_acc_performance do
         after(:build) do |performance|
           # Add accompanist to the soloist added earlier
-          performance.appearances << FactoryGirl.build(:acc_appearance, performance: performance)
+          performance.appearances << build(:acc_appearance, performance: performance)
         end
       end
 
       factory :current_ensemble_performance do
         after(:build) do |performance|
           # Replace soloist added earlier by two ensemblists
-          performance.appearances = FactoryGirl.build_list(:ensemble_appearance, 2, performance: performance)
+          performance.appearances = build_list(:ensemble_appearance, 2, performance: performance)
         end
       end
     end
 
     factory :old_performance do
-      association :contest, factory: :past_contest
+      association :contest_category, factory: :past_contest_category
     end
   end
 
   factory :piece do
     sequence(:title) { |n| "Stück #{n}" }
-    composer
+    sequence(:composer_name) { |n| "Komponist #{n}" }
     performance
-    epoch
+    epoch "f"
     minutes 4
     seconds 33
-  end
-
-  factory :round do
-    level 1
-    name "Regionalwettbewerb"
-    slug "RW"
-
-    factory :second_round do
-      level 2
-      name "Landeswettbewerb"
-      slug "LW"
-    end
-
-    factory :current_round do
-      level JUMU_ROUND
-      name ["Regionalwettbewerb", "Landeswettbewerb", "Bundeswettbewerb"].at(JUMU_ROUND - 1)
-      slug ["RW", "LW", "BW"].at(JUMU_ROUND - 1)
-    end
   end
 
   factory :user do

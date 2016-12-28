@@ -6,8 +6,8 @@ describe "Users" do
   subject { page }
 
   before do
-    @admin = FactoryGirl.create(:admin)
-    @non_admin = FactoryGirl.create(:user)
+    @admin = create(:admin)
+    @non_admin = create(:user)
     visit root_path
   end
 
@@ -21,7 +21,7 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq signin_path
+        current_path.should eq new_user_session_path
         page.should have_alert_message
       end
     end
@@ -30,7 +30,7 @@ describe "Users" do
 
       before do
         sign_in(@admin)
-        @users = FactoryGirl.create_list(:user, 5)
+        @users = create_list(:user, 5)
         visit jmd_users_path
       end
 
@@ -66,7 +66,7 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq signin_path
+        current_path.should eq new_user_session_path
         page.should have_alert_message
       end
     end
@@ -74,7 +74,7 @@ describe "Users" do
     context "for admins" do
 
       before do
-        @hosts = FactoryGirl.create_list(:host, 3)
+        @hosts = create_list(:host, 3)
         sign_in(@admin)
         visit new_jmd_user_path
       end
@@ -92,7 +92,7 @@ describe "Users" do
       end
 
       it "should allow creating a new user" do
-        new_user = FactoryGirl.build(:user)
+        new_user = build(:user)
 
         expect {
           fill_in "user_first_name", with: new_user.first_name
@@ -119,7 +119,7 @@ describe "Users" do
 
   describe "edit page" do
 
-    before { @user = FactoryGirl.create(:user) }
+    before { @user = create(:user) }
 
     context "for non-admins" do
 
@@ -129,7 +129,7 @@ describe "Users" do
       end
 
       it "should not be accessible" do
-        current_path.should eq signin_path
+        current_path.should eq new_user_session_path
         page.should have_alert_message
       end
     end

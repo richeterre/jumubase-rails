@@ -15,19 +15,18 @@ require 'spec_helper'
 
 describe Host do
 
-  let (:host) { FactoryGirl.build(:host) }
+  let (:host) { build(:host) }
 
   subject { host }
 
   # Attributes
   it { should respond_to(:name) }
   it { should respond_to(:city) }
-  it { should respond_to(:country_id) }
+  it { should respond_to(:country_code) }
   it { should respond_to(:time_zone) }
 
   # Relationships
-  it { should respond_to(:country) }
-  it { should respond_to(:competitions) }
+  it { should respond_to(:contests) }
   it { should respond_to(:venues) }
 
   it { should be_valid }
@@ -42,8 +41,8 @@ describe Host do
     it { should_not be_valid }
   end
 
-  describe "without an associated country" do
-    before { host.country = nil }
+  describe "without a country code" do
+    before { host.country_code = nil }
     it { should_not be_valid }
   end
 end

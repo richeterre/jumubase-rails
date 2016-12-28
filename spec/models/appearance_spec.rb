@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe Appearance do
 
-  let (:appearance) { FactoryGirl.build(:appearance) }
+  let (:appearance) { build(:appearance) }
 
   subject { appearance }
 
@@ -30,7 +30,6 @@ describe Appearance do
   it { should respond_to(:performance) }
   it { should respond_to(:participant) }
   it { should respond_to(:instrument) }
-  it { should respond_to(:role) }
 
   # Convenience methods
   it { should respond_to(:age_group) }
@@ -54,7 +53,7 @@ describe Appearance do
   end
 
   describe "without an associated role" do
-    before { appearance.role_id = nil }
+    before { appearance.participant_role = nil }
     it { should_not be_valid }
   end
 
@@ -110,16 +109,17 @@ describe Appearance do
 
     it "should assign the correct prize to different points" do
       # Test for first and second round
-      [FactoryGirl.build(:round), FactoryGirl.build(:second_round)].each do |round|
+      [1, 2].each do |round|
 
-        competition = FactoryGirl.build(:competition, round: round)
-        performance = FactoryGirl.build(:performance, competition: competition)
+        contest = build(:contest, round: round)
+        contest_category = build(:contest_category, contest: contest)
+        performance = build(:performance, contest_category: contest_category)
         appearance = performance.appearances.first
 
         min_prize_points = 25 # Minimum points required to get a prize, adjusted in loop
 
         # Use prize ranges for current round (index starts at 0, rounds at 1)
-        JUMU_PRIZE_POINT_RANGES[round.level - 1].each do |prize, point_range|
+        JUMU_PRIZE_POINT_RANGES[round - 1].each do |prize, point_range|
           appearance.points = point_range.first
           appearance.prize.should eq prize
           appearance.points = point_range.first - 1 # one below range

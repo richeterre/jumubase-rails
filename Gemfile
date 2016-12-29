@@ -18,7 +18,7 @@ gem 'cancancan' # Authorization
 gem 'amoeba' # Deep record duplication
 gem 'has_scope' # Record filtering
 
-gem 'simple_form' # Form builder
+gem 'simple_form', '2.1.3' # Form builder
 
 gem 'will_paginate' # Pagination
 gem 'bootstrap-will_paginate'

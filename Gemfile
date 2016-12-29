@@ -23,8 +23,8 @@ gem 'simple_form' # Form builder
 gem 'will_paginate' # Pagination
 gem 'bootstrap-will_paginate'
 
-gem 'sass-rails',     '~> 3.2.3'
-gem 'bootstrap-sass', '~> 2.3.0.0'
+gem 'sass-rails',     '3.2.6'
+gem 'bootstrap-sass', '3.1.1'
 
 gem 'prawn' # PDF output
 gem 'prawnto_2', require: 'prawnto'

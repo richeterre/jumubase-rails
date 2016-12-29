@@ -1,0 +1,37 @@
+<tr>
+  <td>
+    <%= l performance.stage_time, format: :short if performance.stage_time %>
+    <br>
+    <%= if venue = performance.stage_venue
+      link_to venue.name, schedule_jmd_contest_venue_path(@contest, venue)
+    end %>
+  </td>
+  <td>
+    <%= link_to performance.category.name, jmd_performance_path(performance), title: "Vorspieldetails anzeigen" %>
+  </td>
+  <td><%= flag_tag performance.associated_country_code %></td>
+  <td>
+    <% Appearance.sort_by_role!(performance.appearances).each do |appearance| %>
+      <% participant = appearance.participant %>
+      <span class="<%= "muted" if appearance.accompaniment? %>">
+        <%= link_to participant.full_name,
+         jmd_contest_participant_path(@contest, participant) %>,
+        <%= appearance.instrument.name %>
+        <%= age_group_badge_tag(appearance) %>
+      </span>
+      <br />
+    <% end %>
+  </td>
+  <td>
+    <% if can? :update, Performance %>
+      <%= link_to icon_tag("edit", title: "Dieses Vorspiel bearbeiten"),
+            edit_jmd_performance_path(performance), class: "btn btn-mini" %>
+    <% end %>
+    <% if can? :destroy, Performance %>
+      <%= link_to icon_tag("remove", title: "Dieses Vorspiel löschen"),
+            jmd_performance_path(performance),
+            method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?",
+            class: "btn btn-mini" %>
+    <% end %>
+  </td>
+</tr>

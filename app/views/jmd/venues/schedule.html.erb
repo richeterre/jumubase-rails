@@ -6,7 +6,7 @@
 <% if !other_venues.empty? %>
   <p>
   <% other_venues.each do |venue| %>
-    <%= link_to "Zu Vorspielraum \"#{venue.name}\" wechseln", schedule_jmd_contest_venue_path(@contest, venue), class: "btn" %>
+    <%= link_to "Zu Vorspielraum \"#{venue.name}\" wechseln", schedule_jmd_contest_venue_path(@contest, venue), class: "btn btn-default" %>
   <% end %>
   </p>
 <% end %>

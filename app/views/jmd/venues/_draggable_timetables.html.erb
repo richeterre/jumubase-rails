@@ -1,8 +1,8 @@
 <div class="well">
   <form class="form-horizontal">
     <% if @contest.days.count > 2 %>
-      <a href="#" id="earlier-button" class="btn">&larr; früher</a>
-      <a href="#" id="later-button" class="btn">später &rarr;</a>
+      <a href="#" id="earlier-button" class="btn btn-default">&larr; früher</a>
+      <a href="#" id="later-button" class="btn btn-default">später &rarr;</a>
     <% end %>
 
     <%= select "performance", "contest_category_id", @contest_categories.collect {|p| [p.category.name, p.id]},

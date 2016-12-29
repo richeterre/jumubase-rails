@@ -1,6 +1,6 @@
 <% provide(:title, @contest.name) %>
 
-<%= link_to "Alle Wettbewerbe anzeigen", jmd_contests_path, class: "btn" %>
+<%= link_to "Alle Wettbewerbe anzeigen", jmd_contests_path, class: "btn btn-default" %>
 
 <hr />
 
@@ -14,8 +14,8 @@
   <h5>Anmeldungen</h5>
 
   <p>
-    <%= link_to "Vorspiele anzeigen", jmd_contest_performances_path(@contest), class: "btn" %>
-    <%= link_to "Teilnehmer anzeigen", jmd_contest_participants_path(@contest), class: "btn" %>
+    <%= link_to "Vorspiele anzeigen", jmd_contest_performances_path(@contest), class: "btn btn-default" %>
+    <%= link_to "Teilnehmer anzeigen", jmd_contest_participants_path(@contest), class: "btn btn-default" %>
   </p>
 
   <%
@@ -25,7 +25,7 @@
     <h5>Vorspiele planen:</h5>
     <p>
       <% venues.each do |venue| %>
-        <%= link_to venue.name, schedule_jmd_contest_venue_path(@contest, venue), class: "btn" %>
+        <%= link_to venue.name, schedule_jmd_contest_venue_path(@contest, venue), class: "btn btn-default" %>
       <% end %>
     </p>
     <h5>Vorspielpläne anzeigen:</h5>
@@ -36,7 +36,7 @@
           show_timetables_jmd_contest_path(@contest,
             { venue_id: venue, date: @contest.begins.to_s }
           ),
-          class: "btn" %>
+          class: "btn btn-default" %>
       <% end %>
     </p>
   <% end %>
@@ -44,7 +44,7 @@
   <h5>Jurymaterial</h5>
 
   <p>
-    <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_contest_performances_path(@contest), class: "btn" %>
+    <%= link_to "Jurybögen drucken", make_jury_sheets_jmd_contest_performances_path(@contest), class: "btn btn-default" %>
   </p>
 
   </div>
@@ -54,18 +54,18 @@
     <h5>Ergebnisse</h5>
 
     <p>
-      <%= link_to "Ergebnisse eintragen", jmd_contest_appearances_path(@contest), class: "btn" %>
-      <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_contest_performances_path(@contest), class: "btn" %>
+      <%= link_to "Ergebnisse eintragen", jmd_contest_appearances_path(@contest), class: "btn btn-default" %>
+      <%= link_to "Ergebnislisten drucken", make_result_sheets_jmd_contest_performances_path(@contest), class: "btn btn-default" %>
     </p>
 
     <h5>Urkunden</h5>
 
-    <%= link_to "Urkunden drucken", make_certificates_jmd_contest_performances_path(@contest), class: "btn" %>
+    <%= link_to "Urkunden drucken", make_certificates_jmd_contest_performances_path(@contest), class: "btn btn-default" %>
 
     <h5>Weiterleitungen</h5>
 
     <p>
-      <%= link_to "Weiterleitungen anzeigen", list_advancing_jmd_contest_path(@contest), class: "btn" %>
+      <%= link_to "Weiterleitungen anzeigen", list_advancing_jmd_contest_path(@contest), class: "btn btn-default" %>
     </p>
   </div>
 </div>
@@ -109,7 +109,7 @@
   <p>
     <%= if @contest.can_be_advanced_from?
         link_to "Weiterleitungen migrieren…", list_advancing_jmd_contest_path(@contest),
-                class: "btn"
+                class: "btn btn-default"
         end %>
     <%= if @contest.can_be_advanced_to?
         link_to "Willkommensmails senden", welcome_advanced_jmd_contest_path,

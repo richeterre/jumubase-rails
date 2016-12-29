@@ -13,7 +13,7 @@
     <% contest.used_venues.each do |venue| %>
       <%= link_to venue.name,
         params.merge(venue_id: venue.id),
-        class: "btn" %>
+        class: "btn btn-default" %>
     <% end %>
   </p>
 
@@ -21,7 +21,7 @@
     <% contest.days.each do |contest_day| %>
       <%= link_to l(contest_day, format: :full),
         params.merge(date: contest_day.to_s),
-        class: "btn" %>
+        class: "btn btn-default" %>
     <% end %>
   </p>
 </div>

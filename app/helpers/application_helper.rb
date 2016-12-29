@@ -109,7 +109,7 @@ module ApplicationHelper
     fields = f.fields_for(:appearances, new_appearance, :child_index => "new_appearances") do |builder|
       render("appearance_fields", :f => builder)
     end
-    button_to_function(name, "Application.add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn")
+    button_to_function(name, "Application.add_fields(this, \"appearance\", \"#{escape_javascript(fields)}\")", :class => "btn btn-default")
   end
 
   # Create a link that adds a new piece
@@ -118,6 +118,6 @@ module ApplicationHelper
     fields = f.fields_for(:pieces, new_piece, :child_index => "new_pieces") do |builder|
       render("piece_fields", :f => builder)
     end
-    button_to_function(name, "Application.add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn")
+    button_to_function(name, "Application.add_fields(this, \"piece\", \"#{escape_javascript(fields)}\")", :class => "btn btn-default")
   end
 end

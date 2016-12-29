@@ -55,13 +55,13 @@
       <td>
         <% if can? :update, Performance %>
           <%= link_to icon_tag("edit", title: "Dieses Vorspiel bearbeiten"),
-                edit_jmd_performance_path(performance), class: "btn btn-mini" %>
+                edit_jmd_performance_path(performance), class: "btn btn-xs" %>
         <% end %>
         <% if can? :destroy, Performance %>
           <%= link_to icon_tag("remove", title: "Dieses Vorspiel löschen"),
                 jmd_performance_path(performance),
                 method: :delete, confirm: "Soll das Vorspiel wirklich gelöscht werden?",
-                class: "btn btn-mini" %>
+                class: "btn btn-xs" %>
         <% end %>
       </td>
     </tr>

@@ -28,8 +28,8 @@
         <%= user.sign_in_count %>
       </td>
       <td>
-        <%= link_to icon_tag("edit", title: "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user), class: "btn btn-mini" %>
-        <%= link_to icon_tag("remove", title: "Diesen Benutzer löschen"), jmd_user_path(user), method: :delete, confirm: "Soll der Benutzer #{user.email} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
+        <%= link_to icon_tag("edit", title: "Diesen Benutzer bearbeiten"), edit_jmd_user_path(user), class: "btn btn-xs" %>
+        <%= link_to icon_tag("remove", title: "Diesen Benutzer löschen"), jmd_user_path(user), method: :delete, confirm: "Soll der Benutzer #{user.email} wirklich gelöscht werden?", class: "btn btn-xs" %>
       </td>
     </tr>
     <% end %>

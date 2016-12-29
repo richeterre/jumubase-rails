@@ -25,10 +25,10 @@
       <td><%= l contest.signup_deadline %></td>
       <td>
         <%= link_to icon_tag("edit", title: "Diesen Wettbewerb bearbeiten"),
-            edit_jmd_contest_path(contest), class: "btn btn-mini" %>
+            edit_jmd_contest_path(contest), class: "btn btn-xs" %>
         <%= link_to icon_tag("remove", title: "Diesen Wettbewerb löschen"),
             jmd_contest_path(contest), method: :delete,
-            confirm: "Soll der Wettbewerb #{contest.name} wirklich gelöscht werden?", class: "btn btn-mini btn-danger" %>
+            confirm: "Soll der Wettbewerb #{contest.name} wirklich gelöscht werden?", class: "btn btn-xs" %>
       </td>
     </tr>
     <% end %>

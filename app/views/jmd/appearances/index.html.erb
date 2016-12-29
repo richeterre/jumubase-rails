@@ -41,7 +41,7 @@
             <%= appearance.prize %>
             <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
           </td>
-          <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id, { class: "btn btn-mini" } %></td>
+          <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id, { class: "btn btn-xs" } %></td>
         </tr>
       <% end %>
     <% end %>

@@ -8,8 +8,8 @@ module ApplicationHelper
 
   # Return a Glyphicon tag
   def icon_tag(name, options = {})
-    options[:class] ||= "icon-#{name}"
-    content_tag(:i, options) { nil }
+    options[:class] ||= "glyphicon glyphicon-#{name}"
+    content_tag(:span, options) { nil }
   end
 
   # Return a label with given type and content

@@ -12,20 +12,45 @@ dt {
 
 /* Note: top-padding for navbar is handled in sticky footer styles */
 
-// Jumu logos on header and home page
+/* Header */
+
 #header-logo {
   height: 20px;
   vertical-align: top;
 }
 
-#hero-logo {
-  width: 170px;
-}
+/* Jumbotron */
 
-// Hero unit heading
-.hero-unit h1 {
+.jumbotron h1 {
   font-size: 44px;
   margin: 22px 0;
+}
+
+.jumbotron p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+#jumbotron-logo {
+  margin-top: 10px;
+  max-width: 160px;
+}
+
+/* Navigation bars */
+
+.navbar-brand {
+  font-weight: 300;
+}
+
+.nav .nav-header {
+  color: #999;
+  font-size: 11px;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+.nav-sidebar-list li a {
+  padding: 5px 15px;
 }
 
 // Image frame
@@ -38,11 +63,12 @@ dt {
   vertical-align: baseline;
 }
 
+/* Forms */
+
 label.required {
   font-weight: bold;
 }
 
-// Hints in signup form
 .help-block {
   color: #999;
   font-style: italic;
@@ -58,21 +84,20 @@ label.required {
   text-align: right;
 }
 
-// Links that spawn modal windows
-.modal-link:focus {
-  outline: none;
-}
-
-// Forms in modal windows
-.modal > form {
-  margin-bottom: 0; // If form encloses footer, remove margin that would appear below it
-}
-
-// Filter form
 .filter-form select,
 .filter-form input,
 .filter-form .btn {
   margin-bottom: 1em;
+}
+
+/* Modals */
+
+.modal-link:focus {
+  outline: none;
+}
+
+.modal > form {
+  margin-bottom: 0; // If form encloses footer, remove margin that would appear below it
 }
 
 /* Performance scheduling */

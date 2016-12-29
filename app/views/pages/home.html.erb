@@ -1,9 +1,9 @@
-<div class="hero-unit">
+<div class="jumbotron">
   <div class="row">
-    <div class="span2">
-      <%= image_tag "jumuball.png", alt: "Jumu-Logo", id: "hero-logo" %>
+    <div class="col-md-3">
+      <%= image_tag "jumuball.png", alt: "Jumu-Logo", id: "jumbotron-logo" %>
     </div>
-    <div class="span5">
+    <div class="col-md-9">
       <h1>jumu-nordost.eu</h1>
 
       <p>Die Website des Wettbewerbs “Jugend musiziert”<br />für die Deutschen Schulen der Region Nord- und Osteuropa</p>
@@ -15,21 +15,21 @@
 <p class="lead">Herzlich willkommen! Auf diesen Seiten findest du Infos zu folgenden Themen:</p>
 
 <div class="row">
-  <div class="span4">
+  <div class="col-md-5">
     <h3>Teilnahmeregeln</h3>
     <p>Die Regeln zur Teilnahme an “Jugend musiziert” stehen in der <%= link_to "Ausschreibung", asset_path('Ausschreibung_2017.pdf') %>. Außerdem gibt es die <%= link_to "Sonderkategorien", rules_path %> für Pop und Kimu.</p>
   </div>
-  <div class="span4 offset1">
+  <div class="col-md-5 col-md-offset-1">
     <h3>Anmeldung</h3>
     <p>Die Anmeldung für das Wettbewerbsjahr 2017 ist nun abgeschlossen. Allen Teilnehmern viel Erfolg!</p>
   </div>
 </div>
 <div class="row">
-  <div class="span4">
+  <div class="col-md-5">
     <h3>Fragen &amp; Antworten</h3>
     <p>Bevor du uns mit einer Frage anschreibst, lies dir bitte diese <%= link_to "Liste häufig gestellter Fragen", faq_path %> durch! Vielleicht findest du dort schon deine Antwort.</p>
   </div>
-  <div class="span4 offset1">
+  <div class="col-md-5 col-md-offset-1">
     <h3>Hintergründe</h3>
     <p>Hier gibt es eine <%= link_to "Vorstellung", competition_path %> des Wettbewerb “Jugend musiziert”, der teilnehmenden Schulen sowie der einzelnen Gremien.</p>
   </div>

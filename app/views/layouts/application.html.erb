@@ -38,7 +38,7 @@
     </nav>
     <div class="container">
       <div class="row">
-        <div class="span3">
+        <div class="col-md-3">
           <div class="well sidebar-nav">
             <%= render 'layouts/public_sidebar' %>
           </div>
@@ -48,8 +48,9 @@
             </div>
           <% end %>
         </div>
-        <div class="span9">
+        <div class="col-md-9">
           <%= render 'layouts/flash_messages' %>
+
           <h2><%= yield :title %></h2>
           <%= yield %>
         </div>

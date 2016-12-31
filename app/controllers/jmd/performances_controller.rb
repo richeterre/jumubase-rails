@@ -112,10 +112,15 @@ class Jmd::PerformancesController < Jmd::BaseController
   # List performances in the given contest
   def index
     @performances = apply_scopes(Performance)
-      .joins(contest_category: [:contest, :category])
+      .joins(:contest_category)
       .where('contest_categories.contest_id = ?', @contest.id)
       .accessible_by(current_ability)
-      .includes(appearances: [:instrument, :participant])
+      .includes(
+        { appearances: [:instrument, :participant, :performance] },
+        { contest_category: [:category, { contest: :host }] },
+        :predecessor,
+        :stage_venue
+      )
       .order(:stage_time)
       .paginate(page: params[:page], per_page: 15)
   end

@@ -9,10 +9,10 @@ class ContestsController < ApplicationController
 
   def performances
     @contest = Contest.find(params[:id])
-    @venue = Venue.find(params[:venue_id])
+    @venue = Venue.find(params[:venue_id]) rescue nil
     @date = Date.parse(params[:date]) rescue nil
 
-    if !@contest.timetables_public || !@contest.days.include?(@date)
+    if !@contest.timetables_public || !@contest.days.include?(@date) || !@venue
       render 'pages/not_found'
     else
       @performances = @contest.staged_performances(@venue, @date)

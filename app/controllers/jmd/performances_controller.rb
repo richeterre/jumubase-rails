@@ -45,14 +45,12 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   def update
     # @performance is fetched by CanCan
-
+    @performance.accessible = [:stage_time] # Allow editing stage time
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performance_path(@performance)
     else
-      # Here, too, set available contests to choose from
-      @contests = Contest.accessible_by(current_ability)
-
+      @contest = @performance.contest
       render 'edit'
     end
   end

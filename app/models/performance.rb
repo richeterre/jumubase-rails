@@ -48,6 +48,8 @@ class Performance < ActiveRecord::Base
 
   validate :check_role_combinations
 
+  validate :stage_time_in_contest_days
+
   before_create :add_unique_tracing_code
   before_save :update_age_group
 
@@ -285,6 +287,13 @@ class Performance < ActiveRecord::Base
         if has_soloists && has_ensemblists
           errors.add(:base, :cannot_have_soloists_and_ensemblists)
         end
+      end
+    end
+
+    def stage_time_in_contest_days
+      # TODO: Take time zone into account for contest.begins and contest.ends
+      if stage_time && (stage_time < contest.begins || stage_time > contest.ends + 1.day)
+        errors.add(:base, :cannot_have_stage_time_outside_contest_days)
       end
     end
 

@@ -240,6 +240,7 @@ de:
               cannot_have_mere_accompanists: "Vorspiel kann nicht nur Begleiter haben"
               cannot_have_single_ensemblist: "Vorspiel kann nicht nur einen Ensembleteilnehmer haben"
               cannot_have_soloists_and_ensemblists: "Vorspiel kann nicht sowohl Solisten als auch Ensembleteilnehmer haben"
+              cannot_have_stage_time_outside_contest_days: "Vorspielzeit muss innerhalb der Wettbewerbstage liegen"
     attributes:
       appearance:
         performance_id: "Vorspiel"
@@ -277,6 +278,7 @@ de:
         category_id: Kategorie
         contest_id: Wettbewerb
         contest_category_id: Kategorie
+        stage_time: Vorspielzeit
       performance/appearances:
         participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers

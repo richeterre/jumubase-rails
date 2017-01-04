@@ -1,7 +1,15 @@
 <%= render 'shared/error_messages', :object => f.object %>
 
 <%= field_set_tag @contest.name do %>
+
   <%= f.input :contest_category_id, collection: @contest.contest_categories, prompt: "Bitte wählen", input_html: { class: "span3" } %>
+
+  <% if include_stage_time %>
+    <%= f.input :stage_time, as: :datetime, input_html: { class: "span1" },
+      use_short_month: true, start_year: @contest.begins.year, end_year: @contest.ends.year,
+      prompt: { day: "Tag", month: "Monat", year: "Jahr", hour: 'h', minute: 'min' } %>
+  <% end %>
+
 <% end %>
 
 <%= field_set_tag "Wer nimmt an diesem Vorspiel teil…" do %>

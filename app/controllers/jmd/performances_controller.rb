@@ -121,7 +121,7 @@ class Jmd::PerformancesController < Jmd::BaseController
         :predecessor,
         :stage_venue
       )
-      .order(:stage_time)
+      .order('performances.stage_time')
       .paginate(page: params[:page], per_page: 15)
   end
 

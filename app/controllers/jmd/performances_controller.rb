@@ -6,7 +6,7 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   # Actions that are routed as nested under Contest
   nested_actions = [:index, :new, :create, :make_certificates, :make_jury_sheets,
-    :make_result_sheets, :publish_results, :unpublish_results]
+    :publish_results, :set_results_publicity]
 
   load_and_authorize_resource :contest, only: nested_actions
   load_and_authorize_resource :performance, except: nested_actions
@@ -177,7 +177,7 @@ class Jmd::PerformancesController < Jmd::BaseController
   end
 
   # List performances for result sheet printing
-  def make_result_sheets
+  def publish_results
     # @contest is fetched by CanCan
 
     # Define params for PDF output
@@ -190,38 +190,23 @@ class Jmd::PerformancesController < Jmd::BaseController
       .order(:stage_time)
   end
 
-  def publish_results
+  def set_results_publicity
     # @contest is fetched by CanCan
 
-    if set_results_publicity(params[:performance_ids], true)
-      flash[:success] = "Die Ergebnisse wurden freigegeben."
+    performance_ids = params[:performance_ids]
+    results_public = params[:results_public]
+
+    # TODO: Make this work so that the AR query includes:
+    # .accessible_by(current_ability)
+    performances = @contest.performances.where(id: performance_ids)
+
+    if !results_public.nil? && performances.update_all(results_public: results_public)
+      flash[:success] = results_public == "true" \
+        ? "Die Ergebnisse wurden freigegeben."
+        : "Die Freigabe wurde aufgehoben."
     else
-      flash[:error] = "Die Ergebnisse konnten nicht freigegeben werden."
+      flash[:error] = "Der Status der Ergebnisse konnte nicht verändert werden."
     end
     redirect_to :back
   end
-
-  def unpublish_results
-    # @contest is fetched by CanCan
-
-    if set_results_publicity(params[:performance_ids], false)
-      flash[:success] = "Die Freigabe wurde aufgehoben."
-    else
-      flash[:error] = "Die Freigabe konnte nicht aufgehoben werden."
-    end
-    redirect_to :back
-  end
-
-  # Private Helpers
-
-    private
-
-    def set_results_publicity(performance_ids, value)
-      # TODO: Make this work so that the AR query includes:
-      # .accessible_by(current_ability)
-
-      performances = @contest.performances
-        .where(id: performance_ids)
-        .update_all(results_public: value)
-    end
 end

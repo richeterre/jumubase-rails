@@ -1,6 +1,6 @@
 <% provide(:title, "Ergebnisse veröffentlichen") %>
 
-<%= form_tag make_result_sheets_jmd_contest_performances_path(@contest),
+<%= form_tag publish_results_jmd_contest_performances_path(@contest),
   method: :get, class: "filter-form form-search well" do
   %>
 
@@ -27,16 +27,16 @@
     open_icon = content_tag(:i, class: "icon-eye-open icon-white") { nil }
 
     link_to open_icon + " Freigeben",
-    { controller: :performances, action: :publish_results,
-      performance_ids: @performances.map(&:id) },
+    { controller: :performances, action: :set_results_publicity,
+      performance_ids: @performances.map(&:id), results_public: true },
     { class: "btn btn-primary", method: "POST",
       confirm: "Möchtest du diese Ergebnisse wirklich veröffentlichen?" }
   end %>
 
   <%= if can? :unpublish_results, Performance
     link_to icon_tag("eye-close") + " Freigabe aufheben",
-    { controller: :performances, action: :unpublish_results,
-      performance_ids: @performances.map(&:id) },
+    { controller: :performances, action: :set_results_publicity,
+      performance_ids: @performances.map(&:id), results_public: false },
     { class: "btn", method: "POST" }
   end %>
 

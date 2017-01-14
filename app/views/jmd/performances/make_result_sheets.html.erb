@@ -34,6 +34,7 @@
       <th>AG</th>
       <th>Punkte</th>
       <th>Preis</th>
+      <th>Öffentlich?</th>
     </tr>
   </thead>
   <tbody id="appearance-rows">
@@ -54,6 +55,12 @@
         <td>
           <%= appearance.prize %>
           <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
+        </td>
+        <td>
+          <%= performance.results_public \
+            ? info_badge_tag("Ja", :inverse)
+            : info_badge_tag("Nein")
+          %>
         </td>
       </tr>
       <% end %>

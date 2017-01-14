@@ -26,6 +26,8 @@ Jumubase::Application.routes.draw do
         get 'make_certificates', on: :collection
         get 'make_jury_sheets', on: :collection
         get 'make_result_sheets', on: :collection
+        post 'publish_results', on: :collection
+        post 'unpublish_results', on: :collection
       end
       resources :venues, only: [] do
         get 'schedule', on: :member

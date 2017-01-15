@@ -51,8 +51,8 @@ module Api::V1
       @performances = @performances.includes(
         { appearances: [:instrument, :participant] },
         :pieces,
-        contest_category: [:category, { contest: :host }],
-        predecessor: { contest_category: { contest: :host } }
+        { contest_category: [:category, { contest: :host }] },
+        :predecessor
       )
     end
   end

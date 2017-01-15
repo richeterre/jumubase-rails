@@ -102,7 +102,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Update entry time, date and venue
     @performance.stage_time = time
     @performance.stage_venue = @new_stage_venue
-    @performance.save_without_timestamping # Consider rescheduling an admin operation
+    @performance.save
 
     # Respond only to Ajax requests
     respond_to do |format|

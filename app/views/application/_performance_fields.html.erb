@@ -7,7 +7,8 @@
   <% if include_stage_fields %>
     <%= f.input :stage_time, as: :datetime, input_html: { class: "span1" },
       use_short_month: true, start_year: @contest.begins.year, end_year: @contest.ends.year,
-      prompt: { day: "Tag", month: "Monat", year: "Jahr", hour: 'h', minute: 'min' } %>
+      prompt: { day: "Tag", month: "Monat", year: "Jahr", hour: 'h', minute: 'min' },
+      hint: "Bis auf weiteres hier bitte deutsche Zeit (MEZ / MESZ) verwenden!" %>
     <%= f.association :stage_venue, collection: @contest.host.venues, include_blank: "(nicht gesetzt)" %>
   <% end %>
 

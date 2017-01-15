@@ -49,6 +49,8 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Allow editing stage field values
     @performance.accessible = [:stage_time, :stage_venue_id]
 
+    # TODO: Parse and show stage time from/in form as contest time zone
+
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performance_path(@performance)

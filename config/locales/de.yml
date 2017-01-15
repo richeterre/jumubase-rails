@@ -279,6 +279,7 @@ de:
         contest_id: Wettbewerb
         contest_category_id: Kategorie
         stage_time: Vorspielzeit
+        stage_venue: Vorspielort
       performance/appearances:
         participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers

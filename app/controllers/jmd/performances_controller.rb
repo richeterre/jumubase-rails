@@ -45,7 +45,10 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   def update
     # @performance is fetched by CanCan
-    @performance.accessible = [:stage_time] # Allow editing stage time
+
+    # Allow editing stage field values
+    @performance.accessible = [:stage_time, :stage_venue_id]
+
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performance_path(@performance)

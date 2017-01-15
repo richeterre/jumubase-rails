@@ -51,7 +51,7 @@
 
       <!-- Insert performance row -->
       <tr class="performance-row" data-stage-time="<%= performance.stage_time.to_i %>">
-        <td><%= l performance.stage_time, format: :time %></td>
+        <td><%= l performance.stage_time_in_tz, format: :time %></td>
         <td><%= performance.category.name %></td>
         <td><%= info_badge_tag(performance.age_group, :info) %></td>
         <td>

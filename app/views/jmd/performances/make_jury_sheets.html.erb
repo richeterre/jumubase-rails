@@ -30,7 +30,7 @@
       <tr>
         <% if appearance == appearances.first %>
         <td rowspan="<%= performance.appearances.length %>">
-          <%= l performance.stage_time, format: :short if performance.stage_time %>
+          <%= l performance.stage_time_in_tz, format: :short if performance.stage_time_in_tz %>
         </td>
         <td rowspan="<%= performance.appearances.length %>"><%= performance.category.name %></td>
         <% end %>

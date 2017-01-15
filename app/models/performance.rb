@@ -54,13 +54,18 @@ class Performance < ActiveRecord::Base
   before_create :add_unique_tracing_code
   before_save :update_age_group
 
-  # Override getters to always get times in contest time zone
+  # Override getter to always get times in contest time zone
   def warmup_time
     super().in_time_zone(self.contest.host.time_zone) if super()
   end
 
-  def stage_time
-    super().in_time_zone(self.contest.host.time_zone) if super()
+  # Returns stage time in contest time zone
+  def stage_time_in_tz
+    if self.stage_time.nil?
+      nil
+    else
+      self.stage_time.in_time_zone(self.contest.host.time_zone)
+    end
   end
 
   # Returns all performances in current round and year

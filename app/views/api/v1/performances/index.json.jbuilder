@@ -1,6 +1,6 @@
 json.array! @performances do |performance|
   json.id performance.id.to_s
-  json.stage_time performance.stage_time
+  json.stage_time performance.stage_time_in_tz
   json.category_name performance.category.name
   json.age_group performance.age_group
   if predecessor = performance.predecessor

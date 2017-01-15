@@ -90,7 +90,8 @@ class Jmd::PerformancesController < Jmd::BaseController
     end
 
     # Store old date and venue for view update
-    @old_day = (@performance.stage_time) ? @performance.stage_time.to_date : nil
+    stage_time_in_tz = @performance.stage_time_in_tz
+    @old_day = stage_time_in_tz ? stage_time_in_tz.to_date : nil
     @old_stage_venue = @performance.stage_venue
 
     # Pass all performances for current view

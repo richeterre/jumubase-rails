@@ -31,9 +31,9 @@ module Api::V1
 
       # Filter by venue and date
       if venue && date
-        @performances = contest.staged_performances(venue, date)
+        @performances = contest.staged_performances_at_venue_on_date(venue, date)
       else
-        @performances = contest.performances
+        @performances = contest.staged_performances
       end
 
       # Filter by contest category

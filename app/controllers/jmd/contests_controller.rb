@@ -60,7 +60,7 @@ class Jmd::ContestsController < Jmd::BaseController
     if !@contest.days.include?(@date)
       render 'pages/not_found'
     else
-      @performances = @contest.staged_performances(@venue, @date)
+      @performances = @contest.staged_performances_at_venue_on_date(@venue, @date)
         .includes(
           { appearances: [:instrument, :participant] },
           { contest_category: :contest },

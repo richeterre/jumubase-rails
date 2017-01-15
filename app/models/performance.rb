@@ -49,6 +49,7 @@ class Performance < ActiveRecord::Base
   validate :check_role_combinations
 
   validate :stage_time_in_contest_days
+  validate :stage_field_values_complete
 
   before_create :add_unique_tracing_code
   before_save :update_age_group
@@ -294,6 +295,12 @@ class Performance < ActiveRecord::Base
       # TODO: Take time zone into account for contest.begins and contest.ends
       if stage_time && (stage_time < contest.begins || stage_time > contest.ends + 1.day)
         errors.add(:base, :cannot_have_stage_time_outside_contest_days)
+      end
+    end
+
+    def stage_field_values_complete
+      if stage_time && !stage_venue_id || !stage_time && stage_venue_id
+        errors.add(:base, :cannot_have_incomplete_stage_field_values)
       end
     end
 

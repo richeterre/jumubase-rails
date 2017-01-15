@@ -2,8 +2,11 @@
   # One minute corresponds to 3 pixels => 1 pixel is 20 seconds
   height = (performance.duration.to_f / 20).round
   margin = ((performance.rounded_duration - performance.duration).to_f / 20).round
-  if performance.stage_time
-    top = (performance.stage_time.hour - 9) * 180 + performance.stage_time.min * 3
+
+  stage_time_in_tz = performance.stage_time_in_tz
+
+  if stage_time_in_tz
+    top = (stage_time_in_tz.hour - 9) * 180 + stage_time_in_tz.min * 3
   else
     # List unscheduled performances in 20 min distance
     top = performance_counter * 60 + 120
@@ -24,7 +27,7 @@
   title="<%= mouseover_text %>"
 >
   <span>
-    <%= l performance.stage_time, format: :time unless performance.stage_time.nil? %>
+    <%= l performance.stage_time_in_tz, format: :time unless performance.stage_time_in_tz.nil? %>
     <%= performance.category.slug %>
     <%= performance.age_group %>
   </span>

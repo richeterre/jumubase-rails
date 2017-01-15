@@ -46,7 +46,12 @@ class Jmd::PerformancesController < Jmd::BaseController
 
   def update
     # @performance is fetched by CanCan
-    @performance.accessible = [:stage_time] # Allow editing stage time
+
+    # Allow editing stage field values
+    @performance.accessible = [:stage_time, :stage_venue_id]
+
+    # TODO: Parse and show stage time from/in form as contest time zone
+
     if @performance.update_attributes(params[:performance])
       flash[:success] = "Das Vorspiel wurde erfolgreich geändert."
       redirect_to jmd_performance_path(@performance)
@@ -88,7 +93,8 @@ class Jmd::PerformancesController < Jmd::BaseController
     end
 
     # Store old date and venue for view update
-    @old_day = (@performance.stage_time) ? @performance.stage_time.to_date : nil
+    stage_time_in_tz = @performance.stage_time_in_tz
+    @old_day = stage_time_in_tz ? stage_time_in_tz.to_date : nil
     @old_stage_venue = @performance.stage_venue
 
     # Pass all performances for current view
@@ -97,7 +103,7 @@ class Jmd::PerformancesController < Jmd::BaseController
     # Update entry time, date and venue
     @performance.stage_time = time
     @performance.stage_venue = @new_stage_venue
-    @performance.save_without_timestamping # Consider rescheduling an admin operation
+    @performance.save
 
     # Respond only to Ajax requests
     respond_to do |format|

@@ -241,6 +241,7 @@ de:
               cannot_have_single_ensemblist: "Vorspiel kann nicht nur einen Ensembleteilnehmer haben"
               cannot_have_soloists_and_ensemblists: "Vorspiel kann nicht sowohl Solisten als auch Ensembleteilnehmer haben"
               cannot_have_stage_time_outside_contest_days: "Vorspielzeit muss innerhalb der Wettbewerbstage liegen"
+              cannot_have_incomplete_stage_field_values: "Vorspielzeit und -ort dürfen nur gemeinsam oder gar nicht gesetzt sein"
     attributes:
       appearance:
         performance_id: "Vorspiel"
@@ -279,6 +280,7 @@ de:
         contest_id: Wettbewerb
         contest_category_id: Kategorie
         stage_time: Vorspielzeit
+        stage_venue: Vorspielort
       performance/appearances:
         participant_role: Rolle des Teilnehmers
         instrument_id: Instrument des Teilnehmers

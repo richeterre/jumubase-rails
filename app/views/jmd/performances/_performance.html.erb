@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= l performance.stage_time, format: :short if performance.stage_time %>
+    <%= l performance.stage_time_in_tz, format: :short if performance.stage_time_in_tz %>
     <br>
     <%= if venue = performance.stage_venue
       link_to venue.name, schedule_jmd_contest_venue_path(@contest, venue)

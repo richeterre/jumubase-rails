@@ -41,10 +41,10 @@ end
   pdf.bounding_box [50, 775], width: 400, height: 80 do
      pdf.text_box "Kategorie: " + performance.contest_category.name + "\nAltersgruppe " + performance.age_group, at: [0, pdf.bounds.bottom + 2 * pdf.font.height]
 
-    if performance.stage_time.nil?
+    if performance.stage_time_in_tz.nil?
       stage_time = ""
     else
-      stage_time = l performance.stage_time, format: :short
+      stage_time = l performance.stage_time_in_tz, format: :short
     end
     # Add host of performance's preceding contest if applicable
     if performance.predecessor

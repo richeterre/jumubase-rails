@@ -112,7 +112,6 @@ class Jmd::ContestsController < Jmd::BaseController
       new_performance.contest_category = new_contest_category
 
       # Clear attributes that become invalid after advancing
-      new_performance.warmup_time = nil
       new_performance.stage_time = nil
       new_performance.stage_venue = nil
 

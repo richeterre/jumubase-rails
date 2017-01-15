@@ -16,8 +16,8 @@ module Api::V1
         .includes(
           { appearances: [:instrument, :participant] },
           :pieces,
-          contest_category: { contest: :host },
-          predecessor: { contest_category: { contest: :host } }
+          { contest_category: { contest: :host } },
+          :predecessor # TODO: Find out why including associations here leads to wrong host data in response
         )
     end
   end

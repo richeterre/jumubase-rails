@@ -3,7 +3,6 @@
 # Table name: performances
 #
 #  id                  :integer          not null, primary key
-#  warmup_time         :datetime
 #  stage_time          :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -53,11 +52,6 @@ class Performance < ActiveRecord::Base
 
   before_create :add_unique_tracing_code
   before_save :update_age_group
-
-  # Override getter to always get times in contest time zone
-  def warmup_time
-    super().in_time_zone(self.contest.host.time_zone) if super()
-  end
 
   # Returns stage time in contest time zone
   def stage_time_in_tz

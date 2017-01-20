@@ -222,9 +222,11 @@ class Performance < ActiveRecord::Base
     return false if age_group_index > JUMU_AGE_GROUPS.index(self.category.official_max_age_group)
 
     if self.soloist
-      self.soloist.may_advance_to_next_round? # Soloist determines
+      # Soloist determines
+      self.soloist.may_advance_to_next_round?
     else
-      self.appearances.first.may_advance_to_next_round? # Use some ensemblist
+      # Use some ensemblist
+      self.ensemble_appearances.any? { |a| a.may_advance_to_next_round? }
     end
   end
 

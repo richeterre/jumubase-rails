@@ -16,10 +16,9 @@
 
   <% if @contest.nil? # Looking at performances across contests %>
 
-    <%
-      if JUMU_ROUND == 1
-        contests = Contest.accessible_by(current_ability).includes(:host)
-      %>
+    <% contests = Contest.accessible_by(current_ability).includes(:host) %>
+
+    <% if JUMU_ROUND == 1 %>
       <%= select nil, :in_contest, contests.current.collect { |c| [c.name, c.id] },
         { selected: params[:in_contest], include_blank: "Alle Wettbewerbe" } %>
     <% else %>

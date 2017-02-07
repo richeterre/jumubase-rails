@@ -15,7 +15,9 @@ json.array! @performances do |performance|
     json.age_group appearance.age_group
 
     if performance.results_public
-      json.points appearance.points if appearance.points
+      json.result do
+        json.points appearance.points if appearance.points
+      end
     end
   end
 

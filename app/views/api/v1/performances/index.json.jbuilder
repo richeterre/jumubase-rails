@@ -17,6 +17,9 @@ json.array! @performances do |performance|
     if performance.results_public
       json.result do
         json.points appearance.points if appearance.points
+        json.prize appearance.prize if appearance.prize
+        json.predicate appearance.predicate if appearance.predicate
+        json.advances_to_next_round appearance.advances_to_next_round?
       end
     end
   end

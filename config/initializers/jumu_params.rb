@@ -46,8 +46,8 @@ JUMU_PRIZE_POINT_RANGES = [
   }
 ]
 
-# The point ranges for the different predicates
-JUMU_PREDICATE_POINT_RANGES = [
+# The point ranges for the different textual ratings
+JUMU_RATING_POINT_RANGES = [
   # First round:
   {
     "mit gutem Erfolg teilgenommen" => 9..12,

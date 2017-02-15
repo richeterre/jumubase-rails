@@ -9,6 +9,7 @@ class Jmd::AppearancesController < Jmd::BaseController
   has_scope :in_contest_category, only: :index
   has_scope :in_age_group, only: :index
   has_scope :on_date, only: :index
+  has_scope :at_stage_venue, only: :index
   has_scope :in_genre, only: :index
 
   def index

@@ -110,13 +110,14 @@ ActiveRecord::Schema.define(:version => 20170115102017) do
 
   create_table "performances", :force => true do |t|
     t.datetime "stage_time"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "tracing_code"
     t.string   "age_group"
     t.integer  "predecessor_id"
     t.integer  "stage_venue_id"
     t.integer  "contest_category_id"
+    t.boolean  "results_public",      :default => false, :null => false
   end
 
   add_index "performances", ["stage_venue_id"], :name => "index_performances_on_stage_venue_id"

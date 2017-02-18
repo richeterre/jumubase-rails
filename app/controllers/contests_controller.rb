@@ -15,7 +15,7 @@ class ContestsController < ApplicationController
     if !@contest.timetables_public || !@contest.days.include?(@date) || !@venue
       render 'pages/not_found'
     else
-      @performances = @contest.staged_performances(@venue, @date)
+      @performances = @contest.staged_performances_at_venue_on_date(@venue, @date)
         .includes({ contest_category: :category }, :predecessor, { appearances: :participant })
     end
   end

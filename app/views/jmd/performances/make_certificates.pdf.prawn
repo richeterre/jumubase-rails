@@ -47,7 +47,7 @@ pdf.font_families.update(
         end
 
         pdf.text "in der Altersgruppe <i>#{appearance.age_group}</i>", inline_format: true
-        pdf.text appearance.predicate || "teilgenommen"
+        pdf.text appearance.rating || "teilgenommen"
 
         if appearance.points && appearance.ensemble?
           pdf.text "und erreichten <i>#{appearance.points} Punkte</i>.",

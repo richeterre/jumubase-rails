@@ -148,24 +148,24 @@ class Appearance < ActiveRecord::Base
     return nil
   end
 
-  # Return the achieved predicate's name, or nil if none
-  def predicate
-    # Try to match points to a predicate range for the contest round
-    JUMU_PREDICATE_POINT_RANGES[self.performance.contest.round - 1].each do |predicate, point_range|
+  # Return the achieved rating's name, or nil if none
+  def rating
+    # Try to match points to a rating range for the contest round
+    JUMU_RATING_POINT_RANGES[self.performance.contest.round - 1].each do |rating, point_range|
       if point_range.include?(self.points)
-        return predicate
+        return rating
       end
     end
-    # Points not found in any predicate range
+    # Points not found in any rating range
     return nil
   end
 
-  # Returns the prize or predicate name, if any
-  def prize_or_predicate
+  # Returns the prize or rating name, if any
+  def prize_or_rating
     if self.points.nil?
       return nil
     else
-      return self.prize || self.predicate
+      return self.prize || self.rating
     end
   end
 

@@ -1,6 +1,6 @@
-<% provide(:title, "Ergebnislisten erstellen") %>
+<% provide(:title, "Ergebnisse veröffentlichen") %>
 
-<%= form_tag make_result_sheets_jmd_contest_performances_path(@contest),
+<%= form_tag publish_results_jmd_contest_performances_path(@contest),
   method: :get, class: "filter-form form-search well" do
   %>
 
@@ -21,10 +21,29 @@
   <%= info_label_tag("Filter aktiv", :warning) %>
 </p>
 
-<p>
-  <%= link_to "Ergebnisliste ausgeben", params.merge(format: :pdf),
-              class: "btn btn-primary" unless @performances.empty? %>
+<% unless @performances.empty? %>
+<p class="list-action-buttons">
+  <%= if can? :publish_results, Performance
+    open_icon = content_tag(:i, class: "icon-eye-open icon-white") { nil }
+
+    link_to open_icon + " Freigeben",
+    { controller: :performances, action: :set_results_publicity,
+      performance_ids: @performances.map(&:id), results_public: true },
+    { class: "btn btn-primary", method: "POST",
+      confirm: "Möchtest du diese Ergebnisse wirklich veröffentlichen?" }
+  end %>
+
+  <%= if can? :unpublish_results, Performance
+    link_to icon_tag("eye-close") + " Freigabe aufheben",
+    { controller: :performances, action: :set_results_publicity,
+      performance_ids: @performances.map(&:id), results_public: false },
+    { class: "btn", method: "POST" }
+  end %>
+
+  <%= link_to icon_tag("list") + " Ergebnisliste ausgeben", params.merge(format: :pdf),
+    class: "btn" %>
 </p>
+<% end %>
 
 <table class="table table-bordered">
   <thead>
@@ -34,6 +53,7 @@
       <th>AG</th>
       <th>Punkte</th>
       <th>Preis</th>
+      <th>Öffentlich?</th>
     </tr>
   </thead>
   <tbody id="appearance-rows">
@@ -54,6 +74,12 @@
         <td>
           <%= appearance.prize %>
           <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
+        </td>
+        <td>
+          <%= performance.results_public \
+            ? info_badge_tag("Ja", :inverse)
+            : info_badge_tag("Nein")
+          %>
         </td>
       </tr>
       <% end %>

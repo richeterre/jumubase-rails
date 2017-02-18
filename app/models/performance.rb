@@ -11,6 +11,7 @@
 #  predecessor_id      :integer
 #  stage_venue_id      :integer
 #  contest_category_id :integer
+#  results_public      :boolean          default(FALSE), not null
 #
 
 # -*- encoding : utf-8 -*-

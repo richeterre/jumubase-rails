@@ -92,7 +92,7 @@ end
     end
   end
 
-  # Point ranges for prizes and predicates
+  # Point ranges for prizes and ratings
 
   pdf.bounding_box [50, 50], width: 400, height: 40 do
     pdf.font "#{Rails.root}/vendor/assets/fonts/DejaVuSans.ttf"
@@ -105,9 +105,9 @@ end
       }
       .join("\n")
 
-    pdf.text_box JUMU_PREDICATE_POINT_RANGES[index]
-      .map { |predicate, point_range|
-        "#{point_range.first}–#{point_range.last} Punkte: #{predicate}"
+    pdf.text_box JUMU_RATING_POINT_RANGES[index]
+      .map { |rating, point_range|
+        "#{point_range.first}–#{point_range.last} Punkte: #{rating}"
       }
       .join("\n"),
       at: [150, pdf.bounds.top]

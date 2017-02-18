@@ -10,4 +10,9 @@ json.array! @contests do |c|
     json.id venue.id.to_s
     json.name venue.name
   end
+
+  json.contest_categories c.contest_categories do |contest_category|
+    json.id contest_category.id.to_s
+    json.name contest_category.name
+  end
 end

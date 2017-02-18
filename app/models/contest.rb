@@ -84,12 +84,16 @@ class Contest < ActiveRecord::Base
       .uniq
   end
 
-  # Find performances for a given venue and date
-  def staged_performances(venue, date)
+  def staged_performances
     performances.where("performances.stage_time IS NOT NULL")
-                .stage_order
-                .on_date(date)
-                .at_stage_venue(venue.id)
+      .stage_order
+  end
+
+  # Find performances for a given venue and date
+  def staged_performances_at_venue_on_date(venue, date)
+    self.staged_performances
+      .on_date(date)
+      .at_stage_venue(venue.id)
   end
 
   # Virtual name that identifies the contest

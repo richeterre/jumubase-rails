@@ -26,7 +26,9 @@
       <% appearances.each do |appearance| %>
         <tr>
           <% if appearance == appearances.first %>
-          <td rowspan="<%= performance.appearances.length %>"><%= link_to performance.category.name, jmd_performance_path(performance) %></td>
+          <td rowspan="<%= appearances.length %>">
+            <%= link_to performance.category.name, jmd_performance_path(performance) %>
+          </td>
           <% end %>
           <td>
             <%= content_tag :span, class: (appearance.accompaniment?) ? "muted" : nil do %>
@@ -41,7 +43,9 @@
             <%= appearance.prize %>
             <%= info_label_tag("WL", :success) if appearance.advances_to_next_round? %>
           </td>
-          <td><%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id, { class: "btn btn-mini" } %></td>
+          <td>
+            <%= link_to_modal icon_tag("edit", title: "Punkte bearbeiten"), "appearance", appearance.id, { class: "btn btn-mini" } %>
+          </td>
         </tr>
       <% end %>
     <% end %>

@@ -36,6 +36,10 @@ class Category < ActiveRecord::Base
                                      inclusion: { :in => JUMU_AGE_GROUPS }
   # Check that either solo, ensemble or both are true – how?
 
+  def kimu?
+    self.genre == 'kimu'
+  end
+
   def popular?
     self.genre == 'popular'
   end

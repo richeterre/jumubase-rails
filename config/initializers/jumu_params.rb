@@ -30,7 +30,16 @@ JUMU_ROUND_BOARD_NAMES = {
   2 => "Landesausschuss"
 }
 
-# The point ranges for the different prizes
+# The point ranges for Kimu textual ratings
+KIMU_RATING_POINT_RANGES = {
+  "mit hervorragendem Erfolg teilgenommen" => 23..25,
+  "mit sehr gutem Erfolg teilgenommen" => 21..22,
+  "mit gutem Erfolg teilgenommen" => 17..20,
+  "mit Erfolg teilgenommen" => 9..16,
+  "teilgenommen" => 0..8
+}
+
+# The point ranges for Jumu prizes
 JUMU_PRIZE_POINT_RANGES = [
   # First round:
   {
@@ -46,7 +55,7 @@ JUMU_PRIZE_POINT_RANGES = [
   }
 ]
 
-# The point ranges for the different textual ratings
+# The point ranges for Jumu textual ratings
 JUMU_RATING_POINT_RANGES = [
   # First round:
   {

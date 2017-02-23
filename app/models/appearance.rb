@@ -150,14 +150,21 @@ class Appearance < ActiveRecord::Base
 
   # Return the achieved rating's name, or nil if none
   def rating
-    # Try to match points to a rating range for the contest round
-    JUMU_RATING_POINT_RANGES[self.performance.contest.round - 1].each do |rating, point_range|
-      if point_range.include?(self.points)
-        return rating
+    if self.performance.category.kimu?
+      KIMU_RATING_POINT_RANGES.each do |rating, point_range|
+        if point_range.include?(self.points)
+          return rating
+        end
       end
+      return nil
+    else
+      JUMU_RATING_POINT_RANGES[self.performance.contest.round - 1].each do |rating, point_range|
+        if point_range.include?(self.points)
+          return rating
+        end
+      end
+      return nil
     end
-    # Points not found in any rating range
-    return nil
   end
 
   # Returns the prize or rating name, if any

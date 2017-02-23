@@ -26,6 +26,7 @@ class Category < ActiveRecord::Base
   has_many :contest_categories, dependent: :destroy
 
   validates :name, presence: true
+  validates :genre, inclusion: { in: JUMU_GENRES }
   validates :slug, presence: true
   validates :max_round,
     presence: true,

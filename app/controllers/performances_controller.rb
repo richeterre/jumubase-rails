@@ -76,6 +76,7 @@ class PerformancesController < ApplicationController
       redirect_to signup_search_path
       # redirect_to performances_path
     else
+      @contest = @performance.contest
       render 'edit'
     end
   end

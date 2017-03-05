@@ -3,7 +3,7 @@
 <div class="timetable-controls">
   <%=
     if (params[:bare] != "yes")
-      link_to icon_tag("resize-full"), params.merge(bare: :yes), class: "btn pull-right"
+      link_to icon_tag("print") + " Druckversion", params.merge(bare: :yes), class: "btn pull-right"
     else
       link_to icon_tag("resize-small"), params.merge(bare: nil), class: "btn pull-right"
     end

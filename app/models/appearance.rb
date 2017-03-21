@@ -138,6 +138,8 @@ class Appearance < ActiveRecord::Base
 
   # Returns the achieved prize's name, or nil if none
   def prize
+    return nil if self.performance.category.kimu?
+
     # Try to match points to a prize range for the contest round
     JUMU_PRIZE_POINT_RANGES[self.performance.contest.round - 1].each do |prize, point_range|
       if point_range.include?(self.points)

@@ -2,7 +2,7 @@
 
 <%= f.input :season, input_html: { value: f.object.season || JUMU_SEASON, class: "span1" } %>
 <%= f.input :round, collection: @rounds, label_method: lambda { |round| name_for_round(round) }, prompt: "Bitte wählen" %>
-<%= f.association :host, prompt: "Bitte wählen" %>
+<%= f.association :host, collection: Host.order(:name), prompt: "Bitte wählen" %>
 <%= f.input :begins,
     prompt: { day: "Tag", month: "Monat", year: "Jahr" }, input_html: { class: "span2" } %>
 <%= f.input :ends,

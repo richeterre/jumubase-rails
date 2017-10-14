@@ -21,13 +21,13 @@ module Jumubase
     # Set up mail server
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      :address              => "smtp.jumu-nordost.eu",
-      :port                 => 25,
-      :user_name            => ENV['JUMU_MAILER_USERNAME'],
-      :password             => ENV['JUMU_MAILER_PASSWORD'],
-      :authentication       => "login",
+      :user_name            => ENV['SENDGRID_USERNAME'],
+      :password             => ENV['SENDGRID_PASSWORD'],
+      :domain               => 'jumu-nordost.eu',
+      :address              => 'smtp.sendgrid.net',
+      :port                 => 587,
+      :authentication       => :plain,
       :enable_starttls_auto => true,
-      :openssl_verify_mode  => "none"
     }
     config.action_mailer.default_url_options = { host: "www.jumu-nordost.eu" }
 

@@ -7,7 +7,7 @@ class Jmd::ContestsController < Jmd::BaseController
 
   def index
     # @contests are fetched by CanCan
-    @contests = @contests.includes(:host).order("begins DESC")
+    @contests = @contests.includes(:host).order("begins DESC, hosts.name")
   end
 
   def new

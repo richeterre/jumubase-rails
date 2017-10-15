@@ -17,9 +17,7 @@ pdf.font_families.update(
     pdf.default_leading = 3
 
     if is_kimu
-      pdf.move_down(15)
-      image "#{Rails.root}/app/assets/images/jumumann.png", position: :center, height: 200
-      pdf.move_down(30)
+      pdf.move_down(245)
       pdf.text "URKUNDE", align: :center, size: 64
     end
 

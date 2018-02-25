@@ -11,7 +11,7 @@ json.array! @contests do |c|
     json.name venue.name
   end
 
-  json.contest_categories c.contest_categories do |contest_category|
+  json.contest_categories c.contest_categories.select { |cc| cc.performances.count > 0 } do |contest_category|
     json.id contest_category.id.to_s
     json.name contest_category.name
   end

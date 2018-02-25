@@ -2,7 +2,7 @@ module Api::V1
   class ContestsController < Api::ApiController
     def index
       contests = Contest
-        .includes({ contest_categories: :category }, :host)
+        .includes({ contest_categories: [:category, :performances] }, :host)
         .order("begins DESC")
 
       if params[:current_only] == "1"

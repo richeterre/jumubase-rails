@@ -111,9 +111,10 @@ class Jmd::ContestsController < Jmd::BaseController
       # Assign to contest category in new contest
       new_performance.contest_category = new_contest_category
 
-      # Clear attributes that become invalid after advancing
+      # Reset attributes that should not carry over when advancing
       new_performance.stage_time = nil
       new_performance.stage_venue = nil
+      new_performance.results_public = false
 
       new_performance.appearances.each { |appearance| appearance.points = nil } # Clear points
       new_performance.predecessor = performance # Link to predecessor

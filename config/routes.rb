@@ -71,7 +71,6 @@ Jumubase::Application.routes.draw do
   end
 
   # Public pages, mostly static
-  match "lw#{JUMU_YEAR}", to: 'pages#lw', as: :lw
   match '/wettbewerb',    to: 'pages#competition', as: :competition
   match '/regeln',        to: 'pages#rules', as: :rules
   match '/faq',           to: 'pages#faq', as: :faq

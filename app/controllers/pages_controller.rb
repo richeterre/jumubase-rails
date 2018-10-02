@@ -4,9 +4,6 @@ class PagesController < ApplicationController
   def home
   end
 
-  def lw # Landeswettbewerb info page
-  end
-
   def competition
   end
 
